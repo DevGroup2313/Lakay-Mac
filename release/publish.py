@@ -96,8 +96,8 @@ def notes(name, guide, lines, assets):
     for fname in sorted(assets):
         if fname not in KNOWN:
             out.append("| %s | | |" % fname)
-    out += ["", "The same files are in this repository's **builds** folder, beside %s, which says how to install, "
-            "update and keep the books safe." % guide, "",
+    out += ["", "The same files are in this repository's **builds** folder. %s beside them %s how to install, update and "
+            "keep the books safe." % (guide, "say" if " and " in guide else "says"), "",
             "**Each file** (the build number also shows in Lakay's About):"]
     order = KNOWN + [f for f in sorted(lines) if f not in KNOWN]
     out += [lines[f] for f in order if f in lines and f in assets]
@@ -209,7 +209,7 @@ def main():
                     lines[x[2:].split(":", 1)[0]] = x
         lines[fname] = line
         nf = os.path.join(tmp, "notes.md")
-        with open(nf, "w", encoding="utf-8") as fh:
+        with open(nf, "w", encoding="utf-8", newline="\n") as fh:
             fh.write(notes(name, guide, lines, assets))
         if gh("release", "edit", TAG, "--title", title, "--notes-file", nf, "--latest").returncode == 0:
             break
