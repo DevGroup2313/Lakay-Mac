@@ -1,5 +1,11 @@
-app/Emporium.html -text
-app/Emporium.html.sha256 -text
+app/Lakay.html -text
+app/Lakay.html.sha256 -text
+builds/** binary
+*.exe binary
+*.zip binary
+*.apk binary
+*.ipa binary
 *.ico binary
+*.icns binary
 *.png binary
 *.jpg binary

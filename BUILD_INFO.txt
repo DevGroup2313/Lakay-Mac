@@ -1,6 +1,0 @@
-Emporium
-Build: 2
-Date: 2026-11-07
-Stage: 1, the foundation (redesigned, with the Author Studio)
-Copyright (c) 2026 Yannie D. Forest. All rights reserved.
-NO LICENCE IS GRANTED.

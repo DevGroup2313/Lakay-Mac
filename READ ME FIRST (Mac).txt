@@ -1,0 +1,57 @@
+LAKAY FOR THE MAC
+=================
+Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt.
+
+
+WHICH FILE
+----------
+Both files are in the builds folder of this repository, and on its Releases page
+("Lakay for Mac (latest build)", under Assets):
+
+  Lakay-Mac-Apple-Silicon.zip   for Macs with M1, M2, M3, M4 and later (the Mac mini)
+  Lakay-Mac-Intel.zip           for Macs with an Intel processor (a 2019 MacBook Pro)
+
+Not sure which Mac you have? Apple menu, About This Mac. "Chip: Apple M..." is
+Apple silicon. "Processor: ... Intel" is Intel.
+
+
+INSTALL (OR UPDATE)
+-------------------
+1. Download the file for your Mac. In the builds folder, click the file's name,
+   then the download button on the right. Safari unzips it by itself; if it
+   does not, double-click the zip. Lakay.app appears in Downloads.
+2. Drag Lakay.app into Applications. To update, drag the new one in and choose
+   Replace. The store's books stay: they are not kept inside the app.
+3. The first time only: double-click Lakay. macOS says it cannot check the app.
+   Click Done (not Move to Trash). Open System Settings, Privacy and Security,
+   scroll down, click Open Anyway beside Lakay, then Open. On macOS 14 or
+   older, you can instead right-click Lakay and choose Open.
+   This is asked because Lakay is not signed with a paid Apple certificate.
+   It is asked once.
+
+Lakay opens on its door. Enter opens the practice store at once. The little
+lock in the card's corner sets up the real store, or signs in to it.
+
+
+THE STORE'S BOOKS
+-----------------
+- They are sealed on this Mac, in your own folder:
+    ~/Library/Application Support/Emporium
+  (Lakay's former name stays on the folder, so nothing is lost.)
+- An update keeps them. Removing Lakay.app keeps them too.
+- Save a backup in Lakay at closing time: Settings, Save a backup now. The
+  file is sealed and opens only with your password or the Master Key. Keep a
+  copy on a USB key and another outside the store.
+- Each device keeps its own books. To move a store to another computer, save
+  a backup here and restore it there.
+
+
+IF IT DOES NOT OPEN
+-------------------
+- macOS says Lakay is damaged: delete Lakay.app and the zip, download the zip
+  again, and open it with a double-click. If the message stays, note its
+  exact words.
+- Nothing happens: open Lakay once from Applications, then look in System
+  Settings, Privacy and Security for Open Anyway.
+- What Lakay noted when it started is in
+    ~/Library/Application Support/Emporium/emporium.log

@@ -2,7 +2,8 @@ name: Lakay for Mac
 
 # Builds Lakay for the Mac on GitHub's own Macs, one app for Apple silicon
 # (M1 and later) and one for Intel, opens each once, and puts each zip on the
-# build's release page. Made after Ingenium's Mac build (build-mac.yml).
+# Releases page ("Lakay for Mac (latest build)") and in this repository's
+# builds/ folder. Made after Ingenium's Mac build (build-mac.yml).
 
 on:
   push:
@@ -10,7 +11,7 @@ on:
       - 'app/**'
       - 'build.json'
       - 'desktop/**'
-      - 'release/**'
+      - 'release/publish.py'
       - '.github/workflows/mac.yml'
   workflow_dispatch:
 
@@ -28,7 +29,7 @@ jobs:
     name: mac (${{ matrix.chip }})
     strategy:
       fail-fast: false
-      # one at a time: both go on the same release page
+      # one at a time: both go on the same release, and both into builds/
       max-parallel: 1
       matrix:
         include:
@@ -80,7 +81,7 @@ jobs:
       - name: Open the app once
         # Starts the app and waits for its own line "start: page ready" (the
         # door drawn), then closes it. Nothing from this test is kept as a file:
-        # the only downloads are the apps on the release page.
+        # the only downloads are the apps on the Releases page and in builds/
         continue-on-error: true
         run: |
           LOG="$HOME/Library/Application Support/Emporium/emporium.log"
@@ -110,7 +111,7 @@ jobs:
           ditto -c -k --sequesterRsrc --keepParent dist/Lakay.app "$RUNNER_TEMP/$ZIP"
           ls -la "$RUNNER_TEMP/$ZIP"
 
-      - name: Put it on the build's release page
+      - name: Put it on the Releases page and in builds/
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
