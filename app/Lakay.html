@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-9oNOeEoTs637ArielI7aEY7zlDeIjldI9vseiIvZtSI='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-UHI5FD12iFT+mQ8buIWzyDw7pEuHjASB9tXtwgAfce8='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#f6f4fa">
@@ -2087,6 +2087,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     ["signout.stay", "Sign out, stay on the clock", "Se déconnecter, rester en service", "Dekonekte, rete nan sèvis"],
     ["signout.clocked", "{name} clocked out at {t} after {h} of work, and signed out.", "{name} a pointé son départ à {t} après {h} de travail, et s'est déconnecté.", "{name} soti nan sèvis a {t} apre {h} travay, epi li dekonekte."],
     ["signout.only", "{name} signed out and is still on the clock.", "{name} s'est déconnecté et reste en service.", "{name} dekonekte epi li toujou nan sèvis."],
+    ["signout.plain", "{name} signed out.", "{name} s'est déconnecté.", "{name} dekonekte."],
     ["status.tip", "Who is at the counter, the clock, and signing out", "Qui est au comptoir, le pointage et la déconnexion", "Ki moun ki nan kontwa a, lè travay, ak dekonekte"],
     ["home.yourShift", "Your shift", "Votre service", "Sèvis ou"],
     ["home.clockKeys", "A break, or clock out", "Une pause, ou le départ", "Yon poz, oswa soti"],
@@ -3991,7 +3992,8 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   ui.signOut = function (andClock) {
     var me = B.user, p = andClock ? B.clockOut() : Promise.resolve(null);
     return p.then(function (sh) {
-      E.door.outNote = sh ? t("signout.clocked", { name: me.name, t: E.fmtTime(new Date(sh.out)), h: ui.dur(B.shiftMs(sh)) }) : t("signout.only", { name: me.name });
+      E.door.outNote = sh ? t("signout.clocked", { name: me.name, t: E.fmtTime(new Date(sh.out)), h: ui.dur(B.shiftMs(sh)) })
+        : B.openShift(me.id) ? t("signout.only", { name: me.name }) : t("signout.plain", { name: me.name });
       B.lock("signout");
     }, ui.failed);
   };
