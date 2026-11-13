@@ -24,8 +24,8 @@ concurrency:
 
 jobs:
   mac:
-    # each device has its own repository; this one builds only in Lakay-Mac
-    if: contains(github.repository, 'Lakay-Mac')
+    # Each device's repository holds only its own workflow (release/device_repos.py), so this runs wherever it is,
+    # whatever the repository is called: a renamed repository still builds.
     name: mac (${{ matrix.chip }})
     strategy:
       fail-fast: false
