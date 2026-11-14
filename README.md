@@ -1,6 +1,6 @@
 # Lakay for the Mac
 
-**Build 11, 13 November 2026.** Lakay is the store's own app: inventory, the register and reports. It works with no connection, and it keeps the store's books sealed on each device.
+**Build 12, 14 November 2026.** Lakay is the store's own app: inventory, the register and reports. It works with no connection, and it keeps the store's books sealed on each device.
 
 ## Download
 
