@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-xDCmd2vpvLuSsle1NrmVLGx0JDO2bNRTn49Jga1Ak08='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-tNCjnJXBk1l5oR8Licnaap9F9tnnafoQ93pGMLX9jUs='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#f5f4f8">
 <meta name="application-name" content="Lakay">
-<meta name="lakay-build" content="15">
-<!-- LAKAY | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt. Build 15 (2026-11-14). -->
+<meta name="lakay-build" content="16">
+<!-- LAKAY | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt. Build 16 (2026-11-14). -->
 <title>Lakay</title>
 <!-- Lakay's logo, inside the page (the page's own policy shows only pictures it carries): the square tile, filled edge to
      edge with the coin's periwinkle, for the shortcuts a browser makes on a home screen; the round coin, on nothing, for the
@@ -185,6 +185,9 @@ p { margin: .35rem 0; }
 a { color: var(--pri-text); }
 :focus-visible { outline: 2.5px solid var(--pri-ring); outline-offset: 2px; border-radius: 9px; }
 ::selection { background: rgba(var(--pri-rgb), .22); }
+/* what is hidden stays hidden, whatever its own display (Build 16: a key or a field Lakay hides, such as the camera key
+   on a device without a camera) */
+[hidden] { display: none !important; }
 .ico { width: 1.15em; height: 1.15em; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; vertical-align: -.2em; }
 .emo { font-family: var(--emoji); font-style: normal; font-weight: 400; line-height: 1; display: inline-block; flex: none; }
 .mono { font-family: var(--mono); letter-spacing: .06em; }
@@ -1526,6 +1529,52 @@ button.hx-item:hover { transform: translateY(-1px); box-shadow: var(--pill); }
   .inv-under { flex-direction: column; align-items: flex-start; }
 }
 
+/* LAKAY | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt.
+   Taking payment (Build 16): the ways to pay as pearl keys, the chosen one with the periwinkle edge; the parts of a
+   split payment as a short list; the settings of the ways the store takes. White and pearl, the colour woven in,
+   nothing green. */
+
+/* the ways to pay */
+.pay-ways { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 14px; }
+.pay-way { display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 8px 16px 8px 12px; border-radius: 14px; cursor: pointer;
+  background: var(--face); border: 1px solid var(--line); color: var(--ink-2); font: 600 .9rem/1.1 var(--sans); box-shadow: var(--pill);
+  transition: transform .16s var(--spring), box-shadow .16s var(--ease), border-color .16s var(--ease), color .16s var(--ease); }
+.pay-way .emo { font-size: 1.15rem; }
+.pay-way:hover { transform: translateY(-1px); box-shadow: var(--pill-hi); color: var(--pri-text); }
+.pay-way:focus-visible { outline: 2.5px solid var(--pri-ring); outline-offset: 2px; }
+.pay-way[aria-checked="true"] { color: var(--ink); border-color: rgba(var(--pri-rgb), .38); background: linear-gradient(180deg, #ffffff, #f4f4fd);
+  box-shadow: inset 0 -2px 0 var(--pri), var(--pill-hi); transform: translateY(-1px); }
+:root[data-theme="night"] .pay-way[aria-checked="true"] { background: linear-gradient(180deg, #2a2a3d, #232334); }
+
+/* what has been taken so far, and what is left */
+.pay-parts { list-style: none; margin: 0 0 10px; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.pay-parts li { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 12px; background: var(--slab-face); border: 1px solid rgba(var(--pri-rgb), .18); box-shadow: var(--pill); }
+.pay-parts .pay-part-n { font-weight: 600; color: var(--ink); }
+.pay-parts small { flex: 1; }
+.pay-parts .num { font: 600 1rem/1 var(--serif); font-variant-numeric: tabular-nums; }
+.pay-left { border-top: 1px dashed rgba(var(--pri-rgb), .3); padding-top: 8px; }
+.pay-pane .form-grid { margin-top: 6px; }
+.pay-how { margin: 0 0 6px; padding: 10px 12px; border-radius: 12px; background: rgba(var(--pri-rgb), .07); color: var(--ink); font-weight: 600; }
+#payWarn:empty { display: none; }
+
+/* the receipt: each payment, with the card machine's approval code under it */
+.receipt .r-pay td:first-child { display: flex; flex-direction: column; }
+.receipt .r-code { font-size: .75em; color: var(--muted); }
+
+/* settings: the ways the store takes, each a key that turns on and off */
+.pay-toggles { display: flex; flex-wrap: wrap; gap: 8px; }
+.pay-toggle { display: inline-flex; align-items: center; gap: 7px; min-height: 40px; padding: 6px 14px 6px 10px; border-radius: 999px; cursor: pointer;
+  background: var(--face); border: 1px solid var(--line); color: var(--muted); font: 600 .84rem/1 var(--sans); box-shadow: var(--pill); }
+.pay-toggle.on { color: var(--ink); border-color: rgba(var(--pri-rgb), .4); box-shadow: inset 0 -2px 0 var(--pri), var(--pill); }
+.pay-toggle:not(.on) .emo { filter: grayscale(1); opacity: .6; }
+span.pay-toggle { cursor: default; }
+.pay-never { display: flex; align-items: center; gap: 4px; }
+.form-actions { display: flex; justify-content: flex-end; gap: 10px; }
+
+@media (max-width: 560px) {
+  .pay-way { flex: 1 1 calc(50% - 8px); justify-content: center; }
+}
+
 /* LAKAY | Schedae (22-schedae.js): Carpe Diem's sticky notes, made Lakay's own. The shapes keep Carpe Diem's measured
    values (the size, the head, the tools, the corner, the edges, the tilt and the lift). The colours are Lakay's: six
    light pastel papers named for gems (Build 11), each with its own night paper, and Lakay's inks. The menu and the
@@ -1977,7 +2026,7 @@ tr.retired td { opacity: .58; }
 "use strict";
 
 var E = window.Emporium = window.Emporium || {};
-E.BUILD = { number: "15", date: "2026-11-14" };
+E.BUILD = { number: "16", date: "2026-11-14" };
 
 /* ---------- drawing: every piece of text goes in as text, never as markup ---------- */
 function $(sel, root) { return (root || document).querySelector(sel); }
@@ -2343,7 +2392,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     ["reg.qtyOf", "Quantity of {name}", "Quantité de {name}", "Kantite {name}"], ["reg.less", "One less {name}", "Un de moins : {name}", "Youn mwens: {name}"],
     ["reg.more1", "One more {name}", "Un de plus : {name}", "Youn anplis: {name}"], ["reg.remove", "Remove {name}", "Retirer {name}", "Retire {name}"],
     ["reg.subtotal", "Subtotal", "Sous-total", "Sou-total"], ["reg.total", "Total", "Total", "Total"],
-    ["reg.takeCash", "Take cash", "Encaisser en espèces", "Pran lajan kach"], ["reg.keys", "F2 find · F9 take cash", "F2 chercher · F9 encaisser", "F2 chèche · F9 pran lajan"],
+    ["reg.takeCash", "Take payment", "Encaisser", "Pran peman"], ["reg.keys", "F2 find · F9 take payment", "F2 chercher · F9 encaisser", "F2 chèche · F9 pran peman"],
     ["reg.clearT", "Clear this sale?", "Vider cette vente ?", "Efase vant sa a?"], ["reg.clearP", "The items are taken off the ticket. Nothing is recorded.", "Les articles sont retirés du ticket. Rien n'est enregistré.", "Atik yo soti sou tikè a. Anyen pa anrejistre."],
     ["reg.clearYes", "Clear the sale", "Vider la vente", "Efase vant lan"],
     ["cash.title", "Cash", "Espèces", "Lajan kach"], ["cash.due", "To pay", "À payer", "Pou peye"], ["cash.quick", "Quick amounts", "Montants rapides", "Kantite rapid"],
@@ -2514,7 +2563,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     ["guide.master.b", "The Master Key is a code of 52 characters shown once, when the store is set up. It opens the books if the password is forgotten, and lets you choose a new password.\nKeep the printed card in a safe, away from the store's computers. Anyone who holds it can open the books.\nYou can make a new Master Key in Settings. The old card stops working once the new key is confirmed.", "La Clé maîtresse est un code de 52 caractères affiché une seule fois, à la configuration. Elle ouvre les livres si le mot de passe est oublié et permet d'en choisir un nouveau.\nGardez la carte imprimée dans un coffre, loin des ordinateurs du magasin. Quiconque la détient peut ouvrir les livres.\nVous pouvez créer une nouvelle Clé maîtresse dans les Réglages. L'ancienne carte cesse de fonctionner dès que la nouvelle est confirmée.", "Kle Mèt la se yon kòd 52 karaktè ki parèt yon sèl fwa, lè yo prepare magazen an. Li louvri liv yo si yo bliye modpas la, epi li pèmèt ou chwazi yon nouvo modpas.\nKenbe kat enprime a nan yon kòf, lwen òdinatè magazen an. Nenpòt moun ki gen l ka louvri liv yo.\nOu ka fè yon nouvo Kle Mèt nan Reglaj. Ansyen kat la sispann mache depi nouvo kle a konfime."],
     ["guide.master.tip", "Never keep the Master Key on a phone or a computer.", "Ne gardez jamais la Clé maîtresse sur un téléphone ou un ordinateur.", "Pa janm kenbe Kle Mèt la nan yon telefòn oswa yon òdinatè."],
     ["guide.sale.t", "Ringing up a sale", "Enregistrer une vente", "Fè yon vant"],
-    ["guide.sale.b", "Open the Register. Scan a barcode, or type part of a name and choose the item. Each press adds one more.\nChange a quantity with the minus and plus keys, or type it. The cross removes a line.\nPress Take cash. Type the cash received, or press a quick amount. Lakay shows the change to give. Complete the sale, then print the receipt if the customer wants one.", "Ouvrez la Caisse. Scannez un code-barres, ou tapez une partie du nom et choisissez l'article. Chaque appui en ajoute un.\nChangez une quantité avec les touches moins et plus, ou tapez-la. La croix retire une ligne.\nAppuyez sur Encaisser en espèces. Tapez la somme reçue, ou un montant rapide. Lakay affiche la monnaie à rendre. Terminez la vente, puis imprimez le reçu si le client le souhaite.", "Louvri Kès la. Eskane yon kòd ba, oswa tape yon pati nan non an epi chwazi atik la. Chak fwa w peze, li ajoute youn.\nChanje kantite a ak bouton mwens ak plis, oswa tape l. Kwa a retire yon liy.\nPeze Pran lajan kach. Tape lajan ou resevwa a, oswa peze yon kantite rapid. Lakay montre monnen pou remèt la. Fini vant lan, epi enprime resi a si kliyan an vle l."],
+    ["guide.sale.b", "Open the Register. Scan a barcode, or type part of a name and choose the item. Each press adds one more.\nChange a quantity with the minus and plus keys, or type it. The cross removes a line.\nPress Take payment (or F9). Cash is chosen first: type the cash received, or press a quick amount, and Lakay shows the change to give. For a card or a phone, see Taking payment. Complete the sale, then print the receipt if the customer wants one.", "Ouvrez la Caisse. Scannez un code-barres, ou tapez une partie du nom et choisissez l'article. Chaque appui en ajoute un.\nChangez une quantité avec les touches moins et plus, ou tapez-la. La croix retire une ligne.\nAppuyez sur Encaisser (ou F9). Les espèces sont choisies d'abord : tapez la somme reçue, ou un montant rapide, et Lakay affiche la monnaie à rendre. Pour une carte ou un téléphone, voyez Encaisser : espèces, cartes et téléphones. Terminez la vente, puis imprimez le reçu si le client le souhaite.", "Louvri Kès la. Eskane yon kòd ba, oswa tape yon pati nan non an epi chwazi atik la. Chak fwa w peze, li ajoute youn.\nChanje kantite a ak bouton mwens ak plis, oswa tape l. Kwa a retire yon liy.\nPeze Pran peman (oswa F9). Lajan kach chwazi anvan: tape lajan ou resevwa a, oswa peze yon kantite rapid, epi Lakay montre monnen pou remèt la. Pou yon kat oswa yon telefòn, gade Pran peman. Fini vant lan, epi enprime resi a si kliyan an vle l."],
     ["guide.sale.tip", "With a barcode scanner, keep the search box selected: each scan adds the item.", "Avec un lecteur de code-barres, gardez la recherche sélectionnée : chaque lecture ajoute l'article.", "Ak yon eskanè kòd ba, kite bwat rechèch la seleksyone: chak eskanè ajoute atik la."],
     ["guide.items.t", "Adding items", "Ajouter des articles", "Ajoute atik"],
     ["guide.items.b", "In Inventory, press Add an item. Give it a name, a category and a price. The cost is what you paid for one. It is needed to work out profit.\nA barcode lets the scanner find the item. The reorder level puts the item on the low stock list when it falls that low.\nUse Save and add another to enter many items quickly.", "Dans l'Inventaire, appuyez sur Ajouter un article. Donnez un nom, une catégorie et un prix. Le coût est ce que vous avez payé pour un article. Il sert à calculer le bénéfice.\nUn code-barres permet au lecteur de trouver l'article. Le seuil de commande place l'article dans le stock bas quand il descend jusque-là.\nUtilisez Enregistrer et en ajouter un autre pour saisir vite beaucoup d'articles.", "Nan Envantè, peze Ajoute yon atik. Ba l yon non, yon kategori ak yon pri. Pri achte a se sa ou peye pou youn. Li nesesè pou kalkile benefis.\nYon kòd ba pèmèt eskanè a jwenn atik la. Nivo pou kòmande a mete atik la nan stòk ki ba lè li desann rive la.\nSèvi ak Anrejistre epi ajoute yon lòt pou antre anpil atik vit."],
@@ -2631,7 +2680,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
 
     /* tips */
     ["tip.home.t", "Home", "Accueil", "Akèy"], ["tip.home.b", "The day at a glance: today's sales, the money taken, the profit, and what is running low. The large keys start the most common tasks.", "La journée en un coup d'œil : ventes, encaissements, bénéfice et stock bas. Les grandes touches lancent les tâches courantes.", "Jounen an an yon kout je: vant jodi a, lajan ki antre, benefis la, ak sa k ap fini. Gwo bouton yo kòmanse travay ki pi souvan yo."],
-    ["tip.register.t", "The Register", "La Caisse", "Kès la"], ["tip.register.b", "Scan or type to find an item; each press adds one. Check the ticket, then press Take cash. Nothing is recorded until the sale is completed.", "Scannez ou tapez pour trouver un article ; chaque appui en ajoute un. Vérifiez le ticket, puis Encaisser. Rien n'est enregistré avant la fin de la vente.", "Eskane oswa tape pou jwenn yon atik; chak fwa w peze, li ajoute youn. Tcheke tikè a, epi peze Pran lajan kach. Anyen pa anrejistre anvan vant lan fini."],
+    ["tip.register.t", "The Register", "La Caisse", "Kès la"], ["tip.register.b", "Scan or type to find an item; each press adds one. Check the ticket, then press Take payment. Nothing is recorded until the sale is completed.", "Scannez ou tapez pour trouver un article ; chaque appui en ajoute un. Vérifiez le ticket, puis Encaisser. Rien n'est enregistré avant la fin de la vente.", "Eskane oswa tape pou jwenn yon atik; chak fwa w peze, li ajoute youn. Tcheke tikè a, epi peze Pran peman. Anyen pa anrejistre anvan vant lan fini."],
     ["tip.inventory.t", "Inventory", "Inventaire", "Envantè"], ["tip.inventory.b", "Every item the store sells. Press a name to see its card: stock, history, and the keys to receive or correct stock.", "Tous les articles vendus. Appuyez sur un nom pour voir sa fiche : stock, historique, et les touches pour recevoir ou corriger le stock.", "Tout atik magazen an vann. Peze yon non pou wè kat li: stòk, istwa, ak bouton pou resevwa oswa korije stòk."],
     ["tip.reports.t", "Reports", "Rapports", "Rapò"], ["tip.reports.b", "Choose a period. Every figure is worked out from the sales and stock movements in the books, so it can always be checked.", "Choisissez une période. Chaque chiffre est calculé à partir des ventes et des mouvements de stock, donc toujours vérifiable.", "Chwazi yon peryòd. Chak chif kalkile apati vant ak mouvman stòk ki nan liv yo, kidonk ou ka toujou verifye l."],
     ["tip.currency.t", "Money", "Monnaie", "Lajan"], ["tip.currency.b", "The money the store counts in. Amounts are kept in whole cents, so totals always add up exactly.", "La monnaie du magasin. Les montants sont gardés en centimes entiers, pour que les totaux soient toujours exacts.", "Lajan magazen an konte. Kantite yo kenbe an santim antye, pou total yo toujou egzak."],
@@ -2779,7 +2828,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     ["km.taken", "{m} taken today", "{m} encaissés aujourd'hui", "{m} antre jodi a"], ["km.chapters", "{n} chapters", "{n} chapitres", "{n} chapit"],
     ["km.backup", "Last backup: {d}", "Dernière sauvegarde : {d}", "Dènye kopi: {d}"], ["km.noBackup", "No backup yet", "Pas encore de sauvegarde", "Poko gen kopi"],
     ["km.studio", "Make it yours", "À votre image", "Fè l pa w"],
-    ["lede.register", "Scan or choose the goods, then take the cash. The stock and the books change at once.", "Scannez ou choisissez les articles, puis encaissez. Le stock et les livres changent aussitôt.", "Eskane oswa chwazi machandiz yo, epi pran lajan an. Stòk la ak liv yo chanje touswit."],
+    ["lede.register", "Scan or choose the goods, then take payment: cash, a card or a phone. The stock and the books change at once.", "Scannez ou choisissez les articles, puis encaissez : espèces, carte ou téléphone. Le stock et les livres changent aussitôt.", "Eskane oswa chwazi machandiz yo, epi pran peman: lajan kach, kat oswa telefòn. Stòk la ak liv yo chanje touswit."],
     ["lede.inventory", "Every item the store sells: its price, its cost, and how many are on the shelf.", "Chaque article vendu : son prix, son coût et combien sont en rayon.", "Chak atik magazen an vann: pri li, kou li, ak konbyen ki sou etajè a."],
     ["lede.reports", "Choose a period: this hour, the morning, the afternoon, a day, a week, a month or more. Every figure comes from the sealed books.", "Choisissez une période : cette heure, le matin, l'après-midi, un jour, une semaine, un mois ou plus. Chaque chiffre vient des livres scellés.", "Chwazi yon peryòd: lè sa a, maten an, apremidi a, yon jou, yon semèn, yon mwa oswa plis. Chak chif soti nan liv sele yo."],
     ["lede.guide", "How each room works, in plain words. Press a chapter to read it.", "Comment fonctionne chaque pièce, en mots simples. Appuyez sur un chapitre pour le lire.", "Kijan chak pyès mache, an mo senp. Peze yon chapit pou li l."],
@@ -3117,6 +3166,56 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
       "Chaque transfert envoyé, transfert remis et recharge de téléphone est noté sous Transferts d'argent et recharges dans l'inventaire : le fournisseur (RIA, CAM, Unitransfer, Boss Revolution ou un autre), le montant, les frais, la référence du fournisseur et, pour ceux qui voient les rapports, la commission du magasin.\nCet argent est gardé pour le fournisseur. Lakay le garde à part des ventes du magasin, pour que les recettes et le bénéfice du jour ne soient jamais gonflés par de l'argent qui appartient à quelqu'un d'autre. Les rapports le montrent dans leur propre section.\nN'écrivez jamais le nom, l'adresse ou les papiers du client : le système du fournisseur les garde.\nUne erreur est annulée, avec une raison, par quelqu'un qui voit les rapports. Elle reste dans le journal, marquée annulée.",
       "Chak transfè voye, transfè remèt ak rechaj telefòn anrejistre anba Transfè lajan ak rechaj nan Envantè: konpayi an (RIA, CAM, Unitransfer, Boss Revolution oswa yon lòt), montan an, frè a, referans konpayi an epi, pou moun ki wè rapò yo, komisyon magazen an.\nLajan sa a se pou konpayi an. Lakay kenbe l apa de vant magazen an, pou lajan jounen an ak benefis la pa janm gonfle ak lajan ki pou yon lòt moun. Rapò yo montre l nan pwòp seksyon pa l.\nPa janm ekri non, adrès oswa papye kliyan an: se sistèm konpayi an ki kenbe yo.\nYon erè anile, ak yon rezon, pa yon moun ki wè rapò yo. Li rete nan jounal la, make anile."],
     ["guide.svc.tip", "Write the provider's reference each time: it is how you match the log with the provider's statement.", "Notez la référence du fournisseur à chaque fois : c'est ainsi que vous rapprochez le journal du relevé du fournisseur.", "Ekri referans konpayi an chak fwa: se konsa ou konpare jounal la ak rapò konpayi an."]
+  );
+
+  /* Build 16: taking payment by cash, card, Apple Pay, Google Pay or another way, in one part or several */
+  add(
+    ["pay.title", "Take payment", "Encaisser", "Pran peman"], ["pay.how", "How the customer pays", "Comment le client paie", "Kijan kliyan an peye"],
+    ["pay.m.cash", "Cash", "Espèces", "Lajan kach"], ["pay.m.card", "Card", "Carte", "Kat"], ["pay.m.applepay", "Apple Pay", "Apple Pay", "Apple Pay"],
+    ["pay.m.googlepay", "Google Pay", "Google Pay", "Google Pay"], ["pay.m.other", "Other", "Autre", "Lòt"],
+    ["pay.left", "Left to pay", "Reste à payer", "Rès pou peye"], ["pay.name", "Way to pay", "Moyen de paiement", "Fason pou peye"],
+    ["pay.amount", "Amount", "Montant", "Montan"], ["pay.code", "Approval code", "Code d'autorisation", "Kòd apwobasyon"],
+    ["pay.codeHint", "From the card machine's screen or receipt.", "Sur l'écran ou le reçu du terminal.", "Sou ekran oswa resi machin kat la."],
+    ["pay.ref", "Reference", "Référence", "Referans"], ["pay.last4", "Last 4 digits of the card", "4 derniers chiffres de la carte", "4 dènye chif kat la"],
+    ["pay.last4Hint", "Only the last four. Never the whole number.", "Seulement les quatre derniers. Jamais le numéro entier.", "Sèlman 4 dènye yo. Pa janm tout nimewo a."],
+    ["pay.howCard", "Charge {m} on {on}. When it is approved, complete the sale here.", "Encaissez {m} sur {on}. Une fois approuvé, terminez la vente ici.", "Chaje {m} sou {on}. Lè l apwouve, fini vant lan isit la."],
+    ["pay.howOther", "Take {m} by {name}. When it has arrived, complete the sale here.", "Recevez {m} par {name}. Une fois reçu, terminez la vente ici.", "Resevwa {m} pa {name}. Lè l rive, fini vant lan isit la."],
+    ["pay.theMachine", "the card machine", "le terminal de paiement", "machin kat la"],
+    ["pay.noCardNumber", "Never type a card's number in Lakay. The card machine keeps it.", "Ne tapez jamais un numéro de carte dans Lakay. Le terminal le garde.", "Pa janm tape nimewo yon kat nan Lakay. Machin kat la kenbe l."],
+    ["pay.err.last4", "Four digits, for example 4242.", "Quatre chiffres, par exemple 4242.", "Kat chif, pa egzanp 4242."],
+    ["pay.err.over", "No more than what is left: {m}.", "Pas plus que le reste : {m}.", "Pa plis pase sa ki rete a: {m}."],
+    ["pay.err.overAll", "The payments come to more than the total.", "Les paiements dépassent le total.", "Peman yo depase total la."],
+    ["pay.err.code", "Type the approval code from the card machine.", "Tapez le code d'autorisation du terminal.", "Tape kòd apwobasyon machin kat la."],
+    ["pay.codeIs", "Approval {c}", "Autorisation {c}", "Apwobasyon {c}"], ["pay.removePart", "Remove this part", "Retirer ce paiement", "Retire pati sa a"],
+    ["pay.part", "Take this part, then the rest", "Prendre cette partie, puis le reste", "Pran pati sa a, epi rès la"],
+    ["pay.paidBy", "Paid by {how}.", "Payé par {how}.", "Peye pa {how}."],
+    ["set.pay", "Payments", "Paiements", "Peman"],
+    ["tip.pay.t", "Payments", "Paiements", "Peman"],
+    ["tip.pay.b", "Lakay never touches a card. Your card machine (Square, Clover, SumUp or your bank's) charges the card, Apple Pay or Google Pay. Lakay says how much to charge and records what was taken, with the machine's approval code. A sale can be paid in parts.",
+      "Lakay ne touche jamais une carte. Votre terminal (Square, Clover, SumUp ou celui de votre banque) encaisse la carte, Apple Pay ou Google Pay. Lakay indique combien encaisser et note ce qui a été pris, avec le code d'autorisation du terminal. Une vente peut être payée en plusieurs fois.",
+      "Lakay pa janm manyen yon kat. Machin kat ou (Square, Clover, SumUp oswa sa bank ou a) chaje kat la, Apple Pay oswa Google Pay. Lakay di konbyen pou chaje epi li note sa ki pran, ak kòd apwobasyon machin nan. Yon vant ka peye an plizyè pati."],
+    ["set.payWays", "Ways the store takes", "Moyens acceptés", "Fason magazen an pran lajan"],
+    ["set.payWaysHint", "Cash is always taken. Press a way to turn it on or off.", "Les espèces sont toujours acceptées. Appuyez sur un moyen pour l'activer ou le désactiver.", "Magazen an toujou pran lajan kach. Peze yon fason pou limen l oswa etenn li."],
+    ["set.payMachine", "The card machine's name", "Nom du terminal de paiement", "Non machin kat la"],
+    ["set.payMachinePh", "For example Square or Clover", "Par exemple Square ou Clover", "Pa egzanp Square oswa Clover"],
+    ["set.payMachineHint", "Shown at the counter, for example: Charge $12.50 on Square.", "Affiché à la caisse, par exemple : Encaissez 12,50 $ sur Square.", "Parèt nan kès la, pa egzanp: Chaje $12.50 sou Square."],
+    ["set.payOthers", "Other ways, by name", "Autres moyens, par nom", "Lòt fason, pa non"],
+    ["set.payOthersPh", "For example Zelle, Cash App", "Par exemple Zelle, Cash App", "Pa egzanp Zelle, Cash App"],
+    ["set.payOthersHint", "Separated by commas. Each one becomes a way to pay at the counter.", "Séparés par des virgules. Chacun devient un moyen de paiement à la caisse.", "Separe ak vigil. Chak youn vin yon fason pou peye nan kès la."],
+    ["set.payAskCode", "The card machine's approval code", "Le code d'autorisation du terminal", "Kòd apwobasyon machin kat la"],
+    ["set.payOptional", "Ask for it", "Le demander", "Mande l"], ["set.payRequired", "Require it", "L'exiger", "Egzije l"], ["set.payNo", "Don't ask", "Ne pas demander", "Pa mande"],
+    ["set.payYes", "Ask for them", "Les demander", "Mande yo"], ["set.payAskLast4", "The card's last 4 digits", "Les 4 derniers chiffres de la carte", "4 dènye chif kat la"],
+    ["set.payNever", "A card's full number never enters Lakay: wherever it might be typed, it is refused.", "Le numéro complet d'une carte n'entre jamais dans Lakay : partout où il pourrait être tapé, il est refusé.", "Nimewo konplè yon kat pa janm antre nan Lakay: tout kote yo ta ka tape l, li refize."],
+    ["rep.paidBy", "How it was paid", "Comment c'était payé", "Kijan yo te peye"],
+    ["rep.paidByHint", "Cash is what stayed in the drawer, after the change.", "Les espèces sont ce qui reste dans la caisse, après la monnaie.", "Lajan kach se sa ki rete nan kès la, apre monnen an."],
+    ["rep.way", "Way", "Moyen", "Fason"], ["rep.times", "Payments", "Paiements", "Peman"], ["rep.amount", "Amount", "Montant", "Montan"],
+    ["rep.split", "{n} sales paid in parts.", "{n} ventes payées en plusieurs fois.", "{n} vant peye an plizyè pati."],
+    ["rep.split1", "1 sale paid in parts.", "1 vente payée en plusieurs fois.", "1 vant peye an plizyè pati."],
+    ["guide.pay.t", "Taking payment: cash, cards and phones", "Encaisser : espèces, cartes et téléphones", "Pran peman: lajan kach, kat ak telefòn"],
+    ["guide.pay.b", "Press Take payment (or F9). Cash is chosen first: type what the customer gives, and Lakay shows the change.\nFor a card, Apple Pay or Google Pay, choose it. Lakay shows the amount to charge. Charge it on your card machine, type the machine's approval code if Settings asks for it, and complete the sale. Lakay never touches the card, and never takes a card's number.\nTo split a payment, take one part (some cash, or one card for part of the total) and press Take this part, then the rest. Lakay shows what is left, and you take it another way.\nThe receipt lists each payment, and the Reports show how the day was paid. The owner chooses the ways the store takes, and names the card machine, in Settings, Payments.",
+      "Appuyez sur Encaisser (ou F9). Les espèces sont choisies d'abord : tapez ce que donne le client, et Lakay affiche la monnaie.\nPour une carte, Apple Pay ou Google Pay, choisissez-le. Lakay affiche le montant à encaisser. Encaissez-le sur votre terminal, tapez le code d'autorisation si les Réglages le demandent, et terminez la vente. Lakay ne touche jamais la carte, et ne prend jamais un numéro de carte.\nPour payer en plusieurs fois, prenez une partie (des espèces, ou une carte pour une partie du total) et appuyez sur Prendre cette partie, puis le reste. Lakay affiche ce qui reste, et vous le prenez autrement.\nLe reçu liste chaque paiement, et les Rapports montrent comment la journée a été payée. Le propriétaire choisit les moyens acceptés, et nomme le terminal, dans Réglages, Paiements.",
+      "Peze Pran peman (oswa F9). Lajan kach chwazi anvan: tape sa kliyan an bay, epi Lakay montre monnen an.\nPou yon kat, Apple Pay oswa Google Pay, chwazi l. Lakay montre montan pou chaje a. Chaje l sou machin kat ou, tape kòd apwobasyon an si Paramèt yo mande l, epi fini vant lan. Lakay pa janm manyen kat la, ni pran nimewo yon kat.\nPou peye an plizyè pati, pran yon pati (kèk lajan kach, oswa yon kat pou yon pati nan total la) epi peze Pran pati sa a, epi rès la. Lakay montre sa ki rete, epi ou pran l yon lòt fason.\nResi a bay chak peman, epi Rapò yo montre kijan jounen an te peye. Mèt la chwazi fason magazen an pran lajan, epi li bay machin kat la non l, nan Paramèt, Peman."],
+    ["guide.pay.tip", "Set the ways your store takes, and your card machine's name, in Settings, Payments.", "Réglez les moyens acceptés, et le nom de votre terminal, dans Réglages, Paiements.", "Regle fason magazen an pran lajan, ak non machin kat ou, nan Paramèt, Peman."]
   );
   E.t = function (key, vars) {
     var c = E.custom && E.custom.words && E.custom.words[E.lang], s = c && typeof c[key] === "string" && c[key] ? c[key] : DICT[E.lang][key];
@@ -3625,7 +3724,8 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
       env = e;
       var start = new Date(now.getTime() - 16 * 86400000);
       var settings = { storeName: E.t("practice.store"), ownerName: E.t("practice.owner"), currency: "USD",
-        taxes: [{ id: "tx1", name: E.t("practice.tax"), rate: 7000 }], weekStart: 1, lockMinutes: 15, receiptNote: "", created: start.toISOString(), practice: true };
+        taxes: [{ id: "tx1", name: E.t("practice.tax"), rate: 7000 }], weekStart: 1, lockMinutes: 15, receiptNote: "", created: start.toISOString(), practice: true,
+        payments: { methods: ["cash", "card", "applepay", "googlepay"], machine: "", others: ["Zelle", "Cash App"], askCode: "optional", askLast4: "yes" } };
       var recs = [{ kind: "settings", id: "main", value: settings },
         { kind: "user", id: "owner", value: { id: "owner", no: 1001, name: settings.ownerName, role: "owner", created: start.toISOString() } },
         { kind: "counter", id: "receipt", value: { next: 1 } }];
@@ -3714,7 +3814,14 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
           var seller = j % 4 === 3 ? "owner" : at.getHours() < 13 ? SAMPLE_PEOPLE[0][0] : SAMPLE_PEOPLE[1][0];
           B.user = state.users[seller] || state.users.owner;
           var total = B.priceTicket(lines).total, paid = total <= 2000 ? Math.ceil(total / 500) * 500 : Math.ceil(total / 1000) * 1000;
-          return B.completeSale(lines, paid).then(function () { B.user = state.users.owner; tick(); });
+          /* about a third by card, some by phone, a few in two parts (cash, then the card); the rest in cash. The ways
+             follow the sale's place in the fortnight, not the dice, so the sales themselves stay the same */
+          var code = String(100000 + (j * 7919) % 900000), pays = paid;
+          if (j % 3 === 1) pays = [{ method: "card", amount: total, ref: code, last4: String(1000 + (j * 37) % 9000) }];
+          else if (j % 7 === 3) pays = [{ method: "applepay", amount: total, ref: code }];
+          else if (j % 11 === 5) pays = [{ method: "googlepay", amount: total, ref: code }];
+          else if (j % 13 === 6 && total > 500) pays = [{ method: "card", amount: total - 500, ref: code, last4: String(1000 + (j * 53) % 9000) }, { method: "cash", tendered: 500 }];
+          return B.completeSale(lines, pays).then(function () { B.user = state.users.owner; tick(); });
         });
         if (j === plan.length - 1) c2 = c2.then(function () { return sampleShifts(today); });
         if (j === Math.floor(plan.length / 2)) {
@@ -4274,6 +4381,69 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   /* what one entry did to the drawer: money in (the amount sent or put on a phone, and the fee) or out (a payout) */
   B.svcCash = function (v) { return { cashIn: (v.kind === "payout" ? 0 : v.amount) + (v.fee || 0), cashOut: v.kind === "payout" ? v.amount : 0 }; };
 
+  /* ---------- payments (Build 16) ----------
+     Lakay never touches a card. The store's own card machine (Square, Clover, SumUp, a bank's terminal: any of them)
+     charges the card, Apple Pay or Google Pay; Lakay records what was taken: the way, the amount, the machine's approval
+     code and, if the owner asks for them, the card's last four digits. A full card number is refused wherever it could
+     be typed. A sale may be paid in parts: cash and a card, two cards, a card and another way the owner accepts. */
+  B.PAY_METHODS = ["cash", "card", "applepay", "googlepay", "other"];
+  B.payPrefs = function (st) {
+    st = st || state;
+    var p = clone((st && st.settings && st.settings.payments) || {}), d = { methods: ["cash", "card", "applepay", "googlepay"], machine: "", others: [], askCode: "optional", askLast4: "no" };
+    Object.keys(d).forEach(function (k) { if (p[k] === undefined || p[k] === null) p[k] = d[k]; });
+    if (p.methods.indexOf("cash") < 0) p.methods.unshift("cash");
+    return p;
+  };
+  /* a card's number: 13 to 19 digits (spaces and dashes allowed) whose check digit is right */
+  function cardNumberIn(text) {
+    var runs = String(text || "").match(/\d[\d -]{11,24}\d/g) || [];
+    return runs.some(function (r) {
+      var d = r.replace(/[ -]/g, ""); if (!/^\d{13,19}$/.test(d)) return false;
+      var sum = 0, alt = false;
+      for (var i = d.length - 1; i >= 0; i--) { var n = +d[i]; if (alt) { n *= 2; if (n > 9) n -= 9; } sum += n; alt = !alt; }
+      return sum % 10 === 0;
+    });
+  }
+  B.cardNumberIn = cardNumberIn;
+  /* The payments of one sale, checked and put in order: the other ways first, then the cash, in one part, with its
+     change. pays: [{ method, amount, tendered (cash), ref, last4, name (another way) }], or a number (cash received,
+     as Builds 1 to 15 had it). */
+  function cleanPayments(total, pays, prefs) {
+    if (typeof pays === "number") pays = [{ method: "cash", tendered: pays }];
+    if (!Array.isArray(pays) || !pays.length) throw err("short");
+    var other = [], tendered = 0, anyCash = false;
+    pays.forEach(function (p) {
+      var m = String(p.method || "");
+      if (B.PAY_METHODS.indexOf(m) < 0) throw err("method");
+      if (m === "cash") {
+        if (!Number.isSafeInteger(p.tendered) || p.tendered <= 0) throw err("short");
+        tendered += p.tendered; anyCash = true; return;
+      }
+      if (m === "other" ? !(prefs.others || []).length : prefs.methods.indexOf(m) < 0) throw err("method");
+      if (!Number.isSafeInteger(p.amount) || p.amount <= 0) throw err("amount");
+      var ref = String(p.ref || "").trim().slice(0, 40), last4 = String(p.last4 || "").trim(), name = String(p.name || "").trim().slice(0, 30);
+      if (cardNumberIn(ref) || cardNumberIn(name) || cardNumberIn(p.note)) throw err("cardNumber");
+      if (last4 && !/^\d{4}$/.test(last4)) throw err("last4");
+      if (m !== "other" && m !== "card" && last4) last4 = "";
+      if (m !== "other" && prefs.askCode === "required" && !ref) throw err("code");
+      if (m === "other" && !name) throw err("name");
+      var x = { method: m, amount: p.amount };
+      if (ref) x.ref = ref;
+      if (last4) x.last4 = last4;
+      if (m === "other") x.name = name;
+      if (m !== "other" && prefs.machine) x.machine = String(prefs.machine).slice(0, 40);
+      other.push(x);
+    });
+    var otherSum = other.reduce(function (a, x) { return a + x.amount; }, 0);
+    if (otherSum > total) throw err("over");
+    var cashDue = total - otherSum;
+    if (!anyCash) { if (cashDue !== 0) throw err("short"); return other; }
+    if (cashDue === 0) throw err("over");
+    if (tendered < cashDue) throw err("short");
+    return other.concat([{ method: "cash", amount: cashDue, tendered: tendered, change: tendered - cashDue }]);
+  }
+  B.cleanPayments = function (total, pays) { return cleanPayments(total, pays, B.payPrefs()); };
+
   /* ---------- the ticket and the sale ---------- */
   /* Prices a ticket from the books as they stand: lines [{itemId, qty}] give lines with prices, the tax of each rate
      (worked out on the total taxed at that rate, rounded half up to the cent) and the totals. */
@@ -4293,18 +4463,19 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     out.total = out.subtotal + out.tax;
     return out;
   };
-  B.completeSale = function (lines, tendered) {
+  /* pays: the payments (Build 16), or, as before, the cash received */
+  B.completeSale = function (lines, pays) {
     return B.change(function (st) {
       need("sell");
       var t = B.priceTicket(lines, st);
       if (!t.lines.length) throw err("empty");
-      if (!Number.isSafeInteger(tendered) || tendered < t.total) throw err("short");
+      var paid = cleanPayments(t.total, pays, B.payPrefs(st));
       var counter = clone(st.counters.receipt || { next: 1 }), no = B.device.code + "-" + String(counter.next).padStart(6, "0");
       counter.next += 1;
       var now = clock();
       var sale = { id: U.uid("s"), no: no, at: now.toISOString(), day: U.dayKey(now), hour: now.getHours(), by: B.user.id, byNo: B.numberOf(B.user), dev: B.device.id,
         lines: t.lines, subtotal: t.subtotal, taxes: t.taxes, tax: t.tax, total: t.total, items: t.items,
-        pay: [{ method: "cash", amount: t.total, tendered: tendered, change: tendered - t.total }], status: "completed" };
+        pay: paid, status: "completed" };
       var recs = [{ kind: "sale", id: sale.id, value: sale }, { kind: "counter", id: "receipt", value: counter }];
       var touched = {};
       t.lines.forEach(function (l) { touched[l.itemId] = (touched[l.itemId] || 0) + l.qty; });
@@ -4323,7 +4494,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     function inWin(x) { if (!win) return true; var at = Date.parse(x.at); return at >= win.from && at < win.to; }
     function mine(x) { return !who || x.by === who; }
     var st = state, r = { from: fromKey, to: toKey, win: win || null, who: who || null, count: 0, items: 0, net: 0, tax: 0, gross: 0, cogs: 0, noCost: 0, profit: 0,
-      byCat: {}, byItem: {}, byHour: [], byDay: {}, byMethod: {}, byPerson: {}, losses: { value: 0, qty: 0, byReason: {} }, received: { qty: 0, value: 0 } };
+      byCat: {}, byItem: {}, byHour: [], byDay: {}, byMethod: {}, byMethodN: {}, split: 0, byPerson: {}, losses: { value: 0, qty: 0, byReason: {} }, received: { qty: 0, value: 0 } };
     for (var h = 0; h < 24; h++) r.byHour.push({ count: 0, gross: 0 });
     st.sales.forEach(function (s) {
       if (s.status !== "completed" || s.day < fromKey || s.day > toKey || !inWin(s) || !mine(s)) return;
@@ -4333,7 +4504,11 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
       r.byHour[s.hour].count++; r.byHour[s.hour].gross += s.total;
       var d = r.byDay[s.day] = r.byDay[s.day] || { count: 0, gross: 0, net: 0, profit: 0 };
       d.count++; d.gross += s.total; d.net += s.subtotal;
-      s.pay.forEach(function (p) { r.byMethod[p.method] = (r.byMethod[p.method] || 0) + p.amount; });
+      s.pay.forEach(function (p) {
+        var k = p.method === "other" ? "other:" + (p.name || "") : p.method;
+        r.byMethod[k] = (r.byMethod[k] || 0) + p.amount; r.byMethodN[k] = (r.byMethodN[k] || 0) + 1;
+      });
+      if (s.pay.length > 1) r.split++;
       s.lines.forEach(function (l) {
         var cost = l.cost === null ? null : l.cost * l.qty;
         if (cost === null) r.noCost += l.amount; else r.cogs += cost;
@@ -6245,36 +6420,128 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     ui.confirm(t("reg.clearT"), t("reg.clearP"), t("reg.clearYes"), "danger").then(function (ok) { if (ok) { ticket.lines = []; R.ticket = ticket; drawTicket(); view.search.focus(); } });
   }
 
+  /* ---------- taking payment (Build 16): cash, a card, Apple Pay, Google Pay, another way the owner accepts, or in parts ----------
+     The store's own card machine charges the card; Lakay says how much to charge and records what was taken. Cash is
+     chosen first, so a cash sale is as quick as ever: the amount received, the change, done. */
+  R.payName = function (p) {
+    if (p.method === "other") return p.name || t("pay.m.other");
+    return t("pay.m." + p.method) + (p.last4 ? " ···· " + p.last4 : "");
+  };
+  var PAY_EMO = { cash: "💵", card: "💳", applepay: "📱", googlepay: "📱", other: "🔁" };
   function takeCash() {
     var tk = B.priceTicket(ticket.lines); if (!tk.lines.length) return;
+    var prefs = B.payPrefs(), parts = [], method = "cash", d;
+    var ways = prefs.methods.filter(function (m) { return m !== "other" && B.PAY_METHODS.indexOf(m) >= 0; }).concat(prefs.others.length ? ["other"] : []);
+    function paid() { return parts.reduce(function (a, p) { return a + (p.method === "cash" ? p.applied : p.amount); }, 0); }
+    function left() { return tk.total - paid(); }
+    /* what is left to pay, shown once a part has been taken */
+    var leftN = h("strong.num#payLeftN"), leftRow = h("p.due.pay-left#payLeft", null, [h("span", null, t("pay.left")), leftN]);
+    var partsList = h("ul.pay-parts#payParts", { "aria-live": "polite" });
+    var keys = h("div.pay-ways#payWays", { role: "radiogroup", "aria-label": t("pay.how") });
+    ways.forEach(function (m) {
+      keys.appendChild(h("button.pay-way", { type: "button", role: "radio", "aria-checked": String(m === method), "data-m": m, id: "payWay-" + m, onclick: function () { choose(m); } },
+        [ui.emo(PAY_EMO[m]), h("span", null, t("pay.m." + m))]));
+    });
+    /* cash */
     var input = ui.input({ id: "cashIn", inputmode: "decimal", class: "money-in", "aria-label": t("cash.received") });
     var changeN = h("p.change", { id: "cashChange", "aria-live": "polite" });
     var quick = h("div.quick-cash", { role: "group", "aria-label": t("cash.quick") });
-    var amounts = [tk.total], whole = Math.ceil(tk.total / 100) * 100;
-    if (whole !== tk.total) amounts.push(whole);
-    [500, 1000, 2000, 5000, 10000].forEach(function (b) { if (b > whole) amounts.push(b); });
-    amounts.filter(function (v, i, a) { return a.indexOf(v) === i; }).slice(0, 6).forEach(function (v, i) {
-      quick.appendChild(h("button.key.sm", { type: "button", onclick: function () { input.value = U.moneyPlain(v); update(); } }, i === 0 ? t("cash.exact") + " " + money(v) : money(v)));
-    });
-    var d;
-    function update() {
-      var c = U.parseMoney(input.value), done = document.getElementById("cashDone");
-      if (c === null) { changeN.textContent = input.value ? t("cash.notAmount") : ""; changeN.className = "change"; if (done) done.disabled = true; return; }
-      if (c < tk.total) { changeN.textContent = t("cash.short", { m: money(tk.total - c) }); changeN.className = "change bad"; if (done) done.disabled = true; return; }
-      changeN.textContent = t("cash.change", { m: money(c - tk.total) }); changeN.className = "change good"; if (done) done.disabled = false;
+    function quickKeys() {
+      U.clear(quick);
+      var due = left(), amounts = [due], whole = Math.ceil(due / 100) * 100;
+      if (whole !== due) amounts.push(whole);
+      [500, 1000, 2000, 5000, 10000].forEach(function (b) { if (b > whole) amounts.push(b); });
+      amounts.filter(function (v, i, a) { return a.indexOf(v) === i; }).slice(0, 6).forEach(function (v, i) {
+        quick.appendChild(h("button.key.sm", { type: "button", onclick: function () { input.value = U.moneyPlain(v); update(); } }, i === 0 ? t("cash.exact") + " " + money(v) : money(v)));
+      });
     }
-    input.addEventListener("input", update);
-    input.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); var b = document.getElementById("cashDone"); if (b && !b.disabled) b.click(); } });
-    d = ui.dialog({ title: t("cash.title"), emoji: "💵", focus: "#cashIn",
-      body: [h("p.due", null, [h("span", null, t("cash.due")), h("strong.num", { id: "cashDue" }, money(tk.total))]), quick, ui.field("cash.received", input), changeN],
-      actions: [{ label: t("cancel") }, { label: t("cash.complete"), kind: "primary", id: "cashDone", disabled: true, emoji: "✅", onClick: function (close, btn) {
-        var c = U.parseMoney(input.value); if (c === null || c < tk.total) return false;
-        btn.disabled = true;
-        B.completeSale(ticket.lines, c).then(function (sale) {
-          ticket.lines = []; close(); drawTicket(); ui.celebrate(); R.showReceipt(sale, true);
-        }, function (e) { btn.disabled = false; ui.toast(t(e && e.code === "short" ? "cash.shortErr" : "door.problem"), "bad"); console.error(e); });
-        return false;
-      } }] });
+    var cashPane = h("div.pay-pane#payCash", null, [quick, ui.field("cash.received", input), changeN]);
+    /* a card, a phone, another way */
+    var amount = ui.input({ id: "payAmount", inputmode: "decimal", class: "money-in" });
+    var code = ui.input({ id: "payCode", maxlength: "40" }), last4 = ui.input({ id: "payLast4", inputmode: "numeric", maxlength: "4" });
+    var name = ui.select(prefs.others.map(function (n) { return [n, n]; }), prefs.others[0] || "", { id: "payName" });
+    var how = h("p.pay-how#payHow", { "aria-live": "polite" }), warnN = h("p.err#payWarn", { role: "alert" });
+    var nameF = ui.field("pay.name", name), codeF = ui.field("pay.code", code, { required: prefs.askCode === "required", hint: t("pay.codeHint") }), last4F = ui.field("pay.last4", last4, { hint: t("pay.last4Hint") });
+    var otherPane = h("div.pay-pane#payOther", null, [how, h("div.form-grid", null, [nameF, ui.field("pay.amount", amount, { required: true }), codeF, last4F]), warnN]);
+    function choose(m) {
+      method = m;
+      Array.prototype.forEach.call(keys.children, function (b) { b.setAttribute("aria-checked", String(b.getAttribute("data-m") === m)); });
+      cashPane.hidden = m !== "cash"; otherPane.hidden = m === "cash";
+      nameF.hidden = m !== "other"; last4F.hidden = m !== "card" || prefs.askLast4 === "no"; codeF.hidden = m === "other" ? false : prefs.askCode === "no";
+      codeF.querySelector("label").firstChild.textContent = t(m === "other" ? "pay.ref" : "pay.code");
+      if (m === "cash") { quickKeys(); setTimeout(function () { try { input.focus(); } catch (e) { } }, 30); }
+      else { amount.value = U.moneyPlain(left()); setTimeout(function () { try { amount.select(); } catch (e) { } }, 30); }
+      update();
+    }
+    function current() {
+      if (method === "cash") { var c = U.parseMoney(input.value); return c === null || c <= 0 ? null : { method: "cash", tendered: c }; }
+      var a = U.parseMoney(amount.value); if (a === null || a <= 0) return null;
+      var p = { method: method, amount: a, ref: code.value.trim() };
+      if (method === "card" && last4.value.trim()) p.last4 = last4.value.trim();
+      if (method === "other") p.name = name.value;
+      return p;
+    }
+    function buttons(done, part) { var a = document.getElementById("cashDone"), b = document.getElementById("payPart"); if (a) a.disabled = !done; if (b) { b.disabled = !part; b.hidden = !part; } }
+    function update() {
+      var due = left(), p = current();
+      leftN.textContent = money(due); leftRow.hidden = !parts.length;
+      warnN.textContent = "";
+      if (method === "cash") {
+        var c = U.parseMoney(input.value);
+        if (c === null) { changeN.textContent = input.value ? t("cash.notAmount") : ""; changeN.className = "change"; buttons(false, false); return; }
+        if (c < due) { changeN.textContent = t("cash.short", { m: money(due - c) }); changeN.className = "change bad"; buttons(false, c > 0 && ways.length > 1); return; }
+        changeN.textContent = t("cash.change", { m: money(c - due) }); changeN.className = "change good"; buttons(true, false); return;
+      }
+      how.textContent = method === "other" ? t("pay.howOther", { m: money(p ? p.amount : due), name: name.value }) : t("pay.howCard", { m: money(p ? p.amount : due), on: prefs.machine ? prefs.machine : t("pay.theMachine") });
+      if (!p) { buttons(false, false); return; }
+      if (B.cardNumberIn(code.value)) { warnN.textContent = t("pay.noCardNumber"); buttons(false, false); return; }
+      if (p.last4 && !/^\d{4}$/.test(p.last4)) { warnN.textContent = t("pay.err.last4"); buttons(false, false); return; }
+      if (method !== "other" && prefs.askCode === "required" && !p.ref) { buttons(false, false); return; }
+      if (p.amount > due) { warnN.textContent = t("pay.err.over", { m: money(due) }); buttons(false, false); return; }
+      buttons(p.amount === due, p.amount < due);
+    }
+    function drawParts() {
+      U.clear(partsList);
+      parts.forEach(function (p, i) {
+        partsList.appendChild(h("li", null, [ui.emo(PAY_EMO[p.method]), h("span.pay-part-n", null, R.payName(p)), p.ref ? h("small.muted", null, t("pay.codeIs", { c: p.ref })) : null,
+          h("span.num", null, money(p.method === "cash" ? p.applied : p.amount)),
+          h("button.icon-key", { type: "button", "aria-label": t("pay.removePart"), title: t("pay.removePart"), onclick: function () { parts.splice(i, 1); drawParts(); choose(method); } }, U.icon("x"))]));
+      });
+      partsList.hidden = !parts.length;
+    }
+    /* one part now, the rest another way */
+    function addPart() {
+      var p = current(); if (!p) return false;
+      if (p.method === "cash") { if (p.tendered >= left()) return false; p.applied = p.tendered; input.value = ""; }
+      else { if (p.amount >= left()) return false; amount.value = ""; code.value = ""; last4.value = ""; }
+      parts.push(p); drawParts();
+      choose(p.method === "cash" ? (ways.indexOf("card") >= 0 ? "card" : ways.filter(function (w) { return w !== "cash"; })[0] || "cash") : "cash");
+      return false;
+    }
+    function finish(btn) {
+      var p = current(); if (!p) return false;
+      var pays = parts.map(function (x) { var y = Object.assign({}, x); delete y.applied; return y; }).concat([p]);
+      btn.disabled = true;
+      B.completeSale(ticket.lines, pays).then(function (sale) {
+        ticket.lines = []; d.close(); drawTicket(); ui.celebrate(); R.showReceipt(sale, true);
+      }, function (e) {
+        btn.disabled = false;
+        var k = e && e.code;
+        ui.toast(t(k === "short" ? "cash.shortErr" : k === "cardNumber" ? "pay.noCardNumber" : k === "code" ? "pay.err.code" : k === "over" ? "pay.err.overAll" : "door.problem"), "bad"); console.error(e);
+      });
+      return false;
+    }
+    input.addEventListener("input", update); amount.addEventListener("input", update); code.addEventListener("input", update); last4.addEventListener("input", update); name.addEventListener("change", update);
+    [input, amount, code, last4].forEach(function (f) { f.addEventListener("keydown", function (e) {
+      if (e.key !== "Enter") return; e.preventDefault();
+      var a = document.getElementById("cashDone"), b = document.getElementById("payPart");
+      if (a && !a.disabled) a.click(); else if (b && !b.disabled) b.click();
+    }); });
+    d = ui.dialog({ title: t("pay.title"), emoji: "💳", focus: "#cashIn", wide: ways.length > 1,
+      body: [h("p.due", null, [h("span", null, t("cash.due")), h("strong.num", { id: "cashDue" }, money(tk.total))]), ways.length > 1 ? keys : null, partsList, leftRow, cashPane, otherPane],
+      actions: [{ label: t("cancel") }, { label: t("pay.part"), id: "payPart", onClick: function () { return addPart(); } },
+        { label: t("cash.complete"), kind: "primary", id: "cashDone", disabled: true, emoji: "✅", onClick: function (close, btn) { return finish(btn); } }] });
+    drawParts(); choose("cash");
   }
 
   /* ---------- the receipt ---------- */
@@ -6289,21 +6556,25 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
       h("table.r-totals", null, h("tbody", null, [
         h("tr", null, [h("td", null, t("reg.subtotal")), h("td.num", null, money(s.subtotal))])].concat(
         s.taxes.map(function (x) { return h("tr", null, [h("td", null, x.name + " (" + U.rateText(x.rate) + ")"), h("td.num", null, money(x.tax))]); }), [
-        h("tr.r-total", null, [h("td", null, t("reg.total")), h("td.num", null, money(s.total))]),
-        h("tr", null, [h("td", null, t("receipt.cash")), h("td.num", null, money(s.pay[0].tendered))]),
-        h("tr", null, [h("td", null, t("receipt.change")), h("td.num", null, money(s.pay[0].change))])]))),
+        h("tr.r-total", null, [h("td", null, t("reg.total")), h("td.num", null, money(s.total))])].concat(
+        /* each payment (Build 16): the card machine's approval code under a card or a phone; the cash received, then the change */
+        [].concat.apply([], s.pay.map(function (p) {
+          if (p.method === "cash") return [h("tr", null, [h("td", null, t("receipt.cash")), h("td.num", null, money(p.tendered))]), h("tr", null, [h("td", null, t("receipt.change")), h("td.num", null, money(p.change))])];
+          return [h("tr.r-pay", null, [h("td", null, [R.payName(p), p.ref ? h("small.r-code", null, t("pay.codeIs", { c: p.ref })) : null]), h("td.num", null, money(p.amount))])];
+        })))))),
       h("p.r-by", null, t("receipt.servedBy", { name: ui.userTag(s.by) })),
       set.receiptNote ? h("p.r-note", null, set.receiptNote) : null,
       h("p.r-thanks", null, E.thanks()),
       h("p.r-build", null, E.made())]);
   };
   R.showReceipt = function (s, fresh) {
-    ui.dialog({ title: fresh ? t("receipt.doneTitle") : t("receipt.title"), emoji: fresh ? "🎉" : "🧾", body: [fresh ? h("p.change.good", null, t("cash.change", { m: money(s.pay[0].change) })) : null, R.receiptNode(s)],
+    var cash = s.pay.filter(function (p) { return p.method === "cash"; })[0];
+    ui.dialog({ title: fresh ? t("receipt.doneTitle") : t("receipt.title"), emoji: fresh ? "🎉" : "🧾", body: [fresh ? h("p.change.good#receiptChange", null, cash ? t("cash.change", { m: money(cash.change) }) : t("pay.paidBy", { how: s.pay.map(R.payName).join(" + ") })) : null, R.receiptNode(s)],
       actions: [{ label: t("receipt.print"), emoji: "🖨️", onClick: function () { ui.print(R.receiptNode(s)); return false; } },
                 { label: fresh ? t("receipt.newSale") : t("close"), kind: "primary", id: "receiptDone", onClick: function (c) { c(); if (view && document.body.contains(view.search)) view.search.focus(); } }] });
   };
 
-  /* keys at the register: F2 finds, F9 takes cash */
+  /* keys at the register: F2 finds, F9 takes payment */
   document.addEventListener("keydown", function (e) {
     if (!B.isOpen || ui.current !== "register" || document.querySelector(".layer")) return;
     if (e.key === "F2") { e.preventDefault(); view && view.search.focus(); }
@@ -6944,6 +7215,17 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     if (slow.length) node.appendChild(section("🐢 " + t("rep.slow"), table([t("inv.name"), t("inv.stock")].concat(costs ? [t("inv.value")] : []), slow.slice(0, 10).map(function (it) {
       return [it.name, it.stock].concat(costs ? [it.cost === null ? "—" : money(it.stock * it.cost)] : []);
     }), [1, 2]), t("rep.slowHint")));
+    /* how the sales were paid (Build 16): each way, how many times and how much; the cash is what stayed in the drawer */
+    var ways = Object.keys(r.byMethod);
+    if (r.count && ways.length) {
+      var order = ["cash", "card", "applepay", "googlepay"];
+      ways.sort(function (a, b) { var ia = order.indexOf(a), ib = order.indexOf(b); return (ia < 0 ? 9 : ia) - (ib < 0 ? 9 : ib) || r.byMethod[b] - r.byMethod[a]; });
+      node.appendChild(section("💳 " + t("rep.paidBy"), h("div", null, [
+        table([t("rep.way"), t("rep.times"), t("rep.amount")], ways.map(function (k) {
+          return [k.indexOf("other:") === 0 ? k.slice(6) || t("pay.m.other") : t("pay.m." + k), r.byMethodN[k], money(r.byMethod[k])];
+        }).concat([[t("rep.total"), "", money(ways.reduce(function (a, k) { return a + r.byMethod[k]; }, 0))]]), [1, 2]),
+        r.split ? h("p.hint#repSplit", null, t(r.split === 1 ? "rep.split1" : "rep.split", { n: r.split })) : null]), t("rep.paidByHint")));
+    }
     /* money transfers and top-ups, apart from the sales: the money is the providers' (Build 15) */
     var sv = r.services, provs = Object.keys(sv.byProvider);
     if (sv.count || sv.voided) node.appendChild(section("💱 " + t("rep.svc"), h("div", null, [
@@ -6999,10 +7281,13 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   }
   function csvReceipts() {
     var x = rangeSales();
-    var rows = [["receipt", "date", "time", "cashier", "items", "subtotal", "tax", "total", "method", "tendered", "change"]];
+    /* Build 16: every way a sale was paid, the cash received and the change, and the card machine's approval codes */
+    var rows = [["receipt", "date", "time", "cashier", "items", "subtotal", "tax", "total", "paid_by", "cash_received", "change", "approval_codes"]];
     x.list.forEach(function (s) {
-      var p = s.pay[0];
-      rows.push([s.no, s.day, E.fmtTime(new Date(s.at), true), ui.userTag(s.by), s.items, U.moneyPlain(s.subtotal), U.moneyPlain(s.tax), U.moneyPlain(s.total), p.method, U.moneyPlain(p.tendered), U.moneyPlain(p.change)]);
+      var cash = s.pay.filter(function (p) { return p.method === "cash"; })[0];
+      rows.push([s.no, s.day, E.fmtTime(new Date(s.at), true), ui.userTag(s.by), s.items, U.moneyPlain(s.subtotal), U.moneyPlain(s.tax), U.moneyPlain(s.total),
+        s.pay.map(function (p) { return (p.method === "other" ? p.name : p.method) + " " + U.moneyPlain(p.amount); }).join("; "),
+        cash ? U.moneyPlain(cash.tendered) : "", cash ? U.moneyPlain(cash.change) : "", s.pay.filter(function (p) { return p.ref; }).map(function (p) { return p.ref; }).join("; ")]);
     });
     ui.saveFile(fname("receipts", x.rg), "text/csv", R.csv(rows)).then(function () { ui.toast(t("rep.saved"), "good"); });
   }
@@ -7024,7 +7309,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
 (function () {
   var U = E.util, h = U.h, t = E.t, B = E.books, C = E.crypto, ui = E.ui, money = U.money;
 
-  var SET_EMO = { store: "🏪", tax: "🧾", cats: "🗂️", display: "🎨", security: "🔐", backup: "💾", verify: "🛡️", storage: "🗄️", about: "ℹ️", erase: "🧹" };
+  var SET_EMO = { store: "🏪", tax: "🧾", pay: "💳", cats: "🗂️", display: "🎨", security: "🔐", backup: "💾", verify: "🛡️", storage: "🗄️", about: "ℹ️", erase: "🧹" };
   function sec(id, titleKey, tipKey, children) {
     return h("section.card.set-sec", { id: id, "aria-labelledby": id + "-h" }, [h("div.card-head", null, [h("h2", { id: id + "-h" }, [ui.emo(SET_EMO[id.replace("set-", "")] || "⚙️"), t(titleKey)]), tipKey ? ui.tip(tipKey) : null]), children]);
   }
@@ -7032,7 +7317,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   ui.rooms.settings = function (main) {
     var st = B.state(), s = st.settings;
     main.appendChild(ui.roomHead("room.settings", null));
-    var nav = h("nav.set-nav", { "aria-label": t("set.sections") }, ["store", "tax", "cats", "display", "security", "backup", "verify", "storage", "about", "erase"].map(function (k) {
+    var nav = h("nav.set-nav", { "aria-label": t("set.sections") }, ["store", "tax", "pay", "cats", "display", "security", "backup", "verify", "storage", "about", "erase"].map(function (k) {
       return h("button.chip", { type: "button", onclick: function () { var n = document.getElementById("set-" + k); if (n) n.scrollIntoView({ behavior: ui.still() ? "auto" : "smooth", block: "start" }); } }, [ui.emo(SET_EMO[k]), t("set." + k)]);
     }));
     main.appendChild(nav);
@@ -7078,6 +7363,30 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     main.appendChild(sec("set-tax", "set.tax", "tip.tax", [h("p.hint", null, t("set.taxIntro")), tlist,
       h("div.row-keys", null, [h("button.key", { type: "button", id: "taxAdd", onclick: function () { taxDialog(null); } }, [ui.emo("➕"), t("set.taxAdd")]),
         (s.taxes || []).length ? null : h("button.link", { type: "button", onclick: function () { U.prefSet("taxSkipped", "1"); ui.toast(t("set.taxSkipped"), "good"); } }, t("set.taxSkip"))])]));
+
+    /* payments (Build 16): the ways the store takes, its card machine's name, and what Lakay asks for at the counter */
+    var pp = B.payPrefs(st), ways = {};
+    ["card", "applepay", "googlepay"].forEach(function (m) { ways[m] = pp.methods.indexOf(m) >= 0; });
+    var machine = ui.input({ id: "setPayMachine", value: pp.machine, maxlength: "40", placeholder: t("set.payMachinePh") });
+    var others = ui.input({ id: "setPayOthers", value: pp.others.join(", "), maxlength: "160", placeholder: t("set.payOthersPh") });
+    var askCode = pp.askCode, askLast4 = pp.askLast4;
+    main.appendChild(sec("set-pay", "set.pay", "tip.pay", h("form.form-grid", { onsubmit: function (e) {
+      e.preventDefault();
+      var names = others.value.split(",").map(function (x) { return x.trim().slice(0, 30); }).filter(function (x, i, a) { return x && a.indexOf(x) === i; }).slice(0, 8);
+      if (names.some(function (x) { return B.cardNumberIn(x); }) || B.cardNumberIn(machine.value)) { ui.fieldError(others, t("pay.noCardNumber")); return; }
+      B.updateSettings({ payments: { methods: ["cash"].concat(["card", "applepay", "googlepay"].filter(function (m) { return ways[m]; })), machine: machine.value.trim(), others: names, askCode: askCode, askLast4: askLast4 } })
+        .then(function () { ui.toast(t("set.saved"), "good"); ui.refresh(); }, ui.failed);
+    } }, [
+      h("div.field.span2", null, [h("p.label", null, t("set.payWays")), h("div.pay-toggles#setPayWays", null, [h("span.pay-toggle.on", { "aria-disabled": "true" }, [ui.emo("💵"), t("pay.m.cash")])].concat(["card", "applepay", "googlepay"].map(function (m) {
+        var b = h("button.pay-toggle" + (ways[m] ? ".on" : ""), { type: "button", "aria-pressed": String(ways[m]), "data-m": m, onclick: function () { ways[m] = !ways[m]; b.classList.toggle("on", ways[m]); b.setAttribute("aria-pressed", String(ways[m])); } },
+          [ui.emo(m === "card" ? "💳" : "📱"), t("pay.m." + m)]);
+        return b;
+      }))), h("p.hint", null, t("set.payWaysHint"))]),
+      ui.field("set.payMachine", machine, { hint: t("set.payMachineHint") }), ui.field("set.payOthers", others, { hint: t("set.payOthersHint") }),
+      h("div.field", null, [h("p.label", null, t("set.payAskCode")), Object.assign(ui.seg([["optional", t("set.payOptional")], ["required", t("set.payRequired")], ["no", t("set.payNo")]], askCode, function (v) { askCode = v; }, t("set.payAskCode")), { id: "setPayCode" })]),
+      h("div.field", null, [h("p.label", null, t("set.payAskLast4")), Object.assign(ui.seg([["yes", t("set.payYes")], ["no", t("set.payNo")]], askLast4, function (v) { askLast4 = v; }, t("set.payAskLast4")), { id: "setPayLast4" })]),
+      h("p.hint.span2.pay-never", null, [ui.emo("🔒"), " ", t("set.payNever")]),
+      h("div.form-actions.span2", null, h("button.key.primary#setPaySave", { type: "submit" }, [ui.emo("💾"), t("save")]))])));
 
     /* shelves */
     var catName = ui.input({ id: "catNew", maxlength: "40", placeholder: t("set.catPh") });
@@ -7207,7 +7516,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   }
 
   /* ---------- the Guidebook ---------- */
-  var ARTICLES = ["start", "door", "team", "clock", "master", "sale", "items", "receive", "correct", "depts", "svc", "reports", "notes", "backup", "sealed", "verify", "display", "studio", "build", "limits"];
+  var ARTICLES = ["start", "door", "team", "clock", "master", "sale", "pay", "items", "receive", "correct", "depts", "svc", "reports", "notes", "backup", "sealed", "verify", "display", "studio", "build", "limits"];
   var ART_EMO = { start: "🌟", door: "🚪", team: "👥", clock: "🕘", master: "🗝️", sale: "🛒", items: "🏷️", receive: "🚚", correct: "✏️", reports: "📊", notes: "🗒️", backup: "💾", sealed: "🔐", verify: "🛡️", display: "🎨", studio: "⚒️", build: "🔢", limits: "🧭" };
   E.guideCount = function () { return ARTICLES.length; };
   ui.rooms.guide = function (main) {
