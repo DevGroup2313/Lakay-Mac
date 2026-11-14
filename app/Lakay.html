@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-tNCjnJXBk1l5oR8Licnaap9F9tnnafoQ93pGMLX9jUs='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-cnHHn9nTNIAJjYKgltxSjIkmklHA7+uBnMrS7/jhjPg='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#f5f4f8">
 <meta name="application-name" content="Lakay">
-<meta name="lakay-build" content="16">
-<!-- LAKAY | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt. Build 16 (2026-11-14). -->
+<meta name="lakay-build" content="17">
+<!-- LAKAY | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt. Build 17 (2026-11-14). -->
 <title>Lakay</title>
 <!-- Lakay's logo, inside the page (the page's own policy shows only pictures it carries): the square tile, filled edge to
      edge with the coin's periwinkle, for the shortcuts a browser makes on a home screen; the round coin, on nothing, for the
@@ -751,7 +751,7 @@ button.hx-item:hover { transform: translateY(-1px); box-shadow: var(--pill); }
 .dialog-body { padding: 6px 22px 12px; overflow-y: auto; font-size: .875rem; color: var(--ink-2); }
 .dialog-body p { line-height: 1.55; }
 .dialog-foot { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; padding: 12px 22px 20px; }
-#toasts { position: fixed; right: calc(84px + env(safe-area-inset-right, 0px)); bottom: calc(18px + env(safe-area-inset-bottom, 0px)); z-index: 2600; display: flex; flex-direction: column; gap: 8px; max-width: min(400px, calc(100vw - 32px)); }
+#toasts { position: fixed; right: calc(84px + env(safe-area-inset-right, 0px)); bottom: calc(18px + env(safe-area-inset-bottom, 0px)); z-index: 2750; display: flex; flex-direction: column; gap: 8px; max-width: min(400px, calc(100vw - 32px)); }
 .toast { display: flex; gap: .6rem; align-items: center; padding: .65rem .95rem; border-radius: 14px; background: var(--surface); color: var(--ink); border: 1px solid var(--line);
   box-shadow: var(--key3d); font-weight: 600; font-size: .84rem; animation: toastIn .3s var(--ease) both; transition: opacity .35s ease, transform .35s ease; }
 .toast::before { content: ""; width: 4px; align-self: stretch; border-radius: 2px; background: var(--pri-text); flex: none; }
@@ -931,6 +931,144 @@ button.hx-item:hover { transform: translateY(-1px); box-shadow: var(--pill); }
 .reset-keys .key.danger:hover { border-color: rgba(168, 66, 61, .38); }
 .reset-keys .key.danger b::after { content: ""; display: inline-block; width: 6px; height: 6px; margin-left: 8px; border-radius: 50%; background: var(--danger); vertical-align: middle; }
 .display-keys { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+
+/* LAKAY | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt.
+   Learning (Build 17): the room of lessons, the guided tour (its light, its bubble, the pointer that does the work),
+   the questions, and the tip at the foot of each room. White slabs and pearl, the periwinkle woven in; a lesson done
+   wears the periwinkle check, never green. Calm and "reduce motion" hold the tour still. */
+
+/* ---------- the Learning room ---------- */
+.learn-mine { display: flex; flex-direction: column; gap: 12px; padding: 18px 20px 14px; margin-bottom: 16px;
+  background: linear-gradient(180deg, var(--surface), var(--surface-2)); border-color: rgba(var(--pri-rgb), .22); }
+.learn-mine-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.learn-cap { display: inline-flex; align-items: center; justify-content: center; width: 52px; height: 52px; flex: none; border-radius: 16px;
+  color: var(--pri-text); background: radial-gradient(120% 120% at 30% 20%, rgba(var(--pri-rgb), .16), rgba(var(--pri-rgb), .05)); box-shadow: inset 0 0 0 1px rgba(var(--pri-rgb), .22); }
+.learn-cap .ico { width: 28px; height: 28px; }
+.learn-mine-t { flex: 1 1 220px; min-width: 0; }
+.learn-mine-t h2 { margin: 0 0 2px; font: 600 1.25rem/1.2 var(--serif); color: var(--ink); }
+.learn-mine-t p { margin: 0; color: var(--ink-2); }
+.learn-next { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.learn-next small { color: var(--muted); max-width: 22ch; }
+.learn-bar { height: 8px; border-radius: 999px; background: var(--sunk); box-shadow: var(--inset); overflow: hidden; }
+.learn-bar .learn-fill { display: block; height: 100%; border-radius: inherit; min-width: 0;
+  background: linear-gradient(90deg, rgba(var(--pri-rgb), .55), var(--pri)); transition: width .6s var(--ease); }
+.learn-note { display: flex; align-items: center; gap: 6px; margin: 0; }
+
+.learn-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr)); gap: 14px; margin-bottom: 18px; }
+.lesson { display: flex; flex-direction: column; gap: 8px; padding: 16px 16px 14px; border-radius: 18px; min-width: 0;
+  background: var(--surface); border: 1px solid var(--line); box-shadow: var(--sh-card); transition: box-shadow .2s var(--ease), transform .2s var(--spring); }
+.lesson:hover { box-shadow: var(--pill-hi); transform: translateY(-1px); }
+.lesson.done { border-color: rgba(var(--pri-rgb), .3); background: linear-gradient(180deg, var(--surface), rgba(var(--pri-rgb), .04)); }
+.lesson-head { display: flex; align-items: flex-start; gap: 12px; }
+.lesson-emo { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; flex: none; border-radius: 50%; font-size: 1.35rem;
+  background: rgba(var(--pri-rgb), .08); box-shadow: inset 0 0 0 1px rgba(var(--pri-rgb), .16); }
+.lesson-t { flex: 1; min-width: 0; margin: 0; align-self: center; font: 600 1.02rem/1.25 var(--sans); color: var(--ink); text-wrap: balance; }
+.lesson-state { display: inline-flex; align-items: center; gap: 4px; flex: none; }
+.lesson-state .ico { width: 13px; height: 13px; }
+.lesson-state.todo { background: var(--tray); color: var(--muted); }
+.lesson-d { margin: 0; color: var(--ink-2); line-height: 1.45; flex: 1; }
+.lesson-meta { margin: 0; font-size: .8rem; line-height: 1.35; }
+.lesson-keys { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+.lesson-keys .key.sm { padding-left: 9px; padding-right: 10px; gap: 5px; }
+.lesson-keys .ico, .learn-next .ico, #learnTour .ico, .tour-key .ico { width: 14px; height: 14px; }
+
+.learn-team, .learn-tips { margin-bottom: 16px; }
+.learn-marks { display: inline-flex; flex-wrap: wrap; gap: 4px; }
+.learn-mark { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; font-size: .85rem;
+  background: var(--tray); filter: grayscale(1); opacity: .45; }
+.learn-mark.on { filter: none; opacity: 1; background: rgba(var(--pri-rgb), .1); box-shadow: inset 0 0 0 1.5px rgba(var(--pri-rgb), .55); }
+.learn-tip-rooms { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 8px 14px; }
+.learn-tip-room summary { cursor: pointer; padding: 6px 4px; font-weight: 600; color: var(--ink); display: flex; align-items: center; gap: 6px; }
+.learn-tip-room ul { margin: 0 0 8px; padding-left: 1.2em; color: var(--ink-2); line-height: 1.45; }
+.learn-tip-room li + li { margin-top: 4px; }
+.learn-read p { line-height: 1.55; }
+
+/* the Show me key in a room's heading */
+.tour-key { color: var(--pri-text); }
+
+/* ---------- the tip at the foot of each room ---------- */
+.tip-strip { display: flex; align-items: center; gap: 10px; margin: 22px 0 6px; padding: 10px 12px 10px 14px; border-radius: 14px;
+  background: var(--surface); border: 1px solid var(--line); box-shadow: inset 3px 0 0 rgba(var(--pri-rgb), .55), var(--pill); }
+.tip-strip-emo { font-size: 1.1rem; flex: none; }
+.tip-strip-p { flex: 1; min-width: 0; margin: 0; color: var(--ink-2); line-height: 1.4; }
+.tip-strip-p b { color: var(--ink); font-weight: 600; }
+.tip-strip-keys { display: inline-flex; align-items: center; gap: 6px; flex: none; }
+@media (max-width: 560px) {
+  .tip-strip { flex-wrap: wrap; }
+  .tip-strip-keys { margin-left: auto; }
+}
+
+/* ---------- the guided tour ---------- */
+.tour-spot { position: fixed; z-index: 2700; pointer-events: none; border-radius: 12px;
+  box-shadow: 0 0 0 3px rgba(var(--pri-rgb), .8), 0 0 0 7px rgba(var(--pri-rgb), .18), 0 0 0 200vmax rgba(18, 18, 34, .36);
+  transition: left .32s var(--ease), top .32s var(--ease), width .32s var(--ease), height .32s var(--ease); }
+.tour-spot.none { box-shadow: 0 0 0 200vmax rgba(18, 18, 34, .36); }
+:root[data-theme="night"] .tour-spot { box-shadow: 0 0 0 3px rgba(var(--pri-rgb), .85), 0 0 0 7px rgba(var(--pri-rgb), .2), 0 0 0 200vmax rgba(4, 4, 10, .55); }
+:root[data-theme="night"] .tour-spot.none { box-shadow: 0 0 0 200vmax rgba(4, 4, 10, .55); }
+.tour-bubble { position: fixed; z-index: 2730; width: min(370px, calc(100vw - 24px)); padding: 12px 14px 12px; border-radius: 16px;
+  background: var(--surface); color: var(--ink); border: 1px solid rgba(var(--pri-rgb), .3);
+  box-shadow: 0 18px 44px rgba(20, 18, 50, .28), 0 2px 6px rgba(20, 18, 50, .12); transition: left .32s var(--ease), top .32s var(--ease); }
+.tour-top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.tour-step { flex: 1; min-width: 0; display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; font-size: .76rem; color: var(--muted); }
+.tour-step b { color: var(--pri-text); font-weight: 700; font-size: .8rem; }
+.tour-text { margin: 0 0 8px; font-size: .98rem; line-height: 1.45; color: var(--ink); }
+.tour-note, .tour-turn { display: flex; align-items: center; gap: 6px; margin: 0 0 8px; padding: 6px 10px; border-radius: 10px; font-size: .84rem; }
+.tour-note { background: var(--tray); color: var(--ink-2); }
+.tour-note .ico { width: 14px; height: 14px; flex: none; color: var(--pri-text); }
+.tour-turn { background: rgba(var(--pri-rgb), .08); color: var(--pri-text); font-weight: 600; }
+.tour-turn.ok { background: var(--ok-soft); color: var(--ok); }
+.tour-turn .ico { width: 15px; height: 15px; }
+.tour-keys { display: flex; align-items: center; gap: 8px; }
+.tour-keys .ico { width: 13px; height: 13px; }
+.tour-dots { flex: 1; display: flex; justify-content: center; gap: 4px; flex-wrap: wrap; }
+.tour-dots i { width: 6px; height: 6px; border-radius: 50%; background: rgba(var(--pri-rgb), .2); }
+.tour-dots i.past { background: rgba(var(--pri-rgb), .5); }
+.tour-dots i.on { background: var(--pri); transform: scale(1.3); }
+/* the pointer that does the work, and the ring of its press */
+.tour-hand { position: fixed; left: 0; top: 0; z-index: 2720; pointer-events: none; margin: -3px 0 0 -6px;
+  transition: transform .52s cubic-bezier(.3, .7, .2, 1); filter: drop-shadow(0 3px 5px rgba(20, 18, 50, .35)); }
+.tour-hand svg { display: block; }
+.tour-hand path { fill: #ffffff; stroke: var(--pri-lo); stroke-width: 1.4; stroke-linejoin: round; }
+.tour-hand.down svg { transform: scale(.86); transform-origin: 20% 10%; }
+.tour-ring { position: fixed; left: 0; top: 0; z-index: 2710; width: 40px; height: 40px; margin: -20px 0 0 -20px; pointer-events: none; }
+.tour-ring::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2.5px solid var(--pri); opacity: 0; }
+.tour-ring.go::after { animation: tourRing .6s ease-out; }
+@keyframes tourRing { from { opacity: .9; transform: scale(.35); } to { opacity: 0; transform: scale(1.45); } }
+.tour.still .tour-spot, .tour.still .tour-bubble, .tour.still .tour-hand { transition: none; }
+.tour.still .tour-ring { display: none; }
+:root[data-calm="1"] .tour-spot, :root[data-calm="1"] .tour-bubble, :root[data-calm="1"] .tour-hand { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .tour-spot, .tour-bubble, .tour-hand { transition: none; }
+  .tour-ring { display: none; }
+}
+@media (max-width: 599px) {
+  .tour-bubble { width: auto; }
+}
+
+/* ---------- the questions ---------- */
+.quiz-n { margin: 0 0 4px; }
+.quiz-q { margin: 0 0 12px; font: 600 1.08rem/1.35 var(--sans); color: var(--ink); text-wrap: balance; }
+.quiz-opts { display: flex; flex-direction: column; gap: 8px; }
+.quiz-opt { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 48px; padding: 8px 12px; border-radius: 14px; cursor: pointer; text-align: left;
+  background: var(--face); border: 1px solid var(--line); color: var(--ink); font: 500 .95rem/1.35 var(--sans); box-shadow: var(--pill);
+  transition: border-color .16s var(--ease), box-shadow .16s var(--ease), transform .16s var(--spring); }
+.quiz-opt:hover:not(:disabled) { border-color: rgba(var(--pri-rgb), .4); box-shadow: var(--pill-hi); transform: translateY(-1px); }
+.quiz-opt:focus-visible { outline: 2.5px solid var(--pri-ring); outline-offset: 2px; }
+.quiz-letter { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; flex: none; border-radius: 50%;
+  background: var(--tray); color: var(--muted); font: 700 .78rem/1 var(--sans); }
+.quiz-t { flex: 1; min-width: 0; }
+.quiz-mark { flex: none; display: inline-flex; }
+.quiz-mark .ico { width: 18px; height: 18px; }
+.quiz-opt.right { border-color: rgba(var(--pri-rgb), .6); background: var(--ok-soft); box-shadow: inset 0 0 0 1px rgba(var(--pri-rgb), .35); }
+.quiz-opt.right .quiz-letter { background: var(--pri); color: var(--on-pri); }
+.quiz-opt.right .quiz-mark { color: var(--ok); }
+.quiz-opt.wrong { border-color: rgba(168, 66, 61, .35); background: var(--danger-soft); color: var(--ink-2); }
+.quiz-opt.wrong .quiz-mark { color: var(--danger); }
+.quiz-opt:disabled { cursor: default; }
+.quiz-opt:disabled:not(.right):not(.wrong) { opacity: .55; }
+.quiz-why { min-height: 1.4em; margin: 12px 0 0; line-height: 1.45; color: var(--ink-2); }
+.quiz-why.ok { color: var(--ink); }
+.quiz-why.no { color: var(--danger); }
 
 /* LAKAY | the side rail (20-rail.js), as Ingenium has it: bare emoji keys down the right edge, a small key above them */
 .rail-btn { position: fixed; right: calc(16px + env(safe-area-inset-right, 0px)); z-index: 900; width: 46px; height: 46px; padding: 0; border: 0; border-radius: 50%;
@@ -2026,7 +2164,7 @@ tr.retired td { opacity: .58; }
 "use strict";
 
 var E = window.Emporium = window.Emporium || {};
-E.BUILD = { number: "16", date: "2026-11-14" };
+E.BUILD = { number: "17", date: "2026-11-14" };
 
 /* ---------- drawing: every piece of text goes in as text, never as markup ---------- */
 function $(sel, root) { return (root || document).querySelector(sel); }
@@ -2113,7 +2251,10 @@ var ICONS = {
   cloche: "M3 18.5h18M4.8 18.5a7.2 7.2 0 0 1 14.4 0M12 8.2V6.6M10.3 6.6h3.4",
   swap: "M4.5 8h14l-4-4M19.5 16h-14l4 4",
   camera: "M4 7.5h3.5L9 5h6l1.5 2.5H20V19H4zM12 10a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z",
-  barcode: "M4 5v14M7 5v14M9.5 5v14M13 5v14M15 5v14M18 5v14M20 5v14"
+  barcode: "M4 5v14M7 5v14M9.5 5v14M13 5v14M15 5v14M18 5v14M20 5v14",
+  /* learning (Build 17): a cap for the room, a play mark for Show me */
+  cap: "M2.5 9.5 12 5l9.5 4.5L12 14zM6.5 11.5v4.5c3 2.2 8 2.2 11 0v-4.5M21.5 9.5v5",
+  play: "M8 5.5v13l10.5-6.5z"
 };
 function icon(name, cls) {
   var ns = "http://www.w3.org/2000/svg", svg = document.createElementNS(ns, "svg");
@@ -3217,6 +3358,267 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
       "Peze Pran peman (oswa F9). Lajan kach chwazi anvan: tape sa kliyan an bay, epi Lakay montre monnen an.\nPou yon kat, Apple Pay oswa Google Pay, chwazi l. Lakay montre montan pou chaje a. Chaje l sou machin kat ou, tape kòd apwobasyon an si Paramèt yo mande l, epi fini vant lan. Lakay pa janm manyen kat la, ni pran nimewo yon kat.\nPou peye an plizyè pati, pran yon pati (kèk lajan kach, oswa yon kat pou yon pati nan total la) epi peze Pran pati sa a, epi rès la. Lakay montre sa ki rete, epi ou pran l yon lòt fason.\nResi a bay chak peman, epi Rapò yo montre kijan jounen an te peye. Mèt la chwazi fason magazen an pran lajan, epi li bay machin kat la non l, nan Paramèt, Peman."],
     ["guide.pay.tip", "Set the ways your store takes, and your card machine's name, in Settings, Payments.", "Réglez les moyens acceptés, et le nom de votre terminal, dans Réglages, Paiements.", "Regle fason magazen an pran lajan, ak non machin kat ou, nan Paramèt, Peman."]
   );
+  /* Learning (Build 17): the lessons, the guided tour, the questions and the tips. The Kreyòl is marked for review by a native speaker. */
+  add(
+    ["room.learn", "Learning", "Formation", "Fòmasyon"],
+    ["lede.learn", "Short lessons for everyone who works here. Each one shows you a room, does the work in front of you, and ends with two questions.", "De courtes leçons pour tous ceux qui travaillent ici. Chacune vous montre une pièce, fait le travail devant vous, et se termine par deux questions.", "Ti leson kout pou tout moun k ap travay isit la. Chak leson montre w yon pyès, li fè travay la devan w, epi li fini ak de kesyon."],
+    ["tip.learn.t", "How the lessons work", "Comment fonctionnent les leçons", "Kijan leson yo mache"],
+    ["tip.learn.b", "Show me starts a lesson's tour. Lakay lights one part of the room at a time and says what it is for. In some steps, it does the work itself, as a person would. Read opens the lesson's chapter of the Guidebook. Questions ends the lesson: once both are answered, the lesson is marked done in the books. In the store itself, a tour stops before anything would be written in the books. In the practice store, it finishes each sale, so you see all of it.", "Montrez-moi lance la visite d'une leçon. Lakay éclaire une partie de la pièce à la fois et dit à quoi elle sert. À certaines étapes, il fait le travail lui-même, comme le ferait une personne. Lire ouvre le chapitre du Guide qui va avec la leçon. Questions termine la leçon : une fois les deux réponses données, la leçon est marquée terminée dans les livres. Dans le magasin lui-même, une visite s'arrête avant que rien ne soit écrit dans les livres. Dans le magasin d'essai, elle termine chaque vente, pour que vous voyiez tout.", "Montre m kòmanse vizit yon leson. Lakay limen yon pati nan pyès la alafwa epi li di sa l sèvi. Nan kèk etap, li fè travay la limenm, jan yon moun ta fè l. Li louvri chapit Gid la ki ale ak leson an. Kesyon fini leson an: lè w reponn tou de, leson an make fini nan liv yo. Nan vrè magazen an, yon vizit kanpe anvan anyen ekri nan liv yo. Nan magazen pou pratike a, li fini chak vant, pou w ka wè tout bagay."],
+    ["learn.tour", "Take the tour", "Faire la visite", "Fè vizit la"],
+    ["learn.mineH", "Your lessons", "Vos leçons", "Leson ou yo"],
+    ["learn.progress", "{n} of {m} done", "{n} sur {m} terminées", "{n} sou {m} fini"],
+    ["learn.allDone", "You have finished every lesson.", "Vous avez terminé toutes les leçons.", "Ou fini tout leson yo."],
+    ["learn.next", "Next: {name}", "Ensuite : {name}", "Apre sa: {name}"],
+    ["learn.start", "Start", "Commencer", "Kòmanse"],
+    ["learn.showMe", "Show me", "Montrez-moi", "Montre m"],
+    ["learn.showMeTip", "A guided tour of this room, with the work done in front of you", "Une visite guidée de cette pièce, avec le travail fait devant vous", "Yon vizit gide nan pyès sa a, ak travay la ki fèt devan w"],
+    ["learn.read", "Read", "Lire", "Li"],
+    ["learn.quiz", "Questions", "Questions", "Kesyon"],
+    ["learn.done", "Done", "Terminée", "Fini"],
+    ["learn.todo", "To do", "À faire", "Pou fè"],
+    ["learn.doneOn", "Done on {d}: {s} of {o} right the first time.", "Terminée le {d} : {s} sur {o} justes du premier coup.", "Fini {d}: {s} sou {o} bon premye fwa a."],
+    ["learn.min", "About {n} minutes", "Environ {n} minutes", "Anviwon {n} minit"],
+    ["learn.for.all", "For everyone", "Pour tous", "Pou tout moun"],
+    ["learn.for.sell", "For those who sell", "Pour ceux qui vendent", "Pou moun ki vann"],
+    ["learn.for.receive", "For those who receive deliveries", "Pour ceux qui reçoivent les livraisons", "Pou moun ki resevwa livrezon"],
+    ["learn.for.reports", "For those who read the reports", "Pour ceux qui lisent les rapports", "Pou moun ki li rapò yo"],
+    ["learn.for.owner", "For the owner", "Pour le propriétaire", "Pou mèt la"],
+    ["learn.realNote", "In the store itself, a lesson stops before anything would be written in the books, and puts back what it moved.", "Dans le magasin lui-même, une leçon s'arrête avant que rien ne soit écrit dans les livres, et remet en place ce qu'elle a déplacé.", "Nan vrè magazen an, yon leson kanpe anvan anyen ekri nan liv yo, epi li remete sa l te deplase."],
+    ["learn.practiceNote", "This is the practice store: the lessons finish each sale, delivery and transfer here, and nothing is real.", "Vous êtes dans le magasin d'essai : ici, les leçons terminent chaque vente, livraison et transfert, et rien n'est réel.", "Sa a se magazen pou pratike a: isit la, leson yo fini chak vant, livrezon ak transfè, epi anyen pa vre."],
+    ["learn.teamH", "The team's lessons", "Les leçons de l'équipe", "Leson ekip la"],
+    ["learn.teamP", "Who has finished which lesson. A mark is kept in the books when a person answers a lesson's questions.", "Qui a terminé quelle leçon. Une marque est gardée dans les livres quand une personne répond aux questions d'une leçon.", "Ki moun ki fini ki leson. Yon mak rete nan liv yo lè yon moun reponn kesyon yon leson."],
+    ["learn.colDone", "Lessons done", "Leçons terminées", "Leson ki fini"],
+    ["learn.colLast", "Last finished", "Dernière terminée", "Dènye ki fini"],
+    ["learn.colMarks", "Each lesson", "Chaque leçon", "Chak leson"],
+    ["learn.never", "None yet", "Aucune encore", "Poko genyen"],
+    ["learn.markDone", "{name}: done", "{name} : terminée", "{name}: fini"],
+    ["learn.markTodo", "{name}: to do", "{name} : à faire", "{name}: pou fè"],
+    ["learn.tipH", "Did you know?", "Le saviez-vous ?", "Èske w te konnen?"],
+    ["learn.another", "Another tip", "Un autre conseil", "Yon lòt konsèy"],
+    ["learn.hideTips", "Hide the tips", "Masquer les conseils", "Kache konsèy yo"],
+    ["learn.tipsHidden", "The tips are hidden. Turn them on again in Display.", "Les conseils sont masqués. Réactivez-les dans Affichage.", "Konsèy yo kache. Limen yo ankò nan Afichaj."],
+    ["learn.allTipsH", "Every tip, room by room", "Tous les conseils, pièce par pièce", "Tout konsèy yo, pyès pa pyès"],
+    ["disp.tips", "Tips in each room", "Conseils dans chaque pièce", "Konsèy nan chak pyès"],
+    ["learn.homeLeft", "Your lessons: {n} to go", "Vos leçons : encore {n}", "Leson ou yo: {n} ki rete"],
+    ["learn.homeLeft1", "Your lessons: 1 to go", "Vos leçons : encore 1", "Leson ou yo: 1 ki rete"],
+    ["learn.homeLeftSub", "Short lessons that show you each room.", "De courtes leçons qui vous montrent chaque pièce.", "Ti leson kout ki montre w chak pyès."],
+    ["km.lessons", "{n} of {m} lessons done", "{n} leçons sur {m} terminées", "{n} leson sou {m} fini"],
+    ["learn.welcome.t", "Welcome to Lakay", "Bienvenue dans Lakay", "Byenvini nan Lakay"],
+    ["learn.welcome.d", "The rooms, the keys at the top and on the right edge, and where to find help.", "Les pièces, les touches en haut et sur le bord droit, et où trouver de l'aide.", "Pyès yo, bouton ki anwo yo ak sa ki sou bò dwat la, epi kote pou w jwenn èd."],
+    ["learn.clock.t", "Your hours", "Vos heures", "Lè travay ou"],
+    ["learn.clock.d", "Clock in, take a break, clock out, and see your week.", "Pointer l'arrivée, prendre une pause, pointer le départ, et voir votre semaine.", "Antre nan sèvis, pran yon poz, soti nan sèvis, epi wè semèn ou."],
+    ["learn.sale.t", "Making a sale", "Faire une vente", "Fè yon vant"],
+    ["learn.sale.d", "Find an item, add it to the sale, change how many, and take cash.", "Trouver un article, l'ajouter à la vente, changer la quantité, et encaisser des espèces.", "Jwenn yon atik, ajoute l nan vant lan, chanje kantite a, epi resevwa lajan kach."],
+    ["learn.pay.t", "Cards, phones and payments in parts", "Cartes, téléphones et paiements en plusieurs fois", "Kat, telefòn ak peman an plizyè pati"],
+    ["learn.pay.d", "Take a card, Apple Pay or Google Pay through the store's card machine, and split a payment.", "Encaisser une carte, Apple Pay ou Google Pay avec le terminal du magasin, et partager un paiement.", "Pran yon kat, Apple Pay oswa Google Pay ak machin kat magazen an, epi separe yon peman."],
+    ["learn.svc.t", "Money transfers and top-ups", "Transferts d'argent et recharges", "Transfè lajan ak rechaj"],
+    ["learn.svc.d", "Record a transfer or a top-up once it is done on the provider's own system.", "Noter un transfert ou une recharge une fois fait sur le système du fournisseur.", "Anrejistre yon transfè oswa yon rechaj lè l fin fèt sou sistèm konpayi a."],
+    ["learn.stock.t", "Deliveries and finding stock", "Livraisons et recherche du stock", "Livrezon ak jwenn stòk"],
+    ["learn.stock.d", "Move between departments, search or scan, and receive a delivery.", "Passer d'un rayon à l'autre, chercher ou scanner, et recevoir une livraison.", "Pase de yon depatman a yon lòt, chèche oswa eskane, epi resevwa yon livrezon."],
+    ["learn.reports.t", "Reading the reports", "Lire les rapports", "Li rapò yo"],
+    ["learn.reports.d", "Choose a period, read the figures, see how it was paid, and save a spreadsheet.", "Choisir une période, lire les chiffres, voir comment c'était payé, et enregistrer un tableur.", "Chwazi yon peryòd, li chif yo, wè kijan yo te peye, epi anrejistre yon tablo."],
+    ["learn.safe.t", "Keeping the books safe", "Garder les livres en sûreté", "Kenbe liv yo an sekirite"],
+    ["learn.safe.d", "Backups, verifying the books, the lock, and each person's own access.", "Les sauvegardes, la vérification des livres, le verrouillage, et l'accès de chaque personne.", "Kopi sekirite, verifye liv yo, fèmen aplikasyon an, ak aksè chak moun."],
+    ["tour.step", "Step {n} of {m}", "Étape {n} sur {m}", "Etap {n} sou {m}"],
+    ["tour.finish", "Finish", "Terminer", "Fini"],
+    ["tour.close", "Close the tour", "Fermer la visite", "Fèmen vizit la"],
+    ["tour.watch", "Watch…", "Regardez…", "Gade…"],
+    ["tour.realNote", "Here the lesson stops, so nothing is written in the books.", "Ici, la leçon s'arrête : rien n'est écrit dans les livres.", "Isit la, leson an kanpe: anyen pa ekri nan liv yo."],
+    ["tour.yourTurn", "Your turn.", "À vous.", "Se tou pa w."],
+    ["tour.turnDone", "Well done.", "Bien joué.", "Byen fè."],
+    ["tour.skip", "Skip", "Passer", "Sote"],
+    ["tour.endT", "Tour finished", "Visite terminée", "Vizit la fini"],
+    ["tour.endP", "That was the tour of {name}. Answer two short questions to finish the lesson.", "C'était la visite « {name} ». Répondez à deux courtes questions pour terminer la leçon.", "Sa se te vizit «{name}». Reponn de ti kesyon pou fini leson an."],
+    ["tour.toQuiz", "Answer the questions", "Répondre aux questions", "Reponn kesyon yo"],
+    ["tour.later", "Later", "Plus tard", "Pita"],
+    ["quiz.title", "Questions: {name}", "Questions : {name}", "Kesyon: {name}"],
+    ["quiz.qn", "Question {n} of {m}", "Question {n} sur {m}", "Kesyon {n} sou {m}"],
+    ["quiz.right", "Right.", "Juste.", "Se sa."],
+    ["quiz.wrong", "Not quite. Try again.", "Pas tout à fait. Essayez encore.", "Pa egzakteman. Eseye ankò."],
+    ["quiz.next", "Next question", "Question suivante", "Pwochen kesyon"],
+    ["quiz.finish", "Finish the lesson", "Terminer la leçon", "Fini leson an"],
+    ["quiz.saved", "Lesson finished: {name}. {s} of {o} right the first time.", "Leçon terminée : {name}. {s} sur {o} justes du premier coup.", "Leson fini: {name}. {s} sou {o} bon premye fwa a."],
+    ["guide.learn.t", "Learning: lessons and the guided tour", "Formation : leçons et visite guidée", "Fòmasyon: leson ak vizit gide"],
+    ["guide.learn.b", "Learning, in the menu, has a short lesson for each part of the work: the welcome, your hours, a sale, cards and payments in parts, money transfers, deliveries, the reports, and keeping the books safe. Each person sees the lessons their access opens.\nShow me starts a lesson's tour. Lakay lights one part of the room at a time and says what it is for. In some steps, a pointer moves to a key and presses it, or types, as a person would. Next goes on, Back goes over a step again, and Escape stops the tour. In some steps it is your turn: do what the tour asks, and it says when it is done.\nIn the store itself, a tour stops before anything would be written in the books, and closes what it opened. A sale in progress at the Register is put back as it was. In the practice store, a tour finishes each sale, delivery and transfer, so that you see all of it.\nQuestions ends a lesson: two short questions. Once both are answered, the lesson is marked done in the books, with how many were right the first time. The owner, and those with the team access, see each person's lessons in Learning.\nA tip sits at the foot of each room. Another tip shows the next one. The cross hides the tips, and Display turns them on again.", "Formation, dans le menu, propose une courte leçon pour chaque partie du travail : l'accueil, vos heures, une vente, les cartes et les paiements en plusieurs fois, les transferts d'argent, les livraisons, les rapports, et la sûreté des livres. Chaque personne voit les leçons que son accès ouvre.\nMontrez-moi lance la visite d'une leçon. Lakay éclaire une partie de la pièce à la fois et dit à quoi elle sert. À certaines étapes, un pointeur va vers une touche et appuie dessus, ou tape, comme le ferait une personne. Suivant continue, Retour revient sur une étape, et Échap arrête la visite. À certaines étapes, c'est à vous : faites ce que la visite demande, et elle vous dit quand c'est fait.\nDans le magasin lui-même, une visite s'arrête avant que rien ne soit écrit dans les livres, et ferme ce qu'elle a ouvert. Une vente en cours à la Caisse est remise comme elle était. Dans le magasin d'essai, une visite termine chaque vente, livraison et transfert, pour que vous voyiez tout.\nQuestions termine une leçon : deux courtes questions. Une fois les deux réponses données, la leçon est marquée terminée dans les livres, avec le nombre de réponses justes du premier coup. Le propriétaire, et ceux qui ont l'accès équipe, voient les leçons de chacun dans Formation.\nUn conseil se trouve au pied de chaque pièce. Un autre conseil montre le suivant. La croix masque les conseils, et Affichage les remet.", "Fòmasyon, nan meni an, gen yon ti leson pou chak pati nan travay la: akèy la, lè w yo, yon vant, kat ak peman an plizyè pati, transfè lajan, livrezon, rapò yo, ak kenbe liv yo an sekirite. Chak moun wè leson aksè yo louvri.\nMontre m kòmanse vizit yon leson. Lakay limen yon pati nan pyès la alafwa epi li di sa l sèvi. Nan kèk etap, yon flèch ale sou yon bouton epi li peze l, oswa li tape, jan yon moun ta fè l. Kontinye fè w avanse, Retounen fè w tounen sou yon etap, epi Escape kanpe vizit la. Nan kèk etap, se tou pa w: fè sa vizit la mande, epi l ap di w lè l fèt.\nNan vrè magazen an, yon vizit kanpe anvan anyen ekri nan liv yo, epi li fèmen sa l te louvri. Yon vant k ap fèt nan Kès la remete jan l te ye a. Nan magazen pou pratike a, yon vizit fini chak vant, livrezon ak transfè, pou w ka wè tout.\nKesyon fini yon leson: de ti kesyon. Lè w reponn tou de, leson an make fini nan liv yo, ak konbyen ki te bon premye fwa a. Mèt la, ak moun ki gen aksè ekip la, wè leson chak moun nan Fòmasyon.\nGen yon konsèy anba chak pyès. Yon lòt konsèy montre pwochen an. Kwa a kache konsèy yo, epi Afichaj limen yo ankò."],
+    ["guide.learn.tip", "A new person can try each lesson in the practice store first, then take it in the store itself, where the mark is kept for the owner.", "Une nouvelle personne peut d'abord essayer chaque leçon dans le magasin d'essai, puis la faire dans le magasin lui-même, où la marque est gardée pour le propriétaire.", "Yon nouvo moun ka eseye chak leson nan magazen pou pratike a anvan, epi apre sa fè l nan vrè magazen an, kote mak la rete pou mèt la."],
+    ["tour.welcome.1", "Welcome to Lakay. This short tour shows you around. Press Next to go on, or Escape to stop at any time.", "Bienvenue dans Lakay. Cette courte visite vous fait faire le tour. Appuyez sur Suivant pour continuer, ou sur Échap pour arrêter à tout moment.", "Byenvini nan Lakay. Ti vizit sa a ap fè w fè wonn nan. Peze Kontinye pou w avanse, oswa Escape pou w kanpe nenpòt lè."],
+    ["tour.welcome.2", "The menu opens each room. You see the rooms your access opens.", "Le menu ouvre chaque pièce. Vous voyez les pièces que votre accès ouvre.", "Meni an louvri chak pyès. Ou wè pyès aksè w la louvri yo."],
+    ["tour.welcome.3", "The key with your name: your hours, your breaks, and signing out.", "La touche à votre nom : vos heures, vos pauses, et la déconnexion.", "Bouton ki gen non w lan: lè w yo, poz ou yo, ak dekonekte."],
+    ["tour.welcome.4", "Alerts: what runs low, and your reminders. A dot shows when something waits.", "Alertes : ce qui s'épuise, et vos rappels. Un point s'affiche quand quelque chose attend.", "Alèt: sa k ap fini, ak rapèl ou yo. Yon ti pwen parèt lè gen yon bagay k ap tann."],
+    ["tour.welcome.5", "The keys on the right edge are on every page: your notes, a new sale, and Price check. Watch: Price check finds any item.", "Les touches du bord droit sont sur chaque page : vos notes, une nouvelle vente, et Vérifier un prix. Regardez : Vérifier un prix trouve n'importe quel article.", "Bouton ki sou bò dwat yo nan chak paj: nòt ou yo, yon nouvo vant, ak Tcheke yon pri. Gade: Tcheke yon pri jwenn nenpòt atik."],
+    ["tour.welcome.6", "This key changes the language: English, French or Kreyòl.", "Cette touche change la langue : anglais, français ou kreyòl.", "Bouton sa a chanje lang lan: angle, franse oswa kreyòl."],
+    ["tour.welcome.7", "Display: day or night, larger letters, sound, calmer motion, and these tips.", "Affichage : jour ou nuit, lettres plus grandes, son, mouvements plus calmes, et ces conseils.", "Afichaj: lajounen oswa lannwit, lèt pi gwo, son, mouvman pi kalm, ak konsèy sa yo."],
+    ["tour.welcome.8", "The Home lists what needs you now, each with its key.", "L'Accueil montre ce qui vous attend, chaque fois avec sa touche.", "Akèy la montre sa k bezwen w kounye a, chak ak bouton pa l."],
+    ["tour.welcome.9", "Your lessons are in Learning. Press it to open it.", "Vos leçons sont dans Formation. Appuyez dessus pour l'ouvrir.", "Leson ou yo nan Fòmasyon. Peze l pou w louvri l."],
+    ["tour.clock.1", "Your hours start from the key with your name. Watch.", "Vos heures commencent à la touche à votre nom. Regardez.", "Lè w yo kòmanse nan bouton ki gen non w lan. Gade."],
+    ["tour.clock.2", "Clock in when you start. Start a break here, and end it here when you come back.", "Pointez l'arrivée en commençant. Commencez une pause ici, et terminez-la ici à votre retour.", "Antre nan sèvis lè w kòmanse. Kòmanse yon poz isit la, epi fini l isit la lè w tounen."],
+    ["tour.clock.3", "At the end of the day, Clock out and sign out does both at once.", "En fin de journée, Pointer le départ et se déconnecter fait les deux d'un coup.", "Nan fen jounen an, Soti nan sèvis epi dekonekte fè tou de an menm tan."],
+    ["tour.clock.4", "Team shows your shifts: when you came, your breaks, and when you left.", "Équipe montre vos services : votre arrivée, vos pauses, et votre départ.", "Ekip montre sèvis ou yo: lè w rive, poz ou yo, ak lè w ale."],
+    ["tour.clock.5", "Choose this week, last week, or the week before.", "Choisissez cette semaine, la semaine dernière, ou celle d'avant.", "Chwazi semèn sa a, semèn pase, oswa semèn anvan an."],
+    ["tour.sale.1", "Find an item by its name, its code or its barcode. A scanner types the barcode here by itself.", "Trouvez un article par son nom, son code ou son code-barres. Un scanner tape le code-barres ici tout seul.", "Jwenn yon atik ak non li, kòd li oswa kòd ba li. Yon eskanè tape kòd ba a isit la poukont li."],
+    ["tour.sale.2", "Press the item to add it to the sale.", "Appuyez sur l'article pour l'ajouter à la vente.", "Peze atik la pou w ajoute l nan vant lan."],
+    ["tour.sale.3", "Change how many with these keys, or type the number.", "Changez la quantité avec ces touches, ou tapez le nombre.", "Chanje kantite a ak bouton sa yo, oswa tape kantite a."],
+    ["tour.sale.4", "The total adds the tax for you.", "Le total ajoute la taxe pour vous.", "Total la ajoute taks la pou ou."],
+    ["tour.sale.5", "Take payment opens the payment window. F9 does the same.", "Encaisser ouvre la fenêtre de paiement. F9 fait de même.", "Pran peman louvri fenèt peman an. F9 fè menm bagay la."],
+    ["tour.sale.6", "Cash comes first. Press the amount the customer gives, or type it.", "Les espèces viennent d'abord. Appuyez sur le montant que donne le client, ou tapez-le.", "Lajan kach vini anvan. Peze montan kliyan an bay la, oswa tape l."],
+    ["tour.sale.7", "Lakay shows the change to give back.", "Lakay affiche la monnaie à rendre.", "Lakay montre monnen pou w remèt la."],
+    ["tour.sale.8", "Complete the sale. The receipt appears, ready to print.", "Terminer la vente. Le reçu s'affiche, prêt à imprimer.", "Fini vant lan. Resi a parèt, pare pou enprime."],
+    ["tour.sale.8r", "Complete the sale would finish it now, and the receipt would appear.", "Terminer la vente la finirait maintenant, et le reçu s'afficherait.", "Fini vant lan ta fini l kounye a, epi resi a ta parèt."],
+    ["tour.sale.9", "The receipt shows each item, the tax, the payment and the change.", "Le reçu montre chaque article, la taxe, le paiement et la monnaie.", "Resi a montre chak atik, taks la, peman an ak monnen an."],
+    ["tour.sale.10", "Add any item to the sale, by its name or with the scanner.", "Ajoutez n'importe quel article à la vente, par son nom ou avec le scanner.", "Ajoute nenpòt atik nan vant lan, ak non li oswa ak eskanè a."],
+    ["tour.pay.1", "The lesson added two of one item to the sale. Take payment opens the payment window.", "La leçon a ajouté deux fois le même article à la vente. Encaisser ouvre la fenêtre de paiement.", "Leson an ajoute de nan menm atik la nan vant lan. Pran peman louvri fenèt peman an."],
+    ["tour.pay.1n", "Once an item is in the sale, Take payment opens the payment window.", "Dès qu'un article est dans la vente, Encaisser ouvre la fenêtre de paiement.", "Depi gen yon atik nan vant lan, Pran peman louvri fenèt peman an."],
+    ["tour.pay.2", "Choose how the customer pays: cash, a card, Apple Pay, Google Pay, or another way the store takes.", "Choisissez comment le client paie : espèces, carte, Apple Pay, Google Pay, ou un autre moyen que le magasin accepte.", "Chwazi kijan kliyan an peye: lajan kach, kat, Apple Pay, Google Pay, oswa yon lòt fason magazen an aksepte."],
+    ["tour.pay.3", "Lakay says how much to charge. Charge it on the store's card machine, as always.", "Lakay indique combien encaisser. Encaissez-le sur le terminal du magasin, comme toujours.", "Lakay di konbyen pou w chaje. Chaje l sou machin kat magazen an, jan w toujou fè l."],
+    ["tour.pay.4", "Type the approval code from the machine's slip. Never a card's number: Lakay refuses it.", "Tapez le code d'autorisation du ticket du terminal. Jamais le numéro d'une carte : Lakay le refuse.", "Tape kòd apwobasyon ki sou ti papye machin nan. Janm nimewo yon kat: Lakay refize l."],
+    ["tour.pay.5", "To pay in parts, type the first part here.", "Pour payer en plusieurs fois, tapez la première partie ici.", "Pou peye an plizyè pati, tape premye pati a isit la."],
+    ["tour.pay.6", "Take this part, then the rest: the card part is kept, and the window asks for what is left.", "Prendre cette partie, puis le reste : la partie par carte est gardée, et la fenêtre demande ce qui reste.", "Pran pati sa a, epi rès la: pati kat la rete, epi fenèt la mande sa ki rete."],
+    ["tour.pay.7", "Each part taken stays in this list, and Lakay shows what is left to pay.", "Chaque partie prise reste dans cette liste, et Lakay montre ce qui reste à payer.", "Chak pati ou pran rete nan lis sa a, epi Lakay montre sa ki rete pou peye."],
+    ["tour.pay.8", "The rest in cash: Exact, or the amount the customer gives.", "Le reste en espèces : Exact, ou le montant que donne le client.", "Rès la an kach: Egzak, oswa montan kliyan an bay."],
+    ["tour.pay.9", "Complete the sale: one sale, paid in two parts.", "Terminer la vente : une seule vente, payée en deux fois.", "Fini vant lan: yon sèl vant, peye an de pati."],
+    ["tour.pay.9r", "Complete the sale would finish it now: one sale, paid in two parts.", "Terminer la vente la finirait maintenant : une seule vente, payée en deux fois.", "Fini vant lan ta fini l kounye a: yon sèl vant, peye an de pati."],
+    ["tour.pay.10", "The receipt lists each part, with the approval code under the card.", "Le reçu montre chaque partie, avec le code d'autorisation sous la carte.", "Resi a montre chak pati, ak kòd apwobasyon an anba kat la."],
+    ["tour.pay.11", "Open the payment window, with Take payment or F9.", "Ouvrez la fenêtre de paiement, avec Encaisser ou F9.", "Louvri fenèt peman an, ak Pran peman oswa F9."],
+    ["tour.svc.1", "Money transfers and top-ups have their own page in Inventory.", "Les transferts d'argent et les recharges ont leur propre page dans l'Inventaire.", "Transfè lajan ak rechaj gen pwòp paj pa yo nan Envantè."],
+    ["tour.svc.2", "Record one here, once it is done on the provider's own system.", "Notez-en un ici, une fois qu'il est fait sur le système du fournisseur.", "Anrejistre youn isit la, lè l fin fèt sou sistèm konpayi a."],
+    ["tour.svc.3", "Choose the provider.", "Choisissez le fournisseur.", "Chwazi konpayi a."],
+    ["tour.svc.4", "Then what it was: a transfer sent, a transfer paid out, or a phone top-up.", "Puis ce que c'était : un transfert envoyé, un transfert remis, ou une recharge de téléphone.", "Epi sa l te ye: yon transfè voye, yon transfè remèt, oswa yon rechaj telefòn."],
+    ["tour.svc.5", "The amount, then the fee the customer paid.", "Le montant, puis les frais payés par le client.", "Montan an, epi frè kliyan an peye a."],
+    ["tour.svc.6", "The reference from the provider's receipt. Lakay asks for no name and no ID.", "La référence du reçu du fournisseur. Lakay ne demande ni nom ni pièce d'identité.", "Referans ki sou resi konpayi a. Lakay pa mande ni non ni papye idantite."],
+    ["tour.svc.7", "Record it: it joins the day's transfers.", "Notez-le : il rejoint les transferts du jour.", "Anrejistre l: li ale ak transfè jounen an."],
+    ["tour.svc.7r", "Record would add it to the day's transfers.", "Noter l'ajouterait aux transferts du jour.", "Anrejistre ta mete l ak transfè jounen an."],
+    ["tour.svc.8", "The transfers add up here: the cash in, the cash out, and the fees.", "Les transferts s'additionnent ici : l'argent reçu, l'argent remis, et les frais.", "Transfè yo adisyone isit la: lajan ki antre, lajan ki soti, ak frè yo."],
+    ["tour.stock.1", "Each department has its own page, with its number of items. The arrow keys move between them.", "Chaque rayon a sa page, avec son nombre d'articles. Les flèches passent de l'un à l'autre.", "Chak depatman gen paj pa l, ak kantite atik li. Flèch yo fè w pase de youn a lòt."],
+    ["tour.stock.2", "Press a department to open it.", "Appuyez sur un rayon pour l'ouvrir.", "Peze yon depatman pou w louvri l."],
+    ["tour.stock.3", "Search by name or barcode, or scan.", "Cherchez par nom ou code-barres, ou scannez.", "Chèche ak non oswa kòd ba, oswa eskane."],
+    ["tour.stock.4", "Each item shows its price and its stock. A colour marks what runs low.", "Chaque article montre son prix et son stock. Une couleur signale ce qui s'épuise.", "Chak atik montre pri li ak stòk li. Yon koulè make sa k ap fini."],
+    ["tour.stock.5", "A delivery? Press Receive a delivery, then the item that came.", "Une livraison ? Appuyez sur Recevoir une livraison, puis sur l'article arrivé.", "Yon livrezon? Peze Resevwa yon livrezon, epi atik ki rive a."],
+    ["tour.stock.6", "Choose the item that came.", "Choisissez l'article arrivé.", "Chwazi atik ki rive a."],
+    ["tour.stock.7", "Type how many came. With the cost of each one, Lakay keeps the average cost.", "Tapez combien sont arrivés. Avec le coût de chacun, Lakay tient le coût moyen.", "Tape konbyen ki rive. Ak pri chak grenn, Lakay kenbe pri mwayen an."],
+    ["tour.stock.8", "Receive: the stock rises, and the books show who received it.", "Recevoir : le stock monte, et les livres montrent qui l'a reçu.", "Resevwa: stòk la monte, epi liv yo montre ki moun ki resevwa l."],
+    ["tour.stock.8r", "Receive would add the stock, and the books would show who received it.", "Recevoir ajouterait le stock, et les livres montreraient qui l'a reçu.", "Resevwa ta ajoute stòk la, epi liv yo ta montre ki moun ki resevwa l."],
+    ["tour.reports.1", "Choose the period: part of today, a day, a week, a month or a year, or your own dates.", "Choisissez la période : une partie d'aujourd'hui, un jour, une semaine, un mois ou une année, ou vos propres dates.", "Chwazi peryòd la: yon pati nan jodi a, yon jou, yon semèn, yon mwa oswa yon ane, oswa pwòp dat ou."],
+    ["tour.reports.2", "The sales, the items, the tax, the total taken, and the profit for those who see costs.", "Les ventes, les articles, la taxe, le total encaissé, et le bénéfice pour ceux qui voient les coûts.", "Vant yo, atik yo, taks la, total lajan ki antre, ak benefis la pou moun ki wè pri yo."],
+    ["tour.reports.3", "How it was paid: cash, cards and phones, and the cash that stayed in the drawer.", "Comment c'était payé : espèces, cartes et téléphones, et l'argent resté dans la caisse.", "Kijan yo te peye: lajan kach, kat ak telefòn, ak lajan ki rete nan kès la."],
+    ["tour.reports.4", "Money transfers and top-ups, apart from the sales.", "Les transferts d'argent et les recharges, à part des ventes.", "Transfè lajan ak rechaj, apa vant yo."],
+    ["tour.reports.5", "One person's sales, or everyone's.", "Les ventes d'une personne, ou de tous.", "Vant yon moun, oswa vant tout moun."],
+    ["tour.reports.6", "Save the receipts as a spreadsheet, for the accountant.", "Enregistrez les reçus en tableur, pour le comptable.", "Anrejistre resi yo kòm yon tablo, pou kontab la."],
+    ["tour.reports.7", "Choose Last week.", "Choisissez Semaine dernière.", "Chwazi Semèn pase."],
+    ["tour.safe.1", "A backup keeps all the books in one sealed file. It opens only with the password or the Master Key. Save one each week, on a USB key, and keep another copy outside the store.", "Une sauvegarde garde tous les livres dans un seul fichier scellé. Elle ne s'ouvre qu'avec le mot de passe ou la Clé maîtresse. Faites-en une chaque semaine, sur une clé USB, et gardez une autre copie hors du magasin.", "Yon kopi sekirite kenbe tout liv yo nan yon sèl dosye sele. Se sèlman modpas la oswa Kle Mèt la ki louvri l. Fè youn chak semèn, sou yon kle USB, epi kenbe yon lòt kopi andeyò magazen an."],
+    ["tour.safe.2", "This key saves one now.", "Cette touche en fait une maintenant.", "Bouton sa a fè youn kounye a."],
+    ["tour.safe.3", "Verify the books reads every line and checks each fingerprint.", "Vérifier les livres lit chaque ligne et contrôle chaque empreinte.", "Verifye liv yo li chak liy epi tcheke chak anprent."],
+    ["tour.safe.4", "Security: your password and the Master Key. Keep the Master Key on paper, somewhere safe: it opens the books if the password is lost.", "Sécurité : votre mot de passe et la Clé maîtresse. Gardez la Clé maîtresse sur papier, en lieu sûr : elle ouvre les livres si le mot de passe est perdu.", "Sekirite: modpas ou ak Kle Mèt la. Kenbe Kle Mèt la sou papye, yon kote ki an sekirite: li louvri liv yo si modpas la pèdi."],
+    ["tour.safe.5", "Lakay locks by itself after this long without use, so a counter left alone stays closed.", "Lakay se verrouille seul après cette durée sans usage : un comptoir laissé seul reste fermé.", "Lakay fèmen poukont li apre tan sa a san itilizasyon, konsa yon kontwa ki rete san moun rete fèmen."],
+    ["tour.safe.6", "Give each person their own password, and only the access their work needs.", "Donnez à chaque personne son propre mot de passe, et seulement l'accès dont son travail a besoin.", "Bay chak moun pwòp modpas pa l, ak sèlman aksè travay li bezwen."],
+    ["quiz.welcome.1.q", "Where do you sign out at the end of your day?", "Où vous déconnectez-vous à la fin de la journée ?", "Ki kote ou dekonekte nan fen jounen an?"],
+    ["quiz.welcome.1.a", "The key with your name, at the top.", "La touche à votre nom, en haut.", "Bouton ki gen non w lan, anwo a."],
+    ["quiz.welcome.1.b", "The Guidebook.", "Le Guide.", "Gid la."],
+    ["quiz.welcome.1.c", "Inventory.", "L'Inventaire.", "Envantè a."],
+    ["quiz.welcome.1.why", "The key with your name shows your hours, and signs you out at the end of the day.", "La touche à votre nom montre vos heures, et vous déconnecte en fin de journée.", "Bouton ki gen non w lan montre lè w yo, epi li dekonekte w nan fen jounen an."],
+    ["quiz.welcome.2.q", "How do you check the price of any item, from any room?", "Comment vérifier le prix d'un article, depuis n'importe quelle pièce ?", "Kijan pou w tcheke pri yon atik, nan nenpòt pyès?"],
+    ["quiz.welcome.2.a", "With Price check, the magnifying glass on the right edge.", "Avec Vérifier un prix, la loupe sur le bord droit.", "Avèk Tcheke yon pri, loup ki sou bò dwat la."],
+    ["quiz.welcome.2.b", "In Reports.", "Dans les Rapports.", "Nan Rapò yo."],
+    ["quiz.welcome.2.c", "In Settings.", "Dans les Réglages.", "Nan Reglaj yo."],
+    ["quiz.welcome.2.why", "The keys on the right edge are on every page: your notes, a new sale, and Price check.", "Les touches du bord droit sont sur chaque page : vos notes, une nouvelle vente, et Vérifier un prix.", "Bouton ki sou bò dwat yo nan chak paj: nòt ou yo, yon nouvo vant, ak Tcheke yon pri."],
+    ["quiz.clock.1.q", "When do you clock in?", "Quand pointez-vous l'arrivée ?", "Ki lè ou antre nan sèvis?"],
+    ["quiz.clock.1.a", "When you start work, from the key with your name.", "Quand vous commencez le travail, depuis la touche à votre nom.", "Lè w kòmanse travay, nan bouton ki gen non w lan."],
+    ["quiz.clock.1.b", "Only at the end of the day.", "Seulement en fin de journée.", "Sèlman nan fen jounen an."],
+    ["quiz.clock.1.c", "Never: the owner writes the hours by hand.", "Jamais : le propriétaire écrit les heures à la main.", "Janm: mèt la ekri lè yo ak men."],
+    ["quiz.clock.1.why", "Your hours count from the moment you clock in, less your breaks.", "Vos heures comptent à partir du pointage d'arrivée, moins vos pauses.", "Lè w yo konte depi w antre nan sèvis, san poz ou yo."],
+    ["quiz.clock.2.q", "Where do you see your hours for the week?", "Où voyez-vous vos heures de la semaine ?", "Ki kote ou wè lè w yo pou semèn nan?"],
+    ["quiz.clock.2.a", "In Team.", "Dans Équipe.", "Nan Ekip."],
+    ["quiz.clock.2.b", "In Inventory.", "Dans l'Inventaire.", "Nan Envantè."],
+    ["quiz.clock.2.c", "On the receipt.", "Sur le reçu.", "Sou resi a."],
+    ["quiz.clock.2.why", "Team shows each of your shifts, your breaks, and the week's total.", "Équipe montre chacun de vos services, vos pauses, et le total de la semaine.", "Ekip montre chak sèvis ou, poz ou yo, ak total semèn nan."],
+    ["quiz.sale.1.q", "How do you add an item to a sale?", "Comment ajouter un article à une vente ?", "Kijan pou w ajoute yon atik nan yon vant?"],
+    ["quiz.sale.1.a", "Search for it or scan it, then press it.", "Le chercher ou le scanner, puis appuyer dessus.", "Chèche l oswa eskane l, epi peze l."],
+    ["quiz.sale.1.b", "Type its price on the receipt.", "Taper son prix sur le reçu.", "Tape pri li sou resi a."],
+    ["quiz.sale.1.c", "Change its stock in Inventory.", "Changer son stock dans l'Inventaire.", "Chanje stòk li nan Envantè."],
+    ["quiz.sale.1.why", "A scanned barcode adds the item to the sale at once.", "Un code-barres scanné ajoute l'article à la vente aussitôt.", "Yon kòd ba ki eskane ajoute atik la nan vant lan touswit."],
+    ["quiz.sale.2.q", "The customer gives $20 for a sale of $13.50. What does Lakay do?", "Le client donne 20 $ pour une vente de 13,50 $. Que fait Lakay ?", "Kliyan an bay 20 $ pou yon vant 13,50 $. Kisa Lakay fè?"],
+    ["quiz.sale.2.a", "It shows the change to give back: $6.50.", "Il affiche la monnaie à rendre : 6,50 $.", "Li montre monnen pou w remèt: 6,50 $."],
+    ["quiz.sale.2.b", "It refuses the payment.", "Il refuse le paiement.", "Li refize peman an."],
+    ["quiz.sale.2.c", "It asks you to work it out.", "Il vous demande de la calculer.", "Li mande w kalkile l."],
+    ["quiz.sale.2.why", "Press or type the amount received, and Lakay shows the change.", "Appuyez sur le montant reçu ou tapez-le, et Lakay affiche la monnaie.", "Peze oswa tape montan ou resevwa a, epi Lakay montre monnen an."],
+    ["quiz.pay.1.q", "A customer pays by card. What do you do?", "Un client paie par carte. Que faites-vous ?", "Yon kliyan peye ak kat. Kisa ou fè?"],
+    ["quiz.pay.1.a", "Charge it on the store's card machine, then record it in Lakay.", "L'encaisser sur le terminal du magasin, puis l'enregistrer dans Lakay.", "Chaje l sou machin kat magazen an, epi anrejistre l nan Lakay."],
+    ["quiz.pay.1.b", "Type the card's number into Lakay.", "Taper le numéro de la carte dans Lakay.", "Tape nimewo kat la nan Lakay."],
+    ["quiz.pay.1.c", "Write the card's number on the receipt.", "Écrire le numéro de la carte sur le reçu.", "Ekri nimewo kat la sou resi a."],
+    ["quiz.pay.1.why", "The card machine charges the card. Lakay records the amount and the approval code, and never keeps a card's number.", "Le terminal débite la carte. Lakay note le montant et le code d'autorisation, et ne garde jamais le numéro d'une carte.", "Machin kat la chaje kat la. Lakay note montan an ak kòd apwobasyon an, epi li pa janm kenbe nimewo yon kat."],
+    ["quiz.pay.2.q", "A customer pays $10 in cash and the rest by card. How?", "Un client paie 10 $ en espèces et le reste par carte. Comment ?", "Yon kliyan peye 10 $ an kach epi rès la ak kat. Kijan?"],
+    ["quiz.pay.2.a", "Take the cash as one part, then the rest by card.", "Prendre les espèces comme une partie, puis le reste par carte.", "Pran lajan kach la kòm yon pati, epi rès la ak kat."],
+    ["quiz.pay.2.b", "Make two sales.", "Faire deux ventes.", "Fè de vant."],
+    ["quiz.pay.2.c", "It cannot be done.", "C'est impossible.", "Sa pa ka fèt."],
+    ["quiz.pay.2.why", "Take this part, then the rest: one sale, paid in parts.", "Prendre cette partie, puis le reste : une seule vente, payée en plusieurs fois.", "Pran pati sa a, epi rès la: yon sèl vant, peye an plizyè pati."],
+    ["quiz.svc.1.q", "When do you record a money transfer in Lakay?", "Quand notez-vous un transfert d'argent dans Lakay ?", "Ki lè ou anrejistre yon transfè lajan nan Lakay?"],
+    ["quiz.svc.1.a", "Once it is done on the provider's own system.", "Une fois qu'il est fait sur le système du fournisseur.", "Lè l fin fèt sou sistèm konpayi a."],
+    ["quiz.svc.1.b", "Before calling the provider.", "Avant d'appeler le fournisseur.", "Anvan w rele konpayi a."],
+    ["quiz.svc.1.c", "Only at the end of the week.", "Seulement en fin de semaine.", "Sèlman nan fen semèn nan."],
+    ["quiz.svc.1.why", "The provider's system sends the money. Lakay keeps the store's own record: what, how much, the fee and the reference.", "Le système du fournisseur envoie l'argent. Lakay garde la trace du magasin : quoi, combien, les frais et la référence.", "Sistèm konpayi a voye lajan an. Lakay kenbe dosye magazen an: kisa, konbyen, frè a ak referans lan."],
+    ["quiz.svc.2.q", "What does Lakay ask about the customer of a transfer?", "Que demande Lakay sur le client d'un transfert ?", "Kisa Lakay mande sou kliyan yon transfè?"],
+    ["quiz.svc.2.a", "Nothing: no name and no identity papers.", "Rien : ni nom, ni pièce d'identité.", "Anyen: ni non, ni papye idantite."],
+    ["quiz.svc.2.b", "Their name and address.", "Son nom et son adresse.", "Non li ak adrès li."],
+    ["quiz.svc.2.c", "A copy of their identity card.", "Une copie de sa carte d'identité.", "Yon kopi kat idantite li."],
+    ["quiz.svc.2.why", "Lakay records the transfer, not the person.", "Lakay note le transfert, pas la personne.", "Lakay anrejistre transfè a, pa moun nan."],
+    ["quiz.stock.1.q", "A delivery arrives. What do you do in Lakay?", "Une livraison arrive. Que faites-vous dans Lakay ?", "Yon livrezon rive. Kisa ou fè nan Lakay?"],
+    ["quiz.stock.1.a", "Receive a delivery, then the item, then how many came.", "Recevoir une livraison, puis l'article, puis combien sont arrivés.", "Resevwa yon livrezon, epi atik la, epi konbyen ki rive."],
+    ["quiz.stock.1.b", "Change the item's price.", "Changer le prix de l'article.", "Chanje pri atik la."],
+    ["quiz.stock.1.c", "Make a sale with a minus sign.", "Faire une vente avec un signe moins.", "Fè yon vant ak yon siy mwens."],
+    ["quiz.stock.1.why", "Receiving adds the stock and keeps the cost. The books show who received what, and when.", "Recevoir ajoute le stock et garde le coût. Les livres montrent qui a reçu quoi, et quand.", "Resevwa ajoute stòk la epi kenbe pri a. Liv yo montre ki moun ki resevwa kisa, ak ki lè."],
+    ["quiz.stock.2.q", "How do you find an item quickly in a large inventory?", "Comment trouver vite un article dans un grand inventaire ?", "Kijan pou w jwenn yon atik vit nan yon gwo envantè?"],
+    ["quiz.stock.2.a", "Open its department, then search or scan.", "Ouvrir son rayon, puis chercher ou scanner.", "Louvri depatman li, epi chèche oswa eskane."],
+    ["quiz.stock.2.b", "Go through every page.", "Parcourir toutes les pages.", "Pase nan chak paj."],
+    ["quiz.stock.2.c", "Ask the owner.", "Demander au propriétaire.", "Mande mèt la."],
+    ["quiz.stock.2.why", "Each department has its own page, and the search finds any item at once, however many there are.", "Chaque rayon a sa page, et la recherche trouve n'importe quel article aussitôt, quel que soit leur nombre.", "Chak depatman gen paj pa l, epi rechèch la jwenn nenpòt atik touswit, kèlkeswa konbyen ki genyen."],
+    ["quiz.reports.1.q", "Where do you see how much was taken by card today?", "Où voyez-vous combien a été encaissé par carte aujourd'hui ?", "Ki kote ou wè konbyen ki antre ak kat jodi a?"],
+    ["quiz.reports.1.a", "In Reports, under How it was paid.", "Dans les Rapports, sous « Comment c'était payé ».", "Nan Rapò yo, anba «Kijan yo te peye»."],
+    ["quiz.reports.1.b", "In the Guidebook.", "Dans le Guide.", "Nan Gid la."],
+    ["quiz.reports.1.c", "In Team.", "Dans Équipe.", "Nan Ekip."],
+    ["quiz.reports.1.why", "Reports shows each way of paying: how many times, and how much.", "Les Rapports montrent chaque moyen de paiement : combien de fois, et combien.", "Rapò yo montre chak fason yo peye: konbyen fwa, ak konbyen lajan."],
+    ["quiz.reports.2.q", "How do you give the receipts to the accountant?", "Comment donner les reçus au comptable ?", "Kijan pou w bay kontab la resi yo?"],
+    ["quiz.reports.2.a", "Save them as a spreadsheet from Reports.", "Les enregistrer en tableur depuis les Rapports.", "Anrejistre yo kòm yon tablo nan Rapò yo."],
+    ["quiz.reports.2.b", "Photograph the screen.", "Photographier l'écran.", "Fè foto ekran an."],
+    ["quiz.reports.2.c", "Copy them out by hand.", "Les recopier à la main.", "Rekopye yo ak men."],
+    ["quiz.reports.2.why", "The receipts, the lines and the stock can each be saved as a spreadsheet (CSV).", "Les reçus, les lignes et le stock s'enregistrent chacun en tableur (CSV).", "Resi yo, liy yo ak stòk la ka anrejistre chak kòm yon tablo (CSV)."],
+    ["quiz.safe.1.q", "How often should the owner save a backup?", "À quelle fréquence le propriétaire doit-il faire une sauvegarde ?", "Konbyen fwa mèt la dwe fè yon kopi sekirite?"],
+    ["quiz.safe.1.a", "At least once a week, kept away from this device.", "Au moins une fois par semaine, gardée loin de cet appareil.", "Omwen yon fwa pa semèn, epi kenbe l lwen aparèy sa a."],
+    ["quiz.safe.1.b", "Never.", "Jamais.", "Janm."],
+    ["quiz.safe.1.c", "Only when Lakay is new.", "Seulement quand Lakay est neuf.", "Sèlman lè Lakay nouvo."],
+    ["quiz.safe.1.why", "A backup kept elsewhere brings the store back if this device is lost or broken.", "Une sauvegarde gardée ailleurs ramène le magasin si cet appareil est perdu ou cassé.", "Yon kopi ki kenbe yon lòt kote ka remete magazen an si aparèy sa a pèdi oswa kraze."],
+    ["quiz.safe.2.q", "What should a cashier's access open?", "Que doit ouvrir l'accès d'un caissier ?", "Kisa aksè yon kesye dwe louvri?"],
+    ["quiz.safe.2.a", "Only what the work needs, such as selling.", "Seulement ce dont le travail a besoin, comme vendre.", "Sèlman sa travay la bezwen, tankou vann."],
+    ["quiz.safe.2.b", "Everything, to be quicker.", "Tout, pour aller plus vite.", "Tout bagay, pou l ale pi vit."],
+    ["quiz.safe.2.c", "The owner's password.", "Le mot de passe du propriétaire.", "Modpas mèt la."],
+    ["quiz.safe.2.why", "Each person has their own password and only the access their work needs.", "Chaque personne a son propre mot de passe et seulement l'accès dont son travail a besoin.", "Chak moun gen pwòp modpas pa l ak sèlman aksè travay li bezwen."],
+    ["tips.home.1", "Press Lakay's mark at the top of the menu to come back Home from any room.", "Appuyez sur l'emblème de Lakay en haut du menu pour revenir à l'Accueil depuis n'importe quelle pièce.", "Peze anblèm Lakay anwo meni an pou w tounen nan Akèy la nan nenpòt pyès."],
+    ["tips.home.2", "The keys on the right edge are on every page: your notes, a new sale, and Price check.", "Les touches du bord droit sont sur chaque page : vos notes, une nouvelle vente, et Vérifier un prix.", "Bouton ki sou bò dwat yo nan chak paj: nòt ou yo, yon nouvo vant, ak Tcheke yon pri."],
+    ["tips.home.3", "The key with your name shows your hours. Sign out there at the end of the day.", "La touche à votre nom montre vos heures. Déconnectez-vous là en fin de journée.", "Bouton ki gen non w lan montre lè w yo. Dekonekte la nan fen jounen an."],
+    ["tips.home.4", "Display, at the top, makes the letters larger and turns on night mode.", "Affichage, en haut, agrandit les lettres et met le mode nuit.", "Afichaj, anwo a, fè lèt yo pi gwo epi li limen mòd lannwit."],
+    ["tips.register.1", "F2 jumps to the search, and F9 takes payment.", "F2 va à la recherche, et F9 encaisse.", "F2 mennen w nan rechèch la, epi F9 pran peman."],
+    ["tips.register.2", "A barcode scanner types into the search by itself: the item goes straight into the sale.", "Un scanner de codes-barres tape dans la recherche tout seul : l'article va droit dans la vente.", "Yon eskanè kòd ba tape nan rechèch la poukont li: atik la ale dirèk nan vant lan."],
+    ["tips.register.3", "A customer can pay in parts: some in cash, the rest by card.", "Un client peut payer en plusieurs fois : une partie en espèces, le reste par carte.", "Yon kliyan ka peye an plizyè pati: yon pati an kach, rès la ak kat."],
+    ["tips.register.4", "For an item with no barcode, search for a word of its name.", "Pour un article sans code-barres, cherchez un mot de son nom.", "Pou yon atik ki pa gen kòd ba, chèche yon mo nan non li."],
+    ["tips.inventory.1", "The arrow keys move between the department tabs.", "Les flèches passent d'un onglet de rayon à l'autre.", "Flèch yo fè w pase de yon onglè depatman a yon lòt."],
+    ["tips.inventory.2", "A scanned code that no item has offers to add a new item with it.", "Un code scanné qu'aucun article ne porte propose d'ajouter un nouvel article avec ce code.", "Yon kòd eskane ki pa sou okenn atik ofri pou w ajoute yon nouvo atik avè l."],
+    ["tips.inventory.3", "Low stock shows only the items at or below their reorder point.", "Stock bas ne montre que les articles à leur seuil de commande ou en dessous.", "Stòk ki ba montre sèlman atik ki rive nan nivo pou kòmande oswa pi ba."],
+    ["tips.inventory.4", "Receiving with the cost of each one keeps the average cost right.", "Recevoir avec le coût de chacun garde le coût moyen juste.", "Resevwa ak pri chak grenn kenbe pri mwayen an kòrèk."],
+    ["tips.reports.1", "Press a person's name to see only their sales.", "Appuyez sur le nom d'une personne pour ne voir que ses ventes.", "Peze non yon moun pou w wè vant li sèlman."],
+    ["tips.reports.2", "Another day shows one day at a time, with keys for the day before and the day after.", "Un autre jour montre un jour à la fois, avec des touches pour la veille et le lendemain.", "Yon lòt jou montre yon jou alafwa, ak bouton pou jou anvan an ak jou apre a."],
+    ["tips.reports.3", "The receipts spreadsheet has each payment's approval code, for checking against the card machine.", "Le tableur des reçus contient le code d'autorisation de chaque paiement, pour comparer avec le terminal.", "Tablo resi yo gen kòd apwobasyon chak peman, pou w konpare ak machin kat la."],
+    ["tips.team.1", "Forgot to clock out? Someone with the team access can clock you out from here.", "Oublié de pointer le départ ? Une personne avec l'accès équipe peut le faire pour vous ici.", "Ou bliye soti nan sèvis? Yon moun ki gen aksè ekip la ka fè l pou ou isit la."],
+    ["tips.team.2", "Your hours are counted from your shifts, less your breaks.", "Vos heures sont comptées à partir de vos services, moins vos pauses.", "Lè w yo konte apati sèvis ou yo, san poz yo."],
+    ["tips.team.3", "The week starts on the day the owner chose in Settings.", "La semaine commence le jour choisi par le propriétaire dans les Réglages.", "Semèn nan kòmanse jou mèt la chwazi nan Reglaj yo."],
+    ["tips.learn.1", "Show me, in a room's heading, starts that room's tour.", "Montrez-moi, dans l'en-tête d'une pièce, lance la visite de cette pièce.", "Montre m, nan tèt yon pyès, kòmanse vizit pyès sa a."],
+    ["tips.learn.2", "In the practice store, the lessons finish each sale, so you see the whole of it.", "Dans le magasin d'essai, les leçons terminent chaque vente, pour que vous voyiez tout.", "Nan magazen pou pratike a, leson yo fini chak vant, pou w wè tout."],
+    ["tips.learn.3", "A lesson can be taken again: the newest mark is the one kept.", "Une leçon peut se refaire : la marque la plus récente est celle qui est gardée.", "Ou ka refè yon leson: dènye mak la se li ki rete."],
+    ["tips.guide.1", "Search finds any chapter by a word it contains.", "La recherche trouve n'importe quel chapitre par un mot qu'il contient.", "Rechèch la jwenn nenpòt chapit ak yon mo ki ladan l."],
+    ["tips.guide.2", "Read aloud reads the chapter to you.", "Lire à voix haute vous lit le chapitre.", "Li l fò li chapit la pou ou."],
+    ["tips.settings.1", "Save a backup at least once a week, and keep it away from this device.", "Faites une sauvegarde au moins une fois par semaine, et gardez-la loin de cet appareil.", "Fè yon kopi sekirite omwen yon fwa pa semèn, epi kenbe l lwen aparèy sa a."],
+    ["tips.settings.2", "Verify the books after a backup is brought back.", "Vérifiez les livres après avoir restauré une sauvegarde.", "Verifye liv yo apre w fin remete yon kopi sekirite."],
+    ["tips.settings.3", "The Master Key opens the books if the owner's password is lost. Keep it on paper.", "La Clé maîtresse ouvre les livres si le mot de passe du propriétaire est perdu. Gardez-la sur papier.", "Kle Mèt la louvri liv yo si modpas mèt la pèdi. Kenbe l sou papye."],
+    ["tips.studio.1", "Each change in the Author Studio is written in the books, with who made it.", "Chaque changement dans le Studio d'auteur est écrit dans les livres, avec qui l'a fait.", "Chak chanjman nan Estidyo otè a ekri nan liv yo, ak ki moun ki fè l."],
+    ["tips.studio.2", "Words you change here replace Lakay's own, in each language.", "Les mots changés ici remplacent ceux de Lakay, dans chaque langue.", "Mo ou chanje isit la ranplase pa Lakay yo, nan chak lang."]
+  );
   E.t = function (key, vars) {
     var c = E.custom && E.custom.words && E.custom.words[E.lang], s = c && typeof c[key] === "string" && c[key] ? c[key] : DICT[E.lang][key];
     if (s === undefined) s = DICT.en[key];
@@ -3630,7 +4032,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   function load(vault, key, userId) {
     ID = vault.storeId;
     return D.entries("rec").then(function (entries) {
-      var st = { settings: null, users: {}, cats: {}, items: {}, sales: [], moves: [], shifts: [], services: [], counters: {}, pad: {}, notes: {}, head: null, unreadable: [] };
+      var st = { settings: null, users: {}, cats: {}, items: {}, sales: [], moves: [], shifts: [], services: [], train: {}, counters: {}, pad: {}, notes: {}, head: null, unreadable: [] };
       /* each person's notes are their own: a sign-in opens only the notes of the one signing in (the practice store opens
          all of its sample people's, since it changes from one to another) */
       var mine = "notes:" + (userId || "owner"), practice = B.mode === "practice";
@@ -3673,6 +4075,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     else if (kind === "move") st.moves.push(v);
     else if (kind === "shift") { var q = st.shifts.findIndex(function (x) { return x.id === v.id; }); if (q >= 0) st.shifts[q] = v; else st.shifts.push(v); }
     else if (kind === "svc") { st.services = st.services || []; var z = st.services.findIndex(function (x) { return x.id === v.id; }); if (z >= 0) st.services[z] = v; else st.services.push(v); }
+    else if (kind === "train") { st.train = st.train || {}; st.train[id] = v; }
     else if (kind === "counter") st.counters[id] = v;
     else if (kind === "pad") st.pad[id] = v;
     else if (kind === "notes") st.notes[id] = (v && Array.isArray(v.notes)) ? v.notes : [];
@@ -3835,6 +4238,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
       return c2;
     });
     chain = chain.then(function () { return sampleServices(); });
+    chain = chain.then(function () { return sampleTraining(); });
     return chain.then(function () { B._at = null; B.user = state.users.owner; return state; }, function (e) { B._at = null; B.user = state && state.users.owner; throw e; });
   }
   /* The practice store's money transfers and top-ups: a few a day for two weeks, with made-up fees and references.
@@ -3856,6 +4260,21 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
         });
       })(new Date(day.getFullYear(), day.getMonth(), day.getDate(), 10 + rnd(8), rnd(60), 0), SAMPLE_SVC[rnd(SAMPLE_SVC.length)], d * 10 + k);
     }
+    return c;
+  }
+  /* the sample people's lessons (Build 17): Marie, a cashier, has taken the first two of her five; Jean, a manager,
+     six of his seven, with a question missed here and there */
+  function sampleTraining() {
+    var c = Promise.resolve(), base = new Date(); base.setHours(10, 30, 0, 0);
+    [[SAMPLE_PEOPLE[0][0], [["welcome", 2], ["clock", 2]], 9], [SAMPLE_PEOPLE[1][0], [["welcome", 2], ["clock", 1], ["sale", 2], ["pay", 2], ["svc", 2], ["stock", 1]], 12]].forEach(function (p) {
+      p[1].forEach(function (x, k) {
+        c = c.then(function () {
+          B._at = new Date(base.getTime() - (p[2] - k) * 86400000).toISOString();
+          B.user = state.users[p[0]] || state.users.owner;
+          return B.trainDone(x[0], x[1], 2).then(function () { B.user = state.users.owner; });
+        });
+      });
+    });
     return c;
   }
   /* the sample people's shifts for the days before today: Marie from a quarter to nine, Jean from a quarter to one,
@@ -4341,6 +4760,22 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     });
   };
 
+  /* ---------- learning (Build 17): each person's lessons done, kept in the books so that the owner can see them ---------- */
+  B.trainingOf = function (userId) {
+    var r = state && state.train && state.train[userId || (B.user && B.user.id)];
+    return r ? clone(r) : { user: userId || (B.user && B.user.id), done: {} };
+  };
+  B.trainDone = function (lesson, score, of) {
+    return B.change(function (st) {
+      if (!B.user) throw err("locked");
+      lesson = String(lesson || "").slice(0, 30);
+      if (!/^[a-z]+$/.test(lesson) || !Number.isSafeInteger(score) || !Number.isSafeInteger(of) || score < 0 || of < 1 || score > of) throw err("lesson");
+      var me = B.user.id, rec = clone((st.train && st.train[me]) || { user: me, done: {} });
+      rec.done[lesson] = { at: clock().toISOString(), score: score, of: of };
+      return { type: "training.completed", data: { user: me, lesson: lesson, score: score, of: of }, recs: [{ kind: "train", id: me, value: rec }], result: rec };
+    });
+  };
+
   /* ---------- money transfers and top-ups (Build 15) ----------
      The money a customer sends, receives or puts on a phone is held for the provider (RIA, CAM, Unitransfer, Boss
      Revolution): it is not the store's sale. Each one is written as it happens: the provider, what kind it was, the
@@ -4564,14 +4999,14 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     var key = KEY, id = ID, st = state;
     if (!key) return Promise.reject(err("locked"));
     return D.entries("journal").then(function (entries) {
-      var res = { ok: true, lines: entries.length, problems: [] }, prev = ZERO, expect = 1, items = {}, svcs = {}, i = 0;
+      var res = { ok: true, lines: entries.length, problems: [] }, prev = ZERO, expect = 1, items = {}, svcs = {}, train = {}, i = 0;
       function next() {
         if (i >= entries.length) return Promise.resolve();
         var e = entries[i++];
         return C.open(key, e[1], aadLine(id, e[0])).then(function (line) {
           if (line.seq !== e[0] || e[0] !== expect) res.problems.push({ seq: e[0], what: "order" });
           if (line.prev !== prev) res.problems.push({ seq: e[0], what: "chain" });
-          replay(items, line, res, svcs);
+          replay(items, line, res, svcs, train);
           expect = e[0] + 1;
           return U.sha256hex(U.canon(line)).then(function (hsh) { prev = hsh; });
         }, function () { res.problems.push({ seq: e[0], what: "unreadable" }); prev = null; expect = e[0] + 1; }).then(function () {
@@ -4598,15 +5033,29 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
           delete svcs[v.id];
         });
         Object.keys(svcs).forEach(function (k) { res.problems.push({ svc: k, what: "extra" }); });
+        /* each person's lessons (Build 17): the marks kept are the ones the ledger wrote last */
+        Object.keys(st.train || {}).forEach(function (u) {
+          var done = (st.train[u] && st.train[u].done) || {}, want = train[u] || {};
+          Object.keys(done).forEach(function (l) {
+            var w = want[l];
+            if (!w) res.problems.push({ train: u, lesson: l, what: "missing" });
+            else if (w.score !== done[l].score || w.of !== done[l].of) res.problems.push({ train: u, lesson: l, what: "differs" });
+            delete want[l];
+          });
+          Object.keys(want).forEach(function (l) { res.problems.push({ train: u, lesson: l, what: "extra" }); });
+          delete train[u];
+        });
+        Object.keys(train).forEach(function (u) { res.problems.push({ train: u, what: "extra" }); });
         (st.unreadable || []).forEach(function (k) { res.problems.push({ rec: k, what: "unreadable" }); });
         res.ok = res.problems.length === 0;
         return res;
       });
     });
   };
-  function replay(items, line, res, svcs) {
+  function replay(items, line, res, svcs, train) {
     var d = line.data || {};
     switch (line.type) {
+      case "training.completed": if (train && d.user && d.lesson) { train[d.user] = train[d.user] || {}; train[d.user][d.lesson] = { score: d.score, of: d.of }; } break;
       case "service.recorded": if (d.svc) svcs[d.svc.id] = clone(d.svc); break;
       case "service.voided": if (svcs[d.id]) svcs[d.id].status = "void"; else res.problems.push({ seq: line.seq, what: "void" }); break;
       case "item.created": items[d.item.id] = clone(d.item); break;
@@ -5047,7 +5496,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
 
   /* ---------- emojis (drawn by the device's own emoji font; hidden from screen readers, the words carry the meaning) ---------- */
   ui.emo = function (ch, cls) { return h("span.emo" + (cls ? "." + cls : ""), { "aria-hidden": "true" }, ch); };
-  ui.ROOM_EMO = { home: "🏠", register: "🛒", inventory: "📦", reports: "📊", team: "👥", guide: "📖", settings: "⚙️", studio: "⚒️" };
+  ui.ROOM_EMO = { home: "🏠", register: "🛒", inventory: "📦", reports: "📊", team: "👥", learn: "🎓", guide: "📖", settings: "⚙️", studio: "⚒️" };
   /* the departments' signs: no fruit or food as decoration (the owner, 13 November 2026), only what each one holds */
   ui.CAT_EMO = { music: "🎵", movies: "🎬", perfume: "🌸", grocery: "🧺", drinks: "🥤", food: "🍽️", services: "💱", other: "🛍️" };
   ui.catEmo = function (c) { return ui.CAT_EMO[c] || "🏷️"; };
@@ -5237,7 +5686,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
 
   /* ---------- the shell, after Ingenium's (the side menu of plain words) with Carpe Diem's capsule of top keys ---------- */
   var GROUPS = [["nav.g.store", [["home", "home"], ["register", "register"], ["inventory", "box"], ["reports", "chart"], ["team", "people"]]],
-                ["nav.g.learn", [["guide", "book"], ["settings", "gear"]]],
+                ["nav.g.learn", [["learn", "cap"], ["guide", "book"], ["settings", "gear"]]],
                 ["nav.g.owner", [["studio", "edit"]]]];
   ui.rooms = {};
   ui.current = null;
@@ -5287,14 +5736,23 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     /* a room may say what a scanned code does there (the Register adds it, Inventory opens it): 23-scan.js */
     ui.onScan = null;
     ui.rooms[room](main);
-    main.appendChild(ui.footer());
+    ui.roomFoot(main, !quiet);
     if (!quiet && E.sound) E.sound.play("page");
     if (!quiet) { try { main.focus({ preventScroll: true }); } catch (e) { } window.scrollTo(0, 0); }
   };
   ui.refresh = function () { if (ui.current && document.getElementById("room")) { var y = window.scrollY; ui.go(ui.current, true); window.scrollTo(0, y); } };
-  /* A room's head: Ingenium's page title, its tip, the room's own keys on the right, and a plain lede below. */
+  /* The end of every room: its tip (Build 17, 24-learn.js; fresh: a new visit shows the next one), then the footer. */
+  ui.roomFoot = function (main, fresh) {
+    var tip = E.learn && E.learn.tipStrip ? E.learn.tipStrip(ui.current, fresh) : null;
+    if (tip) main.appendChild(tip);
+    main.appendChild(ui.footer());
+  };
+  /* A room's head: Ingenium's page title, its tip, the room's own keys on the right, and a plain lede below. A room
+     with a tour also has its Show me key (Build 17). */
   ui.roomHead = function (titleKey, tipKey, right) {
     var room = titleKey.replace("room.", "");
+    var show = E.learn && E.learn.showKey ? E.learn.showKey(room) : null;
+    if (show) right = (right ? [].concat(right) : []).concat([show]);
     return h("div.room-intro", null, [
       h("div.room-head", null, [h("div.room-title", null, [h("h1.page-title", null, t(titleKey)), tipKey ? ui.tip(tipKey) : null]), right ? h("div.room-tools", null, right) : null]),
       E.has("lede." + room) ? h("p.lede", null, t("lede." + room)) : null]);
@@ -5492,6 +5950,8 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
       row(t("disp.menu"), ui.seg([["0", t("disp.menu.full")], ["1", t("disp.menu.icons")]], U.prefGet("fold", "0"), function (v) { U.prefSet("fold", v); ui.applyLook(); }, t("disp.menu"))),
       row(t("disp.sound"), ui.seg([["1", t("on")], ["0", t("off")]], U.prefGet("sound", "1"), function (v) { U.prefSet("sound", v); if (v === "1" && E.sound) E.sound.play("welcome"); }, t("disp.sound"))),
       row(t("disp.vol"), ui.seg([["0.35", t("disp.vol.soft")], ["0.7", t("disp.vol.mid")], ["1", t("disp.vol.full")]], U.prefGet("soundVol", "0.7"), function (v) { U.prefSet("soundVol", v); if (E.sound) E.sound.play("sale"); }, t("disp.vol"))),
+      /* the tip at the foot of each room (Build 17) */
+      row(t("disp.tips"), ui.seg([["1", t("on")], ["0", t("off")]], U.prefGet("tips", "1"), function (v) { U.prefSet("tips", v); if (B.isOpen) ui.refresh(); }, t("disp.tips"))),
       h("p.hint", null, t("set.calmHint")),
       h("div.display-keys", null, [h("button.key#dispRefresh", { type: "button", onclick: ui.refreshApp }, [ui.emo("↻"), t("top.refresh")]),
         h("button.key#dispReset", { type: "button", onclick: function (e) { var l = e.currentTarget.closest(".layer"); if (l) l.remove(); ui.resetPanel(); } }, [ui.emo("⟲"), t("reset.h")])]),
@@ -6240,6 +6700,11 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
       list.push(need("🔔", x.text, t("home.attnRem", { t: ui.time(x.at) }), Date.parse(x.at) <= Date.now() ? "warn" : null,
         [t("home.open"), function () { ui.alertsPanel(); }]));
     });
+    /* a person's lessons still to take (Build 17) */
+    if (staff && E.learn) {
+      var left = E.learn.leftFor(B.user).length;
+      if (left) list.push(need("🎓", t(left === 1 ? "learn.homeLeft1" : "learn.homeLeft", { n: left }), t("learn.homeLeftSub"), null, [t("home.open"), function () { ui.go("learn"); }]));
+    }
     if (!staff && !practice) {
       var lastB = U.prefGet("lastBackup", ""), days = lastB ? Math.floor((Date.now() - Date.parse(lastB)) / 86400000) : null;
       if (days === null || days >= 7) list.push(need("💾", days === null ? t("home.attnBackupNone") : t("home.attnBackupOld", { n: days }), t("home.attnBackupSub"), days === null ? "warn" : null,
@@ -6275,6 +6740,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
       ["inventory", "box", t("km.items", { n: items, low: stock.low.length }), stock.low.length ? "warn" : null],
       ["reports", "chart", t("km.taken", { m: money(r.gross) }), null],
       ["team", "people", t("km.onClock", { n: B.onClock().length }), null],
+      ["learn", "cap", lessonsLine(), null],
       ["guide", "book", t("km.chapters", { n: E.guideCount ? E.guideCount() : 15 }), null],
       ["settings", "gear", last ? t("km.backup", { d: E.fmtDate(new Date(last), "short") }) : t("km.noBackup"), last ? null : "warn"],
       ["studio", "edit", t("km.studio"), null]];
@@ -6285,6 +6751,11 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
           h("span.ct-plate", null, [h("span.ct-plate-ico", null, U.icon(k[1])), h("span.hm-tile-t", null, [h("b", null, t("room." + k[0])), h("small" + (k[3] ? "." + k[3] : ""), null, k[2])])]),
           h("span.ct-pull", { "aria-hidden": "true" })]);
       }))]);
+  }
+  function lessonsLine() {
+    if (!E.learn || !B.user) return "";
+    var mine = E.learn.lessonsFor(B.user), done = E.learn.doneOf(B.user);
+    return t("km.lessons", { n: mine.filter(function (l) { return done[l.id]; }).length, m: mine.length });
   }
   function quickKey(emoji, key, fn, kind) { return h("button.key" + (kind ? "." + kind : ""), { type: "button", onclick: fn }, [ui.emo(emoji), t(key)]); }
   ui.quickKey = quickKey;
@@ -6383,6 +6854,8 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     drawTicket();
   }
   R.add = add;
+  /* the ticket as given (a lesson empties it, fills it, and puts back what was there: 24-learn.js) */
+  R.setLines = function (lines) { ticket.lines = (lines || []).map(function (l) { return { itemId: l.itemId, qty: l.qty }; }); R.ticket = ticket; drawTicket(); };
   function setQty(id, q) {
     var l = ticket.lines.find(function (x) { return x.itemId === id; }); if (!l) return;
     if (!(q >= 1)) ticket.lines = ticket.lines.filter(function (x) { return x !== l; }); else l.qty = Math.min(9999, Math.floor(q));
@@ -6602,7 +7075,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   var roomMain = null, roomMode = null;
   function draw(focusTab) {
     if (!roomMain || !document.body.contains(roomMain)) return;
-    var y = window.scrollY; U.clear(roomMain); render(roomMain, roomMode); roomMain.appendChild(ui.footer()); window.scrollTo(0, y);
+    var y = window.scrollY; U.clear(roomMain); render(roomMain, roomMode); ui.roomFoot(roomMain, false); window.scrollTo(0, y);
     if (focusTab) { var tb = document.getElementById("invTab-" + I.dept); if (tb) try { tb.focus({ preventScroll: true }); } catch (e) { } }
   }
 
@@ -7516,8 +7989,8 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   }
 
   /* ---------- the Guidebook ---------- */
-  var ARTICLES = ["start", "door", "team", "clock", "master", "sale", "pay", "items", "receive", "correct", "depts", "svc", "reports", "notes", "backup", "sealed", "verify", "display", "studio", "build", "limits"];
-  var ART_EMO = { start: "🌟", door: "🚪", team: "👥", clock: "🕘", master: "🗝️", sale: "🛒", items: "🏷️", receive: "🚚", correct: "✏️", reports: "📊", notes: "🗒️", backup: "💾", sealed: "🔐", verify: "🛡️", display: "🎨", studio: "⚒️", build: "🔢", limits: "🧭" };
+  var ARTICLES = ["start", "learn", "door", "team", "clock", "master", "sale", "pay", "items", "receive", "correct", "depts", "svc", "reports", "notes", "backup", "sealed", "verify", "display", "studio", "build", "limits"];
+  var ART_EMO = { start: "🌟", learn: "🎓", door: "🚪", team: "👥", clock: "🕘", master: "🗝️", sale: "🛒", pay: "💳", items: "🏷️", receive: "🚚", correct: "✏️", depts: "🗂️", svc: "💱", reports: "📊", notes: "🗒️", backup: "💾", sealed: "🔐", verify: "🛡️", display: "🎨", studio: "⚒️", build: "🔢", limits: "🧭" };
   E.guideCount = function () { return ARTICLES.length; };
   ui.rooms.guide = function (main) {
     var q = ui.input({ id: "guideSearch", type: "search", placeholder: t("guide.searchPh"), "aria-label": t("guide.search") });
@@ -9310,6 +9783,564 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     return best ? { code: best, format: best.length === 8 ? "ean_8" : best.length === 12 ? "upc_a" : "ean_13", lines: seen[best] } : null;
   };
   S.decodeLine = decodeLine;
+})();
+
+/* LAKAY | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt.
+   Learning (Build 17): short lessons for everyone who works in the store, a guided tour that shows each room and does
+   the work in front of the person, and a tip at the foot of every room.
+   Each lesson has its tour, a chapter of the Guidebook to read, and two questions. A person finishes a lesson by
+   answering its questions; the mark is kept in the books (B.trainDone), so that the owner, and those with the team
+   access, can see who has learnt what.
+   The tour lights one part of a room at a time and says what it is for. Where a lesson shows the work, a pointer moves
+   to each key and presses it, and types where a person would type: Lakay's own keys, pressed as a person presses them.
+   In the practice store it finishes the work (the sale, the delivery, the transfer), since nothing there is real. In
+   the store itself it stops before anything would be written in the books, says so, and closes what it opened; the
+   ticket at the Register is put back as it was. Calm and "reduce motion" keep the pointer still: it appears at each
+   key instead of travelling to it. */
+"use strict";
+(function () {
+  var U = E.util, h = U.h, t = E.t, B = E.books, ui = E.ui;
+  var L = E.learn = {};
+
+  /* ---------- the lessons ---------- */
+  /* id, sign, the access it needs (null: everyone; "owner": the owner only), its Guidebook chapter, minutes */
+  var LESSONS = [
+    { id: "welcome", emo: "🌟", need: null, guide: "start", min: 3 },
+    { id: "clock", emo: "🕘", need: null, guide: "clock", min: 2 },
+    { id: "sale", emo: "🛒", need: "sell", guide: "sale", min: 4 },
+    { id: "pay", emo: "💳", need: "sell", guide: "pay", min: 4 },
+    { id: "svc", emo: "💱", need: "sell", guide: "svc", min: 3 },
+    { id: "stock", emo: "🚚", need: "receive", guide: "receive", min: 4 },
+    { id: "reports", emo: "📊", need: "reports", guide: "reports", min: 3 },
+    { id: "safe", emo: "🔐", need: "owner", guide: "backup", min: 3 }];
+  L.LESSONS = LESSONS;
+  function lesson(id) { return LESSONS.filter(function (l) { return l.id === id; })[0] || null; }
+  L.lesson = lesson;
+  /* the lessons a person takes: those their access opens (the owner takes every one) */
+  function canTake(u, l) {
+    if (!u || !l) return false;
+    if (!l.need || u.role === "owner") return true;
+    return l.need !== "owner" && (u.access || []).indexOf(l.need) >= 0;
+  }
+  L.lessonsFor = function (u) { return LESSONS.filter(function (l) { return canTake(u, l); }); };
+  L.doneOf = function (u) { return u ? (B.trainingOf(u.id).done || {}) : {}; };
+  L.leftFor = function (u) { var d = L.doneOf(u); return L.lessonsFor(u).filter(function (l) { return !d[l.id]; }); };
+
+  /* two questions to each lesson, each with three answers: the right one (a) and two others (b, c), shown in an order
+     that differs from one question to the next */
+  function questions(id) {
+    return [1, 2].map(function (n) {
+      var k = "quiz." + id + "." + n, opts = [[k + ".a", true], [k + ".b", false], [k + ".c", false]], r = (n + id.length) % 3;
+      return { q: k + ".q", why: k + ".why", opts: opts.slice(r).concat(opts.slice(0, r)) };
+    });
+  }
+  L.questions = questions;
+
+  /* ---------- the guided tour ---------- */
+  var T = E.tour = { speed: 1 };
+  var run = null, STOP = { stopped: true };
+  T.active = function () { return !!run; };
+  T.current = function () { return run ? { id: run.id, step: run.i, of: run.steps.length } : null; };
+  function still() { return ui.still ? ui.still() : false; }
+  function pause(ms) { return new Promise(function (res) { setTimeout(res, Math.round(ms * T.speed)); }); }
+  function el(at) { if (!at) return null; var n = typeof at === "function" ? at() : document.querySelector(at); return n && n.nodeType === 1 ? n : null; }
+  function shown(n) { if (!n || !document.body.contains(n)) return false; var r = n.getBoundingClientRect(); return r.width > 0 || r.height > 0; }
+  /* the element a step points at, once it is there (a room or a window may still be opening) */
+  function found(at, tok) {
+    if (!at) return Promise.resolve(null);
+    var tries = 0;
+    return new Promise(function (res) {
+      (function look() {
+        if (!run || run.token !== tok) return res(null);
+        var n = el(at); if (shown(n)) return res(n);
+        if (++tries > 30) return res(null);
+        setTimeout(look, 60);
+      })();
+    });
+  }
+  /* the windows the tour opened, closed again as a person closes them */
+  function closeLayers(before) {
+    Array.prototype.slice.call(document.querySelectorAll(".layer")).reverse().forEach(function (l) {
+      if (before && before.indexOf(l) >= 0) return;
+      var x = l.querySelector(".dialog-head .icon-key");
+      if (x) x.click(); else l.remove();
+    });
+  }
+  function closePops() {
+    var f = document.getElementById("findQ"), k = document.getElementById("rail-find");
+    if (f && k) k.click();
+  }
+  /* the item a lesson sells or receives: the first in name order with a few in stock */
+  function demoItem() {
+    var st = B.state(); if (!st || !E.find) return null;
+    var ids = E.find.search({ show: "active" }), best = null;
+    for (var i = 0; i < ids.length; i++) {
+      var it = st.items[ids[i]]; if (!it || it.cat === "services") continue;
+      if (it.stock >= 3 && it.price >= 300) return it;
+      if (!best && it.stock >= 1) best = it;
+    }
+    return best;
+  }
+  function word(it) { var w = it.name.split(/[\s,()]+/).filter(function (x) { return x.length >= 3; })[0] || it.name; return w.slice(0, 10); }
+  function copyLines(list) { return (list || []).map(function (l) { return { itemId: l.itemId, qty: l.qty }; }); }
+
+  /* the pointer that does the work in a demonstration: it travels to a key, presses it, and types */
+  function demo(tok) {
+    function live() { if (!run || run.token !== tok) throw STOP; }
+    var D = {
+      pause: function (ms) { return pause(ms).then(live); },
+      to: function (n) {
+        live(); if (!n) throw STOP;
+        try { n.scrollIntoView({ block: "nearest" }); } catch (e) { }
+        var r = n.getBoundingClientRect(), hand = run.hand;
+        hand.hidden = false;
+        hand.style.transform = "translate(" + Math.round(r.left + Math.min(r.width / 2, 40)) + "px," + Math.round(r.top + r.height / 2) + "px)";
+        return pause(still() ? 120 : 560).then(live);
+      },
+      press: function (n) {
+        return D.to(n).then(function () {
+          var r = n.getBoundingClientRect(), ring = run.ring;
+          ring.style.transform = "translate(" + Math.round(r.left + Math.min(r.width / 2, 40)) + "px," + Math.round(r.top + r.height / 2) + "px)";
+          ring.classList.remove("go"); void ring.offsetWidth; ring.classList.add("go");
+          run.hand.classList.add("down");
+          return pause(200);
+        }).then(function () { live(); run.hand.classList.remove("down"); n.click(); return pause(420); }).then(live);
+      },
+      type: function (n, text) {
+        return D.to(n).then(function () {
+          try { n.focus({ preventScroll: true }); } catch (e) { }
+          n.value = ""; n.dispatchEvent(new Event("input", { bubbles: true }));
+          var i = 0;
+          return (function next() {
+            live();
+            if (i >= text.length) return pause(260).then(live);
+            n.value += text.charAt(i++); n.dispatchEvent(new Event("input", { bubbles: true }));
+            return pause(75).then(next);
+          })();
+        });
+      }
+    };
+    return D;
+  }
+
+  /* ---------- the tours, one to each lesson ----------
+     A step: room (opened first), at (what is lit: a selector, or a function that finds it), say (what is said), real
+     (what is said instead in the store itself, where a step that would write in the books does not), act (the
+     demonstration), writes (the act writes in the books: practice store only), wait (the person's turn: done when it
+     answers true), prep (made ready before the step, the first time only), optional (passed over when not there), and
+     when (whether the step is part of this tour at all, decided when the tour starts). */
+  function press(D, n) { return D.press(n); }
+  var TOURS = {};
+  TOURS.welcome = function (c) {
+    return [
+      { room: "home", say: "tour.welcome.1" },
+      { at: ".dock", say: "tour.welcome.2" },
+      { at: "#statusPill", say: "tour.welcome.3" },
+      { at: "#alertsBtn", say: "tour.welcome.4" },
+      { at: "#rail-find", say: "tour.welcome.5", act: function (D, n) {
+        return D.press(n).then(function () { var f = document.getElementById("findQ"); return f && c.item ? D.type(f, word(c.item)) : null; });
+      } },
+      { at: "#langBtn", say: "tour.welcome.6", prep: closePops },
+      { at: "#displayBtn", say: "tour.welcome.7" },
+      { room: "home", at: ".hm-needs", say: "tour.welcome.8" },
+      { at: '.nav-btn[data-room="learn"]', say: "tour.welcome.9", wait: function () { return ui.current === "learn"; } }];
+  };
+  TOURS.clock = function (c) {
+    return [
+      { at: "#statusPill", say: "tour.clock.1", act: press },
+      { at: function () { return document.getElementById("clockInKey") || document.getElementById("breakKey"); }, say: "tour.clock.2", optional: true },
+      { at: function () { return document.getElementById("signOutKey") || document.getElementById("clockOutKey"); }, say: "tour.clock.3", when: function () { return !c.practice; }, optional: true },
+      { room: "team", at: "#teamMine", say: "tour.clock.4", prep: function () { closeLayers(c.layers); } },
+      { room: "team", at: "#teamMine .seg", say: "tour.clock.5" }];
+  };
+  TOURS.sale = function (c) {
+    var it = c.item, has = function () { return !!it; };
+    function emptyTicket() { closeLayers(c.layers); if (E.register && E.register.setLines) E.register.setLines([]); }
+    return [
+      { room: "register", at: "#regSearch", say: "tour.sale.1", prep: emptyTicket, act: it ? function (D, n) { return D.type(n, word(it)); } : null },
+      { room: "register", at: function () { return it && document.querySelector('#regResults .product[data-id="' + it.id + '"]'); }, say: "tour.sale.2", when: has, act: press },
+      { at: function () { var l = document.querySelector("#ticketLines .tline"); return l && l.querySelectorAll(".t-qty button")[1]; }, say: "tour.sale.3", when: has, act: press },
+      { at: "#ticketTotals", say: "tour.sale.4" },
+      { at: "#takeCash", say: "tour.sale.5", when: has, act: press },
+      { at: ".quick-cash", say: "tour.sale.6", when: has, act: function (D) { var k = document.querySelectorAll(".quick-cash .key"); return D.press(k[1] || k[0]); } },
+      { at: "#cashChange", say: "tour.sale.7", when: has },
+      { at: "#cashDone", say: "tour.sale.8", real: "tour.sale.8r", writes: true, when: has, act: press },
+      { at: ".layer .receipt", say: "tour.sale.9", when: function () { return has() && c.practice; }, optional: true },
+      { room: "register", at: "#regSearch", say: "tour.sale.10", prep: emptyTicket, wait: function () { return !!(E.register && E.register.ticket.lines.length); } }];
+  };
+  TOURS.pay = function (c) {
+    var it = c.item, prefs = B.payPrefs(), card = !!it && prefs.methods.indexOf("card") >= 0, has = function () { return !!it; };
+    function twoOnTicket() { closeLayers(c.layers); if (it && E.register && E.register.setLines) E.register.setLines([{ itemId: it.id, qty: 2 }]); }
+    function part() { var total = B.priceTicket([{ itemId: it.id, qty: 2 }]).total, p = Math.max(100, Math.floor(total / 200) * 100); return U.moneyPlain(Math.min(p, total - 1)); }
+    return [
+      { room: "register", at: "#takeCash", say: it ? "tour.pay.1" : "tour.pay.1n", prep: twoOnTicket, act: it ? press : null },
+      { at: "#payWays", say: "tour.pay.2", when: function () { return card; }, act: function (D) { return D.press(document.getElementById("payWay-card")); } },
+      { at: "#payHow", say: "tour.pay.3", when: function () { return card; } },
+      { at: "#payCode", say: "tour.pay.4", when: function () { return card && prefs.askCode !== "no"; }, act: function (D, n) { return D.type(n, "482913"); } },
+      { at: "#payAmount", say: "tour.pay.5", when: function () { return card; }, act: function (D, n) { return D.type(n, part()); } },
+      { at: "#payPart", say: "tour.pay.6", when: function () { return card; }, act: press },
+      { at: "#payParts", say: "tour.pay.7", when: function () { return card; } },
+      { at: ".quick-cash", say: "tour.pay.8", when: has, act: function (D) { return D.press(document.querySelector(".quick-cash .key")); } },
+      { at: "#cashDone", say: "tour.pay.9", real: "tour.pay.9r", writes: true, when: has, act: press },
+      { at: ".layer .receipt", say: "tour.pay.10", when: function () { return has() && c.practice; }, optional: true },
+      { room: "register", at: "#takeCash", say: "tour.pay.11", prep: twoOnTicket, when: has, wait: function () { return !!document.getElementById("cashDue"); } }];
+  };
+  TOURS.svc = function (c) {
+    return [
+      { room: "inventory", at: "#invTab-services", say: "tour.svc.1", prep: function () { if (E.inventory) E.inventory.show("services"); } },
+      { room: "inventory", at: "#svcRecord", say: "tour.svc.2", act: press },
+      { at: "#svcProviders", say: "tour.svc.3", act: function (D, n) { return D.press(n.querySelector('[data-v="cam"]') || n.querySelector("[data-v]")); } },
+      { at: "#svcKinds", say: "tour.svc.4" },
+      { at: "#svcAmount", say: "tour.svc.5", act: function (D, n) { return D.type(n, "150.00").then(function () { var f = document.getElementById("svcFee"); return f ? D.type(f, "10.00") : null; }); } },
+      { at: "#svcRef", say: "tour.svc.6", act: function (D, n) { return D.type(n, "CA483920"); } },
+      { at: "#svcSave", say: "tour.svc.7", real: "tour.svc.7r", writes: true, act: press },
+      { room: "inventory", at: "#svcSums", say: "tour.svc.8", prep: function () { closeLayers(c.layers); } }];
+  };
+  TOURS.stock = function (c) {
+    var it = c.item, has = function () { return !!it; };
+    return [
+      { room: "inventory", at: ".inv-tabs", say: "tour.stock.1", prep: function () { if (E.inventory) E.inventory.show("all"); } },
+      { room: "inventory", at: it ? "#invTab-" + it.cat : null, say: "tour.stock.2", when: has, act: press },
+      { at: "#invSearch", say: "tour.stock.3", when: has, act: function (D, n) { return D.type(n, word(it)); } },
+      { at: "#invRows", say: "tour.stock.4" },
+      { at: "#invReceive", say: "tour.stock.5", act: press },
+      { at: function () { return it && document.querySelector('#invRows .row-key[data-id="' + it.id + '"]'); }, say: "tour.stock.6", when: has, act: press },
+      { at: "#rcQty", say: "tour.stock.7", when: has, act: function (D, n) { return D.type(n, "12"); } },
+      { at: "#rcSave", say: "tour.stock.8", real: "tour.stock.8r", writes: true, when: has, act: press }];
+  };
+  TOURS.reports = function () {
+    function sectionOf(id) { return function () { var x = document.getElementById(id); return x && x.closest("section"); }; }
+    return [
+      { room: "reports", at: ".period-card", say: "tour.reports.1", act: function (D, n) { return D.press(n.querySelector('.chip[data-p="week"]')); } },
+      { at: "#repOut .ledger", say: "tour.reports.2" },
+      { at: sectionOf("repSplit"), say: "tour.reports.3", optional: true },
+      { at: sectionOf("repSvcCash"), say: "tour.reports.4", optional: true },
+      { at: "#repPerson", say: "tour.reports.5" },
+      { at: "#repCsvReceipts", say: "tour.reports.6" },
+      { at: ".period-card", say: "tour.reports.7", wait: function () { var x = document.querySelector('.period-card .chip[data-p="lastweek"]'); return !!x && x.getAttribute("aria-pressed") === "true"; } }];
+  };
+  TOURS.safe = function () {
+    return [
+      { room: "settings", at: "#set-backup", say: "tour.safe.1" },
+      { room: "settings", at: "#saveBackup", say: "tour.safe.2" },
+      { room: "settings", at: function () { return document.getElementById("set-verify") || document.getElementById("verifyKey"); }, say: "tour.safe.3" },
+      { room: "settings", at: "#set-security", say: "tour.safe.4" },
+      { room: "settings", at: "#setLock", say: "tour.safe.5", optional: true },
+      { room: "team", at: "#teamPeople", say: "tour.safe.6" }];
+  };
+  L.hasTour = function (id) { return !!TOURS[id]; };
+
+  /* ---------- running a tour ---------- */
+  T.start = function (id, opt) {
+    if (run) T.stop(false, true);
+    var l = lesson(id);
+    if (!TOURS[id] || !l || !B.isOpen || !canTake(B.user, l)) return false;
+    opt = opt || {};
+    var ctx = { practice: B.mode === "practice", item: demoItem(), layers: Array.prototype.slice.call(document.querySelectorAll(".layer")),
+      ticket: E.register ? copyLines(E.register.ticket.lines) : null, room: ui.current, back: document.activeElement,
+      inv: E.inventory ? { dept: E.inventory.dept, filter: E.inventory.filter, q: E.inventory.q, page: E.inventory.page } : null };
+    var steps = TOURS[id](ctx).filter(function (s) { return !s.when || s.when(); });
+    var spot = h("div.tour-spot", { "aria-hidden": "true" }), hand = h("div.tour-hand", { "aria-hidden": "true" }), ring = h("div.tour-ring", { "aria-hidden": "true" });
+    hand.appendChild(pointer()); hand.hidden = true;
+    var bubble = h("div.tour-bubble#tourBubble", { role: "dialog", "aria-modal": "false", "aria-labelledby": "tourTitle", "aria-describedby": "tourText" });
+    var root = h("div.tour#tour" + (still() ? ".still" : ""), { "data-tour": id }, [spot, ring, hand, bubble]);
+    document.body.appendChild(root);
+    run = { id: id, lesson: l, steps: steps, i: -1, token: 0, ctx: ctx, seen: {}, skipped: {}, root: root, spot: spot, hand: hand, ring: ring, bubble: bubble,
+      el: null, last: "", busy: false, waitOk: false, opt: opt };
+    window.addEventListener("keydown", onKey, true);
+    frame();
+    move(1);
+    if (E.sound) E.sound.play("soft");
+    return true;
+  };
+  function pointer() {
+    var ns = "http://www.w3.org/2000/svg", svg = document.createElementNS(ns, "svg"), p = document.createElementNS(ns, "path");
+    svg.setAttribute("viewBox", "0 0 24 24"); svg.setAttribute("width", "30"); svg.setAttribute("height", "30"); svg.setAttribute("focusable", "false");
+    p.setAttribute("d", "M5 2.8v17.4l4.4-4.3 3 6.3 3.1-1.5-3-6.2h6.3z");
+    svg.appendChild(p);
+    return svg;
+  }
+  function move(dir) {
+    if (!run || run.busy) return;
+    var i = run.i + dir;
+    if (i < 0) return;
+    if (i >= run.steps.length) return T.stop(true);
+    open(i, dir);
+  }
+  T.next = function () { move(1); };
+  T.back = function () { move(-1); };
+  function open(i, dir) {
+    var s = run.steps[i], tok = ++run.token, first = !run.seen[i];
+    run.i = i; run.el = null; run.at = s.at; run.busy = true; run.waitOk = false; run.hand.hidden = true;
+    draw(s);
+    Promise.resolve().then(function () {
+      if (s.room && ui.current !== s.room && ui.allowed(s.room)) { closeLayers(run.ctx.layers); ui.go(s.room, true); }
+      if (s.prep && first) return s.prep(run.ctx);
+    }).then(function () { return found(s.at, tok); }).then(function (n) {
+      if (!run || run.token !== tok) return null;
+      if (s.at && !n && s.optional) { run.skipped[i] = true; run.busy = false; return move(dir || 1); }
+      run.el = n;
+      if (n) { var r = n.getBoundingClientRect(); if (r.top < 60 || r.bottom > window.innerHeight - 40) try { n.scrollIntoView({ block: "center", behavior: still() ? "auto" : "smooth" }); } catch (e) { } }
+      run.seen[i] = true;
+      var doIt = s.act && first && n && (!s.writes || run.ctx.practice);
+      draw(s, doIt);
+      if (!doIt) return null;
+      /* time to read what the step says before the pointer moves */
+      var D = demo(tok), words = t(s.say).split(/\s+/).length;
+      return D.pause(Math.min(2200, 500 + 120 * words)).then(function () { return s.act(D, n, run.ctx); }).then(function () { return "acted"; });
+    }).then(function (how) {
+      if (!run || run.token !== tok) return;
+      run.busy = false; run.hand.hidden = true;
+      /* a key that closed its window as it was pressed: what it did is the next step's to show */
+      if (how === "acted" && !shown(el(s.at)) && i < run.steps.length - 1) return move(1);
+      draw(s); if (s.wait) watch(s, tok);
+    }, function (e) {
+      if (e !== STOP) console.error(e);
+      if (run && run.token === tok) { run.busy = false; run.hand.hidden = true; draw(s); }
+    });
+  }
+  /* the person's turn: the step is done when what it asks has been done */
+  function watch(s, tok) {
+    (function look() {
+      if (!run || run.token !== tok) return;
+      var ok = false; try { ok = !!s.wait(); } catch (e) { }
+      if (ok !== run.waitOk) { run.waitOk = ok; draw(s); if (ok && E.sound) E.sound.play("soft"); }
+      setTimeout(look, 220);
+    })();
+  }
+  function counts() {
+    var n = 0, m = 0;
+    run.steps.forEach(function (x, k) { if (run.skipped[k] === true && k !== run.i) return; m++; if (k <= run.i) n++; });
+    return { n: n, m: m };
+  }
+  function draw(s, watching) {
+    var b = run.bubble, c = counts(), last = run.i >= run.steps.length - 1, real = s.writes && !run.ctx.practice;
+    U.clear(b);
+    b.appendChild(h("div.tour-top", null, [h("span.tour-step#tourTitle", null, [ui.emo(run.lesson.emo), h("b", null, t("learn." + run.id + ".t")), h("span", null, t("tour.step", { n: c.n, m: c.m }))]),
+      h("button.icon-key.tour-x#tourClose", { type: "button", "aria-label": t("tour.close"), title: t("tour.close"), onclick: function () { T.stop(false); } }, U.icon("x"))]));
+    b.appendChild(h("p.tour-text#tourText", { "aria-live": "polite" }, t(real && s.real ? s.real : s.say)));
+    if (real) b.appendChild(h("p.tour-note#tourReal", null, [U.icon("lock"), h("span", null, t("tour.realNote"))]));
+    if (s.wait) b.appendChild(h("p.tour-turn#tourTurn" + (run.waitOk ? ".ok" : ""), { "aria-live": "polite" }, [run.waitOk ? U.icon("check") : ui.emo("👉"), h("span", null, t(run.waitOk ? "tour.turnDone" : "tour.yourTurn"))]));
+    var back = h("button.key.sm#tourBack", { type: "button", disabled: run.i === 0 || run.busy ? "" : null, onclick: T.back }, [U.icon("back"), t("back")]);
+    var nextLabel = run.busy && watching ? t("tour.watch") : s.wait && !run.waitOk ? t("tour.skip") : last ? t("tour.finish") : t("next");
+    var next = h("button.key.sm#tourNext" + (s.wait && !run.waitOk ? "" : ".primary"), { type: "button", disabled: run.busy ? "" : null, onclick: T.next }, [nextLabel, run.busy ? null : U.icon("next")]);
+    b.appendChild(h("div.tour-keys", null, [back, h("span.tour-dots", { "aria-hidden": "true" }, run.steps.map(function (x, k) {
+      return run.skipped[k] === true && k !== run.i ? null : h("i" + (k === run.i ? ".on" : k < run.i ? ".past" : ""));
+    })), next]));
+    run.last = "";
+    if (!run.busy && b.contains(document.activeElement) === false) setTimeout(function () { var k = document.getElementById("tourNext"); if (k && run && !s.wait) try { k.focus({ preventScroll: true }); } catch (e) { } }, 30);
+  }
+  /* the light and the bubble follow what is lit as the page moves */
+  function frame() {
+    if (!run) return;
+    /* a room that draws itself again replaces what was lit: the step's element is found again */
+    var n = run.el;
+    if ((!n || !document.body.contains(n)) && run.at && !run.busy) { n = el(run.at); if (n) run.el = n; }
+    var r = n && document.body.contains(n) ? n.getBoundingClientRect() : null;
+    if (r && !r.width && !r.height) r = null;
+    var vw = window.innerWidth, vh = window.innerHeight, bw = run.bubble.offsetWidth, bh = run.bubble.offsetHeight;
+    var key = r ? [r.left, r.top, r.width, r.height].map(Math.round).join(",") : "none";
+    key += "|" + vw + "x" + vh + "|" + bw + "x" + bh;
+    if (key !== run.last) {
+      run.last = key;
+      var pad = 6, sp = run.spot.style;
+      if (r) { sp.left = Math.round(r.left - pad) + "px"; sp.top = Math.round(r.top - pad) + "px"; sp.width = Math.round(r.width + pad * 2) + "px"; sp.height = Math.round(r.height + pad * 2) + "px"; run.spot.classList.remove("none"); }
+      else { sp.left = Math.round(vw / 2) + "px"; sp.top = Math.round(vh / 2) + "px"; sp.width = "0px"; sp.height = "0px"; run.spot.classList.add("none"); }
+      var m = 12, x, y, bs = run.bubble.style;
+      if (vw < 600) {
+        x = m; y = vh - bh - m;
+        if (r && r.bottom + 8 > y && r.top > bh + m * 2) y = m;
+        bs.left = x + "px"; bs.top = Math.max(m, y) + "px"; bs.right = m + "px";
+      } else {
+        bs.right = "auto";
+        if (!r) { x = (vw - bw) / 2; y = Math.max(m, (vh - bh) / 2); }
+        else if (r.bottom + pad + m + bh <= vh - m) { y = r.bottom + pad + m; x = r.left + r.width / 2 - bw / 2; }
+        else if (r.top - pad - m - bh >= m) { y = r.top - pad - m - bh; x = r.left + r.width / 2 - bw / 2; }
+        else if (r.right + pad + m + bw <= vw - m) { x = r.right + pad + m; y = r.top; }
+        else if (r.left - pad - m - bw >= m) { x = r.left - pad - m - bw; y = r.top; }
+        else { x = (vw - bw) / 2; y = vh - bh - m; }
+        x = Math.min(Math.max(m, x), vw - bw - m); y = Math.min(Math.max(m, y), vh - bh - m);
+        bs.left = Math.round(x) + "px"; bs.top = Math.round(y) + "px";
+      }
+    }
+    run.raf = requestAnimationFrame(frame);
+  }
+  function onKey(e) {
+    if (!run) return;
+    if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); T.stop(false); return; }
+    var inBubble = run.bubble.contains(document.activeElement) || document.activeElement === document.body;
+    if (!inBubble) return;
+    if (e.key === "ArrowRight") { e.preventDefault(); T.next(); }
+    else if (e.key === "ArrowLeft") { e.preventDefault(); T.back(); }
+  }
+  /* the end of a tour: what it opened is closed, the ticket and the Inventory's search are put back as they were */
+  T.stop = function (finished, quiet) {
+    if (!run) return;
+    var r = run; run = null;
+    window.removeEventListener("keydown", onKey, true);
+    if (r.raf) cancelAnimationFrame(r.raf);
+    r.root.remove();
+    if (!B.isOpen) return;
+    closePops();
+    closeLayers(r.ctx.layers);
+    if (r.ctx.ticket && E.register && E.register.setLines) E.register.setLines(r.ctx.ticket);
+    if (r.ctx.inv && E.inventory) { E.inventory.dept = r.ctx.inv.dept; E.inventory.filter = r.ctx.inv.filter; E.inventory.q = r.ctx.inv.q; E.inventory.page = r.ctx.inv.page; }
+    var to = r.ctx.room === "learn" ? "learn" : ui.current;
+    if (!quiet) ui.go(ui.allowed(to) ? to : "home", true);
+    if (r.ctx.back && document.body.contains(r.ctx.back)) try { r.ctx.back.focus({ preventScroll: true }); } catch (e) { }
+    if (finished && !quiet) {
+      ui.dialog({ title: t("tour.endT"), emoji: "🎓", body: h("p", null, t("tour.endP", { name: t("learn." + r.id + ".t") })),
+        actions: [{ label: t("tour.later") }, { label: t("tour.toQuiz"), kind: "primary", id: "tourQuiz", onClick: function (close) { close(); L.quiz(r.id); } }] });
+    }
+  };
+  B.on("lock", function () { if (run) T.stop(false, true); });
+
+  /* ---------- the questions ---------- */
+  L.quiz = function (id) {
+    var l = lesson(id); if (!l || !B.isOpen) return null;
+    var qs = questions(id), i = 0, right = 0, missed = false, solved = false, d;
+    var body = h("div.quiz#quiz");
+    function step() {
+      U.clear(body); missed = false; solved = false;
+      var cur = qs[i], why = h("p.quiz-why#quizWhy", { "aria-live": "polite" });
+      body.appendChild(h("p.eyebrow.quiz-n", null, t("quiz.qn", { n: i + 1, m: qs.length })));
+      body.appendChild(h("h3.quiz-q#quizQ", null, t(cur.q)));
+      body.appendChild(h("div.quiz-opts", { role: "group", "aria-labelledby": "quizQ" }, cur.opts.map(function (o, k) {
+        var b = h("button.quiz-opt", { type: "button", "data-k": String(k) }, [h("span.quiz-letter", { "aria-hidden": "true" }, "ABC".charAt(k)), h("span.quiz-t", null, t(o[0])), h("span.quiz-mark", { "aria-hidden": "true" })]);
+        b.addEventListener("click", function () {
+          if (solved) return;
+          if (o[1]) {
+            solved = true; if (!missed) right++;
+            b.classList.add("right"); b.setAttribute("aria-pressed", "true"); b.querySelector(".quiz-mark").appendChild(U.icon("check"));
+            Array.prototype.forEach.call(body.querySelectorAll(".quiz-opt"), function (x) { if (x !== b) x.disabled = true; });
+            why.textContent = t("quiz.right") + " " + t(cur.why); why.className = "quiz-why ok";
+            var nx = document.getElementById("quizNext"); if (nx) { nx.disabled = false; setTimeout(function () { try { nx.focus(); } catch (e) { } }, 30); }
+            if (E.sound) E.sound.play("soft");
+          } else {
+            missed = true; b.classList.add("wrong"); b.disabled = true; b.querySelector(".quiz-mark").appendChild(U.icon("x"));
+            why.textContent = t("quiz.wrong"); why.className = "quiz-why no";
+          }
+        });
+        return b;
+      })));
+      body.appendChild(why);
+      var nx = document.getElementById("quizNext");
+      if (nx) { nx.disabled = true; nx.lastChild.textContent = t(i === qs.length - 1 ? "quiz.finish" : "quiz.next"); }
+    }
+    d = ui.dialog({ title: t("quiz.title", { name: t("learn." + id + ".t") }), emoji: l.emo, body: body,
+      actions: [{ label: t("close") }, { label: t("quiz.next"), kind: "primary", id: "quizNext", disabled: true, onClick: function (close, btn) {
+        if (!solved) return false;
+        if (i < qs.length - 1) { i++; step(); setTimeout(function () { var f = body.querySelector(".quiz-opt"); if (f) f.focus(); }, 30); return false; }
+        btn.disabled = true;
+        B.trainDone(id, right, qs.length).then(function () {
+          close();
+          ui.toast(t("quiz.saved", { name: t("learn." + id + ".t"), s: right, o: qs.length }), "good");
+          if (E.sound) E.sound.play("sale");
+          if (ui.current === "learn" || ui.current === "home") ui.refresh();
+        }, function (e) { btn.disabled = false; ui.failed(e); });
+        return false;
+      } }] });
+    step();
+    setTimeout(function () { var f = body.querySelector(".quiz-opt"); if (f) f.focus(); }, 40);
+    return d;
+  };
+
+  /* a lesson's chapter of the Guidebook, read where the lesson is */
+  L.read = function (id) {
+    var paras = t("guide." + id + ".b").split("\n");
+    ui.dialog({ title: t("guide." + id + ".t"), emoji: "📖", wide: true, body: [h("div.learn-read", null, paras.map(function (p) { return h("p", null, p); })),
+      h("div.tip-box", null, [ui.emo("💡"), h("p", null, [h("strong", null, t("tip") + ": "), t("guide." + id + ".tip")])]),
+      ui.readAloud(t("guide." + id + ".t") + ". " + paras.join(" "))], actions: [{ label: t("gotIt"), kind: "primary" }] });
+  };
+
+  /* ---------- the Learning room ---------- */
+  ui.rooms.learn = function (main) {
+    var me = B.user, mine = L.lessonsFor(me), done = L.doneOf(me), practice = B.mode === "practice";
+    var n = mine.filter(function (l) { return done[l.id]; }).length, next = mine.filter(function (l) { return !done[l.id]; })[0];
+    main.appendChild(ui.roomHead("room.learn", "tip.learn", [h("button.key.primary#learnTour", { type: "button", onclick: function () { T.start("welcome"); } }, [U.icon("play"), t("learn.tour")])]));
+
+    var fill = h("span.learn-fill"); fill.style.width = (mine.length ? Math.round(100 * n / mine.length) : 0) + "%";
+    main.appendChild(h("section.card.learn-mine#learnMine", { "aria-labelledby": "learnMineH" }, [
+      h("div.learn-mine-head", null, [h("span.learn-cap", { "aria-hidden": "true" }, U.icon("cap")),
+        h("div.learn-mine-t", null, [h("h2#learnMineH", null, t("learn.mineH")), h("p#learnCount", null, n === mine.length ? t("learn.allDone") : t("learn.progress", { n: n, m: mine.length }))]),
+        next ? h("div.learn-next", null, [h("small", null, t("learn.next", { name: t("learn." + next.id + ".t") })),
+          h("button.key.primary#learnNext", { type: "button", "data-lesson": next.id, onclick: function () { T.start(next.id); } }, [U.icon("play"), t("learn.start")])]) : null]),
+      h("div.learn-bar", { role: "progressbar", "aria-valuemin": "0", "aria-valuemax": String(mine.length), "aria-valuenow": String(n), "aria-label": t("learn.mineH") }, fill),
+      h("p.hint.learn-note", null, [ui.emo(practice ? "🧪" : "🛡️"), t(practice ? "learn.practiceNote" : "learn.realNote")])]));
+
+    main.appendChild(h("div.learn-grid#learnList", null, mine.map(function (l) {
+      var x = done[l.id];
+      return h("article.lesson" + (x ? ".done" : ""), { "data-lesson": l.id, "aria-labelledby": "ls-" + l.id }, [
+        h("div.lesson-head", null, [h("span.lesson-emo", { "aria-hidden": "true" }, l.emo), h("h3.lesson-t#ls-" + l.id, null, t("learn." + l.id + ".t")),
+          x ? h("span.badge.ok.lesson-state", null, [U.icon("check"), t("learn.done")]) : h("span.badge.lesson-state.todo", null, t("learn.todo"))]),
+        h("p.lesson-d", null, t("learn." + l.id + ".d")),
+        h("p.lesson-meta.muted", null, x ? t("learn.doneOn", { d: E.fmtDate(new Date(x.at), "short"), s: x.score, o: x.of }) : t("learn.min", { n: l.min }) + " · " + t("learn.for." + (l.need || "all"))),
+        h("div.lesson-keys", null, [
+          h("button.key.sm.primary", { type: "button", "data-act": "tour", onclick: function () { T.start(l.id); } }, [U.icon("play"), t("learn.showMe")]),
+          h("button.key.sm", { type: "button", "data-act": "read", onclick: function () { L.read(l.guide); } }, [U.icon("book"), t("learn.read")]),
+          h("button.key.sm", { type: "button", "data-act": "quiz", onclick: function () { L.quiz(l.id); } }, [U.icon("edit"), t("learn.quiz")])])]);
+    })));
+
+    /* the team's lessons, for the owner and those with the team access */
+    if (B.can("team")) {
+      var people = B.people().filter(function (u) { return u.active !== false; });
+      main.appendChild(h("section.card.learn-team#learnTeam", { "aria-labelledby": "learnTeamH" }, [
+        h("div.card-head", null, h("h2#learnTeamH", null, [ui.emo("👥"), t("learn.teamH")])), h("p.hint", null, t("learn.teamP")),
+        h("div.table-wrap", null, h("table.grid#learnPeople", null, [
+          h("thead", null, h("tr", null, [h("th", null, t("people.name")), h("th.num", null, t("learn.colDone")), h("th", null, t("learn.colLast")), h("th", null, t("learn.colMarks"))])),
+          h("tbody", null, people.map(function (u) {
+            var theirs = L.lessonsFor(u), d = L.doneOf(u), k = theirs.filter(function (l) { return d[l.id]; }).length, lastAt = null;
+            theirs.forEach(function (l) { if (d[l.id] && (!lastAt || d[l.id].at > lastAt)) lastAt = d[l.id].at; });
+            return h("tr", { "data-person": u.id }, [h("td", null, ui.personTag(u)), h("td.num", null, h("span.badge" + (k === theirs.length ? ".ok" : ""), null, k + " / " + theirs.length)),
+              h("td.muted", null, lastAt ? E.fmtDate(new Date(lastAt), "short") : t("learn.never")),
+              h("td", null, h("span.learn-marks", null, theirs.map(function (l) {
+                var on = !!d[l.id], label = t(on ? "learn.markDone" : "learn.markTodo", { name: t("learn." + l.id + ".t") }) + (on ? " (" + d[l.id].score + "/" + d[l.id].of + ")" : "");
+                return h("span.learn-mark" + (on ? ".on" : ""), { role: "img", "aria-label": label, title: label }, l.emo);
+              })))]);
+          }))]))]));
+    }
+
+    /* every tip, room by room */
+    main.appendChild(h("section.card.learn-tips#learnTips", { "aria-labelledby": "learnTipsH" }, [
+      h("div.card-head", null, h("h2#learnTipsH", null, [ui.emo("💡"), t("learn.allTipsH")])),
+      h("div.learn-tip-rooms", null, Object.keys(TIPS).filter(function (r) { return r === "learn" || ui.allowed(r); }).map(function (r) {
+        var list = [];
+        for (var k = 1; k <= TIPS[r]; k++) list.push(h("li", null, t("tips." + r + "." + k)));
+        return h("details.learn-tip-room", null, [h("summary", null, [ui.emo(ui.ROOM_EMO[r] || "💡"), t("room." + r)]), h("ul", null, list)]);
+      }))]));
+  };
+
+  /* ---------- tips at the foot of each room ---------- */
+  var TIPS = { home: 4, register: 4, inventory: 4, reports: 3, team: 3, learn: 3, guide: 2, settings: 3, studio: 2 };
+  var tipAt = {};
+  L.tipsOn = function () { return U.prefGet("tips", "1") === "1"; };
+  /* fresh: a new visit to the room shows its next tip; a room drawn again keeps the one it shows */
+  L.tipStrip = function (room, fresh) {
+    if (!L.tipsOn() || !TIPS[room] || !B.isOpen) return null;
+    var n = TIPS[room];
+    if (tipAt[room] === undefined) tipAt[room] = (parseInt(U.prefGet("tipAt." + room, "0"), 10) || 0) % n;
+    else if (fresh) tipAt[room] = (tipAt[room] + 1) % n;
+    U.prefSet("tipAt." + room, String((tipAt[room] + 1) % n));
+    var text = h("span.tip-strip-t#tipText", { "aria-live": "polite" }, t("tips." + room + "." + (tipAt[room] + 1)));
+    var strip = h("aside.tip-strip#tipStrip", { "aria-label": t("learn.tipH") }, [h("span.tip-strip-emo", { "aria-hidden": "true" }, "💡"),
+      h("p.tip-strip-p", null, [h("b", null, t("learn.tipH") + " "), text]),
+      h("span.tip-strip-keys", null, [n > 1 ? h("button.key.sm.quiet#tipMore", { type: "button", onclick: function () {
+        tipAt[room] = (tipAt[room] + 1) % n; text.textContent = t("tips." + room + "." + (tipAt[room] + 1)); U.prefSet("tipAt." + room, String((tipAt[room] + 1) % n));
+      } }, t("learn.another")) : null,
+        h("button.icon-key#tipHide", { type: "button", "aria-label": t("learn.hideTips"), title: t("learn.hideTips"), onclick: function () {
+          U.prefSet("tips", "0"); strip.remove(); ui.toast(t("learn.tipsHidden"));
+        } }, U.icon("x"))])]);
+    return strip;
+  };
+  L.TIPS = TIPS;
+
+  /* ---------- "Show me" in the heading of a room that has a tour ---------- */
+  L.showKey = function (room) {
+    if (!B.isOpen || !B.user) return null;
+    var id = { register: "sale", inventory: B.can("receive") ? "stock" : "svc", reports: "reports", team: "clock", settings: "safe" }[room];
+    if (!id || !canTake(B.user, lesson(id))) return null;
+    return h("button.key.tour-key#showMe", { type: "button", "data-tour": id, title: t("learn.showMeTip"), onclick: function () { T.start(id); } }, [U.icon("play"), t("learn.showMe")]);
+  };
 })();
 
 /* EMPORIUM | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt.
