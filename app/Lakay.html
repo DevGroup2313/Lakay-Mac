@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-EOps/6ScsDWuiHFY2BzrTjswsksjySF0XoVPNHpzsb4='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-IWqhqdUz7F0dNb+eYnv1dj2c4CV2V0i95rg4hR7cBps='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#f5f4f8">
 <meta name="application-name" content="Lakay">
-<meta name="lakay-build" content="12">
-<!-- LAKAY | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt. Build 12 (2026-11-14). -->
+<meta name="lakay-build" content="13">
+<!-- LAKAY | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt. Build 13 (2026-11-14). -->
 <title>Lakay</title>
 <!-- Lakay's logo, inside the page (the page's own policy shows only pictures it carries): the square tile, filled edge to
      edge with the coin's periwinkle, for the shortcuts a browser makes on a home screen; the round coin, on nothing, for the
@@ -1018,52 +1018,46 @@ button.hx-item:hover { transform: translateY(-1px); box-shadow: var(--pill); }
 .calc-line { border: 0; background: transparent; padding: 1px 0; text-align: left; font: 11.5px/1.3 ui-monospace, Menlo, Consolas, monospace; color: var(--muted); cursor: pointer; overflow-wrap: anywhere; }
 .calc-line:hover { color: var(--pri-text); }
 
-/* LAKAY | Home (Build 12, 12-home-register.js): the shell's own colours. Every colour here is taken from Lakay's mark:
-   its periwinkle enamel (#7070d0 and its deeper turns), the indigo of the shell's sides, the pearl of the shell, the
-   blush of the pearl at its heart, and the fine champagne gold of its rim. The hero is an enamel plate with the shell's
-   spiral engraved across it; the day's figures roll into place on pearl drums behind a champagne bezel; the counter's
-   keys are enamel, pearl and blush pearl in champagne rims, and travel down when pressed; the rooms are drawers with
-   champagne label plates; the proverb is on a champagne plaque. The rest of the house keeps Lakay's Dawn, from the
-   same mark. Calm and "reduce motion" hold all of it still. */
+/* LAKAY | Home (Build 13, 12-home-register.js): the shell's own colours, worn the way Ingenium and Carpe Diem wear
+   theirs. The large surfaces are white slabs with crisp hairline rims; the cards set inside them and the keys that act
+   are the logo's periwinkle enamel, or a gentle lavender beside it. Every colour comes from Lakay's mark: its
+   periwinkle enamel, the indigo of the shell's sides, the pearl of the shell, and the fine champagne gold of its rim.
+   The welcome is a white slab with the shell's spiral engraved faintly across it; the day's figures roll into place
+   on pearl drums in an enamel card; the counter's keys travel down when pressed; the rooms are white drawers with
+   enamel jewels in a lavender tray; the proverb is on a champagne plaque. Calm and "reduce motion" hold it all still. */
 
 /* ---------- the shell's colours, by day ---------- */
 .hm {
-  --sh-en-1: #676ccc; --sh-en-2: #5960be; --sh-en-3: #4b50aa; --sh-en-4: #3c4096;   /* the enamel, from the light at its top to its deep foot */
-  --sh-en-ink: #ffffff; --sh-en-ink-2: rgba(255, 255, 255, .88); --sh-en-ink-3: rgba(255, 255, 255, .74);
-  --sh-en-edge: #363a8a; --sh-en-ledge: #2a2d72;
-  --sh-indigo: #1f2257;                                                               /* the ink the shell's sides are cut in */
-  --sh-pearl-1: #ffffff; --sh-pearl-2: #f4f3fb; --sh-pearl-3: #e7e6f5; --sh-pearl-4: #d2d0ea;
-  --sh-blush-1: #fff8f3; --sh-blush-2: #f2ddd0;
+  --sh-en-1: #6c71d0; --sh-en-2: #5960be; --sh-en-3: #4b50aa; --sh-en-4: #3c4096;   /* the enamel, from its light top to its deep foot */
+  --sh-en-ink: #ffffff; --sh-en-ink-2: rgba(255, 255, 255, .88); --sh-en-ink-3: rgba(255, 255, 255, .76);
+  --sh-en-ledge: #33378a;
   --sh-g1: #f6e8c2; --sh-g2: #dcc28a; --sh-g3: #bf9f62; --sh-g4: #93743c; --sh-g-ink: #7a5d26;
   --sh-gold: linear-gradient(150deg, var(--sh-g1) 0%, var(--sh-g3) 32%, var(--sh-g4) 52%, var(--sh-g2) 76%, var(--sh-g4) 100%);
-  --sh-paper: linear-gradient(180deg, #ffffff, #f9f8fd); --sh-sheet: #fdfdff;
+  --sh-paper: var(--slab-face); --sh-sheet: #fdfdff;
   --sh-rule: rgba(95, 103, 204, .10); --sh-margin: rgba(191, 159, 98, .55); --sh-lead: rgba(33, 31, 51, .30);
+  --sh-engr: rgba(95, 103, 204, .085); --sh-engr-ring: rgba(191, 159, 98, .26);
   --sh-drum: linear-gradient(180deg, #b9b7d6 0%, #e9e8f6 15%, #ffffff 50%, #e9e8f6 85%, #b9b7d6 100%); --sh-drum-ink: #1f2257; --sh-drum-red: #a8423d;
-  --sh-window: linear-gradient(180deg, #ffffff, #eeedf8);
-  --sh-tray: linear-gradient(180deg, #e8e7f5, #dddbef);
+  --sh-soft: linear-gradient(180deg, #f8f8ff, #e9eafb); --sh-soft-ink: #262a6e; --sh-soft-skirt: linear-gradient(180deg, #c3c5ea, #a3a5d3);
   --sh-tape: #ffffff; --sh-tape-ink: #26283f;
-  --sh-drawer: linear-gradient(180deg, #ffffff, #f0eff9); --sh-drawer-ink: #211f33; --sh-plate-in: linear-gradient(180deg, #fbfaff, #efeef8);
+  --sh-plate-in: linear-gradient(180deg, #ffffff, #f5f5fc);
   --sh-plaque: linear-gradient(160deg, #f4e6c0 0%, #dcc28a 30%, #c9ab70 55%, #e8d6a6 78%, #bc9c5e 100%); --sh-plaque-ink: #262a6e; --sh-plaque-ink-2: #3b3f7e;
   --sh-num: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Times New Roman", serif;
   /* the hours' columns: Lakay's checked periwinkle, the enamel's own (dataviz validator, Build 10) */
   --hm-bar: var(--pri);
 }
-/* ---------- by night: the enamel deepens to the shell's indigo; the pearl dims; the gold stays fine ---------- */
+/* ---------- by night: the slabs are Lakay's night slabs; the enamel deepens to the shell's indigo ---------- */
 :root[data-theme="night"] .hm {
-  --sh-en-1: #41469c; --sh-en-2: #33378a; --sh-en-3: #282c74; --sh-en-4: #1f2260;
-  --sh-en-ink: #f4f3fd; --sh-en-ink-2: rgba(244, 243, 253, .84); --sh-en-ink-3: rgba(244, 243, 253, .68);
-  --sh-en-edge: rgba(230, 207, 152, .18); --sh-en-ledge: #08081a;
-  --sh-indigo: #e7e6f7;
-  --sh-pearl-1: #2a2a40; --sh-pearl-2: #232336; --sh-pearl-3: #1c1c2d; --sh-pearl-4: #141422;
-  --sh-blush-1: #2d2629; --sh-blush-2: #241f22;
+  --sh-en-1: #464ba6; --sh-en-2: #373c90; --sh-en-3: #2b2f78; --sh-en-4: #222564;
+  --sh-en-ink: #f4f3fd; --sh-en-ink-2: rgba(244, 243, 253, .86); --sh-en-ink-3: rgba(244, 243, 253, .70);
+  --sh-en-ledge: #0b0b20;
   --sh-g1: #f0dfb3; --sh-g2: #cdb27a; --sh-g3: #a98b52; --sh-g4: #6e5427; --sh-g-ink: #e6cf98;
-  --sh-paper: linear-gradient(180deg, #1f1f2d, #1b1b28); --sh-sheet: #181825;
+  --sh-sheet: #181825;
   --sh-rule: rgba(176, 181, 245, .07); --sh-margin: rgba(230, 207, 152, .38); --sh-lead: rgba(214, 213, 240, .26);
+  --sh-engr: rgba(176, 181, 245, .07); --sh-engr-ring: rgba(230, 207, 152, .15);
   --sh-drum: linear-gradient(180deg, #05051a 0%, #1a1c46 18%, #292c64 50%, #1a1c46 82%, #05051a 100%); --sh-drum-ink: #ecebfa; --sh-drum-red: #ee968e;
-  --sh-window: linear-gradient(180deg, #11122b, #0c0d22);
-  --sh-tray: linear-gradient(180deg, #19193a, #13132c);
+  --sh-soft: linear-gradient(180deg, #2d2d48, #24243b); --sh-soft-ink: #e3e4fb; --sh-soft-skirt: linear-gradient(180deg, #15152a, #0e0e1f);
   --sh-tape: #dcdbe6; --sh-tape-ink: #1f2133;
-  --sh-drawer: linear-gradient(180deg, #2a2a42, #212135); --sh-drawer-ink: #efeef7; --sh-plate-in: linear-gradient(180deg, #19192b, #141424);
+  --sh-plate-in: linear-gradient(180deg, #232336, #1d1d2e);
   --sh-plaque: linear-gradient(160deg, #4b4231 0%, #352e21 42%, #2c261b 60%, #40382a 100%); --sh-plaque-ink: #efdcac; --sh-plaque-ink-2: #e2cfa3;
   --hm-bar: var(--pri-hi);
 }
@@ -1079,133 +1073,129 @@ button.hx-item:hover { transform: translateY(-1px); box-shadow: var(--pill); }
 .hm .hx-sech { position: relative; padding-bottom: 10px; margin-bottom: 14px; border-bottom: 1px solid var(--line); }
 .hm .hx-sech::after { content: ""; position: absolute; left: 0; bottom: -1px; width: 46px; height: 2px; border-radius: 1px; background: linear-gradient(90deg, var(--sh-g3), var(--sh-g2)); }
 .hm .hx-sech h2 { font: 600 1.06rem/1.2 var(--serif); letter-spacing: .07em; color: var(--ink); }
-/* the pearl papers the sections are written on */
-.ct-ledger, .hm-needs, .hm-sales, .hm-strip { background: var(--sh-paper); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--slab); }
+/* the white slabs every section is set on, as Ingenium and Carpe Diem set theirs */
+.ct-hero, .ct-ledger, .hm-needs, .hm-sales, .hm-strip, .hm-rooms { background: var(--slab-face); border: 1px solid var(--line); box-shadow: var(--slab); }
+.ct-ledger, .hm-needs, .hm-sales, .hm-strip { border-radius: 18px; }
+/* the keys inside the slabs: the one that acts is the enamel; the quieter ones a gentle lavender */
+.hm .hx-btn { color: var(--pri-text); background: var(--sh-soft); border-color: rgba(var(--pri-rgb), .24); }
+.hm .hx-btn.pri, .hm .hm-need-k { color: #fff; background: linear-gradient(180deg, var(--pri-hi), var(--pri-lo)); border-color: var(--pri-edge); box-shadow: var(--psh); text-shadow: 0 1px 1px rgba(30, 10, 60, .3); }
+.hm .hx-btn.pri:hover, .hm .hm-need-k:hover { box-shadow: var(--pshhi); }
+.hm .hx-btn.pri:active, .hm .hm-need-k:active { box-shadow: var(--ppress); }
+.hm .hx-btn.quiet { color: var(--pri-text); background: var(--pri-soft); border-color: transparent; box-shadow: none; }
+.hm .hx-btn.quiet:hover { background: rgba(var(--pri-rgb), .15); }
 
-/* ---------- the hero: an enamel plate, the shell's spiral engraved across it ---------- */
+/* ---------- the welcome: a white slab, the shell's spiral engraved faintly across it ---------- */
 .ct-hero { position: relative; z-index: 1; overflow: hidden; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 430px); gap: 22px 32px; align-items: center;
-  padding: 32px 34px; border-radius: 24px 24px 14px 14px; color: var(--sh-en-ink); border: 1px solid var(--sh-en-edge);
-  background: radial-gradient(70% 90% at 12% 0%, rgba(255, 255, 255, .22), transparent 62%), linear-gradient(155deg, var(--sh-en-1) 0%, var(--sh-en-2) 42%, var(--sh-en-3) 78%, var(--sh-en-4) 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .26), inset 0 -2px 0 rgba(20, 16, 70, .22), 0 2px 0 var(--sh-en-ledge), 0 10px 22px rgba(40, 36, 110, .22), 0 26px 50px rgba(40, 36, 110, .14); }
-:root[data-theme="night"] .ct-hero { background: radial-gradient(70% 90% at 12% 0%, rgba(176, 181, 245, .14), transparent 62%), linear-gradient(155deg, var(--sh-en-1) 0%, var(--sh-en-2) 42%, var(--sh-en-3) 78%, var(--sh-en-4) 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .10), inset 0 -2px 0 rgba(0, 0, 0, .35), 0 2px 0 var(--sh-en-ledge), 0 10px 22px rgba(0, 0, 0, .45), 0 26px 50px rgba(0, 0, 0, .35); }
+  padding: 32px 34px; border-radius: 24px 24px 14px 14px; color: var(--ink); }
 /* the engraving: the shell's spiral, turning slowly around the mark, as the mark's own engraving turns */
 .ct-engr { position: absolute; z-index: -2; left: 92px; top: 50%; width: 1000px; height: 1000px; margin: -500px 0 0 -500px; pointer-events: none; overflow: visible;
-  fill: none; stroke: rgba(255, 255, 255, .15); stroke-width: 1; vector-effect: non-scaling-stroke; animation: ctTurn 220s linear infinite; }
+  fill: none; stroke: var(--sh-engr); stroke-width: 1; vector-effect: non-scaling-stroke; animation: ctTurn 220s linear infinite; }
 .ct-engr path, .ct-engr circle { vector-effect: non-scaling-stroke; }
-.ct-engr .ring { stroke: rgba(246, 232, 194, .26); }
-:root[data-theme="night"] .ct-engr { stroke: rgba(200, 204, 255, .10); }
-:root[data-theme="night"] .ct-engr .ring { stroke: rgba(230, 207, 152, .16); }
+.ct-engr .ring { stroke: var(--sh-engr-ring); }
 @keyframes ctTurn { from { rotate: 0deg; } to { rotate: 360deg; } }
-/* the nacre: the soft play of colour a shell's inner face has, strongest above, gone by the foot */
+/* the nacre: a breath of a shell's play of colour in the slab's upper corner, gone by the foot */
 .ct-nacre { position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background: conic-gradient(from 210deg at 78% 8%, rgba(255, 196, 222, .20), rgba(186, 200, 255, .18), rgba(255, 226, 198, .16), rgba(214, 192, 255, .20), rgba(255, 196, 222, .20));
-  -webkit-mask-image: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, .45) 55%, transparent 100%); mask-image: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, .45) 55%, transparent 100%); }
-:root[data-theme="night"] .ct-nacre { opacity: .45; }
-/* the champagne rim of the plate */
-.ct-hero::before { content: ""; position: absolute; inset: 10px; z-index: -1; border-radius: 16px; border: 1px solid rgba(246, 232, 194, .45); pointer-events: none; }
-:root[data-theme="night"] .ct-hero::before { border-color: rgba(230, 207, 152, .30); }
+  background: conic-gradient(from 210deg at 82% 6%, rgba(255, 196, 222, .12), rgba(186, 200, 255, .14), rgba(255, 226, 198, .10), rgba(214, 192, 255, .14), rgba(255, 196, 222, .12));
+  -webkit-mask-image: radial-gradient(70% 90% at 82% 0%, #000 0%, rgba(0, 0, 0, .4) 50%, transparent 85%); mask-image: radial-gradient(70% 90% at 82% 0%, #000 0%, rgba(0, 0, 0, .4) 50%, transparent 85%); }
+:root[data-theme="night"] .ct-nacre { opacity: .35; }
+/* a fine champagne line inside the slab's rim */
+.ct-hero::before { content: ""; position: absolute; inset: 10px; z-index: -1; border-radius: 16px; border: 1px solid rgba(191, 159, 98, .30); pointer-events: none; }
+:root[data-theme="night"] .ct-hero::before { border-color: rgba(230, 207, 152, .16); }
 
 .ct-intro { position: relative; display: flex; align-items: center; gap: 22px; min-width: 0; }
 /* the mark, set in a pearl ring as a jewel is set */
 .ct-mark { position: relative; flex: none; width: 116px; height: 116px; display: grid; place-items: center; }
 .ct-mark::before { content: ""; position: absolute; inset: 0; border-radius: 50%;
-  background: radial-gradient(circle at 34% 28%, #ffffff, #e9e8f6 45%, #c9c7e6 100%);
-  box-shadow: inset 0 2px 1px rgba(255, 255, 255, .9), inset 0 -3px 6px rgba(60, 56, 140, .25), 0 2px 0 rgba(30, 26, 90, .25), 0 10px 22px rgba(20, 16, 70, .28); }
+  background: radial-gradient(circle at 34% 28%, #ffffff, #eeedf8 45%, #d6d4ee 100%);
+  box-shadow: inset 0 2px 1px rgba(255, 255, 255, .95), inset 0 -3px 6px rgba(60, 56, 140, .18), 0 1px 0 rgba(34, 28, 60, .10), 0 8px 18px rgba(34, 28, 60, .14); }
 .ct-mark::after { content: ""; position: absolute; inset: 8px; border-radius: 50%; background: radial-gradient(circle at 50% 40%, var(--sh-en-2), var(--sh-en-4));
-  box-shadow: inset 0 3px 8px rgba(10, 8, 50, .45), 0 0 0 1px rgba(191, 159, 98, .55); }
+  box-shadow: inset 0 3px 8px rgba(10, 8, 50, .45), 0 0 0 1px rgba(191, 159, 98, .5); }
 :root[data-theme="night"] .ct-mark::before { background: radial-gradient(circle at 34% 28%, #4a4a6a, #2c2c44 55%, #1a1a2c 100%); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18), inset 0 -3px 6px rgba(0, 0, 0, .4), 0 2px 0 rgba(0, 0, 0, .4), 0 10px 22px rgba(0, 0, 0, .45); }
 .ct-mark > * { position: relative; z-index: 1; }
 .ct-words { min-width: 0; }
 .ct-hero .hx-eyebrow { gap: 4px 14px; }
-.ct-hero .hx-eyebrow h1 { font: 700 12px/1.2 var(--sans); letter-spacing: .32em; text-transform: uppercase; color: var(--sh-en-ink); }
-.ct-hero .hx-date { font: 600 10.5px/1.2 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--sh-en-ink-3); }
-.ct-hero .hm-hello { margin: 8px 0 0; font: 600 2.35rem/1.06 var(--serif); letter-spacing: .005em; color: var(--sh-en-ink); overflow-wrap: anywhere; text-wrap: balance;
-  text-shadow: 0 1px 1px rgba(20, 16, 70, .35); }
-.ct-hero .hm-lede { margin: 8px 0 0; max-width: 56ch; font-size: .9rem; line-height: 1.5; color: var(--sh-en-ink-2); }
+.ct-hero .hx-eyebrow h1 { font: 700 12px/1.2 var(--sans); letter-spacing: .32em; text-transform: uppercase; color: var(--pri-text); }
+.ct-hero .hx-date { font: 600 10.5px/1.2 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--brass-ink); }
+.ct-hero .hm-hello { margin: 8px 0 0; font: 600 2.35rem/1.06 var(--serif); letter-spacing: .005em; color: var(--ink); overflow-wrap: anywhere; text-wrap: balance; }
+:root[data-theme="night"] .ct-hero .hm-hello { color: #f5f2fd; }
+.ct-hero .hm-lede { margin: 8px 0 0; max-width: 56ch; font-size: .9rem; line-height: 1.5; color: var(--ink-2); }
 .hm-chips { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
 .hm-chip { display: inline-flex; align-items: center; gap: 6px; min-height: 27px; padding: 0 11px; border-radius: 999px; box-sizing: border-box;
-  font: 600 .74rem/1 var(--sans); color: var(--sh-en-ink); background: rgba(255, 255, 255, .14); border: 1px solid rgba(255, 255, 255, .30);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .16), 0 1px 2px rgba(20, 16, 70, .14); }
-:root[data-theme="night"] .hm-chip { background: rgba(255, 255, 255, .07); border-color: rgba(255, 255, 255, .16); }
+  font: 600 .74rem/1 var(--sans); color: var(--pri-text); background: var(--pri-soft); border: 1px solid rgba(var(--pri-rgb), .20); }
 .hm-chip .emo { font-size: .85rem; }
-.hm-chip.on::after { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #e4e6ff; box-shadow: 0 0 6px rgba(200, 206, 255, .95); }
+.hm-chip.on::after { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #8d93ff; box-shadow: 0 0 6px rgba(141, 147, 255, .9); }
 
-/* ---------- the window: the day's figures on pearl drums, behind a champagne bezel ---------- */
-.ct-window { position: relative; display: flex; flex-direction: column; gap: 12px; min-width: 0; padding: 14px 16px 16px; border: 3px solid transparent; border-radius: 20px;
-  background: var(--sh-window) padding-box, var(--sh-gold) border-box;
-  box-shadow: inset 0 2px 6px rgba(40, 36, 110, .14), 0 1px 0 rgba(255, 255, 255, .3), 0 3px 0 rgba(30, 26, 90, .28), 0 14px 28px rgba(20, 16, 70, .30); }
-:root[data-theme="night"] .ct-window { box-shadow: inset 0 2px 10px rgba(0, 0, 0, .7), 0 1px 0 rgba(255, 255, 255, .08), 0 3px 0 rgba(0, 0, 0, .4), 0 14px 28px rgba(0, 0, 0, .45); }
-/* the pearl's play of colour across the display, and a glint on its glass */
-.ct-window::before { content: ""; position: absolute; inset: 0; border-radius: 17px; pointer-events: none;
-  background: conic-gradient(from 200deg at 76% 18%, rgba(255, 205, 226, .30), rgba(196, 208, 255, .30), rgba(255, 230, 206, .26), rgba(222, 204, 255, .30), rgba(255, 205, 226, .30)); }
-.ct-window::after { content: ""; position: absolute; inset: 0; border-radius: 17px; pointer-events: none;
-  background: linear-gradient(162deg, rgba(255, 255, 255, .55) 0%, rgba(255, 255, 255, .12) 32%, rgba(255, 255, 255, 0) 33%); }
-:root[data-theme="night"] .ct-window::before { opacity: .12; }
-:root[data-theme="night"] .ct-window::after { background: linear-gradient(162deg, rgba(255, 255, 255, .10) 0%, rgba(255, 255, 255, .03) 32%, rgba(255, 255, 255, 0) 33%); }
+/* ---------- the window: an enamel card in the slab, the day's figures on pearl drums ---------- */
+.ct-window { position: relative; display: flex; flex-direction: column; gap: 12px; min-width: 0; padding: 14px 16px 16px; border: 1.5px solid transparent; border-radius: 20px;
+  background: radial-gradient(80% 90% at 15% 0%, rgba(255, 255, 255, .20), transparent 60%) padding-box, linear-gradient(155deg, var(--sh-en-1) 0%, var(--sh-en-2) 45%, var(--sh-en-3) 100%) padding-box, var(--sh-gold) border-box;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .25), 0 2px 0 var(--sh-en-ledge), 0 8px 16px rgba(40, 36, 110, .20), 0 18px 32px rgba(40, 36, 110, .12); }
+:root[data-theme="night"] .ct-window { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .10), 0 2px 0 var(--sh-en-ledge), 0 8px 16px rgba(0, 0, 0, .45), 0 18px 32px rgba(0, 0, 0, .35); }
+/* a breath of nacre across the enamel, and a glint on its glass */
+.ct-window::before { content: ""; position: absolute; inset: 0; border-radius: 18px; pointer-events: none;
+  background: conic-gradient(from 200deg at 76% 18%, rgba(255, 205, 226, .12), rgba(196, 208, 255, .14), rgba(255, 230, 206, .10), rgba(222, 204, 255, .14), rgba(255, 205, 226, .12)); }
+.ct-window::after { content: ""; position: absolute; inset: 0; border-radius: 18px; pointer-events: none;
+  background: linear-gradient(162deg, rgba(255, 255, 255, .14) 0%, rgba(255, 255, 255, .04) 32%, rgba(255, 255, 255, 0) 33%); }
+:root[data-theme="night"] .ct-window::before { opacity: .5; }
 .ct-window > * { position: relative; z-index: 1; }
 .ct-window .ct-read { display: flex; flex-direction: column; gap: 7px; min-width: 0; padding: 0; border: 0; }
-.ct-window .ct-read .g-label { display: flex; align-items: center; gap: 6px; font: 700 10px/1.3 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: #3b3f8f; }
-:root[data-theme="night"] .ct-window .ct-read .g-label { color: var(--sh-g-ink); }
+.ct-window .ct-read .g-label { display: flex; align-items: center; gap: 6px; font: 700 10px/1.3 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--sh-en-ink-2); }
 .ct-window .ct-read .g-value { display: block; font: 600 2.7rem/1 var(--sh-num); letter-spacing: 0; color: var(--sh-drum-ink); overflow-wrap: normal; }
-.ct-reads { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px 14px; padding-top: 12px; border-top: 1px solid rgba(191, 159, 98, .35); }
+.ct-reads { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px 14px; padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, .22); }
 .ct-reads .ct-read .g-label { font-size: 9.5px; letter-spacing: .13em; }
 .ct-reads .ct-read .g-value { font-size: 1.42rem; }
-/* the small lamps beside a figure: the shell's periwinkle for a profit, red for a loss, amber for stock running low */
+/* the small lamps beside a figure: a pearl light for a profit, red for a loss, amber for stock running low */
 .ct-read.good .g-value::after, .ct-read.bad .g-value::after, .ct-read.warn .g-value::after { content: ""; display: inline-block; width: 8px; height: 8px; margin-left: 9px; border-radius: 50%; vertical-align: middle; }
-.ct-read.good .g-value::after { background: radial-gradient(circle at 35% 35%, #f1f2ff, #8d93ff 55%, #4b50c0); box-shadow: 0 0 6px rgba(141, 147, 255, .8); }
+.ct-read.good .g-value::after { background: radial-gradient(circle at 35% 35%, #ffffff, #d9dcff 55%, #a3a8f0); box-shadow: 0 0 7px rgba(225, 228, 255, .95); }
 .ct-read.bad .g-value::after { background: radial-gradient(circle at 35% 35%, #ffe1dc, #e8675a 55%, #9b2c22); box-shadow: 0 0 6px rgba(232, 103, 90, .7); }
 .ct-read.warn .g-value::after { background: radial-gradient(circle at 35% 35%, #fff1cf, #eeb043 55%, #a8640f); box-shadow: 0 0 6px rgba(238, 176, 67, .7); }
 /* the drums: each digit on its own pearl cylinder, rolled from nought to its figure */
 .ct-drums { display: inline-flex; align-items: stretch; gap: .07em; max-width: 100%; vertical-align: top; font-variant-numeric: lining-nums tabular-nums; }
 .ct-drums.long { font-size: .8em; } .ct-drums.longer { font-size: .64em; }
 .ct-cell { position: relative; display: block; flex: none; width: .72em; height: 1.18em; overflow: hidden; border-radius: .09em; background: var(--sh-drum);
-  box-shadow: inset 0 0 0 1px rgba(60, 56, 140, .22), 0 1px 1px rgba(30, 26, 90, .18); }
+  box-shadow: inset 0 0 0 1px rgba(30, 26, 90, .28), 0 1px 1px rgba(20, 16, 70, .25); }
 :root[data-theme="night"] .ct-cell { box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .5), inset 0 1px 0 rgba(255, 255, 255, .08); }
 .ct-cell::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(40, 36, 110, .16), rgba(40, 36, 110, 0) 28%, rgba(40, 36, 110, 0) 72%, rgba(40, 36, 110, .16)); }
 .ct-strip { display: block; transform: translateY(0); transition: transform 1.25s cubic-bezier(.22, .8, .26, 1.04); will-change: transform; }
 .ct-strip > span { display: block; height: 1.18em; line-height: 1.18em; text-align: center; color: var(--sh-drum-ink); }
 .ct-read.bad .ct-strip > span { color: var(--sh-drum-red); }
-.ct-sep { display: block; flex: none; padding: 0 .03em; line-height: 1.18em; color: var(--sh-g-ink); }
+.ct-sep { display: block; flex: none; padding: 0 .03em; line-height: 1.18em; color: var(--sh-g1); }
 
-/* ---------- the tray below the plate: the counter's three keys ---------- */
+/* ---------- the tray below the welcome: the counter's three keys ---------- */
 .ct-keys { position: relative; z-index: 0; display: flex; flex-wrap: wrap; gap: 14px; margin: -18px 16px 0; padding: 30px 18px 18px; border-radius: 0 0 22px 22px;
-  background: var(--sh-tray); border: 1px solid var(--line); border-top: 0;
-  box-shadow: inset 0 14px 12px -12px rgba(40, 36, 110, .35), 0 2px 0 rgba(40, 36, 110, .10), 0 10px 22px rgba(40, 36, 110, .10); }
-:root[data-theme="night"] .ct-keys { box-shadow: inset 0 14px 12px -12px rgba(0, 0, 0, .6), 0 2px 0 rgba(0, 0, 0, .4), 0 10px 22px rgba(0, 0, 0, .35); }
+  background: linear-gradient(180deg, var(--tray), var(--bg-wash)); border: 1px solid var(--line); border-top: 0;
+  box-shadow: inset 0 14px 12px -12px rgba(34, 28, 60, .16), 0 2px 0 rgba(34, 28, 60, .05), 0 10px 22px rgba(34, 28, 60, .07); }
+:root[data-theme="night"] .ct-keys { background: linear-gradient(180deg, #171724, #13131e); box-shadow: inset 0 14px 12px -12px rgba(0, 0, 0, .6), 0 2px 0 rgba(0, 0, 0, .4), 0 10px 22px rgba(0, 0, 0, .35); }
 /* each key keeps room for its words: three in a row on a wide counter, fewer to a row on a narrow one */
-.ct-key { position: relative; flex: 1 1 210px; min-width: 0; display: block; padding: 0 0 8px; border: 0; border-radius: 16px; background: transparent; color: inherit; font: inherit; text-align: left;
+.ct-key { position: relative; flex: 1 1 210px; min-width: 0; display: block; padding: 0 0 7px; border: 0; border-radius: 16px; background: transparent; color: inherit; font: inherit; text-align: left;
   cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .ct-key.enamel { flex: 1.3 1 240px; }
 /* the key's skirt, seen below its cap; the cap travels down onto it when pressed */
-.ct-key::before { content: ""; position: absolute; left: 0; right: 0; top: 8px; bottom: 0; border-radius: 16px; background: var(--k-skirt);
-  box-shadow: 0 6px 12px rgba(40, 36, 110, .28); }
+.ct-key::before { content: ""; position: absolute; left: 0; right: 0; top: 7px; bottom: 0; border-radius: 16px; background: var(--k-skirt); box-shadow: 0 6px 12px rgba(34, 28, 60, .16); }
 :root[data-theme="night"] .ct-key::before { box-shadow: 0 6px 12px rgba(0, 0, 0, .55); }
-.ct-key-face { position: relative; display: flex; align-items: center; gap: 14px; min-height: 78px; padding: 13px 16px; border-radius: 16px; border: 2px solid transparent;
-  background: var(--k-face) padding-box, var(--sh-gold) border-box; color: var(--k-ink);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), inset 0 -3px 0 rgba(40, 36, 110, .10); transition: transform .1s cubic-bezier(.3, .7, .4, 1), filter .15s ease; }
-.ct-key:hover .ct-key-face { transform: translateY(-1px); filter: brightness(1.04); }
-.ct-key:active .ct-key-face { transform: translateY(7px); filter: brightness(.97); transition-duration: .05s; }
+.ct-key-face { position: relative; display: flex; align-items: center; gap: 14px; min-height: 78px; padding: 13px 16px; border-radius: 16px; border: 1px solid var(--k-rim);
+  background: var(--k-face); color: var(--k-ink);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55), inset 0 -2px 0 rgba(34, 28, 60, .06); transition: transform .1s cubic-bezier(.3, .7, .4, 1), filter .15s ease; }
+.ct-key:hover .ct-key-face { transform: translateY(-1px); filter: brightness(1.03); }
+.ct-key:active .ct-key-face { transform: translateY(6px); filter: brightness(.98); transition-duration: .05s; }
 .ct-key:focus { outline: none; }
 .ct-key:focus-visible .ct-key-face { outline: 2.5px solid var(--pri-ring); outline-offset: 3px; }
 .ct-key-emo { flex: none; width: 48px; height: 48px; display: grid; place-items: center; border-radius: 50%; font: 1.55rem/1 var(--emoji);
-  background: rgba(255, 255, 255, .55); box-shadow: inset 0 2px 4px rgba(40, 36, 110, .16), 0 1px 0 rgba(255, 255, 255, .6); transition: transform .45s var(--spring); }
+  background: #ffffff; box-shadow: inset 0 -2px 3px rgba(60, 56, 140, .10), 0 1px 0 rgba(255, 255, 255, .8), 0 2px 5px rgba(34, 28, 60, .10); transition: transform .45s var(--spring); }
+:root[data-theme="night"] .ct-key-emo { background: rgba(255, 255, 255, .10); box-shadow: inset 0 -2px 3px rgba(0, 0, 0, .3), 0 1px 0 rgba(255, 255, 255, .06); }
 .ct-key:hover .ct-key-emo { transform: rotate(-8deg) scale(1.08); }
 .ct-key-t { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
 .ct-key-t b { font: 600 1.12rem/1.15 var(--serif); letter-spacing: .02em; }
 .ct-key-t small { font-size: .76rem; line-height: 1.3; opacity: .86; }
-.ct-key.enamel { --k-face: linear-gradient(180deg, #6f75d4, #4f55b4); --k-ink: #ffffff; --k-skirt: linear-gradient(180deg, #3d4196, #2b2f78); }
-.ct-key.enamel .ct-key-emo { background: rgba(255, 255, 255, .16); box-shadow: inset 0 2px 4px rgba(10, 8, 50, .3), 0 1px 0 rgba(255, 255, 255, .25); }
+/* New sale is the enamel; Receive and Price check the gentle lavender beside it */
+.ct-key.enamel { --k-face: linear-gradient(180deg, var(--pri-hi), var(--pri-lo)); --k-ink: #ffffff; --k-rim: var(--pri-edge); --k-skirt: linear-gradient(180deg, var(--pri-edge), var(--pri-ledge)); }
+.ct-key.enamel .ct-key-emo { background: rgba(255, 255, 255, .18); box-shadow: inset 0 2px 4px rgba(10, 8, 50, .28), 0 1px 0 rgba(255, 255, 255, .25); }
 .ct-key.enamel .ct-key-t b { text-shadow: 0 1px 1px rgba(20, 16, 70, .4); }
 .ct-key.enamel .ct-key-t small { opacity: .92; }
-.ct-key.pearl { --k-face: linear-gradient(180deg, #ffffff, #eae9f6); --k-ink: #1f2257; --k-skirt: linear-gradient(180deg, #bcbad8, #9a98bd); }
-.ct-key.blush { --k-face: linear-gradient(180deg, #fff9f5, #f1ddd1); --k-ink: #1f2257; --k-skirt: linear-gradient(180deg, #cfb3a6, #a88b7e); }
-:root[data-theme="night"] .ct-key.enamel { --k-face: linear-gradient(180deg, #5056b6, #363b90); --k-skirt: linear-gradient(180deg, #1f2260, #13153d); }
-:root[data-theme="night"] .ct-key.pearl { --k-face: linear-gradient(180deg, #dedded, #c4c3dc); --k-skirt: linear-gradient(180deg, #6f6d92, #4a4868); }
-:root[data-theme="night"] .ct-key.blush { --k-face: linear-gradient(180deg, #ebdcd3, #d0bbaf); --k-skirt: linear-gradient(180deg, #7d655a, #574339); }
+.ct-key.pearl, .ct-key.blush { --k-face: var(--sh-soft); --k-ink: var(--sh-soft-ink); --k-rim: rgba(var(--pri-rgb), .26); --k-skirt: var(--sh-soft-skirt); }
+:root[data-theme="night"] .ct-key.pearl, :root[data-theme="night"] .ct-key.blush { --k-rim: rgba(176, 181, 245, .22); }
 
 /* ---------- the strip: the first steps, your shift, or the practice store ---------- */
-.hm-strip { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 16px; padding: 12px 16px 12px 20px; box-shadow: inset 4px 0 0 var(--sh-g3), var(--slab); }
+.hm-strip { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 16px; padding: 12px 16px 12px 20px; box-shadow: inset 4px 0 0 var(--pri), var(--slab); }
 .hm-strip.practice { box-shadow: inset 4px 0 0 #c98a1d, var(--slab); }
 .hm-strip-emo { font-size: 1.4rem; line-height: 1; font-family: var(--emoji); }
 .hm-strip-t { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1 1 240px; }
@@ -1283,7 +1273,7 @@ button.hx-item:hover { transform: translateY(-1px); box-shadow: var(--pill); }
 .hm-calm-emo { font-size: 1.5rem; font-family: var(--emoji); }
 /* the receipt roll: thermal paper in a typewriter's letters, its foot torn in teeth */
 .ct-tape { position: relative; margin: 0 6px; padding: 14px 14px 28px; background: var(--sh-tape); color: var(--sh-tape-ink);
-  box-shadow: inset 0 12px 10px -10px rgba(40, 36, 110, .16), inset 1px 0 0 rgba(40, 36, 110, .06), inset -1px 0 0 rgba(40, 36, 110, .06);
+  box-shadow: inset 0 12px 10px -10px rgba(40, 36, 110, .16), inset 1px 0 0 rgba(40, 36, 110, .08), inset -1px 0 0 rgba(40, 36, 110, .08);
   -webkit-mask: linear-gradient(#000 0 0) top / 100% calc(100% - 9px) no-repeat, conic-gradient(from -45deg at 50% 100%, #000 90deg, transparent 0) bottom / 18px 9px repeat-x;
   mask: linear-gradient(#000 0 0) top / 100% calc(100% - 9px) no-repeat, conic-gradient(from -45deg at 50% 100%, #000 90deg, transparent 0) bottom / 18px 9px repeat-x; }
 .ct-tape-head { display: flex; flex-direction: column; align-items: center; gap: 3px; margin: 0 0 10px; padding-bottom: 10px; border-bottom: 1.5px dashed rgba(38, 40, 63, .3); text-align: center;
@@ -1304,42 +1294,31 @@ button.hx-item:hover { transform: translateY(-1px); box-shadow: var(--pill); }
 .ct-tape-lines li:nth-child(2) .hm-sale { animation-delay: .05s; } .ct-tape-lines li:nth-child(3) .hm-sale { animation-delay: .1s; }
 .ct-tape-lines li:nth-child(4) .hm-sale { animation-delay: .15s; } .ct-tape-lines li:nth-child(5) .hm-sale { animation-delay: .2s; }
 
-/* ---------- the rooms: drawers in an enamel cabinet, each with its champagne label plate and pull ---------- */
-.hm-rooms { position: relative; padding: 18px 20px 20px; border-radius: 22px; color: var(--sh-en-ink); border: 1px solid var(--sh-en-edge);
-  background: radial-gradient(80% 120% at 12% -20%, rgba(255, 255, 255, .18), transparent 60%), linear-gradient(170deg, var(--sh-en-2), var(--sh-en-3) 60%, var(--sh-en-4));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .22), inset 0 -2px 0 rgba(20, 16, 70, .22), 0 2px 0 var(--sh-en-ledge), 0 12px 26px rgba(40, 36, 110, .18); }
-:root[data-theme="night"] .hm-rooms { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08), inset 0 -2px 0 rgba(0, 0, 0, .35), 0 2px 0 var(--sh-en-ledge), 0 12px 26px rgba(0, 0, 0, .4); }
-.hm-rooms .hx-sech { border-bottom-color: rgba(255, 255, 255, .22); }
-.hm-rooms .hx-sech h2 { color: var(--sh-en-ink); }
-.hm-rooms .hx-sech p { color: var(--sh-en-ink-3); }
+/* ---------- the rooms: white drawers with enamel jewels, in a lavender tray on a white slab ---------- */
+.hm-rooms { position: relative; padding: 18px 20px 20px; border-radius: 22px; color: var(--ink); }
 .ct-cabinet { display: grid; grid-template-columns: repeat(auto-fill, minmax(206px, 1fr)); gap: 12px; padding: 12px; border-radius: 14px;
-  background: rgba(20, 16, 70, .22); box-shadow: inset 0 2px 8px rgba(20, 16, 70, .4), 0 1px 0 rgba(255, 255, 255, .14); }
-:root[data-theme="night"] .ct-cabinet { background: rgba(0, 0, 0, .28); box-shadow: inset 0 2px 9px rgba(0, 0, 0, .55), 0 1px 0 rgba(255, 255, 255, .05); }
-.ct-drawer { position: relative; display: flex; flex-direction: column; align-items: stretch; gap: 11px; min-width: 0; padding: 12px 12px 11px; border: 0; border-radius: 10px;
-  background: var(--sh-drawer); color: var(--sh-drawer-ink); font: inherit; text-align: left; cursor: pointer; -webkit-tap-highlight-color: transparent;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), inset 0 -2px 0 rgba(40, 36, 110, .08), 0 1px 0 rgba(20, 16, 70, .35), 0 2px 0 rgba(20, 16, 70, .16), 0 6px 10px rgba(20, 16, 70, .22);
-  transition: transform .2s var(--spring), box-shadow .2s ease; }
-:root[data-theme="night"] .ct-drawer { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08), inset 0 -2px 0 rgba(0, 0, 0, .3), 0 1px 0 rgba(0, 0, 0, .6), 0 2px 0 rgba(0, 0, 0, .3), 0 6px 10px rgba(0, 0, 0, .35); }
+  background: var(--tray); border: 1px solid var(--line-soft); box-shadow: var(--inset); }
+:root[data-theme="night"] .ct-cabinet { background: #151520; box-shadow: inset 0 2px 8px rgba(0, 0, 0, .45); }
+.ct-drawer { position: relative; display: flex; flex-direction: column; align-items: stretch; gap: 11px; min-width: 0; padding: 12px 12px 11px; border: 1px solid var(--line); border-radius: 14px;
+  background: var(--face-tilt); color: var(--ink); font: inherit; text-align: left; cursor: pointer; -webkit-tap-highlight-color: transparent; box-shadow: var(--key3d);
+  transition: transform .2s var(--spring), box-shadow .2s ease, border-color .2s ease; }
 /* a drawer slides out toward the hand, and goes home when pressed */
-.ct-drawer:hover { transform: translateY(-3px) scale(1.015); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), inset 0 -2px 0 rgba(40, 36, 110, .08), 0 1px 0 rgba(20, 16, 70, .35), 0 4px 0 rgba(20, 16, 70, .14), 0 12px 20px rgba(20, 16, 70, .3); }
-:root[data-theme="night"] .ct-drawer:hover { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1), inset 0 -2px 0 rgba(0, 0, 0, .3), 0 1px 0 rgba(0, 0, 0, .6), 0 4px 0 rgba(0, 0, 0, .3), 0 12px 20px rgba(0, 0, 0, .45); }
-.ct-drawer:active { transform: translateY(1px) scale(.99); transition-duration: .06s; box-shadow: inset 0 2px 5px rgba(40, 36, 110, .2), 0 1px 0 rgba(20, 16, 70, .3); }
+.ct-drawer:hover { transform: translateY(-3px); box-shadow: var(--key3d-hi); border-color: rgba(var(--pri-rgb), .38); }
+.ct-drawer:active { transform: translateY(1px) scale(.99); transition-duration: .06s; box-shadow: var(--press); }
 .ct-drawer:focus { outline: none; }
-.ct-drawer:focus-visible { outline: 2.5px solid var(--sh-g1); outline-offset: 3px; }
-.ct-plate { display: flex; align-items: center; gap: 10px; min-width: 0; padding: 8px 10px; border-radius: 8px; border: 1.5px solid transparent;
-  background: var(--sh-plate-in) padding-box, var(--sh-gold) border-box; box-shadow: inset 0 1px 2px rgba(40, 36, 110, .10), 0 1px 0 rgba(255, 255, 255, .7); }
-:root[data-theme="night"] .ct-plate { box-shadow: inset 0 1px 3px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .05); }
-.ct-plate-ico { flex: none; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; color: #ffffff;
-  background: radial-gradient(circle at 34% 28%, #8d92e2, #5960be 55%, #3f4398); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .35), inset 0 -1px 0 rgba(10, 8, 50, .3), 0 0 0 1px rgba(191, 159, 98, .6), 0 1px 3px rgba(20, 16, 70, .3);
+.ct-drawer:focus-visible { outline: 2.5px solid var(--pri-ring); outline-offset: 3px; }
+.ct-plate { display: flex; align-items: center; gap: 10px; min-width: 0; padding: 7px 9px; border-radius: 10px; border: 1px solid transparent;
+  background: var(--sh-plate-in) padding-box, linear-gradient(150deg, rgba(246, 232, 194, .9), rgba(191, 159, 98, .7) 45%, rgba(220, 194, 138, .8)) border-box; }
+.ct-plate-ico { flex: none; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 11px; color: #ffffff; background: var(--jewel); box-shadow: var(--jsh);
   transition: transform .45s var(--spring); }
-.ct-plate-ico .ico { width: 17px; height: 17px; }
-.ct-drawer:hover .ct-plate-ico { transform: rotate(-8deg) scale(1.06); }
+.ct-plate-ico .ico { width: 18px; height: 18px; }
+.ct-drawer:hover .ct-plate-ico { transform: translateY(-1px) rotate(-4deg) scale(1.05); }
 .hm-tile-t { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.hm-tile-t b { font: 600 .98rem/1.2 var(--serif); letter-spacing: .03em; color: var(--sh-drawer-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hm-tile-t b { font: 600 .98rem/1.2 var(--serif); letter-spacing: .03em; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .hm-tile-t small { font: 650 .72rem/1.35 var(--sans); color: var(--pri-text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .hm-tile-t small.warn { color: var(--warn); }
-.ct-pull { align-self: center; position: relative; width: 58px; height: 8px; border-radius: 5px; background: linear-gradient(180deg, var(--sh-g1), var(--sh-g2) 45%, var(--sh-g4));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .7), 0 2px 2px rgba(20, 16, 70, .3), 0 3px 6px rgba(20, 16, 70, .12); transition: filter .2s ease; }
+.ct-pull { align-self: center; position: relative; width: 52px; height: 7px; border-radius: 5px; background: linear-gradient(180deg, var(--sh-g1), var(--sh-g2) 45%, var(--sh-g4));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .7), 0 1px 2px rgba(34, 28, 60, .25); transition: filter .2s ease; }
 .ct-drawer:hover .ct-pull { filter: brightness(1.1); }
 
 /* ---------- the day's proverb, on a champagne plaque ---------- */
@@ -1864,7 +1843,7 @@ tr.retired td { opacity: .58; }
 "use strict";
 
 var E = window.Emporium = window.Emporium || {};
-E.BUILD = { number: "12", date: "2026-11-14" };
+E.BUILD = { number: "13", date: "2026-11-14" };
 
 /* ---------- drawing: every piece of text goes in as text, never as markup ---------- */
 function $(sel, root) { return (root || document).querySelector(sel); }
