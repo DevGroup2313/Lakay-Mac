@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-qC+52VKotjfgAd02QYHgJdyO8hX2MvKqIIRqYQo+nd8='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-xDCmd2vpvLuSsle1NrmVLGx0JDO2bNRTn49Jga1Ak08='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#f5f4f8">
 <meta name="application-name" content="Lakay">
-<meta name="lakay-build" content="14">
-<!-- LAKAY | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt. Build 14 (2026-11-14). -->
+<meta name="lakay-build" content="15">
+<!-- LAKAY | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt. Build 15 (2026-11-14). -->
 <title>Lakay</title>
 <!-- Lakay's logo, inside the page (the page's own policy shows only pictures it carries): the square tile, filled edge to
      edge with the coin's periwinkle, for the shortcuts a browser makes on a home screen; the round coin, on nothing, for the
@@ -98,7 +98,7 @@
   --pri: #5f67cc; --pri-hi: #6b73d6; --pri-lo: #5057bc; --pri-jhi: #8d93e2; --pri-jlo: #4f56b6; --pri-edge: #434aa6; --pri-ledge: #33398a; --pri-jledge: #363c8e;
   --on-pri: #ffffff; --pri-text: #4d54b8; --pri-soft: rgba(77, 84, 184, .09); --pri-ring: rgba(77, 84, 184, .45); --pri-rgb: 77, 84, 184;
   --brass: #c08b2f; --brass-hi: #ecd4a2; --brass-ink: #8a6420; --brass-soft: rgba(192, 139, 47, .14);
-  --danger: #a8423d; --danger-soft: rgba(168, 66, 61, .09); --warn: #9a5a12; --warn-soft: rgba(184, 116, 46, .12); --ok: #2f7a55; --ok-soft: rgba(47, 122, 85, .11);
+  --danger: #a8423d; --danger-soft: rgba(168, 66, 61, .09); --warn: #9a5a12; --warn-soft: rgba(184, 116, 46, .12); --ok: #4d54b8; --ok-soft: rgba(95, 103, 204, .11);
   --line: rgba(33, 31, 51, .10); --line-2: rgba(33, 31, 51, .16); --line-soft: rgba(33, 31, 51, .06); --rim: rgba(77, 84, 184, .45);
   --field: #ffffff; --field-line: rgba(67, 74, 166, .24); --wall: #dcdbe8;
   --face: linear-gradient(180deg, #ffffff, #f7f6fb); --face-tilt: linear-gradient(175deg, #ffffff, #f7f6fb); --slab-face: linear-gradient(180deg, #ffffff, #fcfcfe);
@@ -143,7 +143,7 @@
   --pri: #6a72d4; --pri-hi: #757dde; --pri-lo: #555cc0; --pri-jhi: #8a90e0; --pri-jlo: #4b52b0; --pri-edge: #2a2e6e; --pri-ledge: #16183f; --pri-jledge: #191b46;
   --on-pri: #ffffff; --pri-text: #b0b5f5; --pri-soft: rgba(176, 181, 245, .12); --pri-ring: rgba(176, 181, 245, .50); --pri-rgb: 176, 181, 245;
   --brass: #e6c27a; --brass-hi: #e3cfa2; --brass-ink: #e6c27a; --brass-soft: rgba(230, 194, 122, .12);
-  --danger: #ee968e; --danger-soft: rgba(238, 150, 142, .11); --warn: #e5b46e; --warn-soft: rgba(229, 180, 110, .12); --ok: #86d0a8; --ok-soft: rgba(134, 208, 168, .12);
+  --danger: #ee968e; --danger-soft: rgba(238, 150, 142, .11); --warn: #e5b46e; --warn-soft: rgba(229, 180, 110, .12); --ok: #b3b8f2; --ok-soft: rgba(150, 157, 236, .14);
   --line: rgba(214, 213, 240, .11); --line-2: rgba(214, 213, 240, .18); --line-soft: rgba(214, 213, 240, .06); --rim: rgba(176, 181, 245, .36);
   --field: #161622; --field-line: rgba(176, 181, 245, .22); --wall: #0a0a12;
   --face: linear-gradient(180deg, #282839, #21212f); --face-tilt: linear-gradient(175deg, #282839, #21212f); --slab-face: linear-gradient(180deg, #1f1f2d, #1b1b27);
@@ -1378,6 +1378,154 @@ button.hx-item:hover { transform: translateY(-1px); box-shadow: var(--pill); }
 }
 :root[data-calm="1"] .ct-engr { animation: none !important; }
 
+/* LAKAY | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt.
+   Inventory's departments (Build 15), in the dress the owner approved for the Home in Build 14: white slabs, with the
+   logo's periwinkle woven in (a rim, a slim band, the jewels), never a thick purple card. Nothing here is green. */
+
+/* the item form: the margin hint takes a whole row, and no room at all while it is empty */
+.form-grid > .hint.margin { grid-column: 1 / -1; margin: -4px 0 0; }
+.form-grid > .hint.margin:empty { display: none; }
+
+/* the departments' signs: a line drawing in the logo's periwinkle jewel */
+.dept-jewel { flex: none; width: 34px; height: 34px; border-radius: 11px; display: inline-grid; place-items: center; color: #ffffff;
+  background: var(--jewel); box-shadow: var(--jsh); }
+.dept-jewel .ico { width: 58%; height: 58%; stroke: currentColor; stroke-width: 1.9; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.dept-jewel.xs { width: 22px; height: 22px; border-radius: 7px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .3), inset 0 -1px 0 rgba(20, 14, 50, .25), 0 1px 2px rgba(34, 28, 60, .18); }
+.dept-jewel.xs .ico { stroke-width: 2.2; }
+.dept-jewel.sm { width: 28px; height: 28px; border-radius: 9px; }
+.dept-jewel.lg { width: 46px; height: 46px; border-radius: 14px; }
+.dept-jewel.xl { width: 60px; height: 60px; border-radius: 18px; }
+
+/* the tabs: a pearl rail of keys; the chosen one wears the periwinkle edge and stands a little higher */
+.inv-tabs-wrap { margin: 2px 0 14px; padding: 6px; border-radius: 18px; background: var(--slab-face); border: 1px solid rgba(var(--pri-rgb), .16); box-shadow: var(--slab); }
+.inv-tabs { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; scroll-behavior: smooth; padding: 2px; }
+.inv-tabs::-webkit-scrollbar { display: none; }
+.inv-tab { flex: none; display: inline-flex; align-items: center; gap: 8px; min-height: 42px; padding: 6px 13px 6px 7px; border-radius: 13px; border: 1px solid transparent;
+  background: transparent; color: var(--ink-2); font: 600 .84rem/1.15 var(--sans); cursor: pointer; white-space: nowrap; transition: background .18s var(--ease), color .18s var(--ease), box-shadow .18s var(--ease), transform .18s var(--ease); }
+.inv-tab:hover { background: rgba(var(--pri-rgb), .06); color: var(--pri-text); }
+.inv-tab:focus-visible { outline: 2.5px solid var(--pri-ring); outline-offset: 1px; }
+.inv-tab[aria-selected="true"] { background: var(--face); color: var(--ink); border-color: rgba(var(--pri-rgb), .30); transform: translateY(-1px);
+  box-shadow: inset 0 -2px 0 var(--pri), var(--pill); }
+.inv-tab .dept-jewel { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .3), inset 0 -1px 0 rgba(20, 14, 50, .25), 0 1px 3px rgba(34, 28, 60, .2); }
+.inv-tab:not([aria-selected="true"]) .dept-jewel { filter: saturate(.75) brightness(1.04); }
+/* where more tabs wait beyond an edge, the edge fades */
+.inv-tabs-wrap.more-r .inv-tabs { -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 56px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 56px), transparent); }
+.inv-tabs-wrap.more-l .inv-tabs { -webkit-mask-image: linear-gradient(90deg, transparent, #000 56px); mask-image: linear-gradient(90deg, transparent, #000 56px); }
+.inv-tabs-wrap.more-l.more-r .inv-tabs { -webkit-mask-image: linear-gradient(90deg, transparent, #000 56px, #000 calc(100% - 56px), transparent); mask-image: linear-gradient(90deg, transparent, #000 56px, #000 calc(100% - 56px), transparent); }
+.inv-tab-n { min-width: 22px; padding: 1px 7px; border-radius: 999px; background: rgba(var(--pri-rgb), .09); color: var(--pri-text); font: 700 .7rem/1.5 var(--sans); text-align: center; }
+.inv-tab[aria-selected="true"] .inv-tab-n { background: rgba(var(--pri-rgb), .14); }
+
+/* All departments: drawers side by side */
+.inv-depts { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin: 0 0 18px; }
+.inv-dept { position: relative; display: flex; align-items: center; gap: 12px; padding: 14px 14px 14px 13px; border-radius: 16px; text-align: left; cursor: pointer;
+  background: var(--slab-face); border: 1px solid var(--line); box-shadow: var(--key3d); color: var(--ink); font: inherit;
+  transition: transform .2s var(--spring), box-shadow .2s var(--ease), border-color .2s var(--ease); }
+.inv-dept::before { content: ""; position: absolute; left: 14px; right: 14px; top: -1px; height: 2px; border-radius: 0 0 2px 2px;
+  background: linear-gradient(90deg, var(--pri-hi), var(--pri-jhi) 60%, rgba(var(--pri-rgb), 0)); opacity: .55; }
+.inv-dept:hover { transform: translateY(-2px); box-shadow: var(--key3d-hi); border-color: rgba(var(--pri-rgb), .28); }
+.inv-dept:active { transform: translateY(1px); box-shadow: var(--press); }
+.inv-dept:focus-visible { outline: 2.5px solid var(--pri-ring); outline-offset: 2px; }
+.inv-dept-t { display: flex; flex-direction: column; gap: 3px; min-width: 0; flex: 1; }
+.inv-dept-t b { font: 600 1.02rem/1.2 var(--serif); color: var(--ink); }
+.inv-dept-t small { color: var(--muted); font-size: .78rem; }
+.inv-dept-m { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.inv-dept-v { font: 600 .8rem/1 var(--sans); color: var(--pri-text); font-variant-numeric: tabular-nums; }
+
+/* one department's head: a white slab with the periwinkle band along its top */
+.inv-dhead { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 16px 18px; margin: 0 0 16px; padding: 18px 20px;
+  border-radius: 18px; border: 1px solid rgba(var(--pri-rgb), .20);
+  background: linear-gradient(90deg, var(--pri-hi), var(--pri-jhi) 55%, rgba(var(--pri-rgb), 0)) top / 100% 3px no-repeat, var(--slab-face); box-shadow: var(--slab); }
+.inv-dhead-t h2 { margin: 0; font: 600 1.45rem/1.15 var(--serif); color: var(--ink); text-wrap: balance; }
+.inv-dhead-t p { margin: 5px 0 0; color: var(--ink-2); font-size: .9rem; max-width: 62ch; }
+.inv-stats { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 0; justify-content: flex-end; }
+.inv-stats div { display: flex; flex-direction: column; gap: 2px; min-width: 78px; }
+.inv-stats dt { font: 700 .62rem/1.2 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--pri-text); }
+.inv-stats dd { margin: 0; font: 600 1.12rem/1.2 var(--serif); color: var(--ink); font-variant-numeric: tabular-nums; }
+.inv-dhead-k { grid-column: 1 / -1; display: flex; justify-content: flex-end; }
+.svc-head .inv-stats { grid-column: 2 / -1; justify-content: flex-start; }
+.svc-head .inv-dhead-k { grid-column: 3; grid-row: 1; }
+.inv-dhead-k .key .ico { width: 17px; height: 17px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+/* the list, its search with the camera beside it, and its pages */
+.inv-tools .search-row { position: relative; }
+.search-row .cam-key, .rp-find-row .cam-key { flex: none; }
+.cam-key .ico { width: 19px; height: 19px; stroke: currentColor; stroke-width: 1.9; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.inv-table .row-key { display: inline-flex; align-items: center; gap: 9px; }
+.inv-under { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; margin-top: 10px; }
+.inv-under .inv-foot { margin: 0; }
+.inv-pager { display: flex; align-items: center; gap: 10px; }
+.inv-page { font: 600 .8rem/1 var(--sans); color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.inv-sub { margin: 22px 0 10px; font: 600 1.05rem/1.2 var(--serif); color: var(--ink); }
+.field-row { display: flex; align-items: center; gap: 8px; }
+.field-row > input, .field-row > select { flex: 1; min-width: 0; }
+.warn-text { color: var(--warn); }
+#invReceiving { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+#invReceiving span { flex: 1; min-width: 180px; }
+
+/* stock badges: periwinkle when all is well, amber when low, rose when out (never green) */
+.inv-table .badge.ok { background: rgba(var(--pri-rgb), .10); color: var(--pri-text); }
+
+/* money transfers and top-ups */
+.svc-sums { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 10px; }
+.svc-sum { display: inline-flex; flex-direction: column; gap: 2px; padding: 7px 12px; border-radius: 12px; background: var(--slab-face); border: 1px solid var(--line); box-shadow: var(--pill); }
+.svc-sum small { font: 700 .6rem/1.2 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.svc-sum b { font: 600 .98rem/1.2 var(--serif); color: var(--ink); font-variant-numeric: tabular-nums; }
+.svc-prov { display: inline-block; padding: 2px 9px; border-radius: 999px; font: 700 .72rem/1.5 var(--sans); background: rgba(var(--pri-rgb), .09); color: var(--pri-text); white-space: nowrap; }
+.svc-table tr.void td { color: var(--muted); }
+.svc-table tr.void td:nth-child(4) { text-decoration: line-through; }
+.svc-voided { margin-left: 6px; }
+.svc-table .mono, td.mono { font-family: var(--mono); font-size: .8rem; }
+.svc-note { max-width: 70ch; }
+.svc-privacy { margin-top: 6px; }
+#svcProviders, #svcKinds { flex-wrap: wrap; }
+
+/* the register's chips and products wear the same signs */
+.chip .dept-jewel { margin-right: 2px; }
+.chip[aria-pressed="true"] .dept-jewel { box-shadow: 0 0 0 1.5px rgba(255, 255, 255, .55); }
+.product .p-emo { background: transparent; border: 0; }
+.product.svc-product { border-style: dashed; border-color: rgba(var(--pri-rgb), .35); }
+.product.svc-product .p-name { color: var(--pri-text); }
+
+/* the camera */
+.scan-view { position: relative; width: min(560px, 82vw); aspect-ratio: 4 / 3; max-width: 100%; border-radius: 16px; overflow: hidden; background: #0d0d16;
+  box-shadow: inset 0 0 0 1px rgba(var(--pri-rgb), .3), var(--sh-card); }
+.scan-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.scan-guide { position: absolute; left: 9%; right: 9%; top: 26%; bottom: 26%; border-radius: 12px; box-shadow: 0 0 0 999px rgba(10, 10, 20, .38);
+  border: 2px solid rgba(255, 255, 255, .85); }
+.scan-guide::before, .scan-guide::after { content: ""; position: absolute; width: 26px; height: 26px; border: 3px solid var(--pri-jhi); }
+.scan-guide::before { left: -3px; top: -3px; border-right: 0; border-bottom: 0; border-radius: 12px 0 0 0; }
+.scan-guide::after { right: -3px; bottom: -3px; border-left: 0; border-top: 0; border-radius: 0 0 12px 0; }
+.scan-beam { position: absolute; left: 6%; right: 6%; top: 50%; height: 2px; border-radius: 2px; background: linear-gradient(90deg, rgba(141, 147, 226, 0), #8d93e2, rgba(141, 147, 226, 0));
+  animation: scanBeam 1.8s ease-in-out infinite alternate; }
+@keyframes scanBeam { from { transform: translateY(-34px); } to { transform: translateY(34px); } }
+@media (prefers-reduced-motion: reduce) { .scan-beam { animation: none; } }
+.scan-status { margin: 12px 0 4px; font-weight: 600; color: var(--ink-2); }
+.scan-status.bad { color: var(--danger); }
+
+/* a message that offers a key (a code no item has: Add it) */
+.toast.has-act { align-items: center; }
+.toast .toast-act { margin-left: 6px; flex: none; }
+
+/* by night */
+:root[data-theme="night"] .inv-tabs-wrap { border-color: rgba(var(--pri-rgb), .14); }
+:root[data-theme="night"] .inv-dhead { border-color: rgba(var(--pri-rgb), .18); background: linear-gradient(90deg, var(--pri-hi), var(--pri-jhi) 55%, rgba(117, 125, 222, 0)) top / 100% 3px no-repeat, var(--slab-face); }
+
+/* an iPad and a phone */
+@media (max-width: 900px) {
+  .inv-dhead { grid-template-columns: auto minmax(0, 1fr); }
+  .inv-stats { grid-column: 1 / -1; justify-content: flex-start; }
+  .svc-head .inv-dhead-k { grid-column: 1 / -1; grid-row: auto; justify-content: flex-start; }
+}
+@media (max-width: 560px) {
+  .inv-tab { padding: 5px 10px 5px 6px; min-height: 40px; font-size: .8rem; }
+  .inv-depts { grid-template-columns: 1fr; }
+  .inv-dhead { padding: 16px; gap: 12px; }
+  .dept-jewel.xl { width: 48px; height: 48px; border-radius: 15px; }
+  .inv-dhead-t h2 { font-size: 1.22rem; }
+  .inv-stats { gap: 8px 16px; }
+  .inv-under { flex-direction: column; align-items: flex-start; }
+}
+
 /* LAKAY | Schedae (22-schedae.js): Carpe Diem's sticky notes, made Lakay's own. The shapes keep Carpe Diem's measured
    values (the size, the head, the tools, the corner, the edges, the tilt and the lift). The colours are Lakay's: six
    light pastel papers named for gems (Build 11), each with its own night paper, and Lakay's inks. The menu and the
@@ -1829,7 +1977,7 @@ tr.retired td { opacity: .58; }
 "use strict";
 
 var E = window.Emporium = window.Emporium || {};
-E.BUILD = { number: "14", date: "2026-11-14" };
+E.BUILD = { number: "15", date: "2026-11-14" };
 
 /* ---------- drawing: every piece of text goes in as text, never as markup ---------- */
 function $(sel, root) { return (root || document).querySelector(sel); }
@@ -1906,7 +2054,17 @@ var ICONS = {
   truck: "M2.5 6h11v10h-11zM13.5 9.5H18l3.5 3.5V16h-8M6 18.5a1.5 1.5 0 1 0 0-.1M17 18.5a1.5 1.5 0 1 0 0-.1",
   clock: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 7v5l3.5 2",
   list: "M8 6.5h12M8 12h12M8 17.5h12M4 6.5v.2M4 12v.2M4 17.5v.2",
-  people: "M9 11.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM2.5 20a6.5 6.5 0 0 1 13 0M15.5 4.8a3.5 3.5 0 0 1 0 6.4M17.5 14.2A6.5 6.5 0 0 1 21.5 20"
+  people: "M9 11.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM2.5 20a6.5 6.5 0 0 1 13 0M15.5 4.8a3.5 3.5 0 0 1 0 6.4M17.5 14.2A6.5 6.5 0 0 1 21.5 20",
+  /* the departments (Build 15): plain line drawings of what each one holds, never food or fruit as decoration */
+  disc: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 9.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM6.4 12A5.6 5.6 0 0 1 12 6.4",
+  film: "M4 4.5h16v15H4zM8 4.5v15M16 4.5v15M4 8.5h4M4 12h4M4 15.5h4M16 8.5h4M16 12h4M16 15.5h4",
+  bottle: "M10 3h4v3.5h-4zM8.5 6.5h7a2 2 0 0 1 2 2V19a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2V8.5a2 2 0 0 1 2-2zM6.5 12.5h11",
+  basket: "M3.5 10h17l-1.9 9.5H5.4zM8 10l3.2-5.5M16 10l-3.2-5.5M9 13.5v3M12 13.5v3M15 13.5v3",
+  cup: "M6.5 8h11l-1.3 12.5H7.8zM5.5 8h13M13.5 8l1.6-5H18",
+  cloche: "M3 18.5h18M4.8 18.5a7.2 7.2 0 0 1 14.4 0M12 8.2V6.6M10.3 6.6h3.4",
+  swap: "M4.5 8h14l-4-4M19.5 16h-14l4 4",
+  camera: "M4 7.5h3.5L9 5h6l1.5 2.5H20V19H4zM12 10a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z",
+  barcode: "M4 5v14M7 5v14M9.5 5v14M13 5v14M15 5v14M18 5v14M20 5v14"
 };
 function icon(name, cls) {
   var ns = "http://www.w3.org/2000/svg", svg = document.createElementNS(ns, "svg");
@@ -2244,10 +2402,10 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     ["reason.expired", "Expired or spoiled", "Périmé ou gâté", "Ekspire oswa gate"], ["reason.lost", "Lost", "Perdu", "Pèdi"], ["reason.stolen", "Stolen", "Volé", "Vòlè"],
     ["reason.personal", "Taken for the store's own use", "Pris pour l'usage du magasin", "Pran pou itilizasyon magazen an"],
     ["reason.returned", "Returned to the supplier", "Retourné au fournisseur", "Retounen bay founisè a"], ["reason.other", "Other", "Autre", "Lòt"],
-    ["cat.music", "Music (CDs)", "Musique (CD)", "Mizik (CD)"], ["cat.movies", "Films (DVDs)", "Films (DVD)", "Fim (DVD)"],
+    ["cat.music", "Music", "Musique", "Mizik"], ["cat.movies", "Films", "Films", "Fim"],
     ["cat.perfume", "Perfume and beauty", "Parfums et beauté", "Pafen ak bote"], ["cat.grocery", "Caribbean groceries", "Épicerie caribéenne", "Pwovizyon karayib"],
-    ["cat.drinks", "Drinks", "Boissons", "Bwason"], ["cat.food", "Patties and food", "Pâtés et plats", "Pate ak manje"],
-    ["cat.services", "Services", "Services", "Sèvis"], ["cat.other", "Other goods", "Autres articles", "Lòt atik"],
+    ["cat.drinks", "Drinks", "Boissons", "Bwason"], ["cat.food", "Haitian patties and food", "Pâtés haïtiens et plats", "Pate ayisyen ak manje"],
+    ["cat.services", "Money transfers and top-ups", "Transferts d'argent et recharges", "Transfè lajan ak rechaj"], ["cat.other", "Other goods", "Autres articles", "Lòt atik"],
 
     /* history lines */
     ["line.created", "Added to the books with {n} in stock, at {p}", "Ajouté aux livres avec {n} en stock, à {p}", "Ajoute nan liv yo ak {n} nan stòk, a {p}"],
@@ -2858,6 +3016,108 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     ["ld.way3.b", "Reset", "Réinitialiser", "Reyinisyalize"],
     ["ld.way3.s", "End a wait after wrong tries, open the practice store, or take the store off this device after a sealed backup. No password needed.", "Mettre fin à une attente après des essais manqués, ouvrir le magasin d'essai, ou retirer le magasin de cet appareil après une sauvegarde scellée. Sans mot de passe.", "Fini yon tann apre move esè, louvri magazen pou pratike a, oswa retire magazen an sou aparèy sa a apre yon kopi sele. San modpas."]
   );
+
+  /* Build 15: the departments, scanning, and the money transfers and top-ups */
+  add(
+    ["inv.receiveKey", "Receive a delivery", "Recevoir une livraison", "Resevwa yon livrezon"], ["inv.receiveDone", "Done receiving", "Fin de la réception", "Fini resevwa"],
+    ["inv.depts", "Departments", "Rayons", "Depatman"], ["inv.allDepts", "All departments", "Tous les rayons", "Tout depatman yo"],
+    ["inv.searchIn", "Search {d}: name, barcode or code", "Chercher dans {d} : nom, code-barres ou code", "Chèche nan {d}: non, kòd ba oswa kòd"],
+    ["inv.dept", "Department", "Rayon", "Depatman"], ["inv.pages", "Pages of the list", "Pages de la liste", "Paj lis la"],
+    ["inv.prev", "Previous", "Précédent", "Anvan"], ["inv.next", "Next", "Suivant", "Apre"],
+    ["inv.pageOf", "{a} to {b} of {n}", "{a} à {b} sur {n}", "{a} rive {b} sou {n}"],
+    ["inv.itemsHere", "Items in this department", "Articles de ce rayon", "Atik nan depatman sa a"],
+    ["inv.barcodeIs", "{name} already has this barcode.", "{name} a déjà ce code-barres.", "{name} deja gen kòd ba sa a."],
+    ["dept.figs", "{n} items · {u} on the shelf", "{n} articles · {u} en rayon", "{n} atik · {u} sou etajè"],
+    ["dept.figs1", "1 item · {u} on the shelf", "1 article · {u} en rayon", "1 atik · {u} sou etajè"],
+    ["inv.foot1", "1 item · {u} units · {v} at cost", "1 article · {u} unités · {v} au coût", "1 atik · {u} inite · {v} ak pri achte"],
+    ["inv.footNoCost1", "1 item · {u} units on the shelves", "1 article · {u} unités en rayon", "1 atik · {u} inite sou etajè yo"],
+    ["app.needHttps", "Lakay seals the store's books, and browsers allow that only on a secure address, one that begins with https. Ask your web host to turn on https (most give it free), then open the address that begins with https.",
+      "Lakay scelle les livres du magasin, et les navigateurs ne le permettent que sur une adresse sécurisée, qui commence par https. Demandez à votre hébergeur d'activer https (la plupart le donnent gratuitement), puis ouvrez l'adresse qui commence par https.",
+      "Lakay sele liv magazen an, epi navigatè yo pèmèt sa sèlman sou yon adrès ki an sekirite, youn ki kòmanse ak https. Mande moun ki loje sit ou a pou yo louvri https (pifò bay li gratis), epi louvri adrès ki kòmanse ak https la."],
+    ["svc.recordHere", "Record a transfer or top-up", "Noter un transfert ou une recharge", "Anrejistre yon transfè oswa yon rechaj"],
+    ["svc.recordHereHint", "RIA, CAM, Unitransfer, Boss Revolution: kept apart from the sale.", "RIA, CAM, Unitransfer, Boss Revolution : à part de la vente.", "RIA, CAM, Unitransfer, Boss Revolution: apa de vant lan."],
+    ["dept.svcToday", "{n} today · {m} taken in", "{n} aujourd'hui · {m} encaissés", "{n} jodi a · {m} antre"],
+    ["dept.out", "{n} out", "{n} épuisés", "{n} fini"], ["dept.low", "{n} low", "{n} bas", "{n} ba"],
+    ["dept.items", "Items", "Articles", "Atik"], ["dept.units", "On the shelf", "En rayon", "Sou etajè"], ["dept.atCost", "At cost", "Au coût", "Ak pri achte"],
+    ["dept.lowN", "Running low", "Stock bas", "K ap fini"],
+    ["dept.music", "Music on CD.", "La musique sur CD.", "Mizik sou CD."],
+    ["dept.movies", "Films and series on DVD.", "Films et séries sur DVD.", "Fim ak seri sou DVD."],
+    ["dept.perfume", "Perfumes, scented waters and beauty care.", "Parfums, eaux parfumées et soins de beauté.", "Pafen, dlo santi bon ak swen bote."],
+    ["dept.grocery", "Groceries from Haiti and the Caribbean.", "L'épicerie d'Haïti et des Caraïbes.", "Pwovizyon ki soti Ayiti ak nan Karayib la."],
+    ["dept.drinks", "Sodas, juices, malts and water.", "Sodas, jus, maltas et eau.", "Kola, ji, malta ak dlo."],
+    ["dept.food", "Haitian patties and food, made or bought for the day.", "Pâtés haïtiens et plats, faits ou achetés pour la journée.", "Pate ayisyen ak manje, fèt oswa achte pou jounen an."],
+    ["dept.services", "The money a customer sends, receives or puts on a phone is held for the provider. It is never the store's sale: only the fee or the commission is the store's.",
+      "L'argent qu'un client envoie, reçoit ou met sur un téléphone est gardé pour le fournisseur. Ce n'est jamais une vente du magasin : seuls les frais ou la commission sont au magasin.",
+      "Lajan yon kliyan voye, resevwa oswa mete sou yon telefòn se pou konpayi an. Se pa janm yon vant magazen an: se sèlman frè a oswa komisyon an ki pou magazen an."],
+    ["dept.other", "Everything else the store sells.", "Tout le reste de ce que vend le magasin.", "Tout lòt bagay magazen an vann."],
+    ["svc.p.ria", "RIA", "RIA", "RIA"], ["svc.p.cam", "CAM", "CAM", "CAM"], ["svc.p.unitransfer", "Unitransfer", "Unitransfer", "Unitransfer"],
+    ["svc.p.boss", "Boss Revolution", "Boss Revolution", "Boss Revolution"], ["svc.p.other", "Other provider", "Autre fournisseur", "Lòt konpayi"],
+    ["svc.k.send", "Transfer sent", "Transfert envoyé", "Transfè voye"], ["svc.k.payout", "Transfer paid out", "Transfert remis", "Transfè remèt"],
+    ["svc.k.topup", "Phone top-up", "Recharge de téléphone", "Rechaj telefòn"],
+    ["svc.sentToday", "Sent today", "Envoyés aujourd'hui", "Voye jodi a"], ["svc.paidToday", "Paid out today", "Remis aujourd'hui", "Remèt jodi a"],
+    ["svc.topToday", "Top-ups today", "Recharges aujourd'hui", "Rechaj jodi a"], ["svc.nm", "{n} · {m}", "{n} · {m}", "{n} · {m}"],
+    ["svc.fees", "Fees", "Frais", "Frè"], ["svc.commission", "Commission", "Commission", "Komisyon"],
+    ["svc.record", "Record a transfer or top-up", "Noter un transfert ou une recharge", "Anrejistre yon transfè oswa yon rechaj"],
+    ["svc.recordTitle", "Record a transfer or top-up", "Noter un transfert ou une recharge", "Anrejistre yon transfè oswa yon rechaj"],
+    ["svc.today", "Today", "Aujourd'hui", "Jodi a"], ["svc.week", "7 days", "7 jours", "7 jou"], ["svc.month", "30 days", "30 jours", "30 jou"], ["svc.all", "All", "Tout", "Tout"],
+    ["svc.period", "Period", "Période", "Peryòd"], ["svc.allProviders", "All providers", "Tous les fournisseurs", "Tout konpayi yo"],
+    ["svc.provider", "Provider", "Fournisseur", "Konpayi"], ["svc.searchPh", "Reference or note", "Référence ou note", "Referans oswa nòt"],
+    ["svc.search", "Search the transfers and top-ups", "Chercher dans les transferts et recharges", "Chèche nan transfè ak rechaj yo"],
+    ["svc.when", "When", "Quand", "Ki lè"], ["svc.kind", "Kind", "Type", "Kalite"], ["svc.amount", "Amount", "Montant", "Montan"], ["svc.fee", "Fee", "Frais", "Frè"],
+    ["svc.ref", "Reference", "Référence", "Referans"], ["svc.by", "Served by", "Servi par", "Sèvi pa"], ["svc.void", "Void", "Annuler", "Anile"],
+    ["svc.voidTip", "Void this entry, with a reason. It stays in the log.", "Annuler cette entrée, avec une raison. Elle reste dans le journal.", "Anile antre sa a, ak yon rezon. Li rete nan jounal la."],
+    ["svc.voided", "Voided", "Annulé", "Anile"], ["svc.entries", "Entries", "Entrées", "Antre"],
+    ["svc.cashIn", "Cash in", "Argent reçu", "Lajan antre"], ["svc.cashOut", "Cash out", "Argent remis", "Lajan soti"],
+    ["svc.noMatch", "No transfer or top-up matches.", "Aucun transfert ni recharge ne correspond.", "Okenn transfè oswa rechaj pa koresponn."],
+    ["svc.none", "No transfers or top-ups yet. Press Record a transfer or top-up.", "Pas encore de transfert ni de recharge. Appuyez sur Noter un transfert ou une recharge.", "Poko gen transfè oswa rechaj. Peze Anrejistre yon transfè oswa yon rechaj."],
+    ["svc.note", "This money is held for the providers and is never counted in the store's sales. Settle with each provider from their own statement.",
+      "Cet argent est gardé pour les fournisseurs et n'est jamais compté dans les ventes du magasin. Réglez avec chaque fournisseur d'après son propre relevé.",
+      "Lajan sa a se pou konpayi yo, epi li pa janm konte nan vant magazen an. Regle ak chak konpayi dapre pwòp rapò pa yo."],
+    ["svc.feeHint", "What the customer paid on top, if anything.", "Ce que le client a payé en plus, s'il y a lieu.", "Sa kliyan an peye anplis, si genyen."],
+    ["svc.refHint", "The number on the provider's receipt.", "Le numéro sur le reçu du fournisseur.", "Nimewo ki sou resi konpayi an."],
+    ["svc.noteL", "Note", "Note", "Nòt"],
+    ["svc.privacy", "Never write the customer's name, address or papers here: the provider's own system keeps those.", "N'écrivez jamais ici le nom, l'adresse ou les papiers du client : le système du fournisseur les garde.", "Pa janm ekri non, adrès oswa papye kliyan an la a: se sistèm konpayi an ki kenbe yo."],
+    ["svc.save", "Record", "Noter", "Anrejistre"],
+    ["svc.previewIn", "Cash in: {m} ({a} and a fee of {f}).", "Argent reçu : {m} ({a} et des frais de {f}).", "Lajan antre: {m} ({a} ak yon frè {f})."],
+    ["svc.previewOut", "Cash out: {m} to the customer.", "Argent remis : {m} au client.", "Lajan soti: {m} bay kliyan an."],
+    ["svc.err.amount", "Type the amount, for example 150.00.", "Tapez le montant, par exemple 150,00.", "Tape montan an, pa egzanp 150.00."],
+    ["svc.err.money", "Type an amount, for example 8.50, or leave it empty.", "Tapez un montant, par exemple 8,50, ou laissez vide.", "Tape yon montan, pa egzanp 8.50, oswa kite l vid."],
+    ["svc.err.reason", "Please say why.", "Dites pourquoi.", "Tanpri di poukisa."],
+    ["svc.done", "{what} with {p}: {m} is recorded.", "{what} avec {p} : {m} est noté.", "{what} ak {p}: {m} anrejistre."],
+    ["svc.voidTitle", "Void this entry", "Annuler cette entrée", "Anile antre sa a"],
+    ["svc.voidWhat", "{what} with {p}, {m}, {when}.", "{what} avec {p}, {m}, {when}.", "{what} ak {p}, {m}, {when}."],
+    ["svc.voidWhy", "Why", "Pourquoi", "Poukisa"],
+    ["svc.voidHint", "For example: typed twice, or the wrong amount. The entry stays in the log, marked void.", "Par exemple : tapé deux fois, ou le mauvais montant. L'entrée reste dans le journal, marquée annulée.", "Pa egzanp: tape de fwa, oswa move montan an. Antre a rete nan jounal la, make anile."],
+    ["svc.voidedNow", "The entry is voided. It stays in the log.", "L'entrée est annulée. Elle reste dans le journal.", "Antre a anile. Li rete nan jounal la."],
+    ["tip.svcAmount.t", "The amount", "Le montant", "Montan an"],
+    ["tip.svcAmount.b", "The money sent, paid out or put on the phone, without the fee.", "L'argent envoyé, remis ou mis sur le téléphone, sans les frais.", "Lajan ki voye, remèt oswa mete sou telefòn nan, san frè a."],
+    ["tip.svcCommission.t", "The commission", "La commission", "Komisyon an"],
+    ["tip.svcCommission.b", "What the provider pays the store for this one, from its statement or price list. Leave it empty if you do not know it yet.", "Ce que le fournisseur paie au magasin pour celui-ci, d'après son relevé ou sa grille. Laissez vide si vous ne le savez pas encore.", "Sa konpayi an peye magazen an pou sa a, dapre rapò oswa lis pri li. Kite l vid si ou poko konnen."],
+    ["scan.unknown", "No item has the code {code}.", "Aucun article n'a le code {code}.", "Okenn atik pa gen kòd {code}."], ["scan.addIt", "Add it", "L'ajouter", "Ajoute l"],
+    ["scan.camera", "Scan with the camera", "Scanner avec la caméra", "Eskane ak kamera a"],
+    ["scan.cameraBarcode", "Scan the barcode with the camera", "Scanner le code-barres avec la caméra", "Eskane kòd ba a ak kamera a"],
+    ["scan.title", "Scan a barcode", "Scanner un code-barres", "Eskane yon kòd ba"], ["scan.starting", "Opening the camera…", "Ouverture de la caméra…", "N ap louvri kamera a…"],
+    ["scan.looking", "Hold the barcode inside the frame, flat and still.", "Tenez le code-barres dans le cadre, à plat et immobile.", "Kenbe kòd ba a anndan kad la, plat epi san bouje."],
+    ["scan.hint", "A scanner that plugs in or pairs works anywhere in Lakay, with no key to press.", "Un lecteur branché ou jumelé fonctionne partout dans Lakay, sans touche à presser.", "Yon eskanè ki branche oswa konekte mache tout kote nan Lakay, san peze okenn bouton."],
+    ["scan.denied", "The camera is not allowed here. Allow it in the device's settings, or use a scanner or type the code.", "La caméra n'est pas autorisée ici. Autorisez-la dans les réglages de l'appareil, ou utilisez un lecteur ou tapez le code.", "Kamera a pa otorize isit la. Otorize l nan paramèt aparèy la, oswa sèvi ak yon eskanè oswa tape kòd la."],
+    ["scan.noCamera", "No camera can be used here. Use a scanner or type the code.", "Aucune caméra ne peut servir ici. Utilisez un lecteur ou tapez le code.", "Pa gen kamera ki ka sèvi isit la. Sèvi ak yon eskanè oswa tape kòd la."],
+    ["rep.svc", "Money transfers and top-ups", "Transferts d'argent et recharges", "Transfè lajan ak rechaj"],
+    ["rep.svcHint", "Held for the providers: not part of the sales above. The commission is the store's.", "Gardé pour les fournisseurs : hors des ventes ci-dessus. La commission est au magasin.", "Se pou konpayi yo: li pa nan vant ki anwo yo. Komisyon an se pou magazen an."],
+    ["rep.svcCash", "Cash in {a} · cash out {b}.", "Argent reçu {a} · argent remis {b}.", "Lajan antre {a} · lajan soti {b}."],
+    ["rep.svcVoided", "{n} voided, not counted.", "{n} annulés, non comptés.", "{n} anile, pa konte."],
+    ["type.service.recorded", "A transfer or top-up recorded", "Transfert ou recharge noté", "Transfè oswa rechaj anrejistre"],
+    ["type.service.voided", "A transfer or top-up voided", "Transfert ou recharge annulé", "Transfè oswa rechaj anile"],
+    ["guide.depts.t", "Departments and scanning", "Rayons et lecture des codes", "Depatman ak eskanè"],
+    ["guide.depts.b", "Inventory has a tab for each department: Music, Films, Perfume and beauty, Caribbean groceries, Drinks, Haitian patties and food, Money transfers and top-ups, and Other goods. All departments shows them side by side, with what runs low.\nEach list shows fifty items at a time, with Previous and Next below it, so a large inventory stays quick. The search finds any word of a name, a barcode or a code.\nA barcode scanner that plugs in or pairs works anywhere in Lakay. At the Register, a scanned item goes onto the ticket. In Inventory, it opens the item's card, or its delivery while you receive. Anywhere else, Price check shows it. A code that no item has offers to add a new item with that barcode.\nWhere the device has a camera, the camera key reads a barcode too.",
+      "L'inventaire a un onglet pour chaque rayon : Musique, Films, Parfums et beauté, Épicerie caribéenne, Boissons, Pâtés haïtiens et plats, Transferts d'argent et recharges, et Autres articles. Tous les rayons les montre côte à côte, avec ce qui baisse.\nChaque liste montre cinquante articles à la fois, avec Précédent et Suivant dessous, pour qu'un grand inventaire reste rapide. La recherche trouve n'importe quel mot d'un nom, d'un code-barres ou d'un code.\nUn lecteur de codes-barres branché ou jumelé fonctionne partout dans Lakay. À la caisse, l'article lu va sur le ticket. Dans l'inventaire, il ouvre la fiche de l'article, ou sa livraison pendant une réception. Ailleurs, Vérifier un prix le montre. Un code qu'aucun article n'a propose d'ajouter un nouvel article avec ce code-barres.\nSi l'appareil a une caméra, la touche caméra lit aussi un code-barres.",
+      "Envantè a gen yon onglè pou chak depatman: Mizik, Fim, Pafen ak bote, Pwovizyon karayib, Bwason, Pate ayisyen ak manje, Transfè lajan ak rechaj, ak Lòt atik. Tout depatman yo montre yo kòt a kòt, ak sa k ap fini.\nChak lis montre senkant atik alafwa, ak Anvan ak Apre anba l, pou yon gwo envantè rete rapid. Rechèch la jwenn nenpòt mo nan yon non, yon kòd ba oswa yon kòd.\nYon eskanè kòd ba ki branche oswa konekte mache tout kote nan Lakay. Nan Kès la, atik ou eskane a ale sou tikè a. Nan Envantè, li louvri fich atik la, oswa livrezon li pandan w ap resevwa. Lòt kote, Tcheke yon pri montre l. Yon kòd okenn atik pa genyen pwopoze ajoute yon nouvo atik ak kòd ba sa a.\nKote aparèy la gen yon kamera, bouton kamera a li yon kòd ba tou."],
+    ["guide.depts.tip", "Plug the scanner in once: it types the code and presses Enter by itself.", "Branchez le lecteur une fois : il tape le code et appuie sur Entrée tout seul.", "Branche eskanè a yon fwa: li tape kòd la epi li peze Antre poukont li."],
+    ["guide.svc.t", "Money transfers and top-ups", "Transferts d'argent et recharges", "Transfè lajan ak rechaj"],
+    ["guide.svc.b", "Each transfer sent, transfer paid out and phone top-up is recorded under Money transfers and top-ups in Inventory: the provider (RIA, CAM, Unitransfer, Boss Revolution or another), the amount, the fee, the provider's reference and, for those who see the reports, the store's commission.\nThis money is held for the provider. Lakay keeps it apart from the store's sales, so the day's takings and profit are never swollen by money that belongs to someone else. The Reports show it in its own section.\nNever write the customer's name, address or papers: the provider's own system keeps those.\nA mistake is voided, with a reason, by someone who sees the reports. It stays in the log, marked void.",
+      "Chaque transfert envoyé, transfert remis et recharge de téléphone est noté sous Transferts d'argent et recharges dans l'inventaire : le fournisseur (RIA, CAM, Unitransfer, Boss Revolution ou un autre), le montant, les frais, la référence du fournisseur et, pour ceux qui voient les rapports, la commission du magasin.\nCet argent est gardé pour le fournisseur. Lakay le garde à part des ventes du magasin, pour que les recettes et le bénéfice du jour ne soient jamais gonflés par de l'argent qui appartient à quelqu'un d'autre. Les rapports le montrent dans leur propre section.\nN'écrivez jamais le nom, l'adresse ou les papiers du client : le système du fournisseur les garde.\nUne erreur est annulée, avec une raison, par quelqu'un qui voit les rapports. Elle reste dans le journal, marquée annulée.",
+      "Chak transfè voye, transfè remèt ak rechaj telefòn anrejistre anba Transfè lajan ak rechaj nan Envantè: konpayi an (RIA, CAM, Unitransfer, Boss Revolution oswa yon lòt), montan an, frè a, referans konpayi an epi, pou moun ki wè rapò yo, komisyon magazen an.\nLajan sa a se pou konpayi an. Lakay kenbe l apa de vant magazen an, pou lajan jounen an ak benefis la pa janm gonfle ak lajan ki pou yon lòt moun. Rapò yo montre l nan pwòp seksyon pa l.\nPa janm ekri non, adrès oswa papye kliyan an: se sistèm konpayi an ki kenbe yo.\nYon erè anile, ak yon rezon, pa yon moun ki wè rapò yo. Li rete nan jounal la, make anile."],
+    ["guide.svc.tip", "Write the provider's reference each time: it is how you match the log with the provider's statement.", "Notez la référence du fournisseur à chaque fois : c'est ainsi que vous rapprochez le journal du relevé du fournisseur.", "Ekri referans konpayi an chak fwa: se konsa ou konpare jounal la ak rapò konpayi an."]
+  );
   E.t = function (key, vars) {
     var c = E.custom && E.custom.words && E.custom.words[E.lang], s = c && typeof c[key] === "string" && c[key] ? c[key] : DICT[E.lang][key];
     if (s === undefined) s = DICT.en[key];
@@ -3271,7 +3531,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   function load(vault, key, userId) {
     ID = vault.storeId;
     return D.entries("rec").then(function (entries) {
-      var st = { settings: null, users: {}, cats: {}, items: {}, sales: [], moves: [], shifts: [], counters: {}, pad: {}, notes: {}, head: null, unreadable: [] };
+      var st = { settings: null, users: {}, cats: {}, items: {}, sales: [], moves: [], shifts: [], services: [], counters: {}, pad: {}, notes: {}, head: null, unreadable: [] };
       /* each person's notes are their own: a sign-in opens only the notes of the one signing in (the practice store opens
          all of its sample people's, since it changes from one to another) */
       var mine = "notes:" + (userId || "owner"), practice = B.mode === "practice";
@@ -3283,6 +3543,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
         st.sales.sort(function (a, b) { return a.at < b.at ? -1 : a.at > b.at ? 1 : 0; });
         st.moves.sort(function (a, b) { return a.at < b.at ? -1 : a.at > b.at ? 1 : 0; });
         st.shifts.sort(function (a, b) { return a.in < b.in ? -1 : a.in > b.in ? 1 : 0; });
+        st.services.sort(function (a, b) { return a.at < b.at ? -1 : a.at > b.at ? 1 : 0; });
         if (!st.head || !st.settings) throw err("damaged");
         return D.get("journal", st.head.seq).then(function (env) {
           if (!env) { st.headProblem = true; return; }
@@ -3312,6 +3573,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     else if (kind === "sale") { var j = st.sales.findIndex(function (s) { return s.id === v.id; }); if (j >= 0) st.sales[j] = v; else st.sales.push(v); }
     else if (kind === "move") st.moves.push(v);
     else if (kind === "shift") { var q = st.shifts.findIndex(function (x) { return x.id === v.id; }); if (q >= 0) st.shifts[q] = v; else st.shifts.push(v); }
+    else if (kind === "svc") { st.services = st.services || []; var z = st.services.findIndex(function (x) { return x.id === v.id; }); if (z >= 0) st.services[z] = v; else st.services.push(v); }
     else if (kind === "counter") st.counters[id] = v;
     else if (kind === "pad") st.pad[id] = v;
     else if (kind === "notes") st.notes[id] = (v && Array.isArray(v.notes)) ? v.notes : [];
@@ -3465,7 +3727,29 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
       });
       return c2;
     });
+    chain = chain.then(function () { return sampleServices(); });
     return chain.then(function () { B._at = null; B.user = state.users.owner; return state; }, function (e) { B._at = null; B.user = state && state.users.owner; throw e; });
+  }
+  /* The practice store's money transfers and top-ups: a few a day for two weeks, with made-up fees and references.
+     [provider, kind, amount, fee, commission] in cents; nothing here is a real provider's price. */
+  var SAMPLE_SVC = [["ria", "send", 15000, 1000, 300], ["cam", "send", 20000, 1200, 350], ["boss", "topup", 2000, 0, 150],
+    ["unitransfer", "payout", 10000, 0, 200], ["ria", "send", 5000, 600, 150], ["boss", "topup", 1000, 0, 80], ["cam", "payout", 25000, 0, 300]];
+  function sampleServices() {
+    var seed = 20261115, c = Promise.resolve(), today = new Date(); today.setHours(0, 0, 0, 0);
+    function rnd(n) { seed = (seed * 1103515245 + 12345) % 2147483648; return seed % n; }
+    for (var d = 14; d >= 0; d--) {
+      var day = new Date(today.getTime() - d * 86400000), n = 1 + rnd(3);
+      for (var k = 0; k < n; k++) (function (at, s, j) {
+        if (at.getTime() >= Date.now() - 3600000) return;
+        c = c.then(function () {
+          B._at = at.toISOString();
+          B.user = state.users[at.getHours() < 13 ? SAMPLE_PEOPLE[0][0] : "owner"] || state.users.owner;
+          return B.recordService({ provider: s[0], kind: s[1], amount: s[2], fee: s[3], commission: s[4], ref: (s[0] === "boss" ? "BR" : s[0].slice(0, 2).toUpperCase()) + String(483920 + j * 37) })
+            .then(function () { B.user = state.users.owner; });
+        });
+      })(new Date(day.getFullYear(), day.getMonth(), day.getDate(), 10 + rnd(8), rnd(60), 0), SAMPLE_SVC[rnd(SAMPLE_SVC.length)], d * 10 + k);
+    }
+    return c;
   }
   /* the sample people's shifts for the days before today: Marie from a quarter to nine, Jean from a quarter to one,
      each with a half-hour break */
@@ -3950,6 +4234,46 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     });
   };
 
+  /* ---------- money transfers and top-ups (Build 15) ----------
+     The money a customer sends, receives or puts on a phone is held for the provider (RIA, CAM, Unitransfer, Boss
+     Revolution): it is not the store's sale. Each one is written as it happens: the provider, what kind it was, the
+     amount, the fee, the store's commission when it is known, and the provider's reference. No customer's name or
+     papers are kept: the provider's own system keeps those. A mistake is voided with a reason, never erased. */
+  B.PROVIDERS = ["ria", "cam", "unitransfer", "boss", "other"];
+  B.SVC_KINDS = ["send", "payout", "topup"];
+  B.recordService = function (f) {
+    return B.change(function () {
+      need("sell");
+      var provider = String(f.provider || ""), kind = String(f.kind || "");
+      if (B.PROVIDERS.indexOf(provider) < 0) throw err("provider");
+      if (B.SVC_KINDS.indexOf(kind) < 0) throw err("kind");
+      if (!Number.isSafeInteger(f.amount) || f.amount <= 0) throw err("amount");
+      var fee = f.fee === null || f.fee === undefined ? 0 : f.fee;
+      if (!Number.isSafeInteger(fee) || fee < 0) throw err("fee");
+      var com = f.commission === null || f.commission === undefined ? null : f.commission;
+      if (com !== null && (!Number.isSafeInteger(com) || com < 0)) throw err("commission");
+      if (!B.can("reports")) com = null;
+      var now = clock();
+      var v = { id: U.uid("v"), provider: provider, kind: kind, amount: f.amount, fee: fee, commission: com,
+        ref: String(f.ref || "").trim().slice(0, 40), note: String(f.note || "").trim().slice(0, 200),
+        at: now.toISOString(), day: U.dayKey(now), hour: now.getHours(), by: B.user.id, byNo: B.numberOf(B.user), dev: B.device.id, status: "done" };
+      return { type: "service.recorded", data: { svc: clone(v) }, recs: [{ kind: "svc", id: v.id, value: v }], result: v };
+    });
+  };
+  B.voidService = function (id, reason) {
+    return B.change(function (st) {
+      need("reports");
+      var cur = (st.services || []).find(function (x) { return x.id === id; }); if (!cur) throw err("nosvc");
+      if (cur.status === "void") return null;
+      reason = String(reason || "").trim(); if (!reason) throw err("note");
+      var v = clone(cur); v.status = "void"; v.voidedBy = B.user.id; v.voidedAt = clock().toISOString(); v.voidReason = reason.slice(0, 200);
+      return { type: "service.voided", data: { id: id, reason: v.voidReason }, recs: [{ kind: "svc", id: id, value: v }], result: v };
+    });
+  };
+  B.services = function (filter) { return state ? (state.services || []).filter(function (x) { return !filter || filter(x); }) : []; };
+  /* what one entry did to the drawer: money in (the amount sent or put on a phone, and the fee) or out (a payout) */
+  B.svcCash = function (v) { return { cashIn: (v.kind === "payout" ? 0 : v.amount) + (v.fee || 0), cashOut: v.kind === "payout" ? v.amount : 0 }; };
+
   /* ---------- the ticket and the sale ---------- */
   /* Prices a ticket from the books as they stand: lines [{itemId, qty}] give lines with prices, the tax of each rate
      (worked out on the total taxed at that rate, rounded half up to the cent) and the totals. */
@@ -4023,6 +4347,17 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     });
     /* profit counts only lines whose cost is known; sales of items with no cost are shown apart */
     r.profit = r.net - r.noCost - r.cogs;
+    /* money transfers and top-ups: held for the providers, so never part of the sales above (Build 15) */
+    var sv = r.services = { count: 0, voided: 0, fees: 0, commission: 0, cashIn: 0, cashOut: 0, byProvider: {}, byKind: {} };
+    (st.services || []).forEach(function (v) {
+      if (v.day < fromKey || v.day > toKey || !inWin(v) || !mine(v)) return;
+      if (v.status === "void") { sv.voided++; return; }
+      var c = B.svcCash(v);
+      sv.count++; sv.fees += v.fee || 0; sv.commission += v.commission || 0; sv.cashIn += c.cashIn; sv.cashOut += c.cashOut;
+      var p = sv.byProvider[v.provider] = sv.byProvider[v.provider] || { count: 0, send: 0, payout: 0, topup: 0, fees: 0, commission: 0, cashIn: 0, cashOut: 0 };
+      p.count++; p[v.kind] += v.amount; p.fees += v.fee || 0; p.commission += v.commission || 0; p.cashIn += c.cashIn; p.cashOut += c.cashOut;
+      var k = sv.byKind[v.kind] = sv.byKind[v.kind] || { count: 0, amount: 0 }; k.count++; k.amount += v.amount;
+    });
     st.moves.forEach(function (m) {
       if (m.day < fromKey || m.day > toKey || !inWin(m) || !mine(m)) return;
       if (m.kind === "receive") { r.received.qty += m.qty; r.received.value += (m.unitCost || 0) * m.qty; }
@@ -4054,14 +4389,14 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     var key = KEY, id = ID, st = state;
     if (!key) return Promise.reject(err("locked"));
     return D.entries("journal").then(function (entries) {
-      var res = { ok: true, lines: entries.length, problems: [] }, prev = ZERO, expect = 1, items = {}, i = 0;
+      var res = { ok: true, lines: entries.length, problems: [] }, prev = ZERO, expect = 1, items = {}, svcs = {}, i = 0;
       function next() {
         if (i >= entries.length) return Promise.resolve();
         var e = entries[i++];
         return C.open(key, e[1], aadLine(id, e[0])).then(function (line) {
           if (line.seq !== e[0] || e[0] !== expect) res.problems.push({ seq: e[0], what: "order" });
           if (line.prev !== prev) res.problems.push({ seq: e[0], what: "chain" });
-          replay(items, line, res);
+          replay(items, line, res, svcs);
           expect = e[0] + 1;
           return U.sha256hex(U.canon(line)).then(function (hsh) { prev = hsh; });
         }, function () { res.problems.push({ seq: e[0], what: "unreadable" }); prev = null; expect = e[0] + 1; }).then(function () {
@@ -4079,15 +4414,26 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
           });
         });
         Object.keys(items).forEach(function (k) { if (!st.items[k]) res.problems.push({ item: k, what: "extra" }); });
+        (st.services || []).forEach(function (v) {
+          var b = svcs[v.id];
+          if (!b) { res.problems.push({ svc: v.id, what: "missing" }); return; }
+          ["provider", "kind", "amount", "fee", "commission", "status"].forEach(function (f) {
+            if (JSON.stringify(v[f]) !== JSON.stringify(b[f])) res.problems.push({ svc: v.id, what: "differs", field: f });
+          });
+          delete svcs[v.id];
+        });
+        Object.keys(svcs).forEach(function (k) { res.problems.push({ svc: k, what: "extra" }); });
         (st.unreadable || []).forEach(function (k) { res.problems.push({ rec: k, what: "unreadable" }); });
         res.ok = res.problems.length === 0;
         return res;
       });
     });
   };
-  function replay(items, line, res) {
+  function replay(items, line, res, svcs) {
     var d = line.data || {};
     switch (line.type) {
+      case "service.recorded": if (d.svc) svcs[d.svc.id] = clone(d.svc); break;
+      case "service.voided": if (svcs[d.id]) svcs[d.id].status = "void"; else res.problems.push({ seq: line.seq, what: "void" }); break;
       case "item.created": items[d.item.id] = clone(d.item); break;
       case "item.updated": if (items[d.id]) Object.keys(d.changes).forEach(function (k) { items[d.id][k] = clone(d.changes[k][1]); }); break;
       case "item.archived": if (items[d.id]) items[d.id].archived = d.archived; break;
@@ -4211,6 +4557,126 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
       delete d.last; doorMeta = d;
       return D.write([{ store: "meta", key: "door", value: d }]).then(function () { return true; });
     }).catch(function () { return false; });
+  };
+})();
+
+/* LAKAY | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt.
+   The finder (Build 15): one index of the store's items, so that a search or a scan stays quick however large the
+   inventory grows. It lives beside the books, in memory only, and is never written into them: each item's words for
+   searching (its name, barcode and code, without accents), its place in name order, and its codes for a scan. It
+   follows each change as it is written, so Inventory, the Register and Price check always find what is there.
+   A scanned code finds its item whether the shelf label and the scanner give it as EAN-13, UPC-A, EAN-8 or GTIN-14:
+   the same product carries one 14-digit GTIN in all of them. */
+"use strict";
+(function () {
+  var U = E.util, B = E.books;
+  var F = E.find = {};
+  var ix = null, gen = 0, collator = null, collLang = null;
+  function coll() {
+    if (!collator || collLang !== E.lang) {
+      collLang = E.lang;
+      try { collator = new Intl.Collator(E.lang || "en", { sensitivity: "base", numeric: true }); }
+      catch (e) { collator = { compare: function (a, b) { return a < b ? -1 : a > b ? 1 : 0; } }; }
+    }
+    return collator;
+  }
+  /* the 14-digit GTIN of a numeric product code (8, 12, 13 or 14 digits), or null */
+  function gtin(code) { var c = String(code || "").replace(/\s+/g, ""); return /^(\d{8}|\d{12,14})$/.test(c) ? ("00000000000000" + c).slice(-14) : null; }
+  F.gtin = gtin;
+  function words(it) { return U.norm([it.name, it.barcode || "", it.sku || ""].join(" ")); }
+  function codesOf(it) {
+    var out = [];
+    [it.barcode, it.sku].forEach(function (c) {
+      if (!c) return;
+      var n = U.norm(c).replace(/\s+/g, ""); if (n) out.push(n);
+      var g = gtin(c); if (g) out.push("#" + g);
+    });
+    return out;
+  }
+  function cmp(st) { var c = coll(); return function (a, b) { return c.compare(st.items[a].name, st.items[b].name) || (a < b ? -1 : a > b ? 1 : 0); }; }
+  function addCodes(id, it) {
+    var ks = codesOf(it); ix.keys.set(id, ks);
+    ks.forEach(function (k) { var a = ix.codes.get(k); if (!a) ix.codes.set(k, [id]); else if (a.indexOf(id) < 0) a.push(id); });
+  }
+  function dropCodes(id) {
+    (ix.keys.get(id) || []).forEach(function (k) { var a = ix.codes.get(k); if (!a) return; var j = a.indexOf(id); if (j >= 0) a.splice(j, 1); if (!a.length) ix.codes.delete(k); });
+    ix.keys.delete(id);
+  }
+  function build() {
+    var st = B.state(); if (!st) { ix = null; return null; }
+    ix = { st: st, order: Object.keys(st.items), text: new Map(), codes: new Map(), keys: new Map() };
+    ix.order.forEach(function (id) { var it = st.items[id]; ix.text.set(id, words(it)); addCodes(id, it); });
+    ix.order.sort(cmp(st));
+    gen++;
+    return ix;
+  }
+  function index() { var st = B.state(); if (!st) return null; if (!ix || ix.st !== st || collLang !== E.lang) build(); return ix; }
+  /* place one item again after it was added, renamed or given another code */
+  function place(id) {
+    var st = ix.st, it = st.items[id]; if (!it) return;
+    var at = ix.order.indexOf(id); if (at >= 0) ix.order.splice(at, 1);
+    dropCodes(id); ix.text.set(id, words(it)); addCodes(id, it);
+    var c = cmp(st), lo = 0, hi = ix.order.length;
+    while (lo < hi) { var mid = (lo + hi) >> 1; if (c(ix.order[mid], id) < 0) lo = mid + 1; else hi = mid; }
+    ix.order.splice(lo, 0, id);
+    gen++;
+  }
+  B.on("change", function (line) {
+    if (!ix || ix.st !== B.state()) { ix = null; return; }
+    var d = line.data || {};
+    if (line.type === "item.created" && d.item) place(d.item.id);
+    else if (line.type === "item.updated" && d.changes && (d.changes.name || d.changes.barcode || d.changes.sku)) place(d.id);
+    else gen++;
+  });
+  B.on("lock", function () { ix = null; gen++; });
+  B.on("open", function () { ix = null; gen++; });
+
+  /* the index is made again from the books as they stand (after a backup is brought back, or a large import) */
+  F.reset = function () { ix = null; gen++; };
+  /* a number that changes whenever what the finder would answer may have changed */
+  F.gen = function () { return gen; };
+  F.low = function (it) { return it.reorderAt !== null && it.reorderAt !== undefined && it.stock <= it.reorderAt; };
+  /* Every item that matches, in name order, as ids. o.q: words, each of which must appear (name, barcode or code);
+     o.cat: one department, or "all"; o.show: "active" (in use), "low", "archived" or "any". */
+  F.search = function (o) {
+    o = o || {};
+    var x = index(); if (!x) return [];
+    var st = x.st, ws = U.norm(o.q || "").split(/\s+/).filter(Boolean), cat = o.cat && o.cat !== "all" ? o.cat : null, show = o.show || "active";
+    var out = [];
+    for (var i = 0; i < x.order.length; i++) {
+      var id = x.order[i], it = st.items[id]; if (!it) continue;
+      if (show === "archived" ? !it.archived : show !== "any" && it.archived) continue;
+      if (show === "low" && !F.low(it)) continue;
+      if (cat && it.cat !== cat) continue;
+      if (ws.length) {
+        var tx = x.text.get(id), ok = true;
+        for (var w = 0; w < ws.length; w++) if (tx.indexOf(ws[w]) < 0) { ok = false; break; }
+        if (!ok) continue;
+      }
+      out.push(id);
+    }
+    return out;
+  };
+  /* The items a scanned or typed code names exactly (its barcode or its own code), those in use first. */
+  F.byCode = function (code) {
+    var x = index(); if (!x) return [];
+    var n = U.norm(code).replace(/\s+/g, ""), g = gtin(code), seen = {}, out = [];
+    [n, g ? "#" + g : null].forEach(function (k) { if (!k) return; (x.codes.get(k) || []).forEach(function (id) { if (!seen[id] && x.st.items[id]) { seen[id] = 1; out.push(id); } }); });
+    return out.sort(function (a, b) { return (x.st.items[a].archived ? 1 : 0) - (x.st.items[b].archived ? 1 : 0); });
+  };
+  /* each department's figures, worked out in one pass over the items */
+  F.departments = function () {
+    var x = index(), st = x ? x.st : null, out = {};
+    if (!st) return out;
+    Object.keys(st.items).forEach(function (id) {
+      var it = st.items[id]; if (it.archived) return;
+      var d = out[it.cat] = out[it.cat] || { items: 0, units: 0, atCost: 0, atPrice: 0, low: 0, out: 0 };
+      var q = Math.max(0, it.stock);
+      d.items++; d.units += q; d.atCost += q * (it.cost || 0); d.atPrice += q * it.price;
+      if (F.low(it)) d.low++;
+      if (it.stock <= 0) d.out++;
+    });
+    return out;
   };
 })();
 
@@ -4407,15 +4873,22 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   /* ---------- emojis (drawn by the device's own emoji font; hidden from screen readers, the words carry the meaning) ---------- */
   ui.emo = function (ch, cls) { return h("span.emo" + (cls ? "." + cls : ""), { "aria-hidden": "true" }, ch); };
   ui.ROOM_EMO = { home: "🏠", register: "🛒", inventory: "📦", reports: "📊", team: "👥", guide: "📖", settings: "⚙️", studio: "⚒️" };
-  ui.CAT_EMO = { music: "🎵", movies: "🎬", perfume: "🌸", grocery: "🥥", drinks: "🥤", food: "🥟", services: "💸", other: "🛍️" };
+  /* the departments' signs: no fruit or food as decoration (the owner, 13 November 2026), only what each one holds */
+  ui.CAT_EMO = { music: "🎵", movies: "🎬", perfume: "🌸", grocery: "🧺", drinks: "🥤", food: "🍽️", services: "💱", other: "🛍️" };
   ui.catEmo = function (c) { return ui.CAT_EMO[c] || "🏷️"; };
+  /* and their line drawings, set in the logo's periwinkle jewel (Build 15) */
+  ui.CAT_ICON = { music: "disc", movies: "film", perfume: "bottle", grocery: "basket", drinks: "cup", food: "cloche", services: "swap", other: "tag" };
+  ui.deptIcon = function (cat, cls) { return h("span.dept-jewel" + (cls ? "." + cls : ""), { "aria-hidden": "true" }, U.icon(ui.CAT_ICON[cat] || "tag")); };
 
   /* ---------- messages ---------- */
-  ui.toast = function (text, kind) {
+  /* act: an optional key inside the message, { label, fn } (Build 15: "No item has this code" offers to add it) */
+  ui.toast = function (text, kind, act) {
     var box = document.getElementById("toasts");
-    var n = h("div.toast" + (kind ? "." + kind : ""), { role: kind === "bad" ? "alert" : "status" }, [ui.emo({ bad: "⚠️", warn: "⚠️", good: "✅" }[kind] || "💬"), h("span", null, text)]);
+    var n = h("div.toast" + (kind ? "." + kind : "") + (act ? ".has-act" : ""), { role: kind === "bad" ? "alert" : "status" }, [ui.emo({ bad: "⚠️", warn: "⚠️", good: "✅" }[kind] || "💬"), h("span", null, text),
+      act ? h("button.key.sm.primary.toast-act", { type: "button", onclick: function () { n.remove(); act.fn(); } }, act.label) : null]);
     box.appendChild(n);
-    setTimeout(function () { n.classList.add("going"); setTimeout(function () { n.remove(); }, 400); }, kind === "bad" ? 7000 : 4200);
+    setTimeout(function () { n.classList.add("going"); setTimeout(function () { n.remove(); }, 400); }, act ? 9000 : kind === "bad" ? 7000 : 4200);
+    return n;
   };
 
   /* ---------- dialogs: focus stays inside, Esc closes, focus returns where it was ---------- */
@@ -4486,7 +4959,9 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     var hint = opt.hint ? h("p.hint", { id: id + "-h" }, opt.hint) : null;
     if (hint) input.setAttribute("aria-describedby", id + "-h");
     var errN = h("p.err", { id: id + "-e", role: "alert" });
-    return h("div.field" + (opt.cls ? "." + opt.cls : ""), null, [h("div.label-row", null, [label, opt.tip ? ui.tip(opt.tip) : null]), input, hint, errN]);
+    /* opt.after: a key that stands beside the field, such as the camera beside a barcode (Build 15) */
+    var box = opt.after ? h("div.field-row", null, [input, opt.after]) : input;
+    return h("div.field" + (opt.cls ? "." + opt.cls : ""), null, [h("div.label-row", null, [label, opt.tip ? ui.tip(opt.tip) : null]), box, hint, errN]);
   };
   ui.fieldError = function (input, text) {
     var e = document.getElementById(input.id + "-e"); if (!e) return;
@@ -4634,6 +5109,8 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     });
     var main = document.getElementById("room"); if (!main) return;
     U.clear(main);
+    /* a room may say what a scanned code does there (the Register adds it, Inventory opens it): 23-scan.js */
+    ui.onScan = null;
     ui.rooms[room](main);
     main.appendChild(ui.footer());
     if (!quiet && E.sound) E.sound.play("page");
@@ -5666,51 +6143,54 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     var payKey = h("button.key.primary.lg", { type: "button", id: "takeCash", onclick: takeCash }, [ui.emo("💵"), t("reg.takeCash")]);
     view = { search: search, results: results, lines: lines, totals: totals, payKey: payKey };
 
-    [["all", t("all"), "✨"]].concat(ui.cats().map(function (c) { return [c.id, ui.catName(c), ui.catEmo(c.id)]; })).forEach(function (c) {
-      chips.appendChild(h("button.chip", { type: "button", "aria-pressed": String(c[0] === cat), onclick: function (e) {
+    [["all", t("all")]].concat(ui.cats().map(function (c) { return [c.id, ui.catName(c)]; })).forEach(function (c) {
+      chips.appendChild(h("button.chip", { type: "button", "aria-pressed": String(c[0] === cat), "data-dept": c[0], onclick: function (e) {
         cat = c[0]; Array.prototype.forEach.call(chips.children, function (x) { x.setAttribute("aria-pressed", String(x === e.currentTarget)); }); draw();
-      } }, [ui.emo(c[2]), c[1]]));
+      } }, [c[0] === "all" ? h("span.dept-jewel.xs", { "aria-hidden": "true" }, U.icon("box")) : ui.deptIcon(c[0], "xs"), c[1]]));
     });
-    function matches() {
-      var q = U.norm(search.value);
-      return Object.keys(st.items).map(function (k) { return st.items[k]; }).filter(function (it) {
-        if (it.archived) return false;
-        if (cat !== "all" && it.cat !== cat) return false;
-        if (!q) return true;
-        return U.norm(it.name).indexOf(q) >= 0 || (it.barcode && U.norm(it.barcode) === q) || (it.sku && U.norm(it.sku).indexOf(q) >= 0);
-      }).sort(function (a, b) { return a.name.localeCompare(b.name); });
-    }
+    /* the finder (05-find.js) answers at once however many items there are; the first 80 are drawn */
+    function matches() { return E.find.search({ q: search.value, cat: cat, show: "active" }); }
     function draw() {
       U.clear(results);
-      var list = matches();
-      if (!list.length) { results.appendChild(h("p.muted.empty", null, Object.keys(st.items).length ? t("reg.noMatch") : t("reg.noItems"))); return; }
-      list.slice(0, 80).forEach(function (it) {
-        var low = it.reorderAt !== null && it.stock <= it.reorderAt;
+      var ids = matches();
+      /* the department of money transfers and top-ups records one here, at the counter, apart from the sale */
+      if (cat === "services" && B.can("sell")) results.appendChild(h("button.product.svc-product#regRecordSvc", { type: "button", onclick: function () { E.inventory.recordService(); } }, [
+        h("span.p-emo", { "aria-hidden": "true" }, ui.deptIcon("services", "sm")), h("span.p-name", null, t("svc.recordHere")), h("span.p-stock", null, t("svc.recordHereHint"))]));
+      if (!ids.length) { if (cat !== "services") results.appendChild(h("p.muted.empty", null, Object.keys(st.items).length ? t("reg.noMatch") : t("reg.noItems"))); return; }
+      ids.slice(0, 80).forEach(function (id) {
+        var it = st.items[id], low = E.find.low(it);
         results.appendChild(h("button.product", { type: "button", "data-id": it.id, onclick: function (e) { add(it.id); ui.plusOne(e.currentTarget); search.focus(); } }, [
-          h("span.p-emo.cat-" + (ui.CAT_EMO[it.cat] ? it.cat : "other"), { "aria-hidden": "true" }, ui.emo(ui.catEmo(it.cat))),
+          h("span.p-emo", { "aria-hidden": "true" }, ui.deptIcon(it.cat, "sm")),
           h("span.p-name", null, it.name), h("span.p-price", null, money(it.price)),
           h("span.p-stock" + (it.stock <= 0 ? ".bad" : low ? ".warn" : ""), null, t("inv.inStock", { n: it.stock }))]));
       });
-      if (list.length > 80) results.appendChild(h("p.muted", null, t("reg.more", { n: list.length - 80 })));
+      if (ids.length > 80) results.appendChild(h("p.muted", null, t("reg.more", { n: ids.length - 80 })));
     }
-    search.addEventListener("input", U.debounce(draw, 80));
+    /* a code, typed or scanned into the search: its item goes onto the ticket; a code no item has offers to add it */
+    function byCode(code) {
+      var ids = E.find.byCode(code).filter(function (id) { return !st.items[id].archived; });
+      if (ids.length) { add(ids[0]); if (E.sound) E.sound.play("scan"); return true; }
+      return false;
+    }
+    search.addEventListener("input", U.debounce(draw, 70));
     search.addEventListener("keydown", function (e) {
       if (e.key !== "Enter") return;
       e.preventDefault();
-      var q = U.norm(search.value); if (!q) return;
-      var exact = Object.keys(st.items).map(function (k) { return st.items[k]; }).filter(function (it) {
-        return !it.archived && ((it.barcode && U.norm(it.barcode) === q) || (it.sku && U.norm(it.sku) === q));
-      });
-      var list = exact.length ? exact : matches();
-      if (list.length === 1) { add(list[0].id); search.value = ""; draw(); }
-      else if (!list.length) ui.toast(t("reg.notFound", { q: search.value }), "bad");
+      var raw = search.value.trim(); if (!raw) return;
+      if (byCode(raw)) { search.value = ""; draw(); return; }
+      var list = matches();
+      if (list.length === 1) { add(list[0]); search.value = ""; draw(); }
+      else if (!list.length) { if (/^[0-9A-Za-z-]{4,}$/.test(raw) && /\d/.test(raw)) { E.scan.unknown(raw); search.value = ""; draw(); } else ui.toast(t("reg.notFound", { q: raw }), "bad"); }
     });
+    var cam = E.scan.cameraKey(function (code) { if (!byCode(code)) E.scan.unknown(code); });
+    /* a scanner that types, with no field in focus: the item goes onto the ticket */
+    ui.onScan = function (code) { if (!B.can("sell")) return false; if (!byCode(code)) E.scan.unknown(code); return true; };
 
     main.appendChild(ui.roomHead("room.register", "tip.register", [h("span.kbd-hint", null, t("reg.keys"))]));
     if (B.mode === "practice") main.appendChild(h("div.banner.practice", null, [ui.emo("🧪"), h("span", null, t("reg.practiceBanner")),
       h("button.key.sm", { type: "button", onclick: function () { E.door.startReal("app"); } }, t("practice.real"))]));
     main.appendChild(h("div.register", null, [
-      h("section.reg-pick.card", { "aria-label": t("reg.pick") }, [h("div.search-row", null, [U.icon("search"), search]), chips, results]),
+      h("section.reg-pick.card", { "aria-label": t("reg.pick") }, [h("div.search-row", null, [U.icon("search"), search, cam]), chips, results]),
       h("aside.reg-ticket.card", { "aria-label": t("reg.ticket") }, [
         h("div.card-head", null, [h("h2", null, [ui.emo("🧾"), t("reg.ticket")]), h("span.kbd-hint", null, ui.dateLong(new Date()))]),
         lines, totals, h("div.pay-row", null, [h("button.key.sm", { type: "button", id: "clearTicket", onclick: clearTicket }, [ui.emo("🧹"), t("reg.clear")]), payKey])])]));
@@ -5832,65 +6312,299 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   B.on("lock", function () { view = null; });
 })();
 
-/* EMPORIUM | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt.
-   Inventory: the list, adding and editing items, receiving stock, correcting stock, archiving, and each item's history. */
+/* LAKAY | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt.
+   Inventory (Build 15): the store's departments as real sections, each with its own tab and page (Music, Films,
+   Perfume and beauty, Caribbean groceries, Drinks, Haitian patties and food, Money transfers and top-ups, and any the
+   owner adds); every list drawn a page at a time from the finder (05-find.js), so a large inventory stays quick;
+   a scanned code opens its item anywhere in the room; and the money transfers and top-ups as a service with its own
+   log, kept apart from the store's sales. Also: adding and editing items, receiving stock, correcting stock,
+   archiving, and each item's history. */
 "use strict";
 (function () {
   var U = E.util, h = U.h, t = E.t, B = E.books, ui = E.ui, money = U.money;
-  var I = E.inventory = { filter: "active", cat: "all", q: "" };
+  var I = E.inventory = { dept: null, filter: "active", q: "", page: 0, svc: { period: "today", provider: "all", q: "", page: 0 } };
+  var PAGE = 50;
+  function fmtN(n) { try { return Number(n).toLocaleString(E.lang === "ht" ? "fr" : E.lang); } catch (e) { return String(n); } }
+  I.show = function (dept) { I.dept = dept || "all"; I.q = ""; I.page = 0; U.prefSet("invDept", I.dept); if (ui.current === "inventory") draw(true); else ui.go("inventory"); };
+  function deptName(id) { if (id === "all") return t("inv.allDepts"); return ui.catName(B.state().cats[id]); }
+  function lede(id) { return E.has("dept." + id) ? t("dept." + id) : ""; }
+  var roomMain = null, roomMode = null;
+  function draw(focusTab) {
+    if (!roomMain || !document.body.contains(roomMain)) return;
+    var y = window.scrollY; U.clear(roomMain); render(roomMain, roomMode); roomMain.appendChild(ui.footer()); window.scrollTo(0, y);
+    if (focusTab) { var tb = document.getElementById("invTab-" + I.dept); if (tb) try { tb.focus({ preventScroll: true }); } catch (e) { } }
+  }
 
   ui.rooms.inventory = function (main) {
-    var st = B.state(), mode = ui.inventoryMode, costs = B.can("costs"); ui.inventoryMode = null;
+    var mode = ui.inventoryMode; ui.inventoryMode = null;
     if (mode === "receive" && !B.can("receive")) mode = null;
-    var search = ui.input({ id: "invSearch", type: "search", placeholder: t("inv.searchPh"), "aria-label": t("inv.search"), value: I.q });
-    var catSel = ui.select([["all", t("all")]].concat(ui.cats().map(function (c) { return [c.id, ui.catName(c)]; })), I.cat, { id: "invCat", "aria-label": t("inv.category") });
-    var filt = ui.seg([["active", t("inv.f.active")], ["low", t("inv.f.low")], ["archived", t("inv.f.archived")]], I.filter, function (v) { I.filter = v; draw(); }, t("inv.show"));
-    var body = h("tbody", { id: "invRows" }), foot = h("p.inv-foot.muted", { id: "invFoot" });
-    main.appendChild(ui.roomHead("room.inventory", "tip.inventory", B.can("items") ? [h("button.key.primary", { type: "button", id: "addItem", onclick: function () { I.add(); } }, [ui.emo("🏷️"), t("inv.add")])] : null));
-    if (mode === "receive") main.appendChild(h("p.banner", { role: "status" }, [ui.emo("🚚"), t("inv.chooseReceive")]));
-    main.appendChild(h("div.toolbar", null, [h("div.search-row", null, [U.icon("search"), search]), catSel, filt]));
-    main.appendChild(h("div.table-wrap.card", null, h("table.grid", null, [
-      h("thead", null, h("tr", null, [h("th", null, t("inv.name")), h("th", null, t("inv.category")), h("th.num", null, t("inv.price")),
+    roomMain = main; roomMode = mode;
+    render(main, mode);
+  };
+  function render(main, mode) {
+    var st = B.state(), cats = ui.cats(), figs = E.find.departments();
+    var dept = I.dept || U.prefGet("invDept", "all");
+    if (dept !== "all" && !st.cats[dept]) dept = "all";
+    if (mode === "receive" && dept === "services") dept = "all";
+    I.dept = dept;
+    var keys = [];
+    if (B.can("receive") && dept !== "services") keys.push(h("button.key", { type: "button", id: "invReceive", onclick: function () { roomMode = "receive"; draw(); } }, [ui.emo("🚚"), t("inv.receiveKey")]));
+    if (B.can("items")) keys.push(h("button.key.primary", { type: "button", id: "addItem", onclick: function () { I.add({ cat: dept }); } }, [ui.emo("🏷️"), t("inv.add")]));
+    main.appendChild(ui.roomHead("room.inventory", "tip.inventory", keys));
+    if (mode === "receive") main.appendChild(h("p.banner#invReceiving", { role: "status" }, [ui.emo("🚚"), h("span", null, t("inv.chooseReceive")),
+      h("button.key.sm", { type: "button", onclick: function () { roomMode = null; draw(); } }, t("inv.receiveDone"))]));
+
+    /* the tabs: every department, each with its count; arrows move between them */
+    var tabs = h("div.inv-tabs", { role: "tablist", "aria-label": t("inv.depts") });
+    var order = ["all"].concat(cats.map(function (c) { return c.id; }));
+    var total = 0; Object.keys(figs).forEach(function (k) { total += figs[k].items; });
+    order.forEach(function (id) {
+      var n = id === "all" ? total : (figs[id] ? figs[id].items : 0), on = id === dept;
+      var tab = h("button.inv-tab#invTab-" + id, { type: "button", role: "tab", "aria-selected": String(on), "aria-controls": "invPanel", tabindex: on ? "0" : "-1", "data-dept": id,
+        onclick: function () { I.show(id); } }, [id === "all" ? h("span.dept-jewel.sm", { "aria-hidden": "true" }, U.icon("box")) : ui.deptIcon(id, "sm"),
+        h("span.inv-tab-name", null, deptName(id)), id === "services" ? null : h("span.inv-tab-n", null, fmtN(n))]);
+      tabs.appendChild(tab);
+    });
+    tabs.addEventListener("keydown", function (e) {
+      var i = order.indexOf(dept), to = null;
+      if (e.key === "ArrowRight") to = order[(i + 1) % order.length]; else if (e.key === "ArrowLeft") to = order[(i - 1 + order.length) % order.length];
+      else if (e.key === "Home") to = order[0]; else if (e.key === "End") to = order[order.length - 1];
+      if (to) { e.preventDefault(); I.show(to); }
+    });
+    var wrap = h("div.inv-tabs-wrap", null, tabs);
+    function edges() { wrap.classList.toggle("more-l", tabs.scrollLeft > 4); wrap.classList.toggle("more-r", tabs.scrollLeft + tabs.clientWidth < tabs.scrollWidth - 4); }
+    tabs.addEventListener("scroll", edges, { passive: true });
+    window.addEventListener("resize", edges, { passive: true });
+    setTimeout(edges, 30);
+    main.appendChild(wrap);
+    var panel = h("section.inv-panel#invPanel", { role: "tabpanel", "aria-labelledby": "invTab-" + dept });
+    main.appendChild(panel);
+    if (dept === "all") { overview(panel, figs, cats); itemList(panel, null, mode); }
+    else if (dept === "services") { servicesPage(panel); if (figs.services && figs.services.items) itemList(panel, "services", mode, true); }
+    else { deptHead(panel, dept, figs[dept]); itemList(panel, dept, mode); }
+    setTimeout(function () {
+      var tb = document.getElementById("invTab-" + dept);
+      if (tb && tabs.scrollWidth > tabs.clientWidth) { var l = tb.offsetLeft - tabs.offsetLeft, r = l + tb.offsetWidth; if (l < tabs.scrollLeft + 24 || r > tabs.scrollLeft + tabs.clientWidth - 24) tabs.scrollLeft = Math.max(0, l - 40); }
+      edges();
+    }, 0);
+    /* a scanned code: its item's card, or its delivery while receiving */
+    ui.onScan = function (code, ids) {
+      if (!ids.length) { E.scan.unknown(code); return true; }
+      act(ids[0], roomMode);
+      return true;
+    };
+  }
+  function act(id, mode) { if (mode === "receive" && B.can("receive")) I.receive(id); else I.open(id); }
+
+  /* ---------- All: each department at a glance ---------- */
+  function overview(panel, figs, cats) {
+    var costs = B.can("costs"), r = B.report(U.dayKey(), U.dayKey());
+    panel.appendChild(h("div.inv-depts#invDepts", null, cats.map(function (c) {
+      var f = figs[c.id] || { items: 0, units: 0, atCost: 0, low: 0, out: 0 }, svc = c.id === "services";
+      var line = svc ? t("dept.svcToday", { n: r.services.count, m: money(r.services.cashIn) }) : t(f.items === 1 ? "dept.figs1" : "dept.figs", { n: fmtN(f.items), u: fmtN(f.units) });
+      var marks = svc ? [] : [f.out ? h("span.badge.bad", null, t("dept.out", { n: f.out })) : null, f.low - f.out > 0 ? h("span.badge.warn", null, t("dept.low", { n: f.low - f.out })) : null];
+      return h("button.inv-dept", { type: "button", "data-dept": c.id, onclick: function () { I.show(c.id); } }, [ui.deptIcon(c.id, "lg"),
+        h("span.inv-dept-t", null, [h("b", null, ui.catName(c)), h("small", null, line)]),
+        h("span.inv-dept-m", null, marks.concat([!svc && costs && f.atCost ? h("span.inv-dept-v", null, money(f.atCost)) : null]))]);
+    })));
+  }
+
+  /* ---------- one department's head: its sign, its words and its figures ---------- */
+  function deptHead(panel, dept, f) {
+    f = f || { items: 0, units: 0, atCost: 0, low: 0, out: 0 };
+    var costs = B.can("costs");
+    var stats = [[t("dept.items"), fmtN(f.items)], [t("dept.units"), fmtN(f.units)]];
+    if (costs) stats.push([t("dept.atCost"), money(f.atCost)]);
+    stats.push([t("dept.lowN"), fmtN(f.low)]);
+    panel.appendChild(h("div.inv-dhead", null, [ui.deptIcon(dept, "xl"),
+      h("div.inv-dhead-t", null, [h("h2", null, deptName(dept)), lede(dept) ? h("p", null, lede(dept)) : null]),
+      h("dl.inv-stats", null, stats.map(function (x) { return h("div", null, [h("dt", null, x[0]), h("dd", null, x[1])]); }))]));
+  }
+
+  /* ---------- the list: a page at a time, however many items there are ---------- */
+  function itemList(panel, dept, mode, titled) {
+    var st = B.state(), costs = B.can("costs");
+    var search = ui.input({ id: "invSearch", type: "search", placeholder: dept ? t("inv.searchIn", { d: deptName(dept) }) : t("inv.searchPh"), "aria-label": t("inv.search"), value: I.q, enterkeyhint: "search" });
+    var cam = E.scan.cameraKey(function (code) { var ids = E.find.byCode(code); if (ids.length) act(ids[0], roomMode); else E.scan.unknown(code); });
+    var filt = ui.seg([["active", t("inv.f.active")], ["low", t("inv.f.low")], ["archived", t("inv.f.archived")]], I.filter, function (v) { I.filter = v; I.page = 0; fill(); }, t("inv.show"));
+    var body = h("tbody", { id: "invRows" }), pager = h("nav.inv-pager#invPager", { "aria-label": t("inv.pages") }), foot = h("p.inv-foot.muted", { id: "invFoot" });
+    var cols = 3 + (dept ? 0 : 1) + (costs ? 2 : 0);
+    if (titled) panel.appendChild(h("h3.inv-sub", null, t("inv.itemsHere")));
+    panel.appendChild(h("div.toolbar.inv-tools", null, [h("div.search-row", null, [U.icon("search"), search, cam]), filt]));
+    panel.appendChild(h("div.table-wrap.card.inv-table", null, h("table.grid", null, [
+      h("thead", null, h("tr", null, [h("th", null, t("inv.name")), dept ? null : h("th", null, t("inv.dept")), h("th.num", null, t("inv.price")),
         costs ? h("th.num", null, t("inv.cost")) : null, h("th.num", null, t("inv.stock")), costs ? h("th.num", null, t("inv.value")) : null])), body])));
-    main.appendChild(foot);
-    search.addEventListener("input", U.debounce(function () { I.q = search.value; draw(); }, 80));
-    catSel.addEventListener("change", function () { I.cat = catSel.value; draw(); });
-    function draw() {
+    panel.appendChild(h("div.inv-under", null, [foot, pager]));
+    search.addEventListener("input", U.debounce(function () { I.q = search.value; I.page = 0; fill(); }, 70));
+    search.addEventListener("keydown", function (e) {
+      if (e.key !== "Enter") return;
+      e.preventDefault();
+      var v = search.value.trim(); if (!v) return;
+      var ids = E.find.byCode(v);
+      if (ids.length) { act(ids[0], roomMode); search.select(); return; }
+      var hits = E.find.search({ q: v, cat: dept || "all", show: I.filter });
+      if (hits.length === 1) act(hits[0], roomMode);
+      else if (!hits.length && /^\d{6,14}$/.test(v)) E.scan.unknown(v);
+    });
+    function fill() {
+      var ids = E.find.search({ q: I.q, cat: dept || "all", show: I.filter }), n = ids.length, pages = Math.max(1, Math.ceil(n / PAGE));
+      if (I.page >= pages) I.page = pages - 1;
+      var from = I.page * PAGE, slice = ids.slice(from, from + PAGE);
       U.clear(body);
-      var q = U.norm(I.q), list = Object.keys(st.items).map(function (k) { return st.items[k]; }).filter(function (it) {
-        if (I.filter === "archived" ? !it.archived : it.archived) return false;
-        if (I.filter === "low" && !(it.reorderAt !== null && it.stock <= it.reorderAt)) return false;
-        if (I.cat !== "all" && it.cat !== I.cat) return false;
-        return !q || U.norm(it.name).indexOf(q) >= 0 || (it.barcode && U.norm(it.barcode).indexOf(q) >= 0) || (it.sku && U.norm(it.sku).indexOf(q) >= 0);
-      }).sort(function (a, b) { return a.name.localeCompare(b.name); });
-      var units = 0, value = 0;
-      list.forEach(function (it) {
-        var low = it.reorderAt !== null && it.stock <= it.reorderAt;
-        units += Math.max(0, it.stock); value += Math.max(0, it.stock) * (it.cost || 0);
+      slice.forEach(function (id) {
+        var it = st.items[id], low = E.find.low(it);
         body.appendChild(h("tr", null, [
-          h("td", null, h("button.row-key", { type: "button", "data-id": it.id, onclick: function () { if (mode === "receive") I.receive(it.id); else I.open(it.id); } }, [ui.emo(ui.catEmo(it.cat)), h("span", null, it.name)])),
-          h("td", null, ui.catName(st.cats[it.cat])), h("td.num", null, money(it.price)), costs ? h("td.num", null, it.cost === null ? "—" : money(it.cost)) : null,
-          h("td.num", null, h("span.badge" + (it.stock <= 0 ? ".bad" : low ? ".warn" : ".ok"), null, String(it.stock))),
+          h("td", null, h("button.row-key", { type: "button", "data-id": id, onclick: function () { act(id, roomMode); } }, [ui.deptIcon(it.cat, "xs"), h("span", null, it.name)])),
+          dept ? null : h("td.muted", null, ui.catName(st.cats[it.cat])), h("td.num", null, money(it.price)), costs ? h("td.num", null, it.cost === null ? "—" : money(it.cost)) : null,
+          h("td.num", null, h("span.badge" + (it.stock <= 0 ? ".bad" : low ? ".warn" : ".ok"), null, fmtN(it.stock))),
           costs ? h("td.num", null, it.cost === null ? "—" : money(Math.max(0, it.stock) * it.cost)) : null]));
       });
-      if (!list.length) body.appendChild(h("tr", null, h("td.muted", { colspan: costs ? "6" : "4" }, Object.keys(st.items).length ? t("inv.noMatch") : t("inv.empty"))));
-      foot.textContent = costs ? t("inv.foot", { n: list.length, u: units, v: money(value) }) : t("inv.footNoCost", { n: list.length, u: units });
+      if (!n) body.appendChild(h("tr", null, h("td.muted", { colspan: String(cols) }, Object.keys(st.items).length ? t("inv.noMatch") : t("inv.empty"))));
+      /* the figures of everything that matches, not only this page */
+      var units = 0, value = 0;
+      for (var i = 0; i < n; i++) { var x = st.items[ids[i]]; units += Math.max(0, x.stock); value += Math.max(0, x.stock) * (x.cost || 0); }
+      foot.textContent = costs ? t(n === 1 ? "inv.foot1" : "inv.foot", { n: fmtN(n), u: fmtN(units), v: money(value) }) : t(n === 1 ? "inv.footNoCost1" : "inv.footNoCost", { n: fmtN(n), u: fmtN(units) });
+      U.clear(pager);
+      if (pages > 1) {
+        pager.appendChild(h("button.key.sm#invPrev", { type: "button", disabled: I.page === 0 ? "" : null, onclick: function () { I.page--; fill(); search.scrollIntoView({ block: "nearest" }); } }, ["‹ ", t("inv.prev")]));
+        pager.appendChild(h("span.inv-page", { "aria-live": "polite" }, t("inv.pageOf", { a: fmtN(from + 1), b: fmtN(Math.min(n, from + PAGE)), n: fmtN(n) })));
+        pager.appendChild(h("button.key.sm#invNext", { type: "button", disabled: I.page >= pages - 1 ? "" : null, onclick: function () { I.page++; fill(); search.scrollIntoView({ block: "nearest" }); } }, [t("inv.next"), " ›"]));
+      }
     }
-    draw();
-    if (mode === "receive") setTimeout(function () { search.focus(); }, 40);
+    fill();
+    if (mode === "receive") setTimeout(function () { try { search.focus({ preventScroll: true }); } catch (e) { } }, 40);
+  }
+
+  /* ---------- Money transfers and top-ups: the service and its log ---------- */
+  function provName(p) { return t("svc.p." + p); }
+  function kindName(k) { return t("svc.k." + k); }
+  function inPeriod(v, period) {
+    if (period === "all") return true;
+    var days = period === "today" ? 0 : period === "week" ? 6 : 29, from = U.dayKey(new Date(Date.now() - days * 86400000));
+    return v.day >= from;
+  }
+  function servicesPage(panel) {
+    var reports = B.can("reports"), S = I.svc, r = B.report(U.dayKey(), U.dayKey()).services;
+    var k = function (x) { return r.byKind[x] || { count: 0, amount: 0 }; };
+    var stats = [[t("svc.sentToday"), t("svc.nm", { n: k("send").count, m: money(k("send").amount) })], [t("svc.paidToday"), t("svc.nm", { n: k("payout").count, m: money(k("payout").amount) })],
+      [t("svc.topToday"), t("svc.nm", { n: k("topup").count, m: money(k("topup").amount) })], [t("svc.fees"), money(r.fees)]];
+    if (reports) stats.push([t("svc.commission"), money(r.commission)]);
+    panel.appendChild(h("div.inv-dhead.svc-head", null, [ui.deptIcon("services", "xl"),
+      h("div.inv-dhead-t", null, [h("h2", null, deptName("services")), h("p", null, t("dept.services"))]),
+      h("dl.inv-stats", null, stats.map(function (x) { return h("div", null, [h("dt", null, x[0]), h("dd", null, x[1])]); })),
+      B.can("sell") ? h("div.inv-dhead-k", null, h("button.key.primary#svcRecord", { type: "button", onclick: function () { I.recordService(); } }, [U.icon("swap"), t("svc.record")])) : null]));
+    var period = ui.seg([["today", t("svc.today")], ["week", t("svc.week")], ["month", t("svc.month")], ["all", t("svc.all")]], S.period, function (v) { S.period = v; S.page = 0; fill(); }, t("svc.period"));
+    var prov = ui.select([["all", t("svc.allProviders")]].concat(B.PROVIDERS.map(function (p) { return [p, provName(p)]; })), S.provider, { id: "svcProvider", "aria-label": t("svc.provider") });
+    prov.addEventListener("change", function () { S.provider = prov.value; S.page = 0; fill(); });
+    var q = ui.input({ id: "svcSearch", type: "search", placeholder: t("svc.searchPh"), "aria-label": t("svc.search"), value: S.q });
+    q.addEventListener("input", U.debounce(function () { S.q = q.value; S.page = 0; fill(); }, 70));
+    var sums = h("div.svc-sums#svcSums", { "aria-live": "polite" });
+    var body = h("tbody", { id: "svcRows" }), pager = h("nav.inv-pager#svcPager", { "aria-label": t("inv.pages") });
+    panel.appendChild(h("div.toolbar.inv-tools", null, [h("div.search-row", null, [U.icon("search"), q]), prov, period]));
+    panel.appendChild(sums);
+    panel.appendChild(h("div.table-wrap.card.inv-table", null, h("table.grid.svc-table", null, [
+      h("thead", null, h("tr", null, [h("th", null, t("svc.when")), h("th", null, t("svc.provider")), h("th", null, t("svc.kind")), h("th.num", null, t("svc.amount")), h("th.num", null, t("svc.fee")),
+        reports ? h("th.num", null, t("svc.commission")) : null, h("th", null, t("svc.ref")), h("th", null, t("svc.by")), reports ? h("th", null, h("span.sr-only", null, t("svc.void"))) : null])), body])));
+    panel.appendChild(h("div.inv-under", null, [h("p.inv-foot.muted.svc-note", null, t("svc.note")), pager]));
+    function fill() {
+      var qq = U.norm(S.q), list = B.services(function (v) {
+        return inPeriod(v, S.period) && (S.provider === "all" || v.provider === S.provider) && (!qq || U.norm(v.ref + " " + v.note).indexOf(qq) >= 0);
+      }).reverse();
+      var n = list.length, pages = Math.max(1, Math.ceil(n / PAGE)); if (S.page >= pages) S.page = pages - 1;
+      var from = S.page * PAGE, cin = 0, cout = 0, fees = 0, com = 0, done = 0;
+      list.forEach(function (v) { if (v.status === "void") return; var c = B.svcCash(v); cin += c.cashIn; cout += c.cashOut; fees += v.fee || 0; com += v.commission || 0; done++; });
+      U.clear(sums);
+      [[t("svc.entries"), fmtN(done)], [t("svc.cashIn"), money(cin)], [t("svc.cashOut"), money(cout)], [t("svc.fees"), money(fees)]].concat(reports ? [[t("svc.commission"), money(com)]] : [])
+        .forEach(function (x) { sums.appendChild(h("span.svc-sum", null, [h("small", null, x[0]), h("b", null, x[1])])); });
+      U.clear(body);
+      list.slice(from, from + PAGE).forEach(function (v) {
+        var voided = v.status === "void";
+        body.appendChild(h("tr" + (voided ? ".void" : ""), { "data-id": v.id }, [
+          h("td", null, ui.time(v.at)), h("td", null, h("span.svc-prov.p-" + v.provider, null, provName(v.provider))),
+          h("td", null, [kindName(v.kind), voided ? h("span.badge.bad.svc-voided", { title: v.voidReason || "" }, t("svc.voided")) : null]),
+          h("td.num", null, money(v.amount)), h("td.num", null, v.fee ? money(v.fee) : "—"), reports ? h("td.num", null, v.commission === null ? "—" : money(v.commission)) : null,
+          h("td.mono", null, v.ref || "—"), h("td.muted", null, ui.userName(v.by)),
+          reports ? h("td", null, voided ? null : h("button.key.sm.quiet.svc-void-key", { type: "button", title: t("svc.voidTip"), onclick: function () { voidService(v); } }, t("svc.void"))) : null]));
+      });
+      if (!n) body.appendChild(h("tr", null, h("td.muted", { colspan: String(reports ? 9 : 7) }, t(B.services().length ? "svc.noMatch" : "svc.none"))));
+      U.clear(pager);
+      if (pages > 1) {
+        pager.appendChild(h("button.key.sm", { type: "button", disabled: S.page === 0 ? "" : null, onclick: function () { S.page--; fill(); } }, ["‹ ", t("inv.prev")]));
+        pager.appendChild(h("span.inv-page", null, t("inv.pageOf", { a: fmtN(from + 1), b: fmtN(Math.min(n, from + PAGE)), n: fmtN(n) })));
+        pager.appendChild(h("button.key.sm", { type: "button", disabled: S.page >= pages - 1 ? "" : null, onclick: function () { S.page++; fill(); } }, [t("inv.next"), " ›"]));
+      }
+    }
+    fill();
+  }
+  /* recording one: the provider, what kind, the amounts and the provider's reference; never the customer's name */
+  I.recordService = function () {
+    if (!B.can("sell")) return;
+    var reports = B.can("reports"), provider = "ria", kind = "send";
+    var amount = ui.input({ id: "svcAmount", inputmode: "decimal", class: "money-in" }), fee = ui.input({ id: "svcFee", inputmode: "decimal" }), com = ui.input({ id: "svcCom", inputmode: "decimal" });
+    var ref = ui.input({ id: "svcRef", maxlength: "40", "data-scan-field": "" }), note = ui.input({ id: "svcNote", maxlength: "200" });
+    var preview = h("p.preview#svcPreview", { "aria-live": "polite" });
+    var kinds = ui.seg(B.SVC_KINDS.map(function (x) { return [x, kindName(x)]; }), kind, function (v) { kind = v; calc(); }, t("svc.kind"));
+    var provs = ui.seg(B.PROVIDERS.map(function (x) { return [x, provName(x)]; }), provider, function (v) {
+      provider = v;
+      if (v === "boss" && kind !== "topup") { kind = "topup"; Array.prototype.forEach.call(kinds.children, function (b) { b.setAttribute("aria-checked", String(b.getAttribute("data-v") === "topup")); }); }
+      calc();
+    }, t("svc.provider"));
+    provs.id = "svcProviders"; kinds.id = "svcKinds";
+    function calc() {
+      var a = U.parseMoney(amount.value), f = fee.value.trim() ? U.parseMoney(fee.value) : 0;
+      if (a === null || !(a > 0) || f === null) { preview.textContent = ""; return null; }
+      var c = B.svcCash({ kind: kind, amount: a, fee: f });
+      preview.textContent = c.cashOut ? t("svc.previewOut", { m: money(c.cashOut), f: money(f) }) : t("svc.previewIn", { m: money(c.cashIn), a: money(a), f: money(f) });
+      return { a: a, f: f };
+    }
+    [amount, fee].forEach(function (x) { x.addEventListener("input", calc); });
+    ui.dialog({ title: t("svc.recordTitle"), emoji: "💱", wide: true, focus: "#svcAmount",
+      body: h("form.form-grid", { onsubmit: function (e) { e.preventDefault(); } }, [
+        h("div.field.span2", null, [h("div.label-row", null, h("span.label", null, t("svc.provider"))), provs]),
+        h("div.field.span2", null, [h("div.label-row", null, h("span.label", null, t("svc.kind"))), kinds]),
+        ui.field("svc.amount", amount, { required: true, tip: "tip.svcAmount" }), ui.field("svc.fee", fee, { hint: t("svc.feeHint") }),
+        reports ? ui.field("svc.commission", com, { tip: "tip.svcCommission" }) : null, ui.field("svc.ref", ref, { hint: t("svc.refHint") }),
+        ui.field("svc.noteL", note, { cls: reports ? "span2" : null }), h("div.span2", null, [preview, h("p.hint.svc-privacy", null, t("svc.privacy"))])]),
+      actions: [{ label: t("cancel") }, { label: t("svc.save"), kind: "primary", emoji: "💾", id: "svcSave", onClick: function (close, btn) {
+        var v = calc();
+        if (!v) { if (fee.value.trim() && U.parseMoney(fee.value) === null) ui.fieldError(fee, t("svc.err.money")); else ui.fieldError(amount, t("svc.err.amount")); return false; }
+        var c = null;
+        if (reports && com.value.trim()) { c = U.parseMoney(com.value); if (c === null) { ui.fieldError(com, t("svc.err.money")); return false; } }
+        btn.disabled = true;
+        B.recordService({ provider: provider, kind: kind, amount: v.a, fee: v.f, commission: c, ref: ref.value, note: note.value }).then(function () {
+          close(); ui.toast(t("svc.done", { what: kindName(kind), p: provName(provider), m: money(v.a) }), "good"); if (ui.current === "inventory") draw(); else ui.refresh();
+        }, function (e) { btn.disabled = false; ui.failed(e); });
+        return false;
+      } }] });
   };
+  function voidService(v) {
+    var reason = ui.input({ id: "svcVoidWhy", maxlength: "200" });
+    ui.dialog({ title: t("svc.voidTitle"), emoji: "🚫", focus: "#svcVoidWhy",
+      body: h("form", { onsubmit: function (e) { e.preventDefault(); } }, [h("p", null, t("svc.voidWhat", { what: kindName(v.kind), p: provName(v.provider), m: money(v.amount), when: ui.time(v.at) })),
+        ui.field("svc.voidWhy", reason, { required: true, hint: t("svc.voidHint") })]),
+      actions: [{ label: t("cancel") }, { label: t("svc.void"), kind: "danger", id: "svcVoidSave", onClick: function (close, btn) {
+        if (!reason.value.trim()) { ui.fieldError(reason, t("svc.err.reason")); return false; }
+        btn.disabled = true;
+        B.voidService(v.id, reason.value).then(function () { close(); ui.toast(t("svc.voidedNow"), "good"); draw(); }, function (e) { btn.disabled = false; ui.failed(e); });
+        return false;
+      } }] });
+  }
 
   /* ---------- adding and editing ---------- */
-  I.add = function () { itemForm(null); };
-  I.edit = function (id) { itemForm(id); };
+  /* o.barcode: a code just scanned; o.cat: the department to start in; after saving at the Register, the new item goes
+     straight onto the ticket */
+  I.add = function (o) { itemForm(null, o || {}); };
+  I.edit = function (id) { itemForm(id, {}); };
   var ERR = { name: "inv.err.name", price: "inv.err.price", cost: "inv.err.cost", reorder: "inv.err.reorder", cat: "inv.err.cat", tax: "inv.err.tax", barcodeTaken: "inv.err.barcode", qty: "inv.err.qty" };
-  function itemForm(id) {
+  function itemForm(id, o) {
     var st = B.state(), it = id ? st.items[id] : null;
+    var startCat = it ? it.cat : (o.cat && o.cat !== "all" && st.cats[o.cat] ? o.cat : (I.dept && I.dept !== "all" && I.dept !== "services" && st.cats[I.dept] ? I.dept : "other"));
     var name = ui.input({ id: "itName", maxlength: "120", value: it ? it.name : "" });
-    var cat = ui.select(ui.cats().map(function (c) { return [c.id, ui.catName(c)]; }), it ? it.cat : (I.cat !== "all" ? I.cat : "other"), { id: "itCat" });
+    var cat = ui.select(ui.cats().map(function (c) { return [c.id, ui.catName(c)]; }), startCat, { id: "itCat" });
     var price = ui.input({ id: "itPrice", inputmode: "decimal", value: it ? U.moneyPlain(it.price) : "" });
     var cost = ui.input({ id: "itCost", inputmode: "decimal", value: it && it.cost !== null ? U.moneyPlain(it.cost) : "" });
-    var barcode = ui.input({ id: "itBarcode", maxlength: "64", value: it && it.barcode ? it.barcode : "" });
+    var barcode = ui.input({ id: "itBarcode", maxlength: "64", value: it && it.barcode ? it.barcode : (o.barcode || ""), "data-scan-field": "", inputmode: "text" });
+    var cam = E.scan.cameraKey(function (code) { barcode.value = code; barcode.dispatchEvent(new Event("input", { bubbles: true })); }, t("scan.cameraBarcode"));
     var sku = ui.input({ id: "itSku", maxlength: "64", value: it && it.sku ? it.sku : "" });
     var taxes = st.settings.taxes || [];
     var tax = ui.select([["", t("inv.noTax")]].concat(taxes.map(function (x) { return [x.id, x.name + " (" + U.rateText(x.rate) + ")"]; })), it ? (it.taxId || "") : (taxes[0] ? taxes[0].id : ""), { id: "itTax" });
@@ -5898,26 +6612,35 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     var opening = ui.input({ id: "itOpening", inputmode: "numeric", value: "" });
     var notes = h("textarea", { id: "itNotes", rows: "2", maxlength: "500" }); notes.value = it ? it.notes || "" : "";
     var fields = { name: name, price: price, cost: cost, reorder: reorder, cat: cat, tax: tax, barcodeTaken: barcode, qty: opening };
+    /* a barcode another item already has is said at once, before saving */
+    var taken = h("p.hint.warn-text#itBarcodeTaken", { "aria-live": "polite" });
+    barcode.addEventListener("input", function () {
+      var others = E.find.byCode(barcode.value).filter(function (x) { return x !== id && !st.items[x].archived; });
+      taken.textContent = barcode.value.trim() && others.length ? t("inv.barcodeIs", { name: st.items[others[0]].name }) : "";
+    });
     function read() {
       Object.keys(fields).forEach(function (k) { ui.fieldError(fields[k], ""); });
       var p = U.parseMoney(price.value), c = cost.value.trim() ? U.parseMoney(cost.value) : null, r = reorder.value.trim() ? parseInt(reorder.value, 10) : null;
-      var o = opening.value.trim() ? parseInt(opening.value, 10) : 0;
+      var op = opening.value.trim() ? parseInt(opening.value, 10) : 0;
       if (!name.value.trim()) { ui.fieldError(name, t(ERR.name)); return null; }
       if (p === null) { ui.fieldError(price, t(ERR.price)); return null; }
       if (cost.value.trim() && c === null) { ui.fieldError(cost, t(ERR.cost)); return null; }
       if (reorder.value.trim() && !(r >= 0 && String(r) === reorder.value.trim())) { ui.fieldError(reorder, t(ERR.reorder)); return null; }
-      if (!it && opening.value.trim() && !(o >= 0 && String(o) === opening.value.trim())) { ui.fieldError(opening, t(ERR.qty)); return null; }
+      if (!it && opening.value.trim() && !(op >= 0 && String(op) === opening.value.trim())) { ui.fieldError(opening, t(ERR.qty)); return null; }
       var f = { name: name.value, cat: cat.value, price: p, cost: c, barcode: barcode.value, sku: sku.value, taxId: tax.value || null, reorderAt: r, notes: notes.value };
       if (!B.can("costs")) { if (it) delete f.cost; else f.cost = null; }
-      if (!it) f.openingStock = o;
+      if (!it) f.openingStock = op;
       return f;
     }
     function save(close, again) {
       var f = read(); if (!f) return false;
       (it ? B.editItem(it.id, f) : B.addItem(f)).then(function (saved) {
         ui.toast(t(it ? "inv.saved" : "inv.added", { name: (saved && saved.name) || f.name }), "good");
-        if (again) { [name, price, cost, barcode, sku, reorder, opening].forEach(function (x) { x.value = ""; }); notes.value = ""; name.focus(); ui.refresh(); }
-        else { close(); ui.refresh(); }
+        var toTicket = !it && saved && ui.current === "register" && B.can("sell") && E.register && E.register.add;
+        if (again) { [name, price, cost, barcode, sku, reorder, opening].forEach(function (x) { x.value = ""; }); notes.value = ""; taken.textContent = ""; name.focus(); }
+        else close();
+        if (toTicket) E.register.add(saved.id);
+        if (ui.current === "inventory") draw(); else if (!toTicket) ui.refresh();
       }, function (e) {
         var k = e && e.code; if (ERR[k] && fields[k]) ui.fieldError(fields[k], t(ERR[k])); else ui.failed(e);
       });
@@ -5926,15 +6649,18 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     var priceHint = h("p.hint.margin", { "aria-live": "polite" });
     function margin() { var p = U.parseMoney(price.value), c = U.parseMoney(cost.value); priceHint.textContent = p && c !== null && cost.value.trim() ? t("inv.marginIs", { m: money(p - c), pc: Math.round((p - c) * 100 / p) }) : ""; }
     price.addEventListener("input", margin); cost.addEventListener("input", margin); margin();
-    ui.dialog({ title: it ? t("inv.editTitle", { name: it.name }) : t("inv.addTitle"), emoji: it ? "📝" : "🏷️", wide: true, focus: "#itName",
+    var bField = ui.field("inv.barcode", barcode, { tip: "tip.barcode", after: cam });
+    bField.appendChild(taken);
+    ui.dialog({ title: it ? t("inv.editTitle", { name: it.name }) : t("inv.addTitle"), emoji: it ? "📝" : "🏷️", wide: true, focus: o.barcode ? "#itName" : "#itName",
       body: h("form.form-grid", { onsubmit: function (e) { e.preventDefault(); } }, [
-        ui.field("inv.name", name, { required: true, cls: "span2" }), ui.field("inv.category", cat, { required: true }), ui.field("inv.tax", tax, { tip: "tip.tax" }),
+        ui.field("inv.name", name, { required: true, cls: "span2" }), ui.field("inv.dept", cat, { required: true }), ui.field("inv.tax", tax, { tip: "tip.tax" }),
         ui.field("inv.price", price, { required: true, tip: "tip.price" }), B.can("costs") ? ui.field("inv.cost", cost, { tip: "tip.cost" }) : null, B.can("costs") ? priceHint : null,
-        ui.field("inv.barcode", barcode, { tip: "tip.barcode" }), ui.field("inv.sku", sku),
+        bField, ui.field("inv.sku", sku),
         ui.field("inv.reorder", reorder, { tip: "tip.reorder" }), it ? null : ui.field("inv.opening", opening, { tip: "tip.opening" }),
         ui.field("inv.notes", notes, { cls: "span2" })]),
       actions: [{ label: t("cancel") }].concat(it ? [] : [{ label: t("inv.saveAnother"), id: "itSaveAnother", onClick: function (c) { return save(c, true); } }])
         .concat([{ label: t("save"), kind: "primary", id: "itSave", emoji: "💾", onClick: function (c) { return save(c, false); } }]) });
+    if (o.barcode) barcode.dispatchEvent(new Event("input", { bubbles: true }));
   }
 
   /* ---------- an item's card ---------- */
@@ -6218,6 +6944,14 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     if (slow.length) node.appendChild(section("🐢 " + t("rep.slow"), table([t("inv.name"), t("inv.stock")].concat(costs ? [t("inv.value")] : []), slow.slice(0, 10).map(function (it) {
       return [it.name, it.stock].concat(costs ? [it.cost === null ? "—" : money(it.stock * it.cost)] : []);
     }), [1, 2]), t("rep.slowHint")));
+    /* money transfers and top-ups, apart from the sales: the money is the providers' (Build 15) */
+    var sv = r.services, provs = Object.keys(sv.byProvider);
+    if (sv.count || sv.voided) node.appendChild(section("💱 " + t("rep.svc"), h("div", null, [
+      table([t("svc.provider"), t("svc.entries"), t("svc.k.send"), t("svc.k.payout"), t("svc.k.topup"), t("svc.fees")].concat(B.can("reports") ? [t("svc.commission")] : []),
+        provs.map(function (p) { var x = sv.byProvider[p]; return [t("svc.p." + p), x.count, money(x.send), money(x.payout), money(x.topup), money(x.fees)].concat(B.can("reports") ? [money(x.commission)] : []); })
+          .concat([[t("rep.total"), sv.count, money((sv.byKind.send || { amount: 0 }).amount), money((sv.byKind.payout || { amount: 0 }).amount), money((sv.byKind.topup || { amount: 0 }).amount), money(sv.fees)]
+            .concat(B.can("reports") ? [money(sv.commission)] : [])]), [1, 2, 3, 4, 5, 6]),
+      h("p.hint#repSvcCash", null, t("rep.svcCash", { a: money(sv.cashIn), b: money(sv.cashOut) }) + (sv.voided ? " " + t("rep.svcVoided", { n: sv.voided }) : ""))]), t("rep.svcHint")));
     var reasons = Object.keys(r.losses.byReason);
     node.appendChild(section("💔 " + t("rep.losses"), reasons.length ? table([t("ad.reason"), t("rep.items")].concat(costs ? [t("inv.value")] : []), reasons.map(function (k) {
       var x = r.losses.byReason[k]; return [t("reason." + k), x.qty].concat(costs ? [money(x.value)] : []);
@@ -6473,7 +7207,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   }
 
   /* ---------- the Guidebook ---------- */
-  var ARTICLES = ["start", "door", "team", "clock", "master", "sale", "items", "receive", "correct", "reports", "notes", "backup", "sealed", "verify", "display", "studio", "build", "limits"];
+  var ARTICLES = ["start", "door", "team", "clock", "master", "sale", "items", "receive", "correct", "depts", "svc", "reports", "notes", "backup", "sealed", "verify", "display", "studio", "build", "limits"];
   var ART_EMO = { start: "🌟", door: "🚪", team: "👥", clock: "🕘", master: "🗝️", sale: "🛒", items: "🏷️", receive: "🚚", correct: "✏️", reports: "📊", notes: "🗒️", backup: "💾", sealed: "🔐", verify: "🛡️", display: "🎨", studio: "⚒️", build: "🔢", limits: "🧭" };
   E.guideCount = function () { return ARTICLES.length; };
   ui.rooms.guide = function (main) {
@@ -7132,6 +7866,8 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     shut: function (t) { cloud(t, .14, 38, 760, 2600, .045, 0); tone(t + .05, 78, .012, .42, .11, "sine", .88); tone(t + .05, 150, .012, .26, .05, "sine", .9); },
     lamp: function (t) { tap(t, .12, 1900, .025, .2); tone(t + .02, 180, .02, .5, .07); tone(t + .06, 720, .01, .4, .03); },
     sale: function (t) { bell(t, 783.99, .08, .7, -.2); bell(t + .09, 1174.66, .07, .9, .2); },
+    /* a code read by the scanner or the camera: one short, clear note (Build 15) */
+    scan: function (t) { tone(t, 1975.53, .003, .11, .045, "sine", 0, 0); tap(t, .05, 2400, .015, 0); },
     nope: function (t) { tap(t, .1, 300, .06, 0); tap(t + .1, .08, 260, .06, 0); }
   };
   var lastAt = 0, GAP = 45;
@@ -7276,7 +8012,6 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     snd("page");
   }
   R.toSale = toSale;
-  function itemsOf() { var st = B.state(); return st ? Object.keys(st.items).map(function (k) { return st.items[k]; }).filter(function (it) { return !it.archived; }) : []; }
   function stockWord(it) {
     if (it.stock <= 0) return h("span.rp-stock.out", null, t("find.out"));
     if (it.reorderAt !== null && it.reorderAt !== undefined && it.stock <= it.reorderAt) return h("span.rp-stock.low", null, t("find.low", { n: it.stock }));
@@ -7288,15 +8023,16 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
       h("div.rp-acts", null, keys)]);
   }
   /* 🔎 price check: any item by name, code or barcode */
-  function findPanel(box) {
-    var q = h("input#findQ", { type: "search", placeholder: t("find.what"), autocomplete: "off", spellcheck: "false", enterkeyhint: "search" });
+  function findPanel(box, start) {
+    var q = h("input#findQ", { type: "search", placeholder: t("find.what"), autocomplete: "off", spellcheck: "false", enterkeyhint: "search", value: start || "" });
     var list = h("ul.rp-list#findList");
     function draw() {
-      var v = U.norm(q.value), all = itemsOf(); U.clear(list);
-      var hits = !v ? [] : all.filter(function (it) {
-        return U.norm(it.name).indexOf(v) >= 0 || (it.barcode && U.norm(it.barcode) === v) || (it.sku && U.norm(it.sku).indexOf(v) >= 0);
-      }).sort(function (a, b) { var ea = a.barcode && U.norm(a.barcode) === v ? 0 : 1, eb = b.barcode && U.norm(b.barcode) === v ? 0 : 1; return ea - eb || a.name.localeCompare(b.name); }).slice(0, 8);
-      if (!v) { list.appendChild(h("li.rp-none", null, t("find.hint", { n: all.length }))); return; }
+      var v = q.value.trim(), st = B.state(); U.clear(list);
+      /* an exact code first (whatever form the scanner gives it in), then the names and codes that match (05-find.js) */
+      var exact = v ? E.find.byCode(v).filter(function (id) { return !st.items[id].archived; }) : [];
+      var ids = exact.concat(v ? E.find.search({ q: v, show: "active" }).filter(function (id) { return exact.indexOf(id) < 0; }) : []).slice(0, 8);
+      var hits = ids.map(function (id) { return st.items[id]; });
+      if (!v) { list.appendChild(h("li.rp-none", null, t("find.hint", { n: E.find.search({ show: "active" }).length }))); return; }
       if (!hits.length) { list.appendChild(h("li.rp-none", null, t("find.none"))); return; }
       hits.forEach(function (it) {
         list.appendChild(itemRow(it, [
@@ -7306,9 +8042,16 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     }
     q.addEventListener("input", draw);
     q.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); var first = list.querySelector(".rp-item .key.primary"); if (first) first.click(); } });
-    box.appendChild(head("🔎", "rail.find")); box.appendChild(h("div.rp-form", null, [q])); box.appendChild(list);
+    var cam = E.scan.cameraKey(function (code) { q.value = code; draw(); });
+    box.appendChild(head("🔎", "rail.find")); box.appendChild(h("div.rp-form.rp-find-row", null, [q, cam])); box.appendChild(list);
     draw();
   }
+  /* a code scanned where no room takes it: Price check opens with it (23-scan.js) */
+  R.showItem = function (code) {
+    var b = document.getElementById("rail-find"); if (!b) return;
+    if (!pop || pop.__k !== "find") openPop("find", b);
+    var q = document.getElementById("findQ"); if (q) { q.value = code; q.dispatchEvent(new Event("input")); }
+  };
   /* the badges follow the books: a sale or a delivery changes the stock */
   B.on("change", function () { setTimeout(R.badges, 0); });
 
@@ -8010,6 +8753,256 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   B.on("lock", function () { closePanel(); closeMenu(); if (pins) { pins.remove(); pins = null; } });
 })();
 
+/* LAKAY | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt.
+   Scanning barcodes everywhere (Build 15).
+   * A scanner that types (USB or Bluetooth, the kind most counters use) sends a code's characters within a few
+     milliseconds of each other and ends with Enter. Lakay hears it in every room, even when no field has the focus:
+     the Register adds the item to the ticket, Inventory opens its card (or its delivery, when receiving), and anywhere
+     else Price check shows it. A code no item has offers to add a new item with that barcode.
+   * The camera, where the device allows: the device's own barcode reader when it has one; otherwise Lakay's own
+     reader, which reads the codes on store goods (EAN-13, UPC-A and EAN-8) and accepts a code only when it reads the
+     same one twice and its check digit is right. The picture never leaves the device and is never kept. */
+"use strict";
+(function () {
+  var U = E.util, h = U.h, t = E.t, B = E.books, ui = E.ui;
+  var S = E.scan = {};
+  function snd(n) { if (E.sound) E.sound.play(n); }
+
+  /* ---------- what a code does, wherever it is scanned ---------- */
+  S.found = function (code) {
+    code = String(code || "").trim(); if (!code || !B.isOpen) return;
+    var layer = document.querySelector(".layer");
+    if (layer) {
+      /* with a window open, a scan fills its barcode field, if it has one, and does nothing else */
+      var bc = layer.querySelector("[data-scan-field]");
+      if (bc && !bc.disabled) { bc.value = code; bc.dispatchEvent(new Event("input", { bubbles: true })); snd("scan"); }
+      return;
+    }
+    var ids = E.find.byCode(code);
+    if (ids.length) snd("scan");
+    if (ui.onScan && ui.onScan(code, ids) !== false) return;
+    if (!ids.length) return S.unknown(code);
+    if (E.rail && E.rail.showItem) E.rail.showItem(code);
+  };
+  S.unknown = function (code) {
+    snd("nope");
+    return ui.toast(t("scan.unknown", { code: code }), "warn", B.can("items") ? { label: t("scan.addIt"), fn: function () { E.inventory.add({ barcode: code }); } } : null);
+  };
+
+  /* ---------- a scanner that types ---------- */
+  var buf = "", first = 0, prev = 0;
+  function editable(el) { return !!el && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)); }
+  document.addEventListener("keydown", function (e) {
+    if (!B.isOpen || e.ctrlKey || e.metaKey || e.altKey || e.repeat) return;
+    if (editable(e.target)) { buf = ""; return; }
+    var now = performance.now();
+    if (e.key === "Enter" || e.key === "Tab") {
+      var fast = buf.length >= 4 && now - prev < 100 && (prev - first) / Math.max(1, buf.length - 1) < 45;
+      var code = buf; buf = "";
+      if (fast) { e.preventDefault(); e.stopPropagation(); S.found(code); }
+      return;
+    }
+    if (e.key.length !== 1) return;
+    if (now - prev > 80) { buf = ""; first = now; }
+    buf += e.key; prev = now;
+  }, true);
+
+  /* ---------- the camera ---------- */
+  var hasCamera = null;
+  S.cameraLikely = function () {
+    if (hasCamera !== null) return Promise.resolve(hasCamera);
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || window.isSecureContext === false) return Promise.resolve(hasCamera = false);
+    if (!navigator.mediaDevices.enumerateDevices) return Promise.resolve(hasCamera = true);
+    return navigator.mediaDevices.enumerateDevices().then(function (list) {
+      return (hasCamera = list.some(function (d) { return d.kind === "videoinput"; }));
+    }, function () { return (hasCamera = true); });
+  };
+  /* a key that opens the camera; it shows itself only on a device that has one */
+  S.cameraKey = function (onCode, label) {
+    var b = h("button.icon-key.cam-key", { type: "button", title: label || t("scan.camera"), "aria-label": label || t("scan.camera"), hidden: "",
+      onclick: function () { S.camera().then(function (code) { if (code) onCode(code); }); } }, U.icon("camera"));
+    S.cameraLikely().then(function (yes) { if (yes) b.removeAttribute("hidden"); });
+    return b;
+  };
+  function nativeReader() {
+    if (!("BarcodeDetector" in window)) return Promise.resolve(null);
+    try {
+      return window.BarcodeDetector.getSupportedFormats().then(function (have) {
+        var want = ["ean_13", "upc_a", "ean_8", "upc_e", "code_128", "code_39", "itf", "codabar", "qr_code"].filter(function (f) { return have.indexOf(f) >= 0; });
+        return want.length ? new window.BarcodeDetector({ formats: want }) : null;
+      }, function () { return null; });
+    } catch (e) { return Promise.resolve(null); }
+  }
+  /* Opens the camera and resolves with the code it reads, or null when the person closes it. */
+  S.camera = function () {
+    return new Promise(function (resolve) {
+      var stream = null, stopped = false, timer = 0, reader = null, last = null, lastAt = 0, d;
+      var video = h("video.scan-video", { autoplay: "", playsinline: "", "aria-hidden": "true" });
+      video.muted = true;
+      var status = h("p.scan-status", { "aria-live": "polite" }, t("scan.starting"));
+      var view = h("div.scan-view", null, [video, h("div.scan-guide", { "aria-hidden": "true" }, [h("span.scan-beam")])]);
+      var canvas = document.createElement("canvas"), g = canvas.getContext("2d", { willReadFrequently: true });
+      function stop() { stopped = true; clearTimeout(timer); if (stream) stream.getTracks().forEach(function (x) { x.stop(); }); stream = null; try { video.srcObject = null; } catch (e) { } }
+      function done(code) { if (stopped) return; stop(); snd("scan"); if (navigator.vibrate) try { navigator.vibrate(40); } catch (e) { } resolve(code); if (d) d.close(); }
+      d = ui.dialog({ title: t("scan.title"), emoji: "📷", body: [view, status, h("p.hint", null, t("scan.hint"))],
+        actions: [{ label: t("cancel") }], onClose: function () { stop(); resolve(null); } });
+      function readFrame() {
+        var vw = video.videoWidth, vh = video.videoHeight, k = Math.min(1, 960 / vw), w = Math.round(vw * k), hh = Math.round(vh * k);
+        if (canvas.width !== w) canvas.width = w;
+        if (canvas.height !== hh) canvas.height = hh;
+        g.drawImage(video, 0, 0, w, hh);
+        var y0 = Math.round(hh * 0.22), bh = Math.round(hh * 0.56), px = g.getImageData(0, y0, w, bh).data, gray = new Uint8Array(w * bh);
+        for (var i = 0, j = 0; i < gray.length; i++, j += 4) gray[i] = (px[j] * 77 + px[j + 1] * 150 + px[j + 2] * 29) >> 8;
+        var r = S.decodeGray(gray, w, bh);
+        return r ? r.code : null;
+      }
+      function loop() {
+        if (stopped) return;
+        if (video.readyState < 2 || !video.videoWidth) { timer = setTimeout(loop, 120); return; }
+        var p = reader ? reader.detect(video).then(function (list) { return list && list[0] ? list[0].rawValue : null; }, function () { return null; })
+          : Promise.resolve().then(readFrame);
+        p.then(function (code) {
+          if (stopped) return;
+          if (code) {
+            var now = Date.now();
+            /* the device's reader is trusted at once; Lakay's own must read the same code twice */
+            if (reader || (code === last && now - lastAt < 2500)) { done(code); return; }
+            last = code; lastAt = now;
+          }
+          timer = setTimeout(loop, reader ? 120 : 70);
+        });
+      }
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { status.textContent = t("scan.noCamera"); status.classList.add("bad"); return; }
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: "environment" }, width: { ideal: 1280 }, height: { ideal: 720 } }, audio: false }).then(function (s) {
+        if (stopped) { s.getTracks().forEach(function (x) { x.stop(); }); return null; }
+        stream = s; video.srcObject = s;
+        return Promise.resolve(video.play()).catch(function () { }).then(nativeReader);
+      }).then(function (r) {
+        if (stopped) return;
+        reader = r; status.textContent = t("scan.looking"); loop();
+      }, function (e) {
+        hasCamera = e && e.name === "NotFoundError" ? false : hasCamera;
+        status.textContent = t(e && (e.name === "NotAllowedError" || e.name === "SecurityError") ? "scan.denied" : "scan.noCamera"); status.classList.add("bad");
+      });
+    });
+  };
+
+  /* ---------- Lakay's own reader: EAN-13 (and UPC-A, which is EAN-13 beginning with 0) and EAN-8 ----------
+     Each digit is four bars and spaces, seven modules wide. The widths below are those of the left-hand "L" set,
+     space first; the "G" set is the same widths reversed, and the right-hand "R" set the same widths, bar first. */
+  var DIG = ["3211", "2221", "2122", "1411", "1132", "1231", "1114", "1312", "1213", "3112"].map(function (x) { return x.split("").map(Number); });
+  var GIG = DIG.map(function (x) { return x.slice().reverse(); });
+  var FIRST = ["LLLLLL", "LLGLGG", "LLGGLG", "LLGGGL", "LGLLGG", "LGGLLG", "LGGGLL", "LGLGLG", "LGLGGL", "LGGLGL"];
+  /* one digit's four runs from r[o]; bars are made narrower by the spread, and spaces wider by it */
+  function digit(r, o, barFirst, spread, sets) {
+    var w = [], i;
+    for (i = 0; i < 4; i++) w.push(r[o + i] + ((i % 2 === 0) === barFirst ? -spread : spread));
+    var sum = w[0] + w[1] + w[2] + w[3]; if (sum <= 0) return null;
+    var best = null, bestErr = 99, second = 99;
+    sets.forEach(function (set, si) {
+      set.forEach(function (p, d) {
+        var err = 0; for (var i = 0; i < 4; i++) err += Math.abs(w[i] * 7 / sum - p[i]);
+        if (err < bestErr) { second = bestErr; bestErr = err; best = { d: d, set: si }; } else if (err < second) second = err;
+      });
+    });
+    return bestErr <= 1.6 && second - bestErr >= 0.25 ? best : null;
+  }
+  function guardOk(r, from, n, m) { for (var i = 0; i < n; i++) { var x = r[from + i] / m; if (x < 0.45 || x > 1.75) return false; } return true; }
+  function checksum(ds) {
+    var s = 0, n = ds.length;
+    for (var i = 0; i < n - 1; i++) s += ds[n - 2 - i] * (i % 2 ? 1 : 3);
+    return (10 - s % 10) % 10 === ds[n - 1];
+  }
+  /* r: widths of the runs along a line; r[j] is the first bar of the start guard (even indexes are bars from j) */
+  function ean13(r, j) {
+    if (j + 59 > r.length) return null;
+    var tot = 0; for (var i = 0; i < 59; i++) tot += r[j + i];
+    var m = tot / 95;
+    if (j > 0 && r[j - 1] < 3 * m) return null;
+    if (j + 59 < r.length && r[j + 59] < 3 * m) return null;
+    if (!guardOk(r, j, 3, m) || !guardOk(r, j + 27, 5, m) || !guardOk(r, j + 56, 3, m)) return null;
+    /* the guards say how much wider the bars print than the spaces; each digit is read with that taken back */
+    var bars = (r[j] + r[j + 2] + r[j + 28] + r[j + 30] + r[j + 56] + r[j + 58]) / 6, spaces = (r[j + 1] + r[j + 27] + r[j + 29] + r[j + 31] + r[j + 57]) / 5;
+    var spread = (bars - spaces) / 2;
+    var ds = [], par = "";
+    for (var k = 0; k < 6; k++) { var x = digit(r, j + 3 + 4 * k, false, spread, [DIG, GIG]); if (!x) return null; ds.push(x.d); par += x.set ? "G" : "L"; }
+    for (k = 0; k < 6; k++) { var y = digit(r, j + 32 + 4 * k, true, spread, [DIG]); if (!y) return null; ds.push(y.d); }
+    var f = FIRST.indexOf(par); if (f < 0) return null;
+    ds.unshift(f);
+    if (!checksum(ds)) return null;
+    var code = ds.join("");
+    return f === 0 ? { code: code.slice(1), format: "upc_a" } : { code: code, format: "ean_13" };
+  }
+  function ean8(r, j) {
+    if (j + 43 > r.length) return null;
+    var tot = 0; for (var i = 0; i < 43; i++) tot += r[j + i];
+    var m = tot / 67;
+    if (j > 0 && r[j - 1] < 3 * m) return null;
+    if (j + 43 < r.length && r[j + 43] < 3 * m) return null;
+    if (!guardOk(r, j, 3, m) || !guardOk(r, j + 19, 5, m) || !guardOk(r, j + 40, 3, m)) return null;
+    var bars = (r[j] + r[j + 2] + r[j + 20] + r[j + 22] + r[j + 40] + r[j + 42]) / 6, spaces = (r[j + 1] + r[j + 19] + r[j + 21] + r[j + 23] + r[j + 41]) / 5;
+    var spread = (bars - spaces) / 2, ds = [];
+    for (var k = 0; k < 4; k++) { var x = digit(r, j + 3 + 4 * k, false, spread, [DIG]); if (!x) return null; ds.push(x.d); }
+    for (k = 0; k < 4; k++) { var y = digit(r, j + 24 + 4 * k, true, spread, [DIG]); if (!y) return null; ds.push(y.d); }
+    return checksum(ds) ? { code: ds.join(""), format: "ean_8" } : null;
+  }
+  /* The runs along one line of light: the edges fall where the light crosses the threshold, found between pixels. */
+  function runsOf(line, thr) {
+    var edges = [], dark0 = line[0] < thr[0];
+    for (var i = 1; i < line.length; i++) {
+      var a = line[i - 1] < thr[i - 1], b = line[i] < thr[i];
+      if (a !== b) {
+        var v0 = line[i - 1] - thr[i - 1], v1 = line[i] - thr[i], f = v0 === v1 ? 0.5 : v0 / (v0 - v1);
+        edges.push(i - 1 + Math.max(0, Math.min(1, f)));
+      }
+    }
+    var runs = [], at = 0;
+    edges.forEach(function (x) { runs.push(x - at); at = x; });
+    runs.push(line.length - at);
+    return { runs: runs, dark0: dark0 };
+  }
+  function decodeRuns(o) {
+    var r = o.runs, firstBar = o.dark0 ? 0 : 1;
+    for (var j = firstBar; j < r.length; j += 2) {
+      var x = ean13(r, j) || ean8(r, j);
+      if (x) return x;
+    }
+    return null;
+  }
+  function decodeLine(line) {
+    var n = line.length, win = Math.max(15, Math.round(n / 10)), half = win >> 1, pre = new Float64Array(n + 1), i;
+    for (i = 0; i < n; i++) pre[i + 1] = pre[i] + line[i];
+    var local = new Float64Array(n), lo = 255, hi = 0;
+    for (i = 0; i < n; i++) {
+      var a = Math.max(0, i - half), b = Math.min(n, i + half + 1);
+      local[i] = (pre[b] - pre[a]) / (b - a);
+      if (i > n * 0.1 && i < n * 0.9) { if (line[i] < lo) lo = line[i]; if (line[i] > hi) hi = line[i]; }
+    }
+    if (hi - lo < 28) return null;
+    /* two thresholds (the light around each point, and the middle of the line's darkest and lightest), each read both
+       ways, for a barcode held upside down */
+    var mid = new Float64Array(n).fill((lo + hi) / 2), back = new Float64Array(n), lineBack = new Float64Array(n);
+    for (i = 0; i < n; i++) { lineBack[i] = line[n - 1 - i]; back[i] = local[n - 1 - i]; }
+    return decodeRuns(runsOf(line, local)) || decodeRuns(runsOf(line, mid)) || decodeRuns(runsOf(lineBack, back)) || decodeRuns(runsOf(lineBack, mid));
+  }
+  /* gray: one byte of light per pixel, w by h; a few lines across the middle are read, each the average of three rows */
+  S.decodeGray = function (gray, w, h) {
+    var lines = 14, seen = {};
+    for (var k = 0; k < lines; k++) {
+      /* from the middle outward: 0, +1, -1, +2, -2 ... */
+      var off = (k % 2 ? 1 : -1) * Math.ceil(k / 2), y = Math.round(h / 2 + off * (h * 0.84 / lines));
+      y = Math.max(1, Math.min(h - 2, y));
+      var line = new Float64Array(w);
+      for (var x = 0; x < w; x++) line[x] = (gray[(y - 1) * w + x] + gray[y * w + x] + gray[(y + 1) * w + x]) / 3;
+      var r = decodeLine(line);
+      if (r) { seen[r.code] = (seen[r.code] || 0) + 1; if (seen[r.code] >= 2) return r; }
+    }
+    var best = Object.keys(seen)[0];
+    return best ? { code: best, format: best.length === 8 ? "ean_8" : best.length === 12 ? "upc_a" : "ean_13", lines: seen[best] } : null;
+  };
+  S.decodeLine = decodeLine;
+})();
+
 /* EMPORIUM | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt.
    Starting up (Lakay): the door first; the rooms once the books are open; the door again whenever they lock. */
 "use strict";
@@ -8033,12 +9026,14 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     E.door.show(why);
   });
   window.addEventListener("hashchange", function () { if (B.isOpen) { var r = location.hash.replace("#", ""); if (r && r !== ui.current && ui.rooms[r]) ui.go(r); } });
-  function fatal(e) {
+  function fatal(e, key) {
     var app = document.getElementById("app"); U.clear(app);
-    app.appendChild(h("div.intro-door", null, h("div.intro-card", null, [h("div.intro-seal", null, ui.seal(96)), h("div.intro-word", null, "Lakay"), h("p.intro-lede", null, t("app.noDb")), h("p.intro-credit", null, String(e && e.message || e))])));
+    app.appendChild(h("div.intro-door", null, h("div.intro-card", null, [h("div.intro-seal", null, ui.seal(96)), h("div.intro-word", null, "Lakay"), h("p.intro-lede#fatalWhy", null, t(key || "app.noDb")), h("p.intro-credit", null, String(e && e.message || e))])));
   }
   function start() {
     E.setLang(E.lang); ui.applyLook();
+    /* a website without https: browsers keep their sealing (Web Crypto) for secure addresses only (Build 15) */
+    if (window.isSecureContext === false) { fatal(new Error(location.protocol + "//" + location.host), "app.needHttps"); return; }
     if (!window.indexedDB || !window.crypto || !crypto.subtle) { fatal(new Error(!window.indexedDB ? "IndexedDB" : "Web Crypto")); return; }
     E.door.show().catch(fatal);
   }
