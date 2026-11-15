@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-cKN4MFHn6slJqfENdbDEzESgsr4Ju4juk9h/quUkgSc='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-UyVaLRbmlvei/TwvO4AJuz01H1I6XCuDeBa6g68VtbA='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#f5f4f8">
 <meta name="application-name" content="Lakay">
-<meta name="lakay-build" content="19">
-<!-- LAKAY | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt. Build 19 (2026-11-15). -->
+<meta name="lakay-build" content="20">
+<!-- LAKAY | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt. Build 20 (2026-11-15). -->
 <title>Lakay</title>
 <!-- Lakay's logo, inside the page (the page's own policy shows only pictures it carries): the square tile, filled edge to
      edge with the coin's periwinkle, for the shortcuts a browser makes on a home screen; the round coin, on nothing, for the
@@ -1847,6 +1847,107 @@ body:has(.sticky-panel-back) #rail-notes { opacity: 0 !important; pointer-events
 .sn-row-keys .sn-del { margin-left: auto; }
 
 /* LAKAY | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt.
+   The Schedule (Build 20): the week's bar, the table of shifts, each shift as a small card (on time in periwinkle,
+   late and not in yet in amber, absent in brick, never green), the person's own shifts, the requests, and the week
+   day by day on a phone. White slabs and pearl, the periwinkle woven in. */
+
+/* ---------- the week's bar ---------- */
+.sch-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 12px 16px; margin-bottom: 14px; }
+.sch-nav { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; min-width: 0; }
+.sch-week { display: flex; flex-direction: column; margin: 0; min-width: 0; }
+.sch-week b { font: 600 1.05rem/1.2 var(--serif); color: var(--ink); }
+.sch-week span { color: var(--muted); font-size: .86rem; }
+.sch-tools { display: flex; flex-wrap: wrap; gap: 6px; }
+.sch-tools .key.sm, .sch-nav .key.sm { gap: 5px; padding-left: 9px; padding-right: 10px; }
+.sch-tools .ico, .sch-nav .ico { width: 14px; height: 14px; }
+
+/* ---------- the table of the week ---------- */
+.sch-wrap { margin-bottom: 16px; border-radius: 18px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--sh-card); }
+.sch-grid { min-width: 860px; table-layout: fixed; }
+.sch-grid th, .sch-grid td { vertical-align: top; }
+.sch-grid thead th { text-align: center; padding-top: 10px; padding-bottom: 8px; }
+.sch-grid thead th:first-child { text-align: left; width: 124px; }
+.sch-grid thead th:last-child { width: 72px; }
+.sch-dow { display: block; font: 700 .68rem/1.3 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.sch-date { display: block; font: 600 1.15rem/1.2 var(--serif); color: var(--ink); }
+.sch-grid thead th.today .sch-dow, .sch-grid thead th.today .sch-date { color: var(--pri-text); }
+.sch-grid thead th.today { box-shadow: inset 0 -3px 0 rgba(var(--pri-rgb), .6); }
+.sch-grid tbody th { font-weight: 600; color: var(--ink); white-space: normal; }
+.sch-person b { display: block; font-weight: 600; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; }
+.sch-person small { display: block; color: var(--muted); font-weight: 500; font-size: .74rem; }
+.sch-grid tr.me th { color: var(--pri-text); }
+.sch-cell { padding: 5px; }
+.sch-cell.today { background: rgba(var(--pri-rgb), .045); }
+.sch-cell.past { background: var(--surface-2); }
+.sch-cell { position: relative; }
+.sch-total { white-space: nowrap; color: var(--ink-2); font-variant-numeric: tabular-nums; font-weight: 600; }
+
+/* a shift */
+.sch-chip { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 1px; width: 100%; margin: 0 0 4px; padding: 6px 5px 6px 9px; border-radius: 10px; text-align: left; white-space: nowrap; overflow: hidden;
+  font: inherit; color: var(--ink); cursor: pointer; background: var(--surface); border: 1px solid rgba(var(--pri-rgb), .22); box-shadow: inset 3px 0 0 rgba(var(--pri-rgb), .55), var(--pill);
+  transition: transform .15s var(--spring), box-shadow .15s var(--ease); }
+.sch-chip:hover { transform: translateY(-1px); box-shadow: inset 3px 0 0 rgba(var(--pri-rgb), .75), var(--pill-hi); }
+.sch-chip:focus-visible { outline: 2px solid var(--pri-ring); outline-offset: 2px; }
+.sch-chip b { font-size: .88rem; font-weight: 700; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.sch-chip small { font-size: .7rem; color: var(--muted); line-height: 1.25; }
+.sch-chip small.sch-note { color: var(--ink-2); font-style: italic; }
+.sch-chip.mine { background: linear-gradient(180deg, var(--surface), rgba(var(--pri-rgb), .07)); border-color: rgba(var(--pri-rgb), .4); }
+.sch-mark { margin-top: 3px; padding: 1px 6px; white-space: nowrap; border-radius: 999px; font: 700 .64rem/1.5 var(--sans); letter-spacing: .03em; background: var(--ok-soft); color: var(--ok); }
+.sch-chip.is-late, .sch-chip.is-notin { box-shadow: inset 3px 0 0 var(--warn), var(--pill); }
+.sch-chip.is-late .sch-mark, .sch-chip.is-notin .sch-mark { background: var(--warn-soft); color: var(--warn); }
+.sch-chip.is-absent { box-shadow: inset 3px 0 0 var(--danger), var(--pill); }
+.sch-chip.is-absent .sch-mark { background: var(--danger-soft); color: var(--danger); }
+.sch-chip.swapping { border-style: dashed; }
+.sch-mark.sch-swap { display: inline-flex; align-items: center; gap: 3px; background: rgba(var(--pri-rgb), .1); color: var(--pri-text); }
+.sch-swap .ico { width: 11px; height: 11px; }
+.sch-add { display: inline-flex; align-items: center; justify-content: center; width: 100%; height: 26px; padding: 0; border-radius: 9px; cursor: pointer;
+  color: var(--muted); background: transparent; border: 1px dashed var(--line-2); opacity: .55; transition: opacity .15s var(--ease), color .15s var(--ease); }
+.sch-add .ico { width: 14px; height: 14px; }
+.sch-cell:hover .sch-add, .sch-add:focus-visible { opacity: 1; color: var(--pri-text); border-color: rgba(var(--pri-rgb), .45); }
+/* a day that already has a shift has no plus key: a second shift that day is added with Add a shift, at the top */
+
+/* ---------- the week day by day, for a phone ---------- */
+.sch-days { display: none; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+.sch-day { padding: 10px 12px 12px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--pill); }
+.sch-day.today { border-color: rgba(var(--pri-rgb), .45); box-shadow: inset 3px 0 0 rgba(var(--pri-rgb), .6), var(--pill); }
+.sch-day-h { display: flex; align-items: baseline; gap: 8px; margin: 0 0 8px; font-size: .95rem; }
+.sch-day-h b { font: 700 .74rem/1.4 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--pri-text); }
+.sch-day-h span { color: var(--muted); font-weight: 500; }
+.sch-day-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.sch-day-list li { display: grid; grid-template-columns: minmax(0, 7.5em) minmax(0, 1fr); gap: 8px; align-items: center; }
+.sch-day-list .sch-chip { margin: 0; }
+.sch-who { font-weight: 600; color: var(--ink); overflow: hidden; text-overflow: ellipsis; }
+.sch-day-add { margin-top: 8px; gap: 5px; }
+.sch-day-add .ico { width: 14px; height: 14px; }
+
+/* ---------- the person's own shifts, and the requests ---------- */
+.sch-mine, .sch-swaps, .sch-plan { margin-bottom: 14px; }
+.sch-mine-list, .sch-reqs { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.sch-mine-row, .sch-req { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 8px 12px; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--line-soft); }
+.sch-mine-day, .sch-req-t { flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.sch-mine-day b, .sch-req-t b { font-weight: 600; color: var(--ink); line-height: 1.3; }
+.sch-mine-day small, .sch-req-t small { color: var(--muted); }
+.sch-req-emo { font-size: 1.1rem; }
+.sch-req-keys { display: inline-flex; gap: 6px; flex-wrap: wrap; }
+.sch-mine-row .key.sm, .sch-req .key.sm { gap: 5px; padding-left: 9px; padding-right: 10px; }
+.sch-mine-row .ico, .sch-req .ico { width: 14px; height: 14px; }
+.sch-sub { margin: 10px 0 6px; font: 700 .7rem/1.4 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.sch-times { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
+.sch-busy { margin: .4rem 0 .2rem; padding: 8px 12px; border-radius: 10px; color: var(--warn); font-weight: 600; background: var(--warn-soft); }
+.sch-times .field { margin-top: .4rem; }
+
+@media (max-width: 760px) {
+  .sch-wrap { display: none; }
+  .sch-days { display: flex; }
+  .sch-bar { padding: 10px 12px; }
+  .sch-tools { width: 100%; }
+}
+:root[data-theme="night"] .sch-chip { background: var(--surface); }
+:root[data-theme="night"] .sch-cell.past { background: rgba(255, 255, 255, .02); }
+@media (prefers-reduced-motion: reduce) { .sch-chip, .sch-add { transition: none; } }
+@media print { .sch-add, .sch-tools, .sch-nav .icon-key { display: none; } .sch-wrap { box-shadow: none; } }
+
+/* LAKAY | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt.
    The Author Studio (Build 18): Inventory's tabs; Your Lakay, a calling card beside how everything stands; the desk,
    with the tools on white slabs at the left and the live stage at the right, kept in view; the phrase book; the colour
    sets drawn as small windows by day and by night; the receipt on its paper. White slabs and pearl, the periwinkle
@@ -2493,7 +2594,7 @@ html.drilling .shell { outline: 3px solid rgba(var(--pri-rgb), .35); outline-off
 "use strict";
 
 var E = window.Emporium = window.Emporium || {};
-E.BUILD = { number: "19", date: "2026-11-15" };
+E.BUILD = { number: "20", date: "2026-11-15" };
 
 /* ---------- drawing: every piece of text goes in as text, never as markup ---------- */
 function $(sel, root) { return (root || document).querySelector(sel); }
@@ -2584,6 +2685,8 @@ var ICONS = {
   /* learning (Build 17): a cap for the room, a play mark for Show me */
   cap: "M2.5 9.5 12 5l9.5 4.5L12 14zM6.5 11.5v4.5c3 2.2 8 2.2 11 0v-4.5M21.5 9.5v5",
   play: "M8 5.5v13l10.5-6.5z",
+  /* the schedule (Build 20): a calendar page */
+  calendar: "M4.5 6h15v14h-15zM4.5 10.5h15M8.5 3.5v5M15.5 3.5v5M8 14h.01M12 14h.01M16 14h.01M8 17h.01M12 17h.01",
   /* the Author Studio's colours (Build 18): a painter's palette */
   palette: "M12 3.5a8.5 8.5 0 1 0 0 17c1.3 0 1.9-1 1.5-2.1-.5-1.3.4-2.6 1.8-2.6h1.6a3.6 3.6 0 0 0 3.6-3.6C20.5 7.3 16.7 3.5 12 3.5zM7.6 12.2h.01M9.2 8.2h.01M13.7 7.4h.01M16.9 10h.01"
 };
@@ -3505,7 +3608,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     ["guide.notes.b", "The 🗒️ key at the foot of the side keys opens Schedae, the list of your sticky notes. New note puts a note on the page, ready to write in. A note floats over every room until you unpin it with its ✕; it stays in the list, and Pin brings it back.\nCarry a note by its top, and make it larger from any edge or from its corner. The ⋯ key on a note changes its paper (six light pastels: Citrine, Aquamarine, Rose Quartz, Jade, Moonstone and Pearl, each with its own night paper), folds it to its top, copies its words, or deletes it. The keys at its foot make words bold, italic, underlined or struck through, start a list, or add a picture.\nYour notes are yours. They are sealed in the books like everything else, each person sees only their own, and a backup carries them. A note saves itself half a second after you stop typing, and again when the books lock.", "La touche 🗒️ au bas des touches de côté ouvre Schedae, la liste de vos notes autocollantes. Nouvelle note pose une note sur la page, prête à écrire. Une note flotte sur chaque pièce jusqu'à ce que vous la détachiez avec son ✕ ; elle reste dans la liste, et Épingler la ramène.\nDéplacez une note par son haut, et agrandissez-la par n'importe quel bord ou par son coin. La touche ⋯ d'une note change son papier (six pastels clairs : Citrine, Aigue-marine, Quartz rose, Jade, Pierre de lune et Perle, chacun avec son papier de nuit), la replie sur son haut, copie ses mots ou la supprime. Les touches du bas mettent les mots en gras, en italique, soulignés ou barrés, commencent une liste ou ajoutent une image.\nVos notes sont à vous. Elles sont scellées dans les livres comme tout le reste, chacun ne voit que les siennes, et une sauvegarde les emporte. Une note s'enregistre une demi-seconde après la dernière frappe, et encore quand les livres se verrouillent.", "Bouton 🗒️ anba bouton sou kote yo louvri Schedae, lis ti nòt ou yo. Nouvo nòt mete yon nòt sou paj la, pare pou ekri. Yon nòt rete sou chak chanm jiskaske ou detache l ak ✕ li; li rete nan lis la, epi Tache mete l tounen.\nDeplase yon nòt pa anwo li, epi fè l pi gwo pa nenpòt bò oswa pa kwen li. Bouton ⋯ yon nòt chanje papye li (sis koulè pal: Sitrin, Akwamarin, Kwats woz, Jad, Wòch lalin ak Pèl, chak ak papye lannwit pa l), pliye l, kopye mo li yo, oswa efase l. Bouton anba yo mete mo yo an gra, an italik, souliye oswa bare, kòmanse yon lis, oswa mete yon foto.\nNòt ou yo se pou ou. Yo sele nan liv yo tankou tout lòt bagay, chak moun wè pa yo sèlman, epi yon sovgad pote yo. Yon nòt anrejistre tèt li yon mwatye segonn apre ou fin tape, epi ankò lè liv yo fèmen."],
     ["guide.notes.tip", "Write a note for your next shift, then fold it: it stays on the page, small, until you open it again. Notes are never shared between people.", "Écrivez une note pour votre prochain service, puis repliez-la : elle reste sur la page, petite, jusqu'à ce que vous l'ouvriez. Les notes ne sont jamais partagées entre les personnes.", "Ekri yon nòt pou pwochen fwa ou travay, epi pliye l: li rete sou paj la, piti, jiskaske ou louvri l. Nòt yo pa janm pataje ant moun."],
     ["guide.clock.t", "Signing in, the clock and breaks", "Connexion, pointage et pauses", "Konekte, lè travay ak poz"],
-    ["guide.clock.b", "At the door, a person types their name or their ID, then their own password. A person on the staff is clocked in as they arrive.\nThe status key at the top shows who is signed in, with a green dot on the clock and an amber dot on a break. Press it to start or end a break, to clock out, or to sign out.\nClock out and sign out ends the shift and brings the door back for the next person. Sign out, stay on the clock is for handing the counter to a colleague while you keep working.\nMy hours, in the Team room, shows your shifts this week and the weeks before. The owner, and those given the team's hours, see everyone's hours and who is on the clock now.", "À la porte, une personne tape son nom ou son numéro, puis son propre mot de passe. L'arrivée d'une personne de l'équipe est pointée à l'entrée.\nLa touche d'état, en haut, montre qui est connecté, avec un point vert en service et un point ambre en pause. Appuyez dessus pour commencer ou finir une pause, pointer le départ ou se déconnecter.\nPointer le départ et se déconnecter termine le service et ramène la porte pour la personne suivante. Se déconnecter, rester en service sert à passer le comptoir à un collègue tout en continuant à travailler.\nMes heures, dans la pièce Équipe, montre vos services de la semaine et des semaines d'avant. Le propriétaire, et ceux qui ont les heures de l'équipe, voient les heures de chacun et qui est en service.", "Nan pòt la, yon moun tape non l oswa nimewo l, apre sa pwòp modpas li. Yon moun nan ekip la antre nan sèvis lè l rive.\nBouton estati a, anwo a, montre ki moun ki konekte, ak yon pwen vè lè l nan sèvis ak yon pwen jòn lè l an poz. Peze l pou kòmanse oswa fini yon poz, pou soti nan sèvis, oswa pou dekonekte.\nSoti nan sèvis epi dekonekte fini sèvis la epi louvri pòt la pou pwochen moun nan. Dekonekte, rete nan sèvis se pou lè w bay yon kòlèg kontwa a men w ap kontinye travay.\nLè travay mwen, nan pyès Ekip la, montre sèvis ou semèn sa a ak semèn anvan yo. Mèt magazen an, ak moun ki gen lè travay ekip la, wè lè travay tout moun ak ki moun ki nan sèvis kounye a."],
+    ["guide.clock.b", "At the door, a person types their name or their ID, then their own password. A person on the staff is clocked in as they arrive.\nThe status key at the top shows who is signed in, with a periwinkle dot on the clock and an amber dot on a break. Press it to start or end a break, to clock out, or to sign out.\nClock out and sign out ends the shift and brings the door back for the next person. Sign out, stay on the clock is for handing the counter to a colleague while you keep working.\nMy hours, in the Team room, shows your shifts this week and the weeks before. The owner, and those given the team's hours, see everyone's hours and who is on the clock now.", "À la porte, une personne tape son nom ou son numéro, puis son propre mot de passe. L'arrivée d'une personne de l'équipe est pointée à l'entrée.\nLa touche d'état, en haut, montre qui est connecté, avec un point pervenche en service et un point ambre en pause. Appuyez dessus pour commencer ou finir une pause, pointer le départ ou se déconnecter.\nPointer le départ et se déconnecter termine le service et ramène la porte pour la personne suivante. Se déconnecter, rester en service sert à passer le comptoir à un collègue tout en continuant à travailler.\nMes heures, dans la pièce Équipe, montre vos services de la semaine et des semaines d'avant. Le propriétaire, et ceux qui ont les heures de l'équipe, voient les heures de chacun et qui est en service.", "Nan pòt la, yon moun tape non l oswa nimewo l, apre sa pwòp modpas li. Yon moun nan ekip la antre nan sèvis lè l rive.\nBouton estati a, anwo a, montre ki moun ki konekte, ak yon pwen koulè lavand lè l nan sèvis ak yon pwen jòn lè l an poz. Peze l pou kòmanse oswa fini yon poz, pou soti nan sèvis, oswa pou dekonekte.\nSoti nan sèvis epi dekonekte fini sèvis la epi louvri pòt la pou pwochen moun nan. Dekonekte, rete nan sèvis se pou lè w bay yon kòlèg kontwa a men w ap kontinye travay.\nLè travay mwen, nan pyès Ekip la, montre sèvis ou semèn sa a ak semèn anvan yo. Mèt magazen an, ak moun ki gen lè travay ekip la, wè lè travay tout moun ak ki moun ki nan sèvis kounye a."],
     ["guide.clock.tip", "Forgot to clock out? The owner, or a manager, can clock you out from the Team room.", "Oublié de pointer le départ ? Le propriétaire, ou un gérant, peut le faire depuis la pièce Équipe.", "Ou bliye soti nan sèvis? Mèt magazen an, oswa yon jeran, ka fè l nan pyès Ekip la."]
   );
   /* Build 7: Refresh and Reset, a way back in, always */
@@ -4192,6 +4295,133 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     ["guide.train.b", "Learning has tabs. My training shows what is waiting for each person: their onboarding day by day, what a leader assigned, and the refreshers. Lessons and Exercises are open to everyone, each within their access.\nAn exercise asks for real work on Lakay's own screens: a sale, a payment in two parts, a delivery, a transfer, a break. While it runs, the books are set aside. Nothing done is kept, and a band at the top says so. Only the mark that it was done is written, once the books are back as they were.\nThose given Training see The team and Plans. They assign lessons, exercises and the store's own tasks, with a date. They start a new person's onboarding, and sign it off once everything is done. Plans holds the path a new person follows, the store's tasks, and how often each lesson or exercise comes due again.\nA manager can be given The people and Backups. They add people and give first passwords with their own password, but only with access they have themselves, and never The people itself. Settings and the Author Studio stay the owner's.", "Formation a des onglets. Ma formation montre ce qui attend chaque personne : son intégration jour après jour, ce qu'un responsable a assigné, et les remises à niveau. Leçons et Exercices sont ouverts à tous, chacun selon ses accès.\nUn exercice demande un vrai travail sur les écrans de Lakay : une vente, un paiement en deux fois, une livraison, un transfert, une pause. Pendant ce temps, les livres sont mis de côté. Rien n'est gardé, et un bandeau en haut le dit. Seule la marque que c'est fait est écrite, une fois les livres revenus comme avant.\nCeux qui ont Formation voient L'équipe et Programmes. Ils assignent des leçons, des exercices et les tâches propres au magasin, avec une date. Ils commencent l'intégration d'une nouvelle personne, et la valident une fois tout fait. Programmes contient le parcours d'une nouvelle personne, les tâches du magasin, et la fréquence de chaque remise à niveau.\nUn gérant peut recevoir Les personnes et Sauvegardes. Il ajoute des personnes et donne les premiers mots de passe avec son propre mot de passe, mais seulement avec les accès qu'il a lui-même, et jamais Les personnes. Les Réglages et le Studio d'auteur restent au propriétaire.", "Fòmasyon gen onglè. Fòmasyon mwen montre sa k ap tann chak moun: entegrasyon li jou apre jou, sa yon chèf ba li, ak revizyon yo. Leson ak Egzèsis louvri pou tout moun, chak dapre aksè li.\nYon egzèsis mande yon vrè travay sou ekran Lakay yo: yon vant, yon peman an de pati, yon livrezon, yon transfè, yon poz. Pandan l ap fèt, liv yo mete sou kote. Anyen pa rete, epi yon bann anwo a di sa. Se sèlman mak ki di l fèt la ki ekri, lè liv yo tounen jan yo te ye a.\nMoun ki gen Fòmasyon wè Ekip la ak Plan yo. Yo bay leson, egzèsis ak pwòp travay magazen an, ak yon dat. Yo kòmanse entegrasyon yon nouvo moun, epi yo siyen l lè tout bagay fini. Plan yo gen chemen yon nouvo moun swiv, travay magazen an, ak chak konbyen tan chak leson oswa egzèsis vin pou refè.\nYo ka bay yon jeran Moun yo ak Kopi sekirite. Li ajoute moun epi li bay premye modpas ak pwòp modpas li, men sèlman ak aksè li genyen li menm, epi pa janm Moun yo. Reglaj ak Estidyo otè a rete pou mèt la."],
     ["guide.train.tip", "Try an exercise in the practice store first: Marie, the sample cashier, is two days into her onboarding.", "Essayez d'abord un exercice dans le magasin d'essai : Marie, la caissière d'exemple, en est à deux jours de son intégration.", "Eseye yon egzèsis nan magazen pou pratike a anvan: Marie, kesyè egzanp lan, gen de jou nan entegrasyon li."]
   );
+  /* The Schedule and shift swaps (Build 20). The Kreyòl is marked for review by a native speaker. */
+  add(
+    ["room.schedule", "Schedule", "Planning", "Orè"],
+    ["lede.schedule", "The week's shifts, person by person. Plan it, fill it from the usual week, and swap shifts with a leader's approval.", "Les services de la semaine, personne par personne. Préparez-la, remplissez-la depuis la semaine habituelle, et échangez des services avec l'accord d'un responsable.", "Sèvis semèn nan, moun pa moun. Prepare l, ranpli l ak semèn abityèl la, epi boukante sèvis ak dakò yon chèf."],
+    ["tip.schedule.t", "How the schedule works", "Comment marche le planning", "Kijan orè a mache"],
+    ["tip.schedule.b", "Each line is a person and each column a day. Leaders add a shift with the plus key, or press a shift to change it. Everyone sees the week, and their own shifts at the top. A shift that has begun shows how it went by the time clock: on time, late, or missed.", "Chaque ligne est une personne et chaque colonne un jour. Les responsables ajoutent un service avec la touche plus, ou appuient sur un service pour le modifier. Chacun voit la semaine, et ses propres services en haut. Un service commencé montre comment il s'est passé selon la pointeuse : à l'heure, en retard, ou manqué.", "Chak liy se yon moun epi chak kolòn se yon jou. Chèf yo ajoute yon sèvis ak bouton plis la, oswa yo peze yon sèvis pou chanje l. Tout moun wè semèn nan, ak pwòp sèvis yo anwo a. Yon sèvis ki kòmanse montre kijan l te pase dapre revèy travay la: a lè, an reta, oswa rate."],
+    ["sch.range", "{a} to {b}", "de {a} à {b}", "soti {a} rive {b}"],
+    ["sch.until", "until {t}", "jusqu'à {t}", "jiska {t}"],
+    ["sch.dow.0", "Sun", "dim.", "dim."], ["sch.dow.1", "Mon", "lun.", "len."], ["sch.dow.2", "Tue", "mar.", "mad."], ["sch.dow.3", "Wed", "mer.", "mèk."],
+    ["sch.dow.4", "Thu", "jeu.", "jed."], ["sch.dow.5", "Fri", "ven.", "van."], ["sch.dow.6", "Sat", "sam.", "sam."],
+    ["sch.ontime", "On time", "À l'heure", "A lè"],
+    ["sch.late", "{n} min late", "{n} min de retard", "{n} min an reta"],
+    ["sch.notin", "Not in yet", "Pas encore là", "Poko rive"],
+    ["sch.absent", "Missed", "Manqué", "Rate"],
+    ["sch.add", "Add a shift", "Ajouter un service", "Ajoute yon sèvis"],
+    ["sch.addH", "Add a shift", "Ajouter un service", "Ajoute yon sèvis"],
+    ["sch.addFor", "Add a shift for {name}, {day}", "Ajouter un service pour {name}, {day}", "Ajoute yon sèvis pou {name}, {day}"],
+    ["sch.editH", "Change a shift", "Modifier un service", "Chanje yon sèvis"],
+    ["sch.thisWeek", "This week", "Cette semaine", "Semèn sa a"],
+    ["sch.nextWeek", "Next week", "La semaine prochaine", "Semèn pwochèn"],
+    ["sch.lastWeek", "Last week", "La semaine dernière", "Semèn pase"],
+    ["sch.weekN", "The week", "La semaine", "Semèn nan"],
+    ["sch.prev", "The week before", "La semaine d'avant", "Semèn anvan an"],
+    ["sch.next", "The week after", "La semaine d'après", "Semèn apre a"],
+    ["sch.weekH", "The week's shifts", "Les services de la semaine", "Sèvis semèn nan"],
+    ["sch.noUsual", "No usual week kept yet. Plan a week, then keep it as the usual week.", "Pas encore de semaine habituelle. Préparez une semaine, puis gardez-la comme semaine habituelle.", "Poko gen semèn abityèl. Prepare yon semèn, epi kenbe l kòm semèn abityèl."],
+    ["sch.fillUsual", "Fill from the usual week", "Remplir depuis la semaine habituelle", "Ranpli ak semèn abityèl la"],
+    ["sch.fillLast", "Copy the week before", "Copier la semaine d'avant", "Kopye semèn anvan an"],
+    ["sch.keep", "Keep as the usual week", "Garder comme semaine habituelle", "Kenbe kòm semèn abityèl"],
+    ["sch.fillUsualQ", "Fill this week from the usual week?", "Remplir cette semaine depuis la semaine habituelle ?", "Ranpli semèn sa a ak semèn abityèl la?"],
+    ["sch.fillLastQ", "Copy the week before into this week?", "Copier la semaine d'avant dans celle-ci ?", "Kopye semèn anvan an nan semèn sa a?"],
+    ["sch.fillP", "Only today and the days to come are filled. A shift that would overlap one already planned is left out.", "Seuls aujourd'hui et les jours à venir sont remplis. Un service qui chevaucherait un service déjà prévu est laissé de côté.", "Se sèlman jodi a ak jou k ap vini yo ki ranpli. Yon sèvis ki ta kwaze yon sèvis ki deja prevwa pa ajoute."],
+    ["sch.filled", "{n} shifts added.", "{n} services ajoutés.", "{n} sèvis ajoute."],
+    ["sch.filledNone", "Nothing to add: the shifts are already there.", "Rien à ajouter : les services y sont déjà.", "Anyen pou ajoute: sèvis yo deja la."],
+    ["sch.keepQ", "Keep this week as the usual week?", "Garder cette semaine comme semaine habituelle ?", "Kenbe semèn sa a kòm semèn abityèl?"],
+    ["sch.keepP", "The next weeks can then be filled from it in one press. The usual week kept before is replaced.", "Les semaines suivantes pourront alors être remplies d'un seul geste. La semaine habituelle gardée avant est remplacée.", "Apre sa, ou ka ranpli semèn k ap vini yo ak yon sèl peze. Semèn abityèl ou te kenbe anvan an ranplase."],
+    ["sch.kept", "This week is now the usual week.", "Cette semaine est maintenant la semaine habituelle.", "Semèn sa a se semèn abityèl la kounye a."],
+    ["sch.swapOpen", "A swap is asked", "Un échange est demandé", "Yo mande yon boukantaj"],
+    ["sch.swapShort", "Swap", "Échange", "Boukantaj"],
+    ["sch.hours", "Hours", "Heures", "Lè"],
+    ["sch.noneDay", "No shift", "Aucun service", "Pa gen sèvis"],
+    ["sch.mineH", "Your shifts", "Vos services", "Sèvis ou yo"],
+    ["sch.mineNone", "No shifts planned for you in the next two weeks.", "Aucun service prévu pour vous dans les deux prochaines semaines.", "Pa gen sèvis pou ou nan de semèn k ap vini yo."],
+    ["sch.swapAgreed", "Agreed, waiting for a leader", "Accepté, en attente d'un responsable", "Dakò, ap tann yon chèf"],
+    ["sch.swapAsked", "Asked, waiting for an answer", "Demandé, en attente de réponse", "Mande, ap tann repons"],
+    ["sch.ask", "Ask to swap", "Demander un échange", "Mande boukante"],
+    ["sch.swapGone", "A shift that is no longer planned", "Un service qui n'est plus prévu", "Yon sèvis ki pa prevwa ankò"],
+    ["sch.tradeLine", "{a} and {b} trade: {a} gives {x}; {b} gives {y}", "{a} et {b} échangent : {a} donne {x} ; {b} donne {y}", "{a} ak {b} boukante: {a} bay {x}; {b} bay {y}"],
+    ["sch.coverLine", "{b} covers for {a}: {x}", "{b} remplace {a} : {x}", "{b} ranplase {a}: {x}"],
+    ["sch.swapsH", "Swaps", "Échanges", "Boukantaj"],
+    ["sch.askedMe", "Asked of you", "Ce qu'on vous demande", "Sa yo mande ou"],
+    ["sch.yes", "Yes, I agree", "Oui, j'accepte", "Wi, mwen dakò"],
+    ["sch.no", "No", "Non", "Non"],
+    ["sch.agreedT", "You agreed. A leader approves it next.", "Vous avez accepté. Un responsable l'approuve ensuite.", "Ou dakò. Yon chèf ap apwouve l apre."],
+    ["sch.declinedT", "You said no.", "Vous avez dit non.", "Ou di non."],
+    ["sch.toApprove", "Waiting for your approval", "En attente de votre approbation", "Ap tann apwobasyon ou"],
+    ["sch.approve", "Approve", "Approuver", "Apwouve"],
+    ["sch.refuse", "Refuse", "Refuser", "Refize"],
+    ["sch.approvedT", "Approved: the shifts have changed hands.", "Approuvé : les services ont changé de mains.", "Apwouve: sèvis yo chanje men."],
+    ["sch.refusedT", "Refused.", "Refusé.", "Refize."],
+    ["sch.myAsks", "Your requests", "Vos demandes", "Demann ou yo"],
+    ["sch.st.asked", "Waiting for {name}", "En attente de {name}", "Ap tann {name}"],
+    ["sch.st.agreed", "{name} agreed; waiting for a leader", "{name} a accepté ; en attente d'un responsable", "{name} dakò; ap tann yon chèf"],
+    ["sch.st.declined", "{name} said no", "{name} a dit non", "{name} di non"],
+    ["sch.st.approved", "Approved", "Approuvé", "Apwouve"],
+    ["sch.st.refused", "Refused by a leader", "Refusé par un responsable", "Yon chèf refize l"],
+    ["sch.st.cancelled", "Cancelled", "Annulé", "Anile"],
+    ["sch.st.void", "Closed: the shift changed", "Fermé : le service a changé", "Fèmen: sèvis la chanje"],
+    ["sch.cancel", "Cancel the request", "Annuler la demande", "Anile demann nan"],
+    ["sch.cancelledT", "Request cancelled.", "Demande annulée.", "Demann nan anile."],
+    ["sch.plannedH", "Planned and worked", "Prévu et travaillé", "Prevwa ak travay"],
+    ["sch.plannedP", "The hours planned this week, the hours the time clock counted, and the shifts begun late or missed.", "Les heures prévues cette semaine, les heures comptées par la pointeuse, et les services commencés en retard ou manqués.", "Lè ki te prevwa semèn sa a, lè revèy travay la konte, ak sèvis ki kòmanse an reta oswa ki rate."],
+    ["sch.planned", "Planned", "Prévu", "Prevwa"],
+    ["sch.worked", "Worked", "Travaillé", "Travay"],
+    ["sch.lateN", "Late", "En retard", "An reta"],
+    ["sch.absentN", "Missed", "Manqués", "Rate"],
+    ["sch.noneWeek", "No shifts planned or worked this week.", "Aucun service prévu ou travaillé cette semaine.", "Pa gen sèvis ki prevwa oswa ki travay semèn sa a."],
+    ["sch.notePh", "Register, stock, closing", "Caisse, stock, fermeture", "Kès, stòk, fèmen"],
+    ["sch.removeQ", "Remove {name}'s shift?", "Retirer le service de {name} ?", "Retire sèvis {name}?"],
+    ["sch.removed", "The shift is removed.", "Le service est retiré.", "Sèvis la retire."],
+    ["sch.changed", "The shift is changed.", "Le service est modifié.", "Sèvis la chanje."],
+    ["sch.added", "The shift is added.", "Le service est ajouté.", "Sèvis la ajoute."],
+    ["sch.who", "Who", "Qui", "Ki moun"],
+    ["sch.day", "Day", "Jour", "Jou"],
+    ["sch.from", "From", "De", "Soti"],
+    ["sch.to", "To", "À", "Rive"],
+    ["sch.note", "Note (if it helps)", "Note (si cela aide)", "Nòt (si sa ede)"],
+    ["sch.wasSwapped", "This shift changed hands by a swap.", "Ce service a changé de mains par un échange.", "Sèvis sa a chanje men pa yon boukantaj."],
+    ["sch.noOne", "There is no one to ask yet.", "Il n'y a encore personne à qui demander.", "Poko gen moun pou mande."],
+    ["sch.kindH", "What you ask", "Ce que vous demandez", "Sa w ap mande"],
+    ["sch.kind.cover", "Someone covers my shift", "Quelqu'un me remplace", "Yon moun ranplase m"],
+    ["sch.kind.trade", "We trade shifts", "Nous échangeons nos services", "Nou boukante sèvis"],
+    ["sch.askH", "Ask a colleague", "Demander à un collègue", "Mande yon kòlèg"],
+    ["sch.askWho", "Whom you ask", "À qui vous demandez", "Ki moun ou mande"],
+    ["sch.theirShift", "Their shift that you take", "Son service que vous prenez", "Sèvis pa l ou pran"],
+    ["sch.noTheirs", "{name} has no shift that fits a trade in the coming days.", "{name} n'a pas de service qui convienne à un échange dans les jours qui viennent.", "{name} pa gen sèvis ki ka boukante nan jou k ap vini yo."],
+    ["sch.busy", "{name} already works then. Choose someone else, or a trade.", "{name} travaille déjà à ce moment-là. Choisissez quelqu'un d'autre, ou un échange.", "{name} deja travay lè sa a. Chwazi yon lòt moun, oswa yon boukantaj."],
+    ["sch.askNote", "A word for them", "Un mot pour la personne", "Yon mo pou moun nan"],
+    ["sch.askNotePh", "If it helps", "Si cela aide", "Si sa ede"],
+    ["sch.askP", "They answer first. Then a leader approves, and only then do the shifts change hands.", "La personne répond d'abord. Puis un responsable approuve, et alors seulement les services changent de mains.", "Moun nan reponn anvan. Apre sa yon chèf apwouve, epi se lè sa a sèlman sèvis yo chanje men."],
+    ["sch.send", "Send the request", "Envoyer la demande", "Voye demann nan"],
+    ["sch.sent", "Request sent to {name}.", "Demande envoyée à {name}.", "Demann voye bay {name}."],
+    ["sch.homeNext", "Your next shift: {day}", "Votre prochain service : {day}", "Pwochen sèvis ou: {day}"],
+    ["sch.today", "today", "aujourd'hui", "jodi a"],
+    ["sch.tomorrow", "tomorrow", "demain", "demen"],
+    ["sch.homeTrade", "{name} asks you to trade shifts", "{name} vous demande d'échanger des services", "{name} mande w boukante sèvis"],
+    ["sch.homeCover", "{name} asks you to cover a shift", "{name} vous demande un remplacement", "{name} mande w ranplase l"],
+    ["sch.homeApprove", "{n} swaps waiting for your approval", "{n} échanges en attente de votre approbation", "{n} boukantaj ap tann apwobasyon ou"],
+    ["sch.homeApprove1", "1 swap waiting for your approval", "1 échange en attente de votre approbation", "1 boukantaj ap tann apwobasyon ou"],
+    ["sch.homeApproveSub", "Both people agreed. A leader decides.", "Les deux personnes ont accepté. Un responsable décide.", "De moun yo dakò. Yon chèf deside."],
+    ["sch.err.overlap", "Someone would then have two shifts at the same time.", "Quelqu'un aurait alors deux services en même temps.", "Yon moun ta gen de sèvis an menm tan."],
+    ["sch.err.hours", "The end must come after the start, on the same day.", "La fin doit venir après le début, le même jour.", "Fen an dwe vini apre kòmansman an, menm jou a."],
+    ["sch.err.day", "Choose a day.", "Choisissez un jour.", "Chwazi yon jou."],
+    ["sch.err.person", "Choose a person who works here.", "Choisissez une personne qui travaille ici.", "Chwazi yon moun ki travay isit la."],
+    ["sch.err.already", "One of these shifts already has a request open.", "Un de ces services a déjà une demande en cours.", "Youn nan sèvis sa yo deja gen yon demann ki louvri."],
+    ["sch.err.past", "This shift has already begun.", "Ce service a déjà commencé.", "Sèvis sa a deja kòmanse."],
+    ["sch.err.changed", "The shifts changed since the request, so it cannot be approved.", "Les services ont changé depuis la demande : elle ne peut pas être approuvée.", "Sèvis yo chanje depi demann nan, kidonk yo pa ka apwouve l."],
+    ["sch.err.closed", "This request is already closed.", "Cette demande est déjà fermée.", "Demann sa a deja fèmen."],
+    ["sch.err.pastday", "A day gone by keeps its plan as it was. Choose today or a day to come.", "Un jour passé garde son planning tel qu'il était. Choisissez aujourd'hui ou un jour à venir.", "Yon jou ki pase kenbe plan li jan l te ye a. Chwazi jodi a oswa yon jou k ap vini."],
+    ["sch.err.empty", "This week has no shifts to keep.", "Cette semaine n'a aucun service à garder.", "Semèn sa a pa gen sèvis pou kenbe."],
+    ["tips.schedule.1", "Plan one good week, then press Keep as the usual week. Each new week then fills in one press.", "Préparez une bonne semaine, puis appuyez sur Garder comme semaine habituelle. Chaque nouvelle semaine se remplit ensuite d'un seul geste.", "Prepare yon bon semèn, epi peze Kenbe kòm semèn abityèl. Apre sa, chak nouvo semèn ranpli ak yon sèl peze."],
+    ["tips.schedule.2", "A shift you cannot work? Press it, then Ask to swap. A colleague answers, and a leader approves.", "Un service que vous ne pouvez pas faire ? Appuyez dessus, puis Demander un échange. Un collègue répond, et un responsable approuve.", "Yon sèvis ou pa ka fè? Peze l, epi Mande boukante. Yon kòlèg reponn, epi yon chèf apwouve."],
+    ["tips.schedule.3", "Planned and worked shows who came late or missed a shift, from the time clock itself.", "Prévu et travaillé montre qui est arrivé en retard ou a manqué un service, d'après la pointeuse elle-même.", "Prevwa ak travay montre ki moun ki rive an reta oswa ki rate yon sèvis, dapre revèy travay la menm."],
+    ["guide.schedule.t", "The schedule and shift swaps", "Le planning et les échanges de services", "Orè a ak boukantaj sèvis"],
+    ["guide.schedule.b", "Schedule, in the menu, shows the week's shifts: a line for each person and a column for each day. On a phone it shows the week day by day. The arrows move to the week before or after.\nThose given the team's hours plan the week. The plus key in a day adds a shift: who, the day, from and to, and a note if it helps. Press a shift to change it or remove it. Keep as the usual week keeps the week shown as the store's pattern; Fill from the usual week then fills a new week in one press, and Copy the week before does the same from the week just past. Only today and the days to come are filled, and no one is ever given two shifts at once.\nEveryone sees their own shifts at the top. A shift you cannot work: press Ask to swap. Someone may cover it, or you may trade it for one of theirs. They answer first; then a leader approves, and only then do the shifts change hands. No one approves their own request, the owner aside.\nA shift that has begun shows how it went, from the time clock: on time, late by some minutes, not in yet, or missed. Planned and worked sets the hours planned beside the hours the clock counted. The clock itself is never changed by the schedule.", "Planning, dans le menu, montre les services de la semaine : une ligne par personne et une colonne par jour. Sur un téléphone, il montre la semaine jour par jour. Les flèches passent à la semaine d'avant ou d'après.\nCeux qui ont les heures de l'équipe préparent la semaine. La touche plus d'un jour ajoute un service : qui, le jour, de quelle heure à quelle heure, et une note si cela aide. Appuyez sur un service pour le modifier ou le retirer. Garder comme semaine habituelle garde la semaine affichée comme modèle du magasin ; Remplir depuis la semaine habituelle remplit alors une nouvelle semaine d'un seul geste, et Copier la semaine d'avant fait de même depuis la semaine passée. Seuls aujourd'hui et les jours à venir sont remplis, et personne ne reçoit jamais deux services en même temps.\nChacun voit ses propres services en haut. Un service que vous ne pouvez pas faire : appuyez sur Demander un échange. Quelqu'un peut vous remplacer, ou vous pouvez l'échanger contre un des siens. La personne répond d'abord ; puis un responsable approuve, et alors seulement les services changent de mains. Personne n'approuve sa propre demande, sauf le propriétaire.\nUn service commencé montre comment il s'est passé, d'après la pointeuse : à l'heure, en retard de quelques minutes, pas encore là, ou manqué. Prévu et travaillé met les heures prévues à côté des heures comptées par la pointeuse. Le planning ne change jamais la pointeuse elle-même.", "Orè, nan meni an, montre sèvis semèn nan: yon liy pou chak moun ak yon kolòn pou chak jou. Sou yon telefòn, li montre semèn nan jou pa jou. Flèch yo mennen nan semèn anvan an oswa semèn apre a.\nMoun ki gen lè travay ekip la prepare semèn nan. Bouton plis nan yon jou ajoute yon sèvis: ki moun, jou a, soti ki lè rive ki lè, ak yon nòt si sa ede. Peze yon sèvis pou chanje l oswa retire l. Kenbe kòm semèn abityèl kenbe semèn ki parèt la kòm modèl magazen an; Ranpli ak semèn abityèl la ranpli yon nouvo semèn ak yon sèl peze, epi Kopye semèn anvan an fè menm bagay la ak semèn ki sot pase a. Se sèlman jodi a ak jou k ap vini yo ki ranpli, epi pèsonn pa janm resevwa de sèvis an menm tan.\nChak moun wè pwòp sèvis yo anwo a. Yon sèvis ou pa ka fè: peze Mande boukante. Yon moun ka ranplase w, oswa ou ka boukante l ak youn nan sèvis pa l. Moun nan reponn anvan; apre sa yon chèf apwouve, epi se lè sa a sèlman sèvis yo chanje men. Pèsonn pa apwouve pwòp demann li, sof mèt la.\nYon sèvis ki kòmanse montre kijan l te pase, dapre revèy travay la: a lè, an reta kèk minit, poko rive, oswa rate. Prevwa ak travay mete lè ki te prevwa yo bò kote lè revèy la konte. Orè a pa janm chanje revèy travay la li menm."],
+    ["guide.schedule.tip", "Plan one good week, keep it as the usual week, and each new week fills in one press.", "Préparez une bonne semaine, gardez-la comme semaine habituelle, et chaque nouvelle semaine se remplit d'un seul geste.", "Prepare yon bon semèn, kenbe l kòm semèn abityèl, epi chak nouvo semèn ap ranpli ak yon sèl peze."]
+  );
   E.t = function (key, vars) {
     var c = E.custom && E.custom.words && E.custom.words[E.lang], s = c && typeof c[key] === "string" && c[key] ? c[key] : DICT[E.lang][key];
     if (s === undefined) s = DICT.en[key];
@@ -4606,7 +4836,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   function load(vault, key, userId) {
     ID = vault.storeId;
     return D.entries("rec").then(function (entries) {
-      var st = { settings: null, users: {}, cats: {}, items: {}, sales: [], moves: [], shifts: [], services: [], train: {}, plans: {}, course: null, counters: {}, pad: {}, notes: {}, head: null, unreadable: [] };
+      var st = { settings: null, users: {}, cats: {}, items: {}, sales: [], moves: [], shifts: [], services: [], train: {}, plans: {}, course: null, slots: [], rota: null, swaps: [], counters: {}, pad: {}, notes: {}, head: null, unreadable: [] };
       /* each person's notes are their own: a sign-in opens only the notes of the one signing in (the practice store opens
          all of its sample people's, since it changes from one to another) */
       var mine = "notes:" + (userId || "owner"), practice = B.mode === "practice";
@@ -4619,6 +4849,8 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
         st.moves.sort(function (a, b) { return a.at < b.at ? -1 : a.at > b.at ? 1 : 0; });
         st.shifts.sort(function (a, b) { return a.in < b.in ? -1 : a.in > b.in ? 1 : 0; });
         st.services.sort(function (a, b) { return a.at < b.at ? -1 : a.at > b.at ? 1 : 0; });
+        st.slots.sort(slotOrder);
+        st.swaps.sort(function (a, b) { return a.at < b.at ? -1 : a.at > b.at ? 1 : 0; });
         if (!st.head || !st.settings) throw err("damaged");
         return D.get("journal", st.head.seq).then(function (env) {
           if (!env) { st.headProblem = true; return; }
@@ -4652,6 +4884,9 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     else if (kind === "train") { st.train = st.train || {}; st.train[id] = v; }
     else if (kind === "plan") { st.plans = st.plans || {}; st.plans[id] = v; }
     else if (kind === "course") st.course = v;
+    else if (kind === "slot") { st.slots = st.slots || []; var si = st.slots.findIndex(function (x) { return x.id === v.id; }); if (si >= 0) st.slots[si] = v; else { st.slots.push(v); st.slots.sort(slotOrder); } }
+    else if (kind === "rota") st.rota = v;
+    else if (kind === "swap") { st.swaps = st.swaps || []; var wi = st.swaps.findIndex(function (x) { return x.id === v.id; }); if (wi >= 0) st.swaps[wi] = v; else st.swaps.push(v); }
     else if (kind === "counter") st.counters[id] = v;
     else if (kind === "pad") st.pad[id] = v;
     else if (kind === "notes") st.notes[id] = (v && Array.isArray(v.notes)) ? v.notes : [];
@@ -4737,13 +4972,58 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
      manager's new access, and the store its plan of training (sampleCourse). Nothing here touches a real store, and a
      sample that cannot be made is let go: the practice store still opens. */
   function upgradePractice(st) {
-    if (B.mode !== "practice" || !state || state.course) return st;
-    /* Jean as the practice store made him (the manager's access of Build 6 to Build 18); if the owner changed him, he is left as he is */
-    var jean = state.users[SAMPLE_PEOPLE[1][0]], c = Promise.resolve(), was = ["sell", "items", "receive", "adjust", "costs", "reports", "team"];
-    if (jean && jean.active !== false && JSON.stringify(jean.access || []) === JSON.stringify(was))
-      c = c.then(function () { return B.editPerson(jean.id, { access: B.PRESETS.manager.slice(), preset: "manager" }); });
-    return c.then(sampleCourse).then(function () { B._at = null; B.user = state.users.owner; return state; },
+    if (B.mode !== "practice" || !state) return st;
+    var c = Promise.resolve();
+    if (!state.course) {
+      /* Jean as the practice store made him (the manager's access of Build 6 to Build 18); if the owner changed him, he is left as he is */
+      var jean = state.users[SAMPLE_PEOPLE[1][0]], was = ["sell", "items", "receive", "adjust", "costs", "reports", "team"];
+      if (jean && jean.active !== false && JSON.stringify(jean.access || []) === JSON.stringify(was))
+        c = c.then(function () { return B.editPerson(jean.id, { access: B.PRESETS.manager.slice(), preset: "manager" }); });
+      c = c.then(sampleCourse);
+    }
+    /* and a practice store made before Build 20, its schedule */
+    if (!state.rota && !(state.slots || []).length) c = c.then(sampleSchedule);
+    return c.then(function () { B._at = null; B.user = state.users.owner; return state; },
       function (e) { console.warn(e); B._at = null; if (state) B.user = state.users.owner; return state; });
+  }
+  /* the practice store's schedule (Build 20). Until yesterday, the shifts as the time clock's samples were worked, both
+     every day (one day Jean was planned from half past twelve, so his quarter to one shows fifteen minutes late). From
+     today, the usual week: Marie Monday to Friday, mornings; Jean Wednesday to Sunday, afternoons. Marie asked Jean to
+     cover her Monday next week and he agreed, so it waits for a leader; Jean asked Marie to trade his Saturday next week
+     for her Tuesday, and it waits for her answer. */
+  function sampleSchedule() {
+    var marie = SAMPLE_PEOPLE[0][0], jean = SAMPLE_PEOPLE[1][0];
+    if (!state.users[marie] || !state.users[jean] || state.users[marie].active === false || state.users[jean].active === false) return Promise.resolve();
+    var today = new Date(), todayKey = U.dayKey(today), wk = U.fromDayKey(B.weekStartKey(today)), last = U.addDays(wk, -7), at = today.toISOString();
+    var MARIE = [1, 2, 3, 4, 5], JEAN = [3, 4, 5, 6, 0], slots = [], rows = [];
+    function slot(user, d, from, to) { var s = { id: U.uid("s"), user: user, day: U.dayKey(d), from: from, to: to, note: "", by: "owner", at: at, status: "on" }; slots.push(s); return s; }
+    for (var d = new Date(last), n = 0; U.dayKey(d) < todayKey; d = U.addDays(d, 1), n++) {
+      slot(marie, d, "08:45", "15:15"); slot(jean, d, n === 9 ? "12:30" : "12:45", "20:15");
+    }
+    for (var e = new Date(today.getFullYear(), today.getMonth(), today.getDate()); e < U.addDays(wk, 14); e = U.addDays(e, 1)) {
+      if (MARIE.indexOf(e.getDay()) >= 0) slot(marie, e, "08:45", "15:15");
+      if (JEAN.indexOf(e.getDay()) >= 0) slot(jean, e, "12:45", "20:15");
+    }
+    for (var i = 0; i < 7; i++) {
+      var g = U.addDays(wk, i);
+      if (MARIE.indexOf(g.getDay()) >= 0) rows.push({ dow: i, user: marie, from: "08:45", to: "15:15", note: "" });
+      if (JEAN.indexOf(g.getDay()) >= 0) rows.push({ dow: i, user: jean, from: "12:45", to: "20:15", note: "" });
+    }
+    function on(user, d) { var k = U.dayKey(d); return slots.filter(function (s) { return s.user === user && s.day === k; })[0]; }
+    var next = U.addDays(wk, 7), mon = on(marie, next), tue = on(marie, U.addDays(next, 1)), sat = on(jean, U.addDays(next, 5));
+    function as(id, when, fn) { return function () { B._at = when.toISOString(); B.user = state.users[id]; return fn().then(function () { B.user = state.users.owner; }); }; }
+    var yesterday = U.addDays(new Date(today.getFullYear(), today.getMonth(), today.getDate()), -1);
+    function hour(d, hh) { var x = new Date(d); x.setHours(hh, 0, 0, 0); return x; }
+    return Promise.resolve()
+      .then(as("owner", hour(U.addDays(last, -1), 18), function () {
+        return B.change(function () { var v = { v: 1, rows: rows, from: U.dayKey(wk), at: at, by: "owner" }; return { type: "rota.saved", data: { from: v.from, rows: rows.length }, recs: [{ kind: "rota", id: "main", value: v }] }; });
+      }))
+      .then(as("owner", hour(U.addDays(last, -1), 18), function () {
+        return B.change(function () { return { type: "week.filled", data: { week: U.dayKey(last), source: "sample", added: slots.length }, recs: slots.map(function (s) { return { kind: "slot", id: s.id, value: s }; }) }; });
+      }))
+      .then(as(marie, hour(yesterday, 10), function () { return mon && sat ? B.askSwap({ slot: mon.id, to: jean, kind: "cover", note: "" }) : Promise.resolve(); }))
+      .then(as(jean, hour(yesterday, 14), function () { var w = B.swaps(function (x) { return x.from === marie && x.status === "asked"; })[0]; return w ? B.answerSwap(w.id, true) : Promise.resolve(); }))
+      .then(as(jean, hour(yesterday, 16), function () { return sat && tue ? B.askSwap({ slot: sat.id, to: marie, kind: "trade", theirSlot: tue.id, note: "" }) : Promise.resolve(); }));
   }
   /* The practice store's sample people: [user id, staff number, name, level of access]. */
   var SAMPLE_PEOPLE = [["u_practice_marie", 1002, "Marie", "cashier"], ["u_practice_jean", 1003, "Jean", "manager"]];
@@ -4829,6 +5109,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     chain = chain.then(function () { return sampleServices(); });
     chain = chain.then(function () { return sampleTraining(); });
     chain = chain.then(function () { return sampleCourse(); });
+    chain = chain.then(function () { return sampleSchedule(); });
     return chain.then(function () { B._at = null; B.user = state.users.owner; return state; }, function (e) { B._at = null; B.user = state && state.users.owner; throw e; });
   }
   /* The practice store's money transfers and top-ups: a few a day for two weeks, with made-up fees and references.
@@ -5619,6 +5900,197 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     });
   };
 
+  /* ---------- schedules and shift swaps (Build 20) ----------
+     A shift planned is a "slot": who, which day, from and to (the store's own clock, hh:mm) and a short note. Those with
+     the team access plan the week, fill it from the usual week or from the week before, and change or remove a shift;
+     every change is a ledger line. A person may ask a colleague to cover one of their shifts, or to trade one for one
+     of the colleague's. The colleague answers; then someone with the team access approves, and only then do the shifts
+     change hands (no one approves their own request, the owner aside). The time clock is never touched: the hours worked
+     stay what the clock says, and the schedule is compared with them. */
+  function slotOrder(a, b) { return a.day < b.day ? -1 : a.day > b.day ? 1 : a.from < b.from ? -1 : a.from > b.from ? 1 : 0; }
+  function hhmm(x) { return /^([01]\d|2[0-3]):[0-5]\d$/.test(x || ""); }
+  function mins(x) { return +x.slice(0, 2) * 60 + +x.slice(3, 5); }
+  B.slotMins = function (sl) { return Math.max(0, mins(sl.to) - mins(sl.from)); };
+  B.slots = function (filter) { return state ? (state.slots || []).filter(function (x) { return x.status !== "off" && (!filter || filter(x)); }).map(clone) : []; };
+  function slotOn(st, id) { return (st.slots || []).filter(function (x) { return x.id === id && x.status !== "off"; })[0] || null; }
+  B.slotOf = function (id) { var x = state && slotOn(state, id); return x ? clone(x) : null; };
+  /* two shifts of one person on one day may not overlap */
+  function overlaps(st, sl, skip) {
+    return (st.slots || []).some(function (x) {
+      return x.status !== "off" && x.user === sl.user && x.day === sl.day && skip.indexOf(x.id) < 0 && mins(x.from) < mins(sl.to) && mins(sl.from) < mins(x.to);
+    });
+  }
+  function cleanSlot(st, f, base) {
+    var sl = clone(base);
+    if (f.user !== undefined) sl.user = String(f.user || "");
+    if (f.day !== undefined) sl.day = String(f.day || "");
+    if (f.from !== undefined) sl.from = String(f.from || "");
+    if (f.to !== undefined) sl.to = String(f.to || "");
+    if (f.note !== undefined) sl.note = plain(f.note, 60);
+    var u = st.users[sl.user];
+    if (!u || u.active === false) throw err("noperson");
+    if (!dueDay(sl.day)) throw err("day");
+    /* the plan of a day gone by is kept as it was: no one rewrites it after the fact */
+    if (sl.day < U.dayKey(clock())) throw err("pastday");
+    if (!hhmm(sl.from) || !hhmm(sl.to) || mins(sl.to) <= mins(sl.from)) throw err("hours");
+    sl.note = sl.note || "";
+    return sl;
+  }
+  /* a request still open on a shift that changed is closed, so no one approves a swap of a shift that is no longer there */
+  function dropSwaps(st, ids, now) {
+    return (st.swaps || []).filter(function (w) { return B.SWAP_OPEN.indexOf(w.status) >= 0 && (ids.indexOf(w.slot) >= 0 || ids.indexOf(w.theirSlot) >= 0); })
+      .map(function (w) { var v = clone(w); v.status = "void"; v.closed = now; return { kind: "swap", id: v.id, value: v }; });
+  }
+  B.addSlot = function (f) {
+    return B.change(function (st) {
+      need("team");
+      var sl = cleanSlot(st, f, { id: U.uid("s"), note: "" });
+      if (overlaps(st, sl, [])) throw err("overlap");
+      sl.by = B.user.id; sl.at = clock().toISOString(); sl.status = "on";
+      return { type: "slot.added", data: { slot: clone(sl) }, recs: [{ kind: "slot", id: sl.id, value: sl }], result: sl };
+    });
+  };
+  B.changeSlot = function (id, f) {
+    return B.change(function (st) {
+      need("team");
+      var cur = slotOn(st, id); if (!cur) throw err("noslot");
+      if (cur.day < U.dayKey(clock())) throw err("pastday");
+      var sl = cleanSlot(st, f, cur), diff = {};
+      ["user", "day", "from", "to", "note"].forEach(function (k) { if (sl[k] !== cur[k]) diff[k] = [cur[k], sl[k]]; });
+      if (!Object.keys(diff).length) return null;
+      if (overlaps(st, sl, [id])) throw err("overlap");
+      var now = clock().toISOString(); sl.updated = now; sl.updatedBy = B.user.id;
+      return { type: "slot.changed", data: { id: id, diff: diff }, recs: [{ kind: "slot", id: id, value: sl }].concat(dropSwaps(st, [id], now)), result: sl };
+    });
+  };
+  B.removeSlot = function (id) {
+    return B.change(function (st) {
+      need("team");
+      var cur = slotOn(st, id); if (!cur) throw err("noslot");
+      if (cur.day < U.dayKey(clock())) throw err("pastday");
+      var now = clock().toISOString(), sl = clone(cur); sl.status = "off"; sl.updated = now; sl.updatedBy = B.user.id;
+      return { type: "slot.removed", data: { id: id, user: cur.user, day: cur.day, from: cur.from, to: cur.to }, recs: [{ kind: "slot", id: id, value: sl }].concat(dropSwaps(st, [id], now)), result: sl };
+    });
+  };
+  /* the first day of the week that holds a day, by the store's own first day of the week */
+  B.weekStartKey = function (d) {
+    d = d || clock();
+    var first = state && state.settings && state.settings.weekStart === 0 ? 0 : 1, x = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    return U.dayKey(U.addDays(x, -((x.getDay() - first + 7) % 7)));
+  };
+  function dayIndex(fromKey, dayKey) { return Math.round((U.fromDayKey(dayKey).getTime() - U.fromDayKey(fromKey).getTime()) / 86400000); }
+  function weekRows(st, weekKey) {
+    var end = U.dayKey(U.addDays(U.fromDayKey(weekKey), 6));
+    return (st.slots || []).filter(function (x) { return x.status !== "off" && x.day >= weekKey && x.day <= end; })
+      .map(function (x) { return { dow: dayIndex(weekKey, x.day), user: x.user, from: x.from, to: x.to, note: x.note || "" }; });
+  }
+  /* the usual week: one week of shifts kept as the pattern the next weeks are filled from */
+  B.usualWeek = function () { return clone((state && state.rota) || { v: 1, rows: [] }); };
+  B.saveUsualWeek = function (weekKey) {
+    return B.change(function (st) {
+      need("team");
+      if (!dueDay(weekKey)) throw err("day");
+      var rows = weekRows(st, weekKey);
+      if (!rows.length) throw err("empty");
+      var v = { v: 1, rows: rows, from: weekKey, at: clock().toISOString(), by: B.user.id };
+      return { type: "rota.saved", data: { from: weekKey, rows: rows.length }, recs: [{ kind: "rota", id: "main", value: v }], result: v };
+    });
+  };
+  /* a week filled from the usual week or from the week before it: only today and the days to come, and never a shift that
+     would overlap one already there */
+  B.fillWeek = function (weekKey, source) {
+    return B.change(function (st) {
+      need("team");
+      if (!dueDay(weekKey)) throw err("day");
+      source = source === "last" ? "last" : "usual";
+      var rows = source === "last" ? weekRows(st, U.dayKey(U.addDays(U.fromDayKey(weekKey), -7))) : ((st.rota && st.rota.rows) || []);
+      var now = clock(), todayKey = U.dayKey(now), at = now.toISOString(), tmp = { slots: (st.slots || []).slice() }, recs = [];
+      rows.forEach(function (r) {
+        var u = st.users[r.user]; if (!u || u.active === false || !hhmm(r.from) || !hhmm(r.to) || r.dow < 0 || r.dow > 6) return;
+        var sl = { id: U.uid("s"), user: r.user, day: U.dayKey(U.addDays(U.fromDayKey(weekKey), r.dow)), from: r.from, to: r.to, note: plain(r.note, 60), by: B.user.id, at: at, status: "on" };
+        if (sl.day < todayKey || overlaps(tmp, sl, [])) return;
+        tmp.slots.push(sl); recs.push({ kind: "slot", id: sl.id, value: sl });
+      });
+      if (!recs.length) return null;
+      return { type: "week.filled", data: { week: weekKey, source: source, added: recs.length }, recs: recs, result: recs.map(function (r) { return r.value; }) };
+    });
+  };
+  /* ---- swaps: a colleague covers a shift, or two people trade one shift each ---- */
+  B.SWAP_OPEN = ["asked", "agreed"];
+  B.swaps = function (filter) { return state ? (state.swaps || []).filter(function (x) { return !filter || filter(x); }).map(clone) : []; };
+  function swapOn(st, id) { return clone((st.swaps || []).filter(function (x) { return x.id === id; })[0] || null); }
+  function startsLater(sl) { var now = clock(), k = U.dayKey(now); return sl.day > k || (sl.day === k && mins(sl.from) > now.getHours() * 60 + now.getMinutes()); }
+  B.askSwap = function (f) {
+    return B.change(function (st) {
+      if (!B.user) throw err("locked");
+      var sl = slotOn(st, f.slot); if (!sl) throw err("noslot");
+      if (sl.user !== B.user.id) throw err("denied");
+      if (!startsLater(sl)) throw err("past");
+      var to = st.users[f.to]; if (!to || to.active === false || to.id === B.user.id) throw err("noperson");
+      var kind = f.kind === "trade" ? "trade" : "cover", theirs = null;
+      if (kind === "trade") { theirs = slotOn(st, f.theirSlot); if (!theirs || theirs.user !== to.id) throw err("noslot"); if (!startsLater(theirs)) throw err("past"); }
+      var ids = [sl.id].concat(theirs ? [theirs.id] : []);
+      if ((st.swaps || []).some(function (w) { return B.SWAP_OPEN.indexOf(w.status) >= 0 && (ids.indexOf(w.slot) >= 0 || ids.indexOf(w.theirSlot) >= 0); })) throw err("already");
+      /* whoever takes a shift must be free then */
+      if (overlaps(st, { user: to.id, day: sl.day, from: sl.from, to: sl.to }, ids)) throw err("overlap");
+      if (theirs && overlaps(st, { user: B.user.id, day: theirs.day, from: theirs.from, to: theirs.to }, ids)) throw err("overlap");
+      var w = { id: U.uid("w"), kind: kind, from: B.user.id, to: to.id, slot: sl.id, theirSlot: theirs ? theirs.id : null, note: plain(f.note, 120), at: clock().toISOString(), status: "asked" };
+      return { type: "swap.asked", data: { id: w.id, kind: kind, to: to.id, slot: sl.id, theirSlot: w.theirSlot }, recs: [{ kind: "swap", id: w.id, value: w }], result: w };
+    });
+  };
+  B.answerSwap = function (id, yes) {
+    return B.change(function (st) {
+      var w = swapOn(st, id); if (!w) throw err("noswap");
+      if (!B.user || w.to !== B.user.id) throw err("denied");
+      if (w.status !== "asked") throw err("closed");
+      w.status = yes ? "agreed" : "declined"; w.answered = clock().toISOString();
+      return { type: "swap.answered", data: { id: id, yes: !!yes }, recs: [{ kind: "swap", id: id, value: w }], result: w };
+    });
+  };
+  B.cancelSwap = function (id) {
+    return B.change(function (st) {
+      var w = swapOn(st, id); if (!w) throw err("noswap");
+      if (!B.user || w.from !== B.user.id) throw err("denied");
+      if (B.SWAP_OPEN.indexOf(w.status) < 0) throw err("closed");
+      w.status = "cancelled"; w.closed = clock().toISOString();
+      return { type: "swap.cancelled", data: { id: id }, recs: [{ kind: "swap", id: id, value: w }], result: w };
+    });
+  };
+  /* a leader decides; approved, the shifts change hands, checked again as they are now */
+  B.decideSwap = function (id, yes, why) {
+    return B.change(function (st) {
+      need("team");
+      var w = swapOn(st, id); if (!w) throw err("noswap");
+      if (w.status !== "agreed") throw err("closed");
+      if (!B.isOwner() && (w.from === B.user.id || w.to === B.user.id)) throw err("denied");
+      var now = clock().toISOString();
+      w.decidedBy = B.user.id; w.decided = now;
+      if (!yes) { w.status = "refused"; w.why = plain(why, 120); return { type: "swap.decided", data: { id: id, yes: false }, recs: [{ kind: "swap", id: id, value: w }], result: w }; }
+      var a = slotOn(st, w.slot), b = w.theirSlot ? slotOn(st, w.theirSlot) : null, ids = [w.slot].concat(w.theirSlot ? [w.theirSlot] : []);
+      if (!a || a.user !== w.from || (w.theirSlot && (!b || b.user !== w.to))) throw err("changed");
+      if (!startsLater(a) || (b && !startsLater(b))) throw err("past");
+      var na = clone(a); na.user = w.to; na.updated = now; na.updatedBy = B.user.id; na.swap = id;
+      if (overlaps(st, na, ids)) throw err("overlap");
+      var recs = [{ kind: "slot", id: na.id, value: na }];
+      if (b) { var nb = clone(b); nb.user = w.from; nb.updated = now; nb.updatedBy = B.user.id; nb.swap = id; if (overlaps(st, nb, ids)) throw err("overlap"); recs.push({ kind: "slot", id: nb.id, value: nb }); }
+      w.status = "approved"; recs.push({ kind: "swap", id: id, value: w });
+      return { type: "swap.decided", data: { id: id, yes: true, from: w.from, to: w.to, slot: w.slot, theirSlot: w.theirSlot }, recs: recs, result: w };
+    });
+  };
+  /* a shift planned against the time clock: not begun yet, on time (in within five minutes of the start), late, not in
+     yet (the shift has begun and no one clocked in), or absent (the shift is over and no one did) */
+  B.attendance = function (sl, now) {
+    now = now || clock();
+    var start = U.fromDayKey(sl.day); start.setHours(+sl.from.slice(0, 2), +sl.from.slice(3, 5), 0, 0);
+    var end = U.fromDayKey(sl.day); end.setHours(+sl.to.slice(0, 2), +sl.to.slice(3, 5), 0, 0);
+    var first = (state ? state.shifts : []).reduce(function (m, x) {
+      if (x.user !== sl.user || x.day !== sl.day) return m; var t = Date.parse(x.in); return m === null || t < m ? t : m;
+    }, null);
+    if (first === null) return { state: now.getTime() < start.getTime() + 5 * 60000 ? "later" : now < end ? "notin" : "absent" };
+    var late = Math.round((first - start.getTime()) / 60000);
+    return late > 5 ? { state: "late", minutes: late } : { state: "ontime" };
+  };
+
   /* ---------- money transfers and top-ups (Build 15) ----------
      The money a customer sends, receives or puts on a phone is held for the provider (RIA, CAM, Unitransfer, Boss
      Revolution): it is not the store's sale. Each one is written as it happens: the provider, what kind it was, the
@@ -6344,7 +6816,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
 
   /* ---------- emojis (drawn by the device's own emoji font; hidden from screen readers, the words carry the meaning) ---------- */
   ui.emo = function (ch, cls) { return h("span.emo" + (cls ? "." + cls : ""), { "aria-hidden": "true" }, ch); };
-  ui.ROOM_EMO = { home: "🏠", register: "🛒", inventory: "📦", reports: "📊", team: "👥", learn: "🎓", guide: "📖", settings: "⚙️", studio: "⚒️" };
+  ui.ROOM_EMO = { home: "🏠", register: "🛒", inventory: "📦", reports: "📊", team: "👥", schedule: "🗓️", learn: "🎓", guide: "📖", settings: "⚙️", studio: "⚒️" };
   /* the departments' signs: no fruit or food as decoration (the owner, 13 November 2026), only what each one holds */
   ui.CAT_EMO = { music: "🎵", movies: "🎬", perfume: "🌸", grocery: "🧺", drinks: "🥤", food: "🍽️", services: "💱", other: "🛍️" };
   ui.catEmo = function (c) { return ui.CAT_EMO[c] || "🏷️"; };
@@ -6533,7 +7005,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   };
 
   /* ---------- the shell, after Ingenium's (the side menu of plain words) with Carpe Diem's capsule of top keys ---------- */
-  var GROUPS = [["nav.g.store", [["home", "home"], ["register", "register"], ["inventory", "box"], ["reports", "chart"], ["team", "people"]]],
+  var GROUPS = [["nav.g.store", [["home", "home"], ["register", "register"], ["inventory", "box"], ["reports", "chart"], ["team", "people"], ["schedule", "calendar"]]],
                 ["nav.g.learn", [["learn", "cap"], ["guide", "book"], ["settings", "gear"]]],
                 ["nav.g.owner", [["studio", "edit"]]]];
   ui.rooms = {};
@@ -7556,6 +8028,8 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
       var mine = E.train.statusOf(B.user);
       trained = mine.items.length > 0 || mine.refresh.length > 0;
     }
+    /* the person's next shift, a colleague's request, and for leaders the swaps that wait for them (Build 20) */
+    if (E.schedule && B.user) E.schedule.homeRows(need).forEach(function (x) { list.push(x); });
     /* a person's lessons still to take (Build 17), when nothing has been assigned to them */
     if (staff && E.learn && !trained) {
       var left = E.learn.leftFor(B.user).length;
@@ -8846,8 +9320,8 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   }
 
   /* ---------- the Guidebook ---------- */
-  var ARTICLES = ["start", "learn", "train", "door", "team", "clock", "master", "sale", "pay", "items", "receive", "correct", "depts", "svc", "reports", "notes", "backup", "sealed", "verify", "display", "studio", "build", "limits"];
-  var ART_EMO = { start: "🌟", learn: "🎓", train: "📋", door: "🚪", team: "👥", clock: "🕘", master: "🗝️", sale: "🛒", pay: "💳", items: "🏷️", receive: "🚚", correct: "✏️", depts: "🗂️", svc: "💱", reports: "📊", notes: "🗒️", backup: "💾", sealed: "🔐", verify: "🛡️", display: "🎨", studio: "⚒️", build: "🔢", limits: "🧭" };
+  var ARTICLES = ["start", "learn", "train", "door", "team", "clock", "schedule", "master", "sale", "pay", "items", "receive", "correct", "depts", "svc", "reports", "notes", "backup", "sealed", "verify", "display", "studio", "build", "limits"];
+  var ART_EMO = { start: "🌟", learn: "🎓", train: "📋", door: "🚪", team: "👥", clock: "🕘", schedule: "🗓️", master: "🗝️", sale: "🛒", pay: "💳", items: "🏷️", receive: "🚚", correct: "✏️", depts: "🗂️", svc: "💱", reports: "📊", notes: "🗒️", backup: "💾", sealed: "🔐", verify: "🛡️", display: "🎨", studio: "⚒️", build: "🔢", limits: "🧭" };
   E.guideCount = function () { return ARTICLES.length; };
   ui.rooms.guide = function (main) {
     var q = ui.input({ id: "guideSearch", type: "search", placeholder: t("guide.searchPh"), "aria-label": t("guide.search") });
@@ -11400,7 +11874,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   };
 
   /* ---------- tips at the foot of each room ---------- */
-  var TIPS = { home: 4, register: 4, inventory: 4, reports: 3, team: 3, learn: 3, guide: 2, settings: 3, studio: 2 };
+  var TIPS = { home: 4, register: 4, inventory: 4, reports: 3, team: 3, schedule: 3, learn: 3, guide: 2, settings: 3, studio: 2 };
   var tipAt = {};
   L.tipsOn = function () { return U.prefGet("tips", "1") === "1"; };
   /* fresh: a new visit to the room shows its next tip; a room drawn again keeps the one it shows */
@@ -11891,6 +12365,314 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
       var c = teamCounts();
       if (c.ready || c.late) out.push(need("👥", c.ready ? t(c.ready === 1 ? "tr.homeReady1" : "tr.homeReady", { n: c.ready }) : t(c.late === 1 ? "tr.homeTeamLate1" : "tr.homeTeamLate", { n: c.late }),
         t("tr.homeTeamSub"), c.late ? "warn" : null, [t("home.open"), function () { TR.tab = "team"; ui.go("learn"); }]));
+    }
+    return out;
+  };
+})();
+
+/* LAKAY | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt.
+   The Schedule (Build 20): the week's shifts, person by person and day by day. Those with the team access plan it: add,
+   change and remove a shift, fill a week from the usual week or from the week before, and keep a week as the usual one.
+   Everyone sees the week, and their own shifts first. A person may ask a colleague to cover one of their shifts, or to
+   trade one for one of the colleague's; the colleague answers, a leader approves, and only then do the shifts change
+   hands. Each shift that has begun is held against the time clock: on time, late, not in yet, or absent. The books keep
+   it all (04-books.js: B.addSlot, B.fillWeek, B.askSwap, B.decideSwap, B.attendance ...). */
+"use strict";
+(function () {
+  var U = E.util, h = U.h, t = E.t, B = E.books, ui = E.ui;
+  var S = E.schedule = { week: 0 };
+  var MIN_WEEK = -8, MAX_WEEK = 8;
+
+  /* ---------- small helpers ---------- */
+  function weekKey(off) { return U.dayKey(U.addDays(U.fromDayKey(B.weekStartKey(new Date())), 7 * off)); }
+  function daysOf(wk) { var s = U.fromDayKey(wk), out = []; for (var i = 0; i < 7; i++) out.push(U.addDays(s, i)); return out; }
+  function at(day, hm) { var d = U.fromDayKey(day); d.setHours(+hm.slice(0, 2), +hm.slice(3, 5), 0, 0); return d; }
+  function tm(day, hm) { return E.fmtTime(at(day, hm)); }
+  S.range = function (sl) { return t("sch.range", { a: tm(sl.day, sl.from), b: tm(sl.day, sl.to) }); };
+  function dayName(day) { return E.fmtDate(U.fromDayKey(day), "long"); }
+  function short(d) { return t("sch.dow." + d.getDay()) + " " + d.getDate(); }
+  function nameOf(id) { var u = B.state().users[id]; return u ? u.name : id; }
+  function people() { return B.people().filter(function (u) { return u.active !== false; }); }
+  function startsLater(sl) { return at(sl.day, sl.from).getTime() > Date.now(); }
+  /* hours in a narrow column: 39 h, or 52 h 45 */
+  function hrs(m) { var hh = Math.floor(m / 60), mm = m % 60; return hh + " h" + (mm ? " " + U.pad2(mm) : ""); }
+  /* another person signed in (or another sample person in the practice store): the schedule opens on this week */
+  B.on("user", function () { S.week = 0; });
+  B.on("lock", function () { S.week = 0; });
+  function openSwapOn(id) { return B.swaps(function (w) { return B.SWAP_OPEN.indexOf(w.status) >= 0 && (w.slot === id || w.theirSlot === id); })[0] || null; }
+  var ERR = { overlap: "sch.err.overlap", hours: "sch.err.hours", day: "sch.err.day", noperson: "sch.err.person", already: "sch.err.already", past: "sch.err.past",
+    changed: "sch.err.changed", noslot: "sch.err.changed", closed: "sch.err.closed", empty: "sch.err.empty", pastday: "sch.err.pastday", denied: "people.denied" };
+  function failed(e) { var k = e && ERR[e.code]; if (k) ui.toast(t(k), "bad"); else ui.failed(e); }
+  function redraw() { if (ui.current === "schedule") ui.refresh(); }
+
+  /* how a shift that has begun stands against the time clock */
+  function mark(sl) {
+    var a = B.attendance(sl);
+    if (a.state === "ontime") return { cls: ".is-ontime", text: t("sch.ontime"), badge: "ok" };
+    if (a.state === "late") return { cls: ".is-late", text: t("sch.late", { n: a.minutes }), badge: "warn" };
+    if (a.state === "notin") return { cls: ".is-notin", text: t("sch.notin"), badge: "warn" };
+    if (a.state === "absent") return { cls: ".is-absent", text: t("sch.absent"), badge: "bad" };
+    return null;
+  }
+
+  /* ---------- the room ---------- */
+  ui.rooms.schedule = function (main) {
+    if (S.week < MIN_WEEK || S.week > MAX_WEEK) S.week = 0;
+    var wk = weekKey(S.week), ds = daysOf(wk), lead = B.can("team");
+    main.appendChild(ui.roomHead("room.schedule", "tip.schedule", lead ? [h("button.key.primary#schAdd", { type: "button", onclick: function () { S.slotForm(null, { day: U.dayKey() }); } }, [U.icon("plus"), t("sch.add")])] : null));
+    var swaps = swapCard(lead); if (swaps) main.appendChild(swaps);
+    main.appendChild(mineCard());
+    main.appendChild(weekBar(wk, ds, lead));
+    main.appendChild(grid(wk, ds, lead));
+    main.appendChild(dayList(wk, ds, lead));
+    if (lead && wk <= U.dayKey()) main.appendChild(planned(wk, ds));
+  };
+
+  /* the week shown, the keys to move between weeks, and the leaders' keys to fill it */
+  function weekBar(wk, ds, lead) {
+    var label = h("p.sch-week#schWeek", null, [h("b", null, S.week === 0 ? t("sch.thisWeek") : S.week === 1 ? t("sch.nextWeek") : S.week === -1 ? t("sch.lastWeek") : t("sch.weekN")),
+      h("span", null, t("team.weekOf", { a: E.fmtDate(ds[0], "short"), b: E.fmtDate(ds[6], "short") }))]);
+    function move(n) { S.week = Math.max(MIN_WEEK, Math.min(MAX_WEEK, S.week + n)); ui.refresh(); }
+    var nav = h("div.sch-nav", null, [
+      h("button.icon-key#schPrev", { type: "button", "aria-label": t("sch.prev"), title: t("sch.prev"), disabled: S.week <= MIN_WEEK, onclick: function () { move(-1); } }, U.icon("back")),
+      label,
+      h("button.icon-key#schNext", { type: "button", "aria-label": t("sch.next"), title: t("sch.next"), disabled: S.week >= MAX_WEEK, onclick: function () { move(1); } }, U.icon("next")),
+      S.week !== 0 ? h("button.key.sm#schToday", { type: "button", onclick: function () { S.week = 0; ui.refresh(); } }, t("sch.thisWeek")) : null]);
+    var tools = null;
+    if (lead) {
+      var last = ds[6] < new Date(new Date().setHours(0, 0, 0, 0));
+      tools = h("div.sch-tools", null, [
+        h("button.key.sm#schFillUsual", { type: "button", disabled: last || !B.usualWeek().rows.length, title: B.usualWeek().rows.length ? "" : t("sch.noUsual"), onclick: function () { fill(wk, "usual"); } }, [U.icon("list"), t("sch.fillUsual")]),
+        h("button.key.sm#schFillLast", { type: "button", disabled: last, onclick: function () { fill(wk, "last"); } }, [U.icon("swap"), t("sch.fillLast")]),
+        h("button.key.sm#schKeep", { type: "button", onclick: function () { keep(wk); } }, [U.icon("check"), t("sch.keep")])]);
+    }
+    return h("section.card.sch-bar#schBar", { "aria-label": t("sch.weekH") }, [nav, tools]);
+  }
+  function fill(wk, source) {
+    ui.confirm(t(source === "usual" ? "sch.fillUsualQ" : "sch.fillLastQ"), t("sch.fillP"), t(source === "usual" ? "sch.fillUsual" : "sch.fillLast")).then(function (yes) {
+      if (!yes) return;
+      B.fillWeek(wk, source).then(function (added) { ui.toast(added && added.length ? t("sch.filled", { n: added.length }) : t("sch.filledNone"), added && added.length ? "good" : null); redraw(); }, failed);
+    });
+  }
+  function keep(wk) {
+    ui.confirm(t("sch.keepQ"), t("sch.keepP"), t("sch.keep")).then(function (yes) {
+      if (yes) B.saveUsualWeek(wk).then(function () { ui.toast(t("sch.kept"), "good"); redraw(); }, failed);
+    });
+  }
+
+  /* a shift as a small card: when it begins and ends, and how it stands against the clock */
+  function chip(sl, lead) {
+    var mine = sl.user === B.user.id, m = startsLater(sl) ? null : mark(sl), sw = openSwapOn(sl.id);
+    var can = lead || (mine && startsLater(sl) && !sw);
+    var title = nameOf(sl.user) + ", " + dayName(sl.day) + ", " + S.range(sl) + (m ? " · " + m.text : "") + (sw ? " · " + t("sch.swapOpen") : "") + (sl.note ? " · " + sl.note : "");
+    var kids = [h("b", null, tm(sl.day, sl.from)), h("small", null, t("sch.until", { t: tm(sl.day, sl.to) }))];
+    if (sl.note) kids.push(h("small.sch-note", null, sl.note));
+    if (m) kids.push(h("span.sch-mark", null, m.text));
+    if (sw) kids.push(h("span.sch-mark.sch-swap", null, [U.icon("swap"), t("sch.swapShort")]));
+    return h("button.sch-chip" + (mine ? ".mine" : "") + (m ? m.cls : "") + (sw ? ".swapping" : ""), { type: "button", "data-slot": sl.id, title: title, "aria-label": title,
+      onclick: function (e) { e.stopPropagation(); if (lead && sl.day >= U.dayKey()) S.slotForm(sl); else if (can) S.askForm(sl); else details(sl); } }, kids);
+  }
+  function details(sl) {
+    var m = startsLater(sl) ? null : mark(sl);
+    ui.dialog({ title: nameOf(sl.user), emoji: "🗓️", body: [h("p", null, dayName(sl.day)), h("p", null, h("b", null, S.range(sl))), sl.note ? h("p.muted", null, sl.note) : null,
+      m ? h("p", null, h("span.badge." + m.badge, null, m.text)) : null], actions: [{ label: t("close"), kind: "primary" }] });
+  }
+
+  /* the week as a table: a line for each person, a column for each day, and the hours planned */
+  function grid(wk, ds, lead) {
+    var all = B.slots(function (x) { return x.day >= wk && x.day <= U.dayKey(ds[6]); }), today = U.dayKey();
+    var who = people().filter(function (u) { return lead || u.role !== "owner" || all.some(function (x) { return x.user === u.id; }); });
+    return h("div.table-wrap.sch-wrap", null, h("table.grid.sch-grid#schGrid", { "aria-label": t("sch.weekH") }, [
+      h("thead", null, h("tr", null, [h("th", { scope: "col" }, t("people.name"))].concat(ds.map(function (d) {
+        var k = U.dayKey(d); return h("th" + (k === today ? ".today" : ""), { scope: "col", "data-day": k }, [h("span.sch-dow", null, t("sch.dow." + d.getDay())), h("span.sch-date", null, String(d.getDate()))]);
+      }), [h("th.num", { scope: "col" }, t("sch.hours"))]))),
+      h("tbody", null, who.map(function (u) {
+        var mins = 0;
+        var cells = ds.map(function (d) {
+          var k = U.dayKey(d), list = all.filter(function (x) { return x.user === u.id && x.day === k; });
+          list.forEach(function (x) { mins += B.slotMins(x); });
+          var add = lead && k >= today && !list.length ? h("button.sch-add", { type: "button", "aria-label": t("sch.addFor", { name: u.name, day: dayName(k) }), title: t("sch.add"), onclick: function () { S.slotForm(null, { user: u.id, day: k }); } }, U.icon("plus")) : null;
+          return h("td.sch-cell" + (k === today ? ".today" : "") + (k < today ? ".past" : ""), { "data-day": k, "data-person": u.id }, list.map(function (x) { return chip(x, lead); }).concat([add]));
+        });
+        return h("tr" + (u.id === B.user.id ? ".me" : ""), { "data-person": u.id }, [h("th.sch-person", { scope: "row", title: ui.personTag(u) }, [h("b", null, u.name), h("small", null, t("people.id", { n: B.numberOf(u) }))])]
+          .concat(cells, [h("td.num.sch-total", { title: mins ? ui.dur(mins * 60000) : "" }, mins ? hrs(mins) : "·")]));
+      }))]));
+  }
+  /* the same week, day by day, for a phone */
+  function dayList(wk, ds, lead) {
+    var all = B.slots(function (x) { return x.day >= wk && x.day <= U.dayKey(ds[6]); }), today = U.dayKey();
+    return h("div.sch-days#schDays", null, ds.map(function (d) {
+      var k = U.dayKey(d), list = all.filter(function (x) { return x.day === k; });
+      return h("section.sch-day" + (k === today ? ".today" : ""), { "data-day": k, "aria-label": dayName(k) }, [h("h3.sch-day-h", null, [h("b", null, t("sch.dow." + d.getDay())), h("span", null, E.fmtDate(d, "short"))]),
+        list.length ? h("ul.sch-day-list", null, list.map(function (x) { return h("li", null, [h("span.sch-who", null, nameOf(x.user)), chip(x, lead)]); })) : h("p.muted", null, t("sch.noneDay")),
+        lead && k >= today ? h("button.key.sm.sch-day-add", { type: "button", onclick: function () { S.slotForm(null, { day: k }); } }, [U.icon("plus"), t("sch.add")]) : null]);
+    }));
+  }
+
+  /* the person's own shifts, the next two weeks */
+  function mineCard() {
+    var me = B.user, today = U.dayKey(), until = U.dayKey(U.addDays(new Date(), 13));
+    var list = B.slots(function (x) { return x.user === me.id && x.day >= today && x.day <= until; });
+    return h("section.card.sch-mine#schMine", { "aria-labelledby": "schMineH" }, [h("div.card-head", null, h("h2#schMineH", null, [ui.emo("🗓️"), t("sch.mineH")])),
+      list.length ? h("ul.sch-mine-list", null, list.map(function (x) {
+        var sw = openSwapOn(x.id), later = startsLater(x), m = later ? null : mark(x);
+        return h("li.sch-mine-row", { "data-slot": x.id }, [h("span.sch-mine-day", null, [h("b", null, dayName(x.day)), h("small", null, S.range(x) + (x.note ? " · " + x.note : ""))]),
+          m ? h("span.badge." + m.badge, null, m.text) : null,
+          sw ? h("span.badge", null, t(sw.status === "agreed" ? "sch.swapAgreed" : "sch.swapAsked")) : null,
+          later && !sw ? h("button.key.sm", { type: "button", "data-act": "ask", onclick: function () { S.askForm(x); } }, [U.icon("swap"), t("sch.ask")]) : null]);
+      })) : h("p.muted#schMineNone", null, t("sch.mineNone"))]);
+  }
+
+  /* the requests: what is asked of this person, what waits for a leader, and their own */
+  function swapLine(w) {
+    var a = B.slotOf(w.slot), b = w.theirSlot ? B.slotOf(w.theirSlot) : null;
+    if (!a) return t("sch.swapGone");
+    var mineA = dayName(a.day) + ", " + S.range(a);
+    if (w.kind === "trade" && b) return t("sch.tradeLine", { a: nameOf(w.from), b: nameOf(w.to), x: mineA, y: dayName(b.day) + ", " + S.range(b) });
+    return t("sch.coverLine", { a: nameOf(w.from), b: nameOf(w.to), x: mineA });
+  }
+  function swapCard(lead) {
+    var me = B.user.id, recent = new Date(Date.now() - 3 * 86400000).toISOString();
+    var askedMe = B.swaps(function (w) { return w.to === me && w.status === "asked"; });
+    var toApprove = lead ? B.swaps(function (w) { return w.status === "agreed" && (B.isOwner() || (w.from !== me && w.to !== me)); }) : [];
+    var mine = B.swaps(function (w) { return w.from === me && (B.SWAP_OPEN.indexOf(w.status) >= 0 || (w.closed || w.decided || w.answered || "") >= recent); });
+    if (!askedMe.length && !toApprove.length && !mine.length) return null;
+    function row(w, keys, state) {
+      return h("li.sch-req", { "data-swap": w.id }, [h("span.sch-req-emo", { "aria-hidden": "true" }, w.kind === "trade" ? "🔁" : "🤝"),
+        h("span.sch-req-t", null, [h("b", null, swapLine(w)), w.note ? h("small", null, "“" + w.note + "”") : null]), state || null, keys.length ? h("span.sch-req-keys", null, keys) : null]);
+    }
+    var kids = [h("div.card-head", null, h("h2#schSwapsH", null, [ui.emo("🔁"), t("sch.swapsH")]))];
+    if (askedMe.length) kids.push(h("h3.sch-sub", null, t("sch.askedMe")), h("ul.sch-reqs#schAskedMe", null, askedMe.map(function (w) {
+      return row(w, [h("button.key.sm.primary", { type: "button", "data-act": "yes", onclick: function () { B.answerSwap(w.id, true).then(function () { ui.toast(t("sch.agreedT"), "good"); redraw(); }, failed); } }, [U.icon("check"), t("sch.yes")]),
+        h("button.key.sm", { type: "button", "data-act": "no", onclick: function () { B.answerSwap(w.id, false).then(function () { ui.toast(t("sch.declinedT")); redraw(); }, failed); } }, t("sch.no"))]);
+    })));
+    if (toApprove.length) kids.push(h("h3.sch-sub", null, t("sch.toApprove")), h("ul.sch-reqs#schToApprove", null, toApprove.map(function (w) {
+      return row(w, [h("button.key.sm.primary", { type: "button", "data-act": "approve", onclick: function () { B.decideSwap(w.id, true).then(function () { ui.toast(t("sch.approvedT"), "good"); redraw(); }, failed); } }, [U.icon("check"), t("sch.approve")]),
+        h("button.key.sm", { type: "button", "data-act": "refuse", onclick: function () { B.decideSwap(w.id, false).then(function () { ui.toast(t("sch.refusedT")); redraw(); }, failed); } }, t("sch.refuse"))]);
+    })));
+    if (mine.length) kids.push(h("h3.sch-sub", null, t("sch.myAsks")), h("ul.sch-reqs#schMyAsks", null, mine.map(function (w) {
+      var open = B.SWAP_OPEN.indexOf(w.status) >= 0;
+      var badge = h("span.badge" + (w.status === "approved" ? ".ok" : w.status === "agreed" || w.status === "asked" ? "" : ".bad"), null, t("sch.st." + w.status, { name: nameOf(w.to) }));
+      return row(w, open ? [h("button.key.sm", { type: "button", "data-act": "cancel", onclick: function () { B.cancelSwap(w.id).then(function () { ui.toast(t("sch.cancelledT")); redraw(); }, failed); } }, t("sch.cancel"))] : [], badge);
+    })));
+    return h("section.card.sch-swaps#schSwaps", { "aria-labelledby": "schSwapsH" }, kids);
+  }
+
+  /* planned against worked, for the weeks that have begun (leaders) */
+  function planned(wk, ds) {
+    var end = U.dayKey(ds[6]), today = U.dayKey(), all = B.slots(function (x) { return x.day >= wk && x.day <= end; });
+    var from = ds[0].getTime(), to = U.addDays(ds[6], 1).getTime();
+    var rows = people().map(function (u) {
+      var mine = all.filter(function (x) { return x.user === u.id; }), plan = 0, late = 0, absent = 0;
+      mine.forEach(function (x) { plan += B.slotMins(x) * 60000; if (x.day > today) return; var a = B.attendance(x); if (a.state === "late") late++; if (a.state === "absent") absent++; });
+      var worked = B.shifts(function (x) { return x.user === u.id; }).filter(function (x) { var a = Date.parse(x.in); return a >= from && a < to; }).reduce(function (m, x) { return m + B.shiftMs(x); }, 0);
+      if (!plan && !worked) return null;
+      return h("tr", { "data-person": u.id }, [h("th", { scope: "row" }, ui.personTag(u)), h("td.num", null, plan ? ui.dur(plan) : "·"), h("td.num", null, worked ? ui.dur(worked) : "·"),
+        h("td.num", null, late ? h("span.badge.warn", null, String(late)) : "0"), h("td.num", null, absent ? h("span.badge.bad", null, String(absent)) : "0")]);
+    }).filter(Boolean);
+    return h("section.card.sch-plan#schPlanned", { "aria-labelledby": "schPlannedH" }, [h("div.card-head", null, h("h2#schPlannedH", null, [ui.emo("⏱️"), t("sch.plannedH")])),
+      h("p.hint", null, t("sch.plannedP")),
+      rows.length ? h("div.table-wrap", null, h("table.grid#schPlannedT", null, [h("thead", null, h("tr", null, [h("th", null, t("people.name")), h("th.num", null, t("sch.planned")),
+        h("th.num", null, t("sch.worked")), h("th.num", null, t("sch.lateN")), h("th.num", null, t("sch.absentN"))])), h("tbody", null, rows)])) : h("p.muted", null, t("sch.noneWeek"))]);
+  }
+
+  /* ---------- a shift: added, changed or removed (leaders) ---------- */
+  S.slotForm = function (sl, pre) {
+    if (!B.can("team")) return;
+    pre = pre || {};
+    var who = ui.select(people().map(function (u) { return [u.id, u.name]; }), sl ? sl.user : pre.user || (people().filter(function (u) { return u.role !== "owner"; })[0] || B.user).id, { id: "slWho" });
+    var day = h("input#slDay", { type: "date", value: sl ? sl.day : pre.day || U.dayKey(), min: U.dayKey() });
+    var from = h("input#slFrom", { type: "time", value: sl ? sl.from : pre.from || "09:00", step: "300" });
+    var to = h("input#slTo", { type: "time", value: sl ? sl.to : pre.to || "17:00", step: "300" });
+    var note = ui.input({ id: "slNote", maxlength: "60", value: sl ? sl.note || "" : "", placeholder: t("sch.notePh") });
+    var actions = [{ label: t("cancel") }];
+    if (sl) actions.push({ label: t("remove"), kind: "danger", id: "slRemove", onClick: function (close) {
+      close();
+      ui.confirm(t("sch.removeQ", { name: nameOf(sl.user) }), dayName(sl.day) + ", " + S.range(sl), t("remove"), "danger").then(function (yes) {
+        if (yes) B.removeSlot(sl.id).then(function () { ui.toast(t("sch.removed")); redraw(); }, failed);
+      });
+    } });
+    actions.push({ label: t("save"), kind: "primary", id: "slSave", onClick: function (close, btn) {
+      ui.fieldError(from, ""); ui.fieldError(day, "");
+      var f = { user: who.value, day: day.value, from: from.value, to: to.value, note: note.value };
+      btn.disabled = true;
+      (sl ? B.changeSlot(sl.id, f) : B.addSlot(f)).then(function () { close(); ui.toast(t(sl ? "sch.changed" : "sch.added"), "good"); redraw(); }, function (e) {
+        btn.disabled = false;
+        var k = e && ERR[e.code];
+        if (e && (e.code === "overlap" || e.code === "hours")) ui.fieldError(from, t(k)); else if (e && (e.code === "day" || e.code === "pastday")) ui.fieldError(day, t(k)); else failed(e);
+      });
+      return false;
+    } });
+    ui.dialog({ title: t(sl ? "sch.editH" : "sch.addH"), emoji: "🗓️", body: [ui.field("sch.who", who), ui.field("sch.day", day),
+      h("div.sch-times", null, [ui.field("sch.from", from, { required: true }), ui.field("sch.to", to, { required: true })]), ui.field("sch.note", note),
+      sl && sl.swap ? h("p.hint", null, t("sch.wasSwapped")) : null], actions: actions, focus: sl ? "#slFrom" : "#slWho" });
+  };
+
+  /* ---------- asking a colleague: cover my shift, or trade one of theirs for it ---------- */
+  /* whether a person is free for a shift's hours that day (leaving out the shifts named, which change hands) */
+  function freeFor(user, x, skip) {
+    var a = +x.from.slice(0, 2) * 60 + +x.from.slice(3, 5), b = +x.to.slice(0, 2) * 60 + +x.to.slice(3, 5);
+    return !B.slots(function (y) { return y.user === user && y.day === x.day && skip.indexOf(y.id) < 0; }).some(function (y) {
+      var c = +y.from.slice(0, 2) * 60 + +y.from.slice(3, 5), d = +y.to.slice(0, 2) * 60 + +y.to.slice(3, 5); return c < b && a < d;
+    });
+  }
+  S.askForm = function (sl) {
+    var me = B.user, others = people().filter(function (u) { return u.id !== me.id; });
+    if (!others.length) { ui.toast(t("sch.noOne")); return; }
+    var kind = "cover";
+    var kindSeg = ui.seg([["cover", t("sch.kind.cover")], ["trade", t("sch.kind.trade")]], kind, function (v) { kind = v; draw(); }, t("sch.kindH"));
+    kindSeg.id = "swKind";
+    var who = ui.select(others.map(function (u) { return [u.id, u.name]; }), others.filter(function (u) { return u.role !== "owner"; }).concat(others)[0].id, { id: "swWho" });
+    var theirsBox = h("div#swTheirsBox"), note = ui.input({ id: "swNote", maxlength: "120", placeholder: t("sch.askNotePh") }), theirs = null, ok = true;
+    /* only what can work is offered: a colleague who already works then cannot cover, and a trade is listed only when
+       each of the two is free for the other's shift (the books check it all again when the request is sent) */
+    function draw() {
+      U.clear(theirsBox); theirs = null; ok = true;
+      if (kind !== "trade") {
+        if (!freeFor(who.value, sl, [])) { ok = false; theirsBox.appendChild(h("p.hint.sch-busy#swBusy", null, t("sch.busy", { name: nameOf(who.value) }))); }
+      } else {
+        var list = B.slots(function (x) { return x.user === who.value && x.day >= U.dayKey() && startsLater(x) && !openSwapOn(x.id) && freeFor(me.id, x, [sl.id]) && freeFor(who.value, sl, [x.id]); });
+        if (!list.length) { ok = false; theirsBox.appendChild(h("p.hint.sch-busy#swNoTheirs", null, t("sch.noTheirs", { name: nameOf(who.value) }))); }
+        else { theirs = ui.select(list.map(function (x) { return [x.id, dayName(x.day) + ", " + S.range(x)]; }), list[0].id, { id: "swTheirs" }); theirsBox.appendChild(ui.field("sch.theirShift", theirs)); }
+      }
+      var send = document.getElementById("swSend"); if (send) send.disabled = !ok;
+    }
+    who.addEventListener("change", draw);
+    /* the first colleague offered is one who is free then, if there is one */
+    var free = others.filter(function (u) { return u.role !== "owner" && freeFor(u.id, sl, []); })[0];
+    if (free) who.value = free.id;
+    draw();
+    ui.dialog({ title: t("sch.askH"), emoji: "🔁", body: [h("p", null, [h("b", null, dayName(sl.day)), h("br"), S.range(sl)]),
+      h("div.field", null, [h("div.label-row", null, h("span.lbl", null, t("sch.kindH"))), kindSeg]), ui.field("sch.askWho", who), theirsBox, ui.field("sch.askNote", note),
+      h("p.hint", null, t("sch.askP"))],
+      actions: [{ label: t("cancel") }, { label: t("sch.send"), kind: "primary", id: "swSend", onClick: function (close, btn) {
+        if (!ok || (kind === "trade" && !theirs)) return false;
+        btn.disabled = true;
+        B.askSwap({ slot: sl.id, to: who.value, kind: kind, theirSlot: theirs ? theirs.value : null, note: note.value }).then(function () {
+          close(); ui.toast(t("sch.sent", { name: nameOf(who.value) }), "good"); redraw();
+        }, function (e) { btn.disabled = false; failed(e); });
+        return false;
+      } }] });
+    /* the Send key exists now: closed while nothing that can work is chosen */
+    draw();
+  };
+
+  /* ---------- the Home: the next shift, what is asked of the person, and what waits for a leader ---------- */
+  S.homeRows = function (need) {
+    var out = [], me = B.user; if (!me) return out;
+    var today = U.dayKey(), soon = U.dayKey(U.addDays(new Date(), 7));
+    var next = B.slots(function (x) { return x.user === me.id && x.day >= today && x.day <= soon && at(x.day, x.to).getTime() > Date.now(); })[0];
+    if (next) {
+      var n = Math.round((U.fromDayKey(next.day).getTime() - U.fromDayKey(today).getTime()) / 86400000);
+      out.push(need("🗓️", t("sch.homeNext", { day: n === 0 ? t("sch.today") : n === 1 ? t("sch.tomorrow") : dayName(next.day) }), S.range(next) + (next.note ? " · " + next.note : ""), null,
+        [t("home.open"), function () { S.week = 0; ui.go("schedule"); }]));
+    }
+    B.swaps(function (w) { return w.to === me.id && w.status === "asked"; }).forEach(function (w) {
+      out.push(need("🔁", t(w.kind === "trade" ? "sch.homeTrade" : "sch.homeCover", { name: nameOf(w.from) }), swapLine(w), "warn", [t("home.open"), function () { ui.go("schedule"); }]));
+    });
+    if (B.can("team")) {
+      var waiting = B.swaps(function (w) { return w.status === "agreed" && (B.isOwner() || (w.from !== me.id && w.to !== me.id)); }).length;
+      if (waiting) out.push(need("🔁", t(waiting === 1 ? "sch.homeApprove1" : "sch.homeApprove", { n: waiting }), t("sch.homeApproveSub"), "warn", [t("home.open"), function () { ui.go("schedule"); }]));
     }
     return out;
   };
