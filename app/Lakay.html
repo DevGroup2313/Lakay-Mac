@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-oFT2BlGIiIzFSWe27uNA7cswlOAfeBDQj1Mw26FuOYw='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-yLEP2ImGPwB97KftIomlhIeKXgkaqJKwNy++wUd0ddQ='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#f5f4f8">
 <meta name="application-name" content="Lakay">
-<meta name="lakay-build" content="22">
-<!-- LAKAY | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt. Build 22 (2026-11-15). -->
+<meta name="lakay-build" content="23">
+<!-- LAKAY | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt. Build 23 (2026-11-15). -->
 <title>Lakay</title>
 <!-- Lakay's logo, inside the page (the page's own policy shows only pictures it carries): the square tile, filled edge to
      edge with the coin's periwinkle, for the shortcuts a browser makes on a home screen; the round coin, on nothing, for the
@@ -1270,6 +1270,10 @@ button.hx-item:hover { transform: translateY(-1px); box-shadow: var(--pill); }
 .ea-sec .table-wrap { position: relative; }
 #eaLogT td:first-child, #eaLogT td.num, .ea-pay td.num { white-space: nowrap; }
 .ea-pay .row-key { white-space: nowrap; }
+
+/* ---------- the customers' fees the store keeps (Build 23) ---------- */
+.ea-mine { color: var(--pri-text); font-weight: 600; }
+.ea-mine-tag { display: block; color: var(--pri-text); font-size: .7rem; font-weight: 600; letter-spacing: .02em; }
 
 /* LAKAY | Home (Build 13, 12-home-register.js): the shell's own colours, worn the way Ingenium and Carpe Diem wear
    theirs. The large surfaces are white slabs with crisp hairline rims; the cards set inside them and the keys that act
@@ -2797,7 +2801,7 @@ html.drilling .shell { outline: 3px solid rgba(var(--pri-rgb), .35); outline-off
 "use strict";
 
 var E = window.Emporium = window.Emporium || {};
-E.BUILD = { number: "22", date: "2026-11-15" };
+E.BUILD = { number: "23", date: "2026-11-15" };
 
 /* ---------- drawing: every piece of text goes in as text, never as markup ---------- */
 function $(sel, root) { return (root || document).querySelector(sel); }
@@ -4815,6 +4819,16 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     ["ea.cmMore", "And {n} more, shown once these are written.", "Et {n} de plus, montrées une fois celles-ci écrites.", "Ak {n} lòt ankò, y ap parèt lè sa yo fin ekri."],
     ["ea.cmSaved", "{n} commissions written. The earnings are worked out again.", "{n} commissions écrites. Les gains sont recalculés.", "{n} komisyon ekri. Benefis yo kalkile ankò."],
     ["ea.cmSaved1", "1 commission written. The earnings are worked out again.", "1 commission écrite. Les gains sont recalculés.", "1 komisyon ekri. Benefis yo kalkile ankò."],
+    ["ea.feeH", "Who keeps the customer's fee", "Qui garde les frais du client", "Ki moun ki kenbe frè kliyan an"],
+    ["ea.feeWho.provider", "The provider", "Le fournisseur", "Konpayi an"], ["ea.feeWho.store", "The store", "Le magasin", "Magazen an"],
+    ["ea.feeD.provider", "The fee a customer pays on top goes to the provider with the money sent. Only the commission is the store's.", "Les frais payés en plus par le client vont au fournisseur avec l'argent envoyé. Seule la commission est au magasin.", "Frè kliyan an peye anplis ale bay konpayi an ak lajan yo voye a. Se komisyon an sèlman ki pou magazen an."],
+    ["ea.feeD.store", "The store keeps the fee a customer pays on top. It counts as the store's earning, with the commission, and is not paid to the provider.", "Le magasin garde les frais payés en plus par le client. Ils comptent comme gain du magasin, avec la commission, et ne sont pas payés au fournisseur.", "Magazen an kenbe frè kliyan an peye anplis. Li konte kòm benefis magazen an, ak komisyon an, epi yo pa peye l bay konpayi an."],
+    ["ea.fee.store", "The store keeps the fee", "Le magasin garde les frais", "Magazen an kenbe frè a"],
+    ["ea.feesKept", "Customers' fees kept by the store: {m} in all", "Frais des clients gardés par le magasin : {m} en tout", "Frè kliyan magazen an kenbe: {m} antou"],
+    ["ea.apartFee", "{m} in customers' fees the store keeps ({p})", "{m} de frais de clients gardés par le magasin ({p})", "{m} frè kliyan magazen an kenbe ({p})"],
+    ["ea.feeMine", "the store's", "au magasin", "pou magazen an"],
+    ["ea.feeMineT", "The store keeps this provider's fees.", "Le magasin garde les frais de ce fournisseur.", "Magazen an kenbe frè konpayi sa a."],
+    ["ea.feesNoteSome", "The fees customers pay are the providers' money, except for {p}, whose fees the store keeps.", "Les frais payés par les clients sont l'argent des fournisseurs, sauf pour {p}, dont le magasin garde les frais.", "Frè kliyan yo peye se lajan konpayi yo, eksepte pou {p}, magazen an kenbe frè pa yo."],
     ["access.pay.s", "Pay", "Paie", "Salè"],
     ["access.pay.d", "Everyone's pay rates and hours, and marking pay as paid. Only the owner gives it, and no one sets their own pay.", "Les taux et les heures de chacun, et la paie marquée comme payée. Seul le propriétaire le donne, et personne ne fixe sa propre paie.", "To ak lè travay tout moun, ak make salè peye. Se mèt la sèlman ki bay li, epi pèsonn pa fikse pwòp salè pa l."],
     ["tips.earnings.1", "Record each deposit or bank sweep as it happens. The amount held for each provider then stays right.", "Notez chaque dépôt ou prélèvement au moment où il se fait. Le montant gardé pour chaque fournisseur reste alors juste.", "Note chak depo oswa chak fwa labank pran lajan, lè sa rive. Konsa montan ki kenbe pou chak konpayi an rete kòrèk."],
@@ -6770,6 +6784,9 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
      a provider's statement can be checked against it, and the check is kept. A mistake is voided with a reason. */
   B.PROV_HOW = ["sweep", "deposit", "prepaid"];
   B.PROV_COM = ["deducted", "monthly"];
+  /* Build 23: who keeps the fee a customer pays on top: the provider (as since Build 15) or the store, whose own
+     earning it then is, with the commission */
+  B.PROV_FEE = ["provider", "store"];
   B.SETTLE_KINDS = ["paid", "returned", "commission"];
   B.provSetup = function (id) { var x = state && state.provs && state.provs[id]; return x ? clone(x) : null; };
   B.setProvSetup = function (id, f) {
@@ -6777,9 +6794,11 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
       need("owner");
       if (B.PROVIDERS.indexOf(id) < 0) throw err("provider");
       if (B.PROV_HOW.indexOf(f.how) < 0 || B.PROV_COM.indexOf(f.com) < 0) throw err("how");
-      var cur = (st.provs || {})[id] || null, v = { id: id, how: f.how, com: f.com, note: plain(f.note, 120), at: clock().toISOString(), by: B.user.id };
-      if (cur && cur.how === v.how && cur.com === v.com && (cur.note || "") === v.note) return null;
-      return { type: "provider.setup", data: { provider: id, how: v.how, com: v.com, was: cur ? [cur.how, cur.com] : null }, recs: [{ kind: "prov", id: id, value: v }], result: v };
+      var cur = (st.provs || {})[id] || null, fee = f.fee === undefined ? (cur && cur.fee) || "provider" : f.fee;
+      if (B.PROV_FEE.indexOf(fee) < 0) throw err("how");
+      var v = { id: id, how: f.how, com: f.com, fee: fee, note: plain(f.note, 120), at: clock().toISOString(), by: B.user.id };
+      if (cur && cur.how === v.how && cur.com === v.com && (cur.fee || "provider") === v.fee && (cur.note || "") === v.note) return null;
+      return { type: "provider.setup", data: { provider: id, how: v.how, com: v.com, fee: v.fee, was: cur ? [cur.how, cur.com, cur.fee || "provider"] : null }, recs: [{ kind: "prov", id: id, value: v }], result: v };
     });
   };
   B.settle = function (f) {
@@ -6826,7 +6845,10 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
       else if (x.kind === "commission") a.comReceived += x.amount;
     });
     a.kept = com === "deducted" ? a.commission : 0;
-    a.held = a.collected - a.kept - a.paid + a.returned;
+    /* the customer's fees, when the store keeps them, are the store's from the start (Build 23) */
+    a.feeStore = !!(setup && setup.fee === "store");
+    a.feeKept = a.feeStore ? a.fees : 0;
+    a.held = a.collected - a.kept - a.feeKept - a.paid + a.returned;
     a.comDue = com === "monthly" ? a.commission - a.comReceived : 0;
     a.lastCheck = (st.stmts || []).filter(function (x) { return x.provider === id; }).map(clone).pop() || null;
     return a;
@@ -11255,8 +11277,13 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
 
   /* ---------- the rail ---------- */
   var KEYS = [["notes", "🗒️", "rail.notes"], ["sale", "🛒", "rail.sale"], ["find", "🔎", "rail.find"]];
+  /* On a phone the three keys would stand over the page, so a phone starts with them laid down: one press of the small
+     key stands them up, and the device remembers the choice (the owner, 15 November 2026). A computer and a tablet start
+     with them standing, as before. */
+  function phone() { try { return !!(window.matchMedia && window.matchMedia("(max-width: 760px)").matches); } catch (e) { return false; } }
+  R.isDown = function () { var pref = U.prefGet("railDown", ""); return pref ? pref === "1" : phone(); };
   R.build = function () {
-    var down = U.prefGet("railDown", "0") === "1";
+    var down = R.isDown();
     var box = h("div#rail.rail" + (down ? ".down" : ""), { role: "toolbar", "aria-label": t("rail.label") });
     /* the new-sale key only for those who sell */
     var keys = KEYS.filter(function (k) { return k[0] !== "sale" || !B.isOpen || B.can("sell"); });
@@ -11267,7 +11294,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
       box.appendChild(b);
     });
     var chev = h("button#railChevron", { type: "button", title: t(down ? "rail.up" : "rail.down"), "aria-label": t(down ? "rail.up" : "rail.down"), "aria-expanded": String(!down), onclick: function () {
-      U.prefSet("railDown", U.prefGet("railDown", "0") === "1" ? "0" : "1"); closePop(); R.refresh();
+      U.prefSet("railDown", R.isDown() ? "0" : "1"); closePop(); R.refresh();
     } }, down ? "‹" : "›");
     chev.style.bottom = "calc(" + (52 + keys.length * 56) + "px + env(safe-area-inset-bottom, 0px))";
     box.appendChild(chev);
@@ -13810,7 +13837,10 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   PANES.store = function (pane) {
     var rg = E.reports.range(EA.period), r = B.report(rg.from, rg.to, null, null), sv = r.services;
     /* the travel bookings' fees (Build 22): the whole fee, or what was kept of a cancelled booking's */
-    var bk = B.bookingEarned ? B.bookingEarned(rg.from, rg.to) : { count: 0, fees: 0, cancelled: 0 }, apart = sv.commission + bk.fees, nbk = bk.count + bk.cancelled;
+    var bk = B.bookingEarned ? B.bookingEarned(rg.from, rg.to) : { count: 0, fees: 0, cancelled: 0 }, nbk = bk.count + bk.cancelled;
+    /* the customers' fees of the providers whose fee the store keeps (Build 23) */
+    var feeStore = Object.keys(sv.byProvider).filter(function (p) { var x = B.provSetup(p); return x && x.fee === "store"; }),
+      feeKept = feeStore.reduce(function (m, p) { return m + sv.byProvider[p].fees; }, 0), apart = sv.commission + bk.fees + feeKept;
     var unknownList = noCommission(function (v) { return v.day >= rg.from && v.day <= rg.to; }), unknown = unknownList.length;
     var chips = h("div.chips.ea-spans", { role: "group", "aria-label": t("ea.spanH") }, SPANS.map(function (p) {
       return h("button.chip", { type: "button", "data-p": p, "aria-pressed": String(EA.period === p), onclick: function () { EA.period = p; redraw(); } }, t("rep.p." + p));
@@ -13821,13 +13851,16 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     pane.appendChild(h("section.card.ea-hero#eaApartCard", { "aria-labelledby": "eaApartH" }, [
       h("div.ea-hero-t", null, [h("p.label-caps#eaApartH", null, [ui.emo("💰"), t("ea.apart")]), h("p.ea-big#eaApart", null, money(apart)),
         sv.count || !nbk ? h("p.ea-sub#eaApartCom", null, sv.count ? t(sv.count === 1 ? "ea.apartCom1" : "ea.apartCom", { n: sv.count, m: money(sv.commission) }) : t("ea.apartNone")) : null,
-        nbk ? h("p.ea-sub#eaApartBk", null, t(nbk === 1 ? "ea.apartBk1" : "ea.apartBk", { n: nbk, m: money(bk.fees) })) : null]),
+        nbk ? h("p.ea-sub#eaApartBk", null, t(nbk === 1 ? "ea.apartBk1" : "ea.apartBk", { n: nbk, m: money(bk.fees) })) : null,
+        feeStore.length ? h("p.ea-sub#eaApartFee", null, t("ea.apartFee", { m: money(feeKept), p: feeStore.map(function (p) { return t("svc.p." + p); }).join(", ") })) : null]),
       provs.length ? h("div.table-wrap", null, h("table.grid.compact#eaByProv", null, [
         h("thead", null, h("tr", null, [h("th", null, t("svc.provider")), h("th.num", null, t("svc.entries")), h("th.num", null, t("svc.commission")), h("th.num", null, t("svc.fees"))])),
-        h("tbody", null, provs.map(function (p) { var x = sv.byProvider[p]; return h("tr", null, [h("td", null, t("svc.p." + p)), h("td.num", null, String(x.count)), h("td.num", null, money(x.commission)), h("td.num", null, money(x.fees))]); }))])) : null,
+        h("tbody", null, provs.map(function (p) { var x = sv.byProvider[p], mine = feeStore.indexOf(p) >= 0;
+          return h("tr", null, [h("td", null, t("svc.p." + p)), h("td.num", null, String(x.count)), h("td.num", null, money(x.commission)),
+            h("td.num" + (mine ? ".ea-mine" : ""), mine ? { title: t("ea.feeMineT") } : null, [money(x.fees), mine ? h("small.ea-mine-tag", null, t("ea.feeMine")) : null])]); }))])) : null,
       unknown ? h("div.note.ea-unknown#eaUnknown", null, [ui.emo("ℹ️"), h("span", null, t(unknown === 1 ? "ea.unknown1" : "ea.unknown", { n: unknown })),
         h("button.key.sm#eaWriteCom", { type: "button", onclick: function () { EA.comForm(unknownList); } }, [U.icon("edit"), t("ea.cmKey")])]) : null,
-      h("p.hint", null, t("ea.feesNote"))]));
+      h("p.hint", null, feeStore.length ? t("ea.feesNoteSome", { p: feeStore.map(function (p) { return t("svc.p." + p); }).join(", ") }) : t("ea.feesNote"))]));
     /* with the sales, for those who see the costs; and after pay, for those who also see it */
     if (B.can("costs")) {
       var all = r.profit + apart;
@@ -13902,13 +13935,15 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
       h("li", null, a.lastPaid ? t(prepaid ? "ea.lastAdded" : "ea.lastPaid", { d: dshort(a.lastPaid), m: money(a.paid) })
         : a.lastReturned ? t("ea.lastReturned", { d: dshort(a.lastReturned), m: money(a.returned) }) : t("ea.neverPaid")),
       chk ? h("li" + (chk.diff ? ".off" : ""), null, chk.diff ? t("ea.checkOff", { d: dshort(chk.day), m: money(Math.abs(chk.diff)) }) : t("ea.checkOk", { d: dshort(chk.day) })) : null,
+      a.feeStore ? h("li", null, t("ea.feesKept", { m: money(a.feeKept) })) : null,
       a.unknown ? h("li.off", null, [t(a.unknown === 1 ? "ea.unknown1" : "ea.unknown", { n: a.unknown }), " ",
         h("button.row-key#eaWriteCom-" + id, { type: "button", onclick: function () { EA.comForm(noCommission(function (v) { return v.provider === id; })); } }, h("span", null, t("ea.cmKey")))]) : null];
     var keys = [h("button.key.sm.primary#eaSettle-" + id, { type: "button", onclick: function () { EA.settleForm(id); } }, [U.icon("plus"), t("ea.record")]),
       h("button.key.sm#eaCheck-" + id, { type: "button", onclick: function () { EA.checkForm(id); } }, [U.icon("check"), t("ea.check")])];
     if (B.isOwner()) keys.push(h("button.key.sm#eaSetup-" + id, { type: "button", onclick: function () { EA.setupForm(id); } }, [U.icon("gear"), t("ea.setup")]));
     return h("article.ea-prov" + (prepaid ? ".prepaid" : ""), { id: "eaProv-" + id, "data-provider": id, "aria-labelledby": "eaProvH-" + id }, [
-      h("div.ea-prov-h", null, [h("h3", { id: "eaProvH-" + id }, name), h("div.ea-tags", null, s ? [h("span.ea-chip", null, t("ea.how." + s.how)), h("span.ea-chip", null, t("ea.com." + s.com))]
+      h("div.ea-prov-h", null, [h("h3", { id: "eaProvH-" + id }, name), h("div.ea-tags", null, s ? [h("span.ea-chip", null, t("ea.how." + s.how)), h("span.ea-chip", null, t("ea.com." + s.com)),
+        s.fee === "store" ? h("span.ea-chip.paid", null, t("ea.fee.store")) : null]
         : [h("span.ea-chip.warn", null, t("ea.notSet"))])]),
       h("div.ea-figs.two", null, [main, com]), h("ul.ea-facts", null, facts), h("div.ea-keys", null, keys)]);
   }
@@ -13994,17 +14029,18 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   /* how a provider settles: the owner's to say */
   EA.setupForm = function (id) {
     if (!B.isOwner()) return;
-    var cur = B.provSetup(id) || { how: "deposit", com: "deducted", note: "" }, how = cur.how, com = cur.com;
-    var d1 = h("p.hint.ea-hint#psHowD"), d2 = h("p.hint.ea-hint#psComD");
-    function desc() { d1.textContent = t("ea.howD." + how); d2.textContent = t("ea.comD." + com); }
+    var cur = B.provSetup(id) || { how: "deposit", com: "deducted", fee: "provider", note: "" }, how = cur.how, com = cur.com, fee = cur.fee || "provider";
+    var d1 = h("p.hint.ea-hint#psHowD"), d2 = h("p.hint.ea-hint#psComD"), d3 = h("p.hint.ea-hint#psFeeD");
+    function desc() { d1.textContent = t("ea.howD." + how); d2.textContent = t("ea.comD." + com); d3.textContent = t("ea.feeD." + fee); }
     var howSeg = ui.seg(B.PROV_HOW.map(function (k) { return [k, t("ea.how." + k)]; }), how, function (v) { how = v; desc(); }, t("ea.howH")); howSeg.id = "psHow";
     var comSeg = ui.seg(B.PROV_COM.map(function (k) { return [k, t("ea.com." + k)]; }), com, function (v) { com = v; desc(); }, t("ea.comH")); comSeg.id = "psCom";
+    var feeSeg = ui.seg(B.PROV_FEE.map(function (k) { return [k, t("ea.feeWho." + k)]; }), fee, function (v) { fee = v; desc(); }, t("ea.feeH")); feeSeg.id = "psFee";
     var note = ui.input({ id: "psNote", maxlength: "120", value: cur.note || "", placeholder: t("ea.setupNotePh") });
     desc();
-    ui.dialog({ title: t("ea.setupH", { p: t("svc.p." + id) }), emoji: "⚙️", body: [h("p.label-caps", null, t("ea.howH")), howSeg, d1, h("p.label-caps", null, t("ea.comH")), comSeg, d2, ui.field("ea.note", note)],
+    ui.dialog({ title: t("ea.setupH", { p: t("svc.p." + id) }), emoji: "⚙️", body: [h("p.label-caps", null, t("ea.howH")), howSeg, d1, h("p.label-caps", null, t("ea.comH")), comSeg, d2, h("p.label-caps", null, t("ea.feeH")), feeSeg, d3, ui.field("ea.note", note)],
       actions: [{ label: t("cancel") }, { label: t("save"), kind: "primary", id: "psSave", onClick: function (close, btn) {
         btn.disabled = true;
-        B.setProvSetup(id, { how: how, com: com, note: note.value }).then(function () { close(); ui.toast(t("ea.setupSaved"), "good"); redraw(); }, function (e) { btn.disabled = false; failed(e); });
+        B.setProvSetup(id, { how: how, com: com, fee: fee, note: note.value }).then(function () { close(); ui.toast(t("ea.setupSaved"), "good"); redraw(); }, function (e) { btn.disabled = false; failed(e); });
         return false;
       } }] });
   };
