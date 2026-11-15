@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-yLEP2ImGPwB97KftIomlhIeKXgkaqJKwNy++wUd0ddQ='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-nVUTSmdkgZdA2+bcNq/9R210WyDp+omy2Z+Z0VqAdF8='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#f5f4f8">
 <meta name="application-name" content="Lakay">
-<meta name="lakay-build" content="23">
-<!-- LAKAY | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt. Build 23 (2026-11-15). -->
+<meta name="lakay-build" content="24">
+<!-- LAKAY | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt. Build 24 (2026-11-15). -->
 <title>Lakay</title>
 <!-- Lakay's logo, inside the page (the page's own policy shows only pictures it carries): the square tile, filled edge to
      edge with the coin's periwinkle, for the shortcuts a browser makes on a home screen; the round coin, on nothing, for the
@@ -1031,6 +1031,21 @@ button.hx-item:hover { transform: translateY(-1px); box-shadow: var(--pill); }
 .quiz-why.ok { color: var(--ink); }
 .quiz-why.no { color: var(--danger); }
 
+/* LAKAY | The name tip (09-nametip.js, Build 24), as Carpe Diem draws it: a small label above a key, in the colours of
+   the surface beneath, with a pointer to the key; below the key when there is no room above. */
+#name-tip { position: fixed; z-index: 2147483602; display: none; pointer-events: none; width: max-content; max-width: 260px; padding: 6px 11px 7px;
+  border-radius: 8px; border: 1px solid transparent; text-align: center; opacity: 0; transition: opacity .12s ease; box-sizing: border-box;
+  font-family: var(--sans); }
+#name-tip.show { opacity: 1; }
+#name-tip .nt-title { font-size: 12.5px; font-weight: 600; line-height: 1.3; }
+#name-tip .nt-chip { display: inline-block; width: 11px; height: 11px; border-radius: 50%; vertical-align: -1px; margin-right: 6px; }
+#name-tip .nt-line { font-size: 11.5px; font-weight: 400; margin-top: 2px; line-height: 1.35; opacity: .78; }
+#name-tip::after { content: ""; position: absolute; left: var(--nt-x, 50%); bottom: -5px; transform: translateX(-50%) rotate(45deg); width: 8px; height: 8px;
+  background: var(--nt-bg); border-right: 1px solid var(--nt-edge); border-bottom: 1px solid var(--nt-edge); }
+#name-tip.below::after { bottom: auto; top: -5px; border: none; border-left: 1px solid var(--nt-edge); border-top: 1px solid var(--nt-edge); }
+@media (prefers-reduced-motion: reduce) { #name-tip { transition: none; } }
+@media print { #name-tip { display: none !important; } }
+
 /* LAKAY | the side rail (20-rail.js), as Ingenium has it: bare emoji keys down the right edge, a small key above them */
 .rail-btn { position: fixed; right: calc(16px + env(safe-area-inset-right, 0px)); z-index: 900; width: 46px; height: 46px; padding: 0; border: 0; border-radius: 50%;
   background: transparent; cursor: pointer; display: grid; place-items: center; -webkit-tap-highlight-color: transparent;
@@ -1137,6 +1152,10 @@ button.hx-item:hover { transform: translateY(-1px); box-shadow: var(--pill); }
 .alerts-sec.rail-pop-in .rp-head { margin-bottom: 2px; }
 .alerts-sec.rail-pop-in .rp-head h3 { font: 600 .98rem/1.2 var(--serif); letter-spacing: .05em; }
 .alerts-sec.rail-pop-in .rp-emo { font-size: .95rem; }
+/* the calculator's own picture (Build 24): it sits where the emoji would, at the same size; the window's title shows it small */
+.rail-btn > span > .calc-glyph { display: block; width: 1em; height: 1em; filter: drop-shadow(0 1px 1px rgba(34, 28, 60, .18)); }
+.calc-title { display: inline-flex; align-items: center; gap: 6px; }
+.calc-title .calc-glyph { flex: none; }
 
 /* LAKAY | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt.
    Earnings (Build 21): the tabs, the figures, the store's earnings for a period, each provider's account as a white
@@ -1280,9 +1299,10 @@ button.hx-item:hover { transform: translateY(-1px); box-shadow: var(--pill); }
    are the logo's periwinkle enamel, or a gentle lavender beside it. Every colour comes from Lakay's mark: its
    periwinkle enamel, the indigo of the shell's sides, the pearl of the shell, and the fine champagne gold of its rim.
    The welcome is a white slab with the shell's spiral engraved faintly across it, and the mark standing alone in its
-   own depth and motion; the day's figures roll into place on pearl drums in a pearl card touched with periwinkle; the
-   counter's keys travel down when pressed; the rooms are white drawers with enamel jewels in a lavender tray (Build 14:
-   the ring around the mark, the solid enamel card and key, and the champagne plaque are gone, at the owner's request).
+   own depth and motion; the day's figures roll into place on pearl drums in a pearl card touched with periwinkle, which
+   stands out in depth and leans toward the hand (Build 24); every figure, chip and the date is a key; the counter's
+   keys are sharp acrylic (Build 24); the rooms are white drawers with enamel jewels in a lavender tray (Build 14: the
+   ring around the mark, the solid enamel card and key, and the champagne plaque are gone, at the owner's request).
    Calm and "reduce motion" hold it all still. */
 
 /* ---------- the shell's colours, by day ---------- */
@@ -1365,8 +1385,19 @@ button.hx-item:hover { transform: translateY(-1px); box-shadow: var(--pill); }
 :root[data-theme="night"] .ct-hero .hm-hello { color: #f5f2fd; }
 .ct-hero .hm-lede { margin: 8px 0 0; max-width: 56ch; font-size: .9rem; line-height: 1.5; color: var(--ink-2); }
 .hm-chips { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.hm-chips > li { display: flex; }
 .hm-chip { display: inline-flex; align-items: center; gap: 6px; min-height: 27px; padding: 0 11px; border-radius: 999px; box-sizing: border-box;
   font: 600 .74rem/1 var(--sans); color: var(--pri-text); background: var(--pri-soft); border: 1px solid rgba(var(--pri-rgb), .20); }
+/* Build 24: each chip is a key: the last sale opens its receipt, no sale yet opens a new one, the clock opens the Team */
+button.hm-chip { appearance: none; -webkit-appearance: none; margin: 0; cursor: pointer; transition: transform .2s var(--spring), background-color .2s ease, box-shadow .2s ease; -webkit-tap-highlight-color: transparent; }
+button.hm-chip:hover { transform: translateY(-2px); background-color: rgba(var(--pri-rgb), .15); box-shadow: 0 4px 10px rgba(40, 36, 110, .12); }
+:root[data-theme="night"] button.hm-chip:hover { box-shadow: 0 4px 10px rgba(0, 0, 0, .35); }
+button.hm-chip:active, button.hm-chip.ct-pressed { transform: translateY(0) scale(.96); }
+button.hm-chip:focus-visible { outline: 2px solid var(--pri-ring); outline-offset: 2px; }
+button.hm-chip:hover .emo { animation: ctWiggle .5s ease; }
+@keyframes ctWiggle { 0%, 100% { transform: none; } 30% { transform: rotate(-12deg) scale(1.12); } 60% { transform: rotate(8deg); } }
+.hm-chip.on::after { animation: ctBeat 2.4s ease-in-out infinite; }
+@keyframes ctBeat { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .55; transform: scale(.8); } }
 .hm-chip .emo { font-size: .85rem; }
 .hm-chip.on::after { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #8d93ff; box-shadow: 0 0 6px rgba(141, 147, 255, .9); }
 
@@ -1411,36 +1442,90 @@ button.hx-item:hover { transform: translateY(-1px); box-shadow: var(--pill); }
   background: linear-gradient(180deg, var(--tray), var(--bg-wash)); border: 1px solid var(--line); border-top: 0;
   box-shadow: inset 0 14px 12px -12px rgba(34, 28, 60, .16), 0 2px 0 rgba(34, 28, 60, .05), 0 10px 22px rgba(34, 28, 60, .07); }
 :root[data-theme="night"] .ct-keys { background: linear-gradient(180deg, #171724, #13131e); box-shadow: inset 0 14px 12px -12px rgba(0, 0, 0, .6), 0 2px 0 rgba(0, 0, 0, .4), 0 10px 22px rgba(0, 0, 0, .35); }
+/* Build 24, at the owner's request: the keys are sharp acrylic, made as Ingenium's keys and cards are, with no gloss
+   and no soft skirt: a crisp face from white to a breath of lilac, a hairline edge, a thin ledge beneath and a soft
+   shadow; each rises as the hand comes near and presses in when pressed. The colours stay: New sale wears the
+   periwinkle (its edge, its title, the ring around its cart); Receive and Price check the gentle lavender. */
+.hm { --k-line: rgba(34, 28, 60, .13);
+  --k-pop: inset 0 1px 0 rgba(255, 255, 255, .9), inset 0 -1.5px 0 rgba(34, 28, 60, .08), 0 2.5px 0 rgba(34, 28, 60, .13), 0 7px 13px rgba(34, 28, 60, .11), 0 15px 26px rgba(34, 28, 60, .08);
+  --k-pop-hi: inset 0 1px 0 rgba(255, 255, 255, .95), inset 0 -1.5px 0 rgba(34, 28, 60, .08), 0 4px 0 rgba(34, 28, 60, .12), 0 10px 17px rgba(34, 28, 60, .15), 0 20px 36px rgba(34, 28, 60, .11);
+  --k-press: inset 0 2px 6px rgba(34, 28, 60, .24), 0 1px 0 rgba(34, 28, 60, .08); }
+:root[data-theme="night"] .hm { --k-line: rgba(214, 210, 255, .14);
+  --k-pop: inset 0 1px 0 rgba(255, 255, 255, .10), inset 0 -1.5px 0 rgba(0, 0, 0, .30), 0 2px 0 rgba(0, 0, 0, .45), 0 8px 15px rgba(0, 0, 0, .46), 0 17px 30px rgba(0, 0, 0, .38);
+  --k-pop-hi: inset 0 1px 0 rgba(255, 255, 255, .13), inset 0 -1.5px 0 rgba(0, 0, 0, .30), 0 4px 0 rgba(0, 0, 0, .46), 0 11px 20px rgba(0, 0, 0, .50), 0 24px 40px rgba(0, 0, 0, .42);
+  --k-press: inset 0 2px 6px rgba(0, 0, 0, .55), 0 1px 0 rgba(0, 0, 0, .3); }
 /* each key keeps room for its words: three in a row on a wide counter, fewer to a row on a narrow one */
-.ct-key { position: relative; flex: 1 1 210px; min-width: 0; display: block; padding: 0 0 7px; border: 0; border-radius: 16px; background: transparent; color: inherit; font: inherit; text-align: left;
+.ct-key { position: relative; flex: 1 1 210px; min-width: 0; display: block; padding: 0; border: 0; border-radius: 12px; background: transparent; color: inherit; font: inherit; text-align: left;
   cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .ct-key.enamel { flex: 1.3 1 240px; }
-/* the key's skirt, seen below its cap; the cap travels down onto it when pressed */
-.ct-key::before { content: ""; position: absolute; left: 0; right: 0; top: 7px; bottom: 0; border-radius: 16px; background: var(--k-skirt); box-shadow: 0 6px 12px rgba(34, 28, 60, .16); }
-:root[data-theme="night"] .ct-key::before { box-shadow: 0 6px 12px rgba(0, 0, 0, .55); }
-.ct-key-face { position: relative; display: flex; align-items: center; gap: 14px; min-height: 78px; padding: 13px 16px; border-radius: 16px; border: 1px solid var(--k-rim);
-  background: var(--k-face); color: var(--k-ink);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55), inset 0 -2px 0 rgba(34, 28, 60, .06); transition: transform .1s cubic-bezier(.3, .7, .4, 1), filter .15s ease; }
-.ct-key:hover .ct-key-face { transform: translateY(-1px); filter: brightness(1.03); }
-.ct-key:active .ct-key-face { transform: translateY(6px); filter: brightness(.98); transition-duration: .05s; }
+.ct-key-face { position: relative; display: flex; align-items: center; gap: 14px; min-height: 76px; padding: 13px 16px; border-radius: 12px; border: 1px solid var(--k-rim);
+  background: linear-gradient(180deg, var(--k-face-hi), var(--k-face-lo)); color: var(--k-ink); box-shadow: var(--k-shadow, var(--k-pop));
+  transition: transform .16s ease, box-shadow .16s ease, filter .16s ease; }
+.ct-key:hover .ct-key-face { transform: translateY(-3px); box-shadow: var(--k-shadow-hi, var(--k-pop-hi)); }
+.ct-key:active .ct-key-face { transform: translateY(1px); box-shadow: var(--k-shadow-press, var(--k-press)); filter: brightness(.98); transition-duration: .06s; }
 .ct-key:focus { outline: none; }
 .ct-key:focus-visible .ct-key-face { outline: 2.5px solid var(--pri-ring); outline-offset: 3px; }
-.ct-key-emo { flex: none; width: 48px; height: 48px; display: grid; place-items: center; border-radius: 50%; font: 1.55rem/1 var(--emoji);
-  background: #ffffff; box-shadow: inset 0 -2px 3px rgba(60, 56, 140, .10), 0 1px 0 rgba(255, 255, 255, .8), 0 2px 5px rgba(34, 28, 60, .10); transition: transform .45s var(--spring); }
-:root[data-theme="night"] .ct-key-emo { background: rgba(255, 255, 255, .10); box-shadow: inset 0 -2px 3px rgba(0, 0, 0, .3), 0 1px 0 rgba(255, 255, 255, .06); }
-.ct-key:hover .ct-key-emo { transform: rotate(-8deg) scale(1.08); }
+/* the emoji in a crisp round window: a flat face and a fine rim, no gloss */
+.ct-key-emo { flex: none; width: 46px; height: 46px; box-sizing: border-box; display: grid; place-items: center; border-radius: 50%; font: 1.5rem/1 var(--emoji);
+  background: #ffffff; border: 1px solid var(--k-line); box-shadow: 0 1px 0 rgba(34, 28, 60, .06); transition: transform .3s var(--spring); }
+:root[data-theme="night"] .ct-key-emo { background: rgba(255, 255, 255, .07); box-shadow: 0 1px 0 rgba(0, 0, 0, .35); }
+.ct-key:hover .ct-key-emo { transform: rotate(-8deg) scale(1.06); }
 .ct-key-t { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
 .ct-key-t b { font: 600 1.12rem/1.15 var(--serif); letter-spacing: .02em; }
 .ct-key-t small { font-size: .76rem; line-height: 1.3; opacity: .86; }
-/* New sale leads with the enamel woven in (a periwinkle jewel, a periwinkle edge and title); Receive and Price check
-   are the gentle lavender beside it (Build 14) */
-.ct-key.enamel { --k-face: var(--sh-card); --k-ink: var(--ink); --k-rim: rgba(var(--pri-rgb), .34); --k-skirt: linear-gradient(180deg, #b4b8ea, #9196d6); }
-.ct-key.enamel .ct-key-face { box-shadow: inset 4px 0 0 var(--pri), inset 0 1px 0 rgba(255, 255, 255, .9), inset 0 -2px 0 rgba(34, 28, 60, .05); }
+/* New sale: a pearl key with the periwinkle woven in. Its cart sits in a pale pearl window ringed in periwinkle, so that
+   it reads clearly by day and by night (on the solid periwinkle jewel it was hard to see) */
+.ct-key.enamel { --k-face-hi: #ffffff; --k-face-lo: #f3f2fc; --k-ink: var(--ink); --k-rim: rgba(var(--pri-rgb), .34);
+  --k-shadow: inset 3px 0 0 var(--pri), var(--k-pop); --k-shadow-hi: inset 3px 0 0 var(--pri), var(--k-pop-hi); --k-shadow-press: inset 3px 0 0 var(--pri), var(--k-press); }
 .ct-key.enamel .ct-key-t b { color: var(--pri-text); }
-.ct-key.enamel .ct-key-emo { background: var(--jewel); box-shadow: var(--jsh); }
-:root[data-theme="night"] .ct-key.enamel { --k-skirt: linear-gradient(180deg, #2a2d6a, #1c1e4c); }
-.ct-key.pearl, .ct-key.blush { --k-face: var(--sh-soft); --k-ink: var(--sh-soft-ink); --k-rim: rgba(var(--pri-rgb), .26); --k-skirt: var(--sh-soft-skirt); }
-:root[data-theme="night"] .ct-key.pearl, :root[data-theme="night"] .ct-key.blush { --k-rim: rgba(176, 181, 245, .22); }
+.ct-key.enamel .ct-key-emo { background: linear-gradient(180deg, #ffffff, #eceefe); border: 2px solid var(--pri); box-shadow: 0 0 0 3px rgba(var(--pri-rgb), .12); }
+:root[data-theme="night"] .ct-key.enamel { --k-face-hi: #2c2b45; --k-face-lo: #201f33; --k-rim: rgba(176, 181, 245, .36); }
+:root[data-theme="night"] .ct-key.enamel .ct-key-emo { background: linear-gradient(180deg, #f3f4ff, #dcdffb); border-color: var(--pri-hi); box-shadow: 0 0 0 3px rgba(176, 181, 245, .16); }
+.ct-key.pearl, .ct-key.blush { --k-face-hi: #fafaff; --k-face-lo: #ecedfb; --k-ink: var(--sh-soft-ink); --k-rim: rgba(var(--pri-rgb), .22); }
+:root[data-theme="night"] .ct-key.pearl, :root[data-theme="night"] .ct-key.blush { --k-face-hi: #2d2d48; --k-face-lo: #22223a; --k-rim: rgba(176, 181, 245, .20); }
+
+/* ---------- Build 24: the greeting card answers the hand ---------- */
+/* the card of the day's figures stands out from the slab in depth, leans toward the pointer, and its light follows the
+   hand; a press on it opens the day's report */
+.ct-window.ct-pop { cursor: pointer; transform-style: preserve-3d; transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform .55s cubic-bezier(.22, .8, .3, 1), box-shadow .3s ease; animation: ctPopIn .75s cubic-bezier(.34, 1.3, .64, 1) .12s backwards;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), 0 2.5px 0 rgba(40, 36, 110, .10), 0 10px 18px rgba(40, 36, 110, .12), 0 26px 44px rgba(40, 36, 110, .12); }
+.ct-window.ct-pop.leaning { transition: transform .12s ease-out, box-shadow .3s ease; }
+.ct-window.ct-pop:hover { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .95), 0 4px 0 rgba(40, 36, 110, .10), 0 16px 26px rgba(40, 36, 110, .16), 0 36px 60px rgba(40, 36, 110, .16); }
+:root[data-theme="night"] .ct-window.ct-pop { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06), 0 2px 0 rgba(0, 0, 0, .5), 0 12px 22px rgba(0, 0, 0, .45), 0 30px 50px rgba(0, 0, 0, .4); }
+:root[data-theme="night"] .ct-window.ct-pop:hover { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08), 0 4px 0 rgba(0, 0, 0, .5), 0 18px 30px rgba(0, 0, 0, .55), 0 40px 64px rgba(0, 0, 0, .45); }
+.ct-window.ct-pop::after { content: ""; position: absolute; inset: 0; border-radius: 17px; pointer-events: none; opacity: 0; transition: opacity .3s ease;
+  background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 0%), rgba(255, 255, 255, .5), rgba(255, 255, 255, 0) 46%); }
+:root[data-theme="night"] .ct-window.ct-pop::after { background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 0%), rgba(176, 181, 245, .14), rgba(176, 181, 245, 0) 46%); }
+.ct-window.ct-pop:hover::after { opacity: 1; }
+/* the figures stand a little above the card, so that it shows its depth as it leans */
+.ct-window.ct-pop > #hxTaken { transform: translateZ(22px); }
+.ct-window.ct-pop > .ct-reads { transform: translateZ(14px); }
+.ct-window.ct-pop.ct-pressed { transform: perspective(900px) translateY(1px) scale(.99); transition-duration: .08s; }
+@keyframes ctPopIn { from { opacity: 0; transform: perspective(900px) rotateX(16deg) translateY(18px) scale(.94); } to { opacity: 1; transform: perspective(900px) rotateX(0deg) rotateY(0deg); } }
+/* each figure is a key: it rises a little as the hand comes near, and its drums roll again */
+.ct-window button.ct-read { appearance: none; -webkit-appearance: none; margin: -6px -8px; padding: 6px 8px; border: 0; border-radius: 12px; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer;
+  transition: transform .2s var(--spring), background-color .2s ease, box-shadow .2s ease; -webkit-tap-highlight-color: transparent; }
+.ct-window.ct-pop > button#hxTaken:hover { transform: translateZ(30px) translateY(-2px); }
+.ct-reads button.ct-read:hover { transform: translateY(-2px); }
+.ct-window button.ct-read:hover { background-color: rgba(var(--pri-rgb), .07); box-shadow: 0 6px 14px rgba(40, 36, 110, .10); }
+:root[data-theme="night"] .ct-window button.ct-read:hover { background-color: rgba(176, 181, 245, .08); box-shadow: 0 6px 14px rgba(0, 0, 0, .32); }
+.ct-window button.ct-read:active, .ct-window button.ct-read.ct-pressed { transform: translateY(1px) scale(.985); }
+.ct-window button.ct-read:focus { outline: none; }
+.ct-window button.ct-read:focus-visible { outline: 2.5px solid var(--pri-ring); outline-offset: 2px; }
+/* the words of the welcome rise into place one after another */
+.ct-words > * { animation: ctWordIn .6s cubic-bezier(.22, .8, .3, 1) backwards; }
+.ct-words > :nth-child(1) { animation-delay: .06s; } .ct-words > :nth-child(2) { animation-delay: .14s; } .ct-words > :nth-child(3) { animation-delay: .22s; } .ct-words > :nth-child(4) { animation-delay: .3s; }
+@keyframes ctWordIn { from { opacity: 0; transform: translateY(9px); } to { opacity: 1; transform: none; } }
+/* the date is a key to the Schedule */
+.ct-hero button.hx-date { appearance: none; -webkit-appearance: none; margin: -3px -7px; padding: 3px 7px; border: 0; border-radius: 6px; background: transparent; cursor: pointer;
+  transition: background-color .2s ease, transform .2s var(--spring); }
+.ct-hero button.hx-date:hover { background: rgba(191, 159, 98, .14); transform: translateY(-1px); }
+.ct-hero button.hx-date:focus-visible { outline: 2px solid var(--pri-ring); outline-offset: 2px; }
+.ct-hero button.hx-date.ct-pressed { transform: translateY(1px); }
+/* the sales, brought into view from their figure, glow for a moment */
+.hm-sales.ct-glow { animation: ctGlow 1.6s ease; }
+@keyframes ctGlow { 0% { box-shadow: 0 0 0 0 rgba(var(--pri-rgb), 0), var(--slab); } 25% { box-shadow: 0 0 0 4px rgba(var(--pri-rgb), .30), var(--slab); } 100% { box-shadow: 0 0 0 0 rgba(var(--pri-rgb), 0), var(--slab); } }
 
 /* ---------- the strip: the first steps, your shift, or the practice store ---------- */
 .hm-strip { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 16px; padding: 12px 16px 12px 20px; box-shadow: inset 4px 0 0 var(--pri), var(--slab); }
@@ -1612,10 +1697,14 @@ button.hx-item:hover { transform: translateY(-1px); box-shadow: var(--pill); }
 }
 @media (prefers-reduced-motion: reduce) {
   .hm > *, .hm-need, .hm-sale { animation: none !important; }
+  .ct-window.ct-pop, .ct-words > *, .hm-chip.on::after, button.hm-chip .emo, .hm-sales.ct-glow { animation: none !important; }
+  .ct-window.ct-pop, .ct-window.ct-pop > * { transform: none !important; }
   .hm-bar, .ct-strip { transition: none; }
   .ct-engr { animation: none !important; }
 }
 :root[data-calm="1"] .ct-engr { animation: none !important; }
+:root[data-calm="1"] .ct-window.ct-pop, :root[data-calm="1"] .ct-words > *, :root[data-calm="1"] .hm-chip.on::after, :root[data-calm="1"] button.hm-chip .emo, :root[data-calm="1"] .hm-sales.ct-glow { animation: none !important; }
+:root[data-calm="1"] .ct-window.ct-pop, :root[data-calm="1"] .ct-window.ct-pop > * { transform: none !important; }
 
 /* LAKAY | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt.
    Inventory's departments (Build 15), in the dress the owner approved for the Home in Build 14: white slabs, with the
@@ -1903,6 +1992,8 @@ body:has(.sticky-panel-back) #rail-notes { opacity: 0 !important; pointer-events
 /* Lakay's six papers, light pastels by day: each paper's own light, its edge at two thirds of that light (as Carpe Diem shades its paper),
    and its night paper with a deeper edge, made to sit on Lakay's periwinkle ink */
 .sticky-note[data-sn-col="citrine"] { --sn-paper: #fdf4d9; --sn-edge: rgb(167, 161, 143); --sn-night: #3b3216; --sn-nedge: #231d0c; }
+/* Larimar (Build 24): Carpe Diem's light blue paper, in its own shade by day and by night */
+.sticky-note[data-sn-col="larimar"] { --sn-paper: linear-gradient(180deg, #dcefff, #b6e0ff); --sn-edge: rgb(120, 148, 168); --sn-night: #1f2a3d; --sn-nedge: #131a26; }
 .sticky-note[data-sn-col="aquamarine"] { --sn-paper: #e2f4f1; --sn-edge: rgb(149, 161, 159); --sn-night: #15332f; --sn-nedge: #0b1e1c; }
 .sticky-note[data-sn-col="rosequartz"] { --sn-paper: #fde9e3; --sn-edge: rgb(167, 154, 150); --sn-night: #3f201a; --sn-nedge: #25120e; }
 .sticky-note[data-sn-col="jade"] { --sn-paper: #ebf3dc; --sn-edge: rgb(155, 160, 145); --sn-night: #283117; --sn-nedge: #171d0c; }
@@ -1987,6 +2078,7 @@ body:has(.sticky-panel-back) #rail-notes { opacity: 0 !important; pointer-events
 
 /* ---------- the paper dots (the menu, the list): the day paper by day, the night paper by night ---------- */
 .sn-dot, .sn-rowdot { --dot: linear-gradient(180deg, #fdf4d9, #f7e7b8); --dot-n: #3b3216; background: var(--dot); }
+.sn-dot[data-sn-col="larimar"], .sn-rowdot[data-sn-col="larimar"] { --dot: linear-gradient(180deg, #dcefff, #b6e0ff); --dot-n: #1f2a3d; }
 .sn-dot[data-sn-col="aquamarine"], .sn-rowdot[data-sn-col="aquamarine"] { --dot: linear-gradient(180deg, #e2f4f1, #c9e9e4); --dot-n: #15332f; }
 .sn-dot[data-sn-col="rosequartz"], .sn-rowdot[data-sn-col="rosequartz"] { --dot: linear-gradient(180deg, #fde9e3, #f8d4c9); --dot-n: #3f201a; }
 .sn-dot[data-sn-col="jade"], .sn-rowdot[data-sn-col="jade"] { --dot: linear-gradient(180deg, #ebf3dc, #d9e8c2); --dot-n: #283117; }
@@ -2801,7 +2893,7 @@ html.drilling .shell { outline: 3px solid rgba(var(--pri-rgb), .35); outline-off
 "use strict";
 
 var E = window.Emporium = window.Emporium || {};
-E.BUILD = { number: "23", date: "2026-11-15" };
+E.BUILD = { number: "24", date: "2026-11-15" };
 
 /* ---------- drawing: every piece of text goes in as text, never as markup ---------- */
 function $(sel, root) { return (root || document).querySelector(sel); }
@@ -2973,11 +3065,22 @@ function debounce(fn, ms) { var t; return function () { var a = arguments, self 
 function norm(s) { return String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").trim(); }
 function prefGet(k, d) { try { var v = localStorage.getItem("emporium." + k); return v === null ? d : v; } catch (e) { return d; } }
 function prefSet(k, v) { try { localStorage.setItem("emporium." + k, String(v)); } catch (e) { } }
+/* Build 24: a card or window puts the cursor in its first field a moment after it appears, unless the person is already
+   typing in one of its fields: then the cursor stays where it is (it used to jump back, and letters typed quickly
+   landed in the wrong field). */
+function focusSoon(el, scope) {
+  try {
+    if (!el || !el.isConnected) return false;
+    var a = document.activeElement;
+    if (a && a !== el && scope && scope.contains(a) && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)) return false;
+    el.focus(); return true;
+  } catch (e) { return false; }
+}
 
 E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, money: money, moneyPlain: moneyPlain, divRound: divRound,
   parseRate: parseRate, rateText: rateText, taxOn: taxOn, dayKey: dayKey, fromDayKey: fromDayKey, addDays: addDays,
   startOfWeek: startOfWeek, b64e: b64e, b64d: b64d, hex: hex, rnd: rnd, uid: uid, canon: canon, sha256hex: sha256hex,
-  norm: norm, debounce: debounce, prefGet: prefGet, prefSet: prefSet, pad2: pad2, TE: TE, TD: TD };
+  norm: norm, debounce: debounce, prefGet: prefGet, prefSet: prefSet, focusSoon: focusSoon, pad2: pad2, TE: TE, TD: TD };
 
 /* LAKAY | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt.
    Three languages: English, French and Haitian Creole (Kreyòl). The Kreyòl is marked for review by a native speaker. */
@@ -3108,6 +3211,18 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     ["sn.col.citrine", "Citrine (pale yellow)", "Citrine (jaune pâle)", "Sitrin (jòn pal)"], ["sn.col.aquamarine", "Aquamarine (sea glass)", "Aigue-marine (vert d'eau)", "Akwamarin (vèt dlo)"],
     ["sn.col.rosequartz", "Rose Quartz (soft pink)", "Quartz rose (rose doux)", "Kwats woz (woz dous)"], ["sn.col.jade", "Jade (pale green)", "Jade (vert pâle)", "Jad (vèt pal)"],
     ["sn.col.moonstone", "Moonstone (soft lilac blue)", "Pierre de lune (bleu lilas doux)", "Wòch lalin (ble lila dous)"], ["sn.col.pearl", "Pearl (ivory)", "Perle (ivoire)", "Pèl (ivwa)"],
+    /* Build 24: Carpe Diem's light blue paper, back as Larimar; and each paper's name, with its colour by day and by night, for the name tip */
+    ["sn.col.larimar", "Larimar (sky blue)", "Larimar (bleu ciel)", "Larimar (ble syèl)"],
+    ["home.go.day", "The day's report", "Le rapport du jour", "Rapò jounen an"],
+    ["sn.nm.citrine", "Citrine", "Citrine", "Sitrin"], ["sn.nm.larimar", "Larimar", "Larimar", "Larimar"], ["sn.nm.aquamarine", "Aquamarine", "Aigue-marine", "Akwamarin"],
+    ["sn.nm.rosequartz", "Rose Quartz", "Quartz rose", "Kwats woz"], ["sn.nm.jade", "Jade", "Jade", "Jad"], ["sn.nm.moonstone", "Moonstone", "Pierre de lune", "Wòch lalin"], ["sn.nm.pearl", "Pearl", "Perle", "Pèl"],
+    ["sn.day.citrine", "pale yellow", "jaune pâle", "jòn pal"], ["sn.night.citrine", "olive bronze", "bronze olive", "bwonz oliv"],
+    ["sn.day.larimar", "sky blue", "bleu ciel", "ble syèl"], ["sn.night.larimar", "midnight blue", "bleu nuit", "ble minui"],
+    ["sn.day.aquamarine", "sea glass", "vert d'eau", "vèt dlo"], ["sn.night.aquamarine", "deep teal", "bleu canard", "ble kanna"],
+    ["sn.day.rosequartz", "soft pink", "rose doux", "woz dous"], ["sn.night.rosequartz", "burgundy", "bordeaux", "bòdo"],
+    ["sn.day.jade", "pale green", "vert pâle", "vèt pal"], ["sn.night.jade", "moss", "mousse", "vèt mous"],
+    ["sn.day.moonstone", "soft lilac blue", "bleu lilas doux", "ble lila dous"], ["sn.night.moonstone", "indigo", "indigo", "endigo"],
+    ["sn.day.pearl", "ivory", "ivoire", "ivwa"], ["sn.night.pearl", "walnut", "noyer", "nwaye"],
     ["rail.sale", "New sale", "Nouvelle vente", "Nouvo vant"], ["rail.find", "Price check", "Vérifier un prix", "Tcheke yon pri"], ["rail.low", "Low stock", "Stock bas", "Stòk ki ba"],
     ["find.what", "Name, code or barcode", "Nom, code ou code-barres", "Non, kòd oswa kòd-ba"], ["find.hint", "Type or scan to find any of the {n} items.", "Tapez ou scannez pour trouver l'un des {n} articles.", "Tape oswa eskane pou jwenn youn nan {n} atik yo."],
     ["find.none", "Nothing by that name or code.", "Rien sous ce nom ou ce code.", "Anyen pa gen non oswa kòd sa a."], ["find.in", "{n} in stock", "{n} en stock", "{n} an stòk"],
@@ -3816,7 +3931,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     ["guide.team.b", "You, the owner, are the administrator: every room and every key is open to you. You are ID 1001.\nIn the Team room, Add a person gives each one a name, a user ID (1002, 1003 and on) and a level of access: Cashier, Stock keeper, Team leader, Manager, or chosen one by one. Type a first password for them, and your own password to give them a key. The first time they sign in, they choose their own password.\nYou may let a manager look after the people (The people) and save backups (Backups). They add people with their own password, and give only the access they hold themselves. They never change you, themselves, or anyone who has more.\nTheir ID stays on every sale, receipt, stock move, change and shift they make. The reports can show each person's sales.\nOnly you see Settings and the Author Studio, and only you restore a backup. To stop a person from signing in, press their name and Take the key back. What they did stays in the books.", "Vous, le propriétaire, êtes l'administrateur : chaque pièce et chaque touche vous sont ouvertes. Votre numéro est le 1001.\nDans la pièce Équipe, Ajouter une personne lui donne un nom, un numéro (1002, 1003 et ainsi de suite) et un niveau d'accès : Caissier, Magasinier, Chef d'équipe, Gérant, ou choisi un à un. Tapez un premier mot de passe pour elle, et votre propre mot de passe pour lui donner une clé. À sa première connexion, elle choisit son propre mot de passe.\nVous pouvez confier à un gérant les personnes (Les personnes) et les sauvegardes (Sauvegardes). Il ajoute des personnes avec son propre mot de passe, et ne donne que les accès qu'il a lui-même. Il ne change jamais ni vous, ni lui-même, ni personne qui en a plus.\nSon numéro reste sur chaque vente, reçu, mouvement de stock, changement et service qu'elle fait. Les rapports peuvent montrer les ventes de chaque personne.\nVous seul voyez les Réglages et le Studio d'auteur, et vous seul restaurez une sauvegarde. Pour qu'une personne ne puisse plus se connecter, appuyez sur son nom puis Reprendre la clé. Ce qu'elle a fait reste dans les livres.", "Ou menm, mèt magazen an, se administratè a: tout pyès ak tout bouton louvri pou ou. Nimewo ou se 1001.\nNan pyès Ekip la, Ajoute yon moun ba li yon non, yon nimewo (1002, 1003 elatriye) ak yon nivo aksè: Kesye, Responsab stòk, Chèf ekip, Jeran, oswa chwazi youn pa youn. Tape yon premye modpas pou li, ak pwòp modpas ou pou ba li yon kle. Premye fwa li konekte, l ap chwazi pwòp modpas li.\nOu ka kite yon jeran okipe moun yo (Moun yo) ak kopi sekirite yo (Kopi sekirite). Li ajoute moun ak pwòp modpas li, epi li bay sèlman aksè li genyen li menm. Li pa janm chanje ou, li menm, ni okenn moun ki gen plis.\nNimewo li rete sou chak vant, resi, mouvman stòk, chanjman ak sèvis li fè. Rapò yo ka montre vant chak moun.\nSe ou sèl ki wè Reglaj ak Estidyo otè a, epi se ou sèl ki remete yon kopi. Pou yon moun pa ka konekte ankò, peze sou non l epi Repran kle a. Sa l te fè rete nan liv yo."],
     ["guide.team.tip", "Give each person only what their work needs. You can change it at any time.", "Ne donnez à chacun que ce dont son travail a besoin. Vous pouvez le changer à tout moment.", "Bay chak moun sèlman sa travay li bezwen. Ou ka chanje l nenpòt lè."],
     ["guide.notes.t", "Sticky notes (Schedae)", "Notes autocollantes (Schedae)", "Ti nòt (Schedae)"],
-    ["guide.notes.b", "The 🗒️ key at the foot of the side keys opens Schedae, the list of your sticky notes. New note puts a note on the page, ready to write in. A note floats over every room until you unpin it with its ✕; it stays in the list, and Pin brings it back.\nCarry a note by its top, and make it larger from any edge or from its corner. The ⋯ key on a note changes its paper (six light pastels: Citrine, Aquamarine, Rose Quartz, Jade, Moonstone and Pearl, each with its own night paper), folds it to its top, copies its words, or deletes it. The keys at its foot make words bold, italic, underlined or struck through, start a list, or add a picture.\nYour notes are yours. They are sealed in the books like everything else, each person sees only their own, and a backup carries them. A note saves itself half a second after you stop typing, and again when the books lock.", "La touche 🗒️ au bas des touches de côté ouvre Schedae, la liste de vos notes autocollantes. Nouvelle note pose une note sur la page, prête à écrire. Une note flotte sur chaque pièce jusqu'à ce que vous la détachiez avec son ✕ ; elle reste dans la liste, et Épingler la ramène.\nDéplacez une note par son haut, et agrandissez-la par n'importe quel bord ou par son coin. La touche ⋯ d'une note change son papier (six pastels clairs : Citrine, Aigue-marine, Quartz rose, Jade, Pierre de lune et Perle, chacun avec son papier de nuit), la replie sur son haut, copie ses mots ou la supprime. Les touches du bas mettent les mots en gras, en italique, soulignés ou barrés, commencent une liste ou ajoutent une image.\nVos notes sont à vous. Elles sont scellées dans les livres comme tout le reste, chacun ne voit que les siennes, et une sauvegarde les emporte. Une note s'enregistre une demi-seconde après la dernière frappe, et encore quand les livres se verrouillent.", "Bouton 🗒️ anba bouton sou kote yo louvri Schedae, lis ti nòt ou yo. Nouvo nòt mete yon nòt sou paj la, pare pou ekri. Yon nòt rete sou chak chanm jiskaske ou detache l ak ✕ li; li rete nan lis la, epi Tache mete l tounen.\nDeplase yon nòt pa anwo li, epi fè l pi gwo pa nenpòt bò oswa pa kwen li. Bouton ⋯ yon nòt chanje papye li (sis koulè pal: Sitrin, Akwamarin, Kwats woz, Jad, Wòch lalin ak Pèl, chak ak papye lannwit pa l), pliye l, kopye mo li yo, oswa efase l. Bouton anba yo mete mo yo an gra, an italik, souliye oswa bare, kòmanse yon lis, oswa mete yon foto.\nNòt ou yo se pou ou. Yo sele nan liv yo tankou tout lòt bagay, chak moun wè pa yo sèlman, epi yon sovgad pote yo. Yon nòt anrejistre tèt li yon mwatye segonn apre ou fin tape, epi ankò lè liv yo fèmen."],
+    ["guide.notes.b", "The 🗒️ key at the foot of the side keys opens Schedae, the list of your sticky notes. New note puts a note on the page, ready to write in. A note floats over every room until you unpin it with its ✕; it stays in the list, and Pin brings it back.\nCarry a note by its top, and make it larger from any edge or from its corner. The ⋯ key on a note changes its paper (seven light pastels: Citrine, Larimar, Aquamarine, Rose Quartz, Jade, Moonstone and Pearl, each with its own night paper; rest the pointer on one to see its name), folds it to its top, copies its words, or deletes it. The keys at its foot make words bold, italic, underlined or struck through, start a list, or add a picture.\nYour notes are yours. They are sealed in the books like everything else, each person sees only their own, and a backup carries them. A note saves itself half a second after you stop typing, and again when the books lock.", "La touche 🗒️ au bas des touches de côté ouvre Schedae, la liste de vos notes autocollantes. Nouvelle note pose une note sur la page, prête à écrire. Une note flotte sur chaque pièce jusqu'à ce que vous la détachiez avec son ✕ ; elle reste dans la liste, et Épingler la ramène.\nDéplacez une note par son haut, et agrandissez-la par n'importe quel bord ou par son coin. La touche ⋯ d'une note change son papier (sept pastels clairs : Citrine, Larimar, Aigue-marine, Quartz rose, Jade, Pierre de lune et Perle, chacun avec son papier de nuit ; posez le pointeur sur l'un d'eux pour voir son nom), la replie sur son haut, copie ses mots ou la supprime. Les touches du bas mettent les mots en gras, en italique, soulignés ou barrés, commencent une liste ou ajoutent une image.\nVos notes sont à vous. Elles sont scellées dans les livres comme tout le reste, chacun ne voit que les siennes, et une sauvegarde les emporte. Une note s'enregistre une demi-seconde après la dernière frappe, et encore quand les livres se verrouillent.", "Bouton 🗒️ anba bouton sou kote yo louvri Schedae, lis ti nòt ou yo. Nouvo nòt mete yon nòt sou paj la, pare pou ekri. Yon nòt rete sou chak chanm jiskaske ou detache l ak ✕ li; li rete nan lis la, epi Tache mete l tounen.\nDeplase yon nòt pa anwo li, epi fè l pi gwo pa nenpòt bò oswa pa kwen li. Bouton ⋯ yon nòt chanje papye li (sèt koulè pal: Sitrin, Larimar, Akwamarin, Kwats woz, Jad, Wòch lalin ak Pèl, chak ak papye lannwit pa l; mete flèch la sou youn pou wè non li), pliye l, kopye mo li yo, oswa efase l. Bouton anba yo mete mo yo an gra, an italik, souliye oswa bare, kòmanse yon lis, oswa mete yon foto.\nNòt ou yo se pou ou. Yo sele nan liv yo tankou tout lòt bagay, chak moun wè pa yo sèlman, epi yon sovgad pote yo. Yon nòt anrejistre tèt li yon mwatye segonn apre ou fin tape, epi ankò lè liv yo fèmen."],
     ["guide.notes.tip", "Write a note for your next shift, then fold it: it stays on the page, small, until you open it again. Notes are never shared between people.", "Écrivez une note pour votre prochain service, puis repliez-la : elle reste sur la page, petite, jusqu'à ce que vous l'ouvriez. Les notes ne sont jamais partagées entre les personnes.", "Ekri yon nòt pou pwochen fwa ou travay, epi pliye l: li rete sou paj la, piti, jiskaske ou louvri l. Nòt yo pa janm pataje ant moun."],
     ["guide.clock.t", "Signing in, the clock and breaks", "Connexion, pointage et pauses", "Konekte, lè travay ak poz"],
     ["guide.clock.b", "At the door, a person types their name or their ID, then their own password. A person on the staff is clocked in as they arrive.\nThe status key at the top shows who is signed in, with a periwinkle dot on the clock and an amber dot on a break. Press it to start or end a break, to clock out, or to sign out.\nClock out and sign out ends the shift and brings the door back for the next person. Sign out, stay on the clock is for handing the counter to a colleague while you keep working.\nMy hours, in the Team room, shows your shifts this week and the weeks before. The owner, and those given the team's hours, see everyone's hours and who is on the clock now.", "À la porte, une personne tape son nom ou son numéro, puis son propre mot de passe. L'arrivée d'une personne de l'équipe est pointée à l'entrée.\nLa touche d'état, en haut, montre qui est connecté, avec un point pervenche en service et un point ambre en pause. Appuyez dessus pour commencer ou finir une pause, pointer le départ ou se déconnecter.\nPointer le départ et se déconnecter termine le service et ramène la porte pour la personne suivante. Se déconnecter, rester en service sert à passer le comptoir à un collègue tout en continuant à travailler.\nMes heures, dans la pièce Équipe, montre vos services de la semaine et des semaines d'avant. Le propriétaire, et ceux qui ont les heures de l'équipe, voient les heures de chacun et qui est en service.", "Nan pòt la, yon moun tape non l oswa nimewo l, apre sa pwòp modpas li. Yon moun nan ekip la antre nan sèvis lè l rive.\nBouton estati a, anwo a, montre ki moun ki konekte, ak yon pwen koulè lavand lè l nan sèvis ak yon pwen jòn lè l an poz. Peze l pou kòmanse oswa fini yon poz, pou soti nan sèvis, oswa pou dekonekte.\nSoti nan sèvis epi dekonekte fini sèvis la epi louvri pòt la pou pwochen moun nan. Dekonekte, rete nan sèvis se pou lè w bay yon kòlèg kontwa a men w ap kontinye travay.\nLè travay mwen, nan pyès Ekip la, montre sèvis ou semèn sa a ak semèn anvan yo. Mèt magazen an, ak moun ki gen lè travay ekip la, wè lè travay tout moun ak ki moun ki nan sèvis kounye a."],
@@ -5247,6 +5362,10 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   function aadEnv(id, which) { return "emporium|v1|" + id + "|" + which; }
   function aadRec(id, k) { return "emporium|r|" + id + "|" + k; }
   function aadLine(id, seq) { return "emporium|j|" + id + "|" + seq; }
+  /* Build 24: another device's ledger lines, kept beside this device's own, and the sealed bundle that carries them */
+  function aadPeer(id, dev, seq) { return "emporium|p|" + id + "|" + dev + "|" + seq; }
+  function aadBundle(id, dev) { return "emporium|b|" + id + "|" + dev; }
+  function peerKey(dev, seq) { return "p:" + dev + ":" + String(seq).padStart(9, "0"); }
   function idBytes(id) { var u = new Uint8Array(id.length / 2); for (var i = 0; i < u.length; i++) u[i] = parseInt(id.substr(i * 2, 2), 16); return u; }
   function clone(o) { return o === undefined ? undefined : JSON.parse(JSON.stringify(o)); }
   function err(code, extra) { var e = new Error(code); e.code = code; if (extra) e.extra = extra; return e; }
@@ -5376,7 +5495,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   function load(vault, key, userId) {
     ID = vault.storeId;
     return D.entries("rec").then(function (entries) {
-      var st = { settings: null, users: {}, cats: {}, items: {}, sales: [], moves: [], shifts: [], services: [], train: {}, plans: {}, course: null, slots: [], rota: null, swaps: [], provs: {}, settles: [], stmts: [], payset: null, rates: {}, paids: [], counters: {}, pad: {}, notes: {}, head: null, unreadable: [] };
+      var st = { settings: null, users: {}, cats: {}, items: {}, sales: [], moves: [], shifts: [], services: [], train: {}, plans: {}, course: null, slots: [], rota: null, swaps: [], provs: {}, settles: [], stmts: [], payset: null, rates: {}, paids: [], counters: {}, pad: {}, notes: {}, devices: {}, sync: null, stamps: {}, head: null, unreadable: [] };
       /* each person's notes are their own: a sign-in opens only the notes of the one signing in (the practice store opens
          all of its sample people's, since it changes from one to another) */
       var mine = "notes:" + (userId || "owner"), practice = B.mode === "practice";
@@ -5384,7 +5503,13 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
         if (!practice && /^notes:/.test(e[0]) && e[0] !== mine) return null;
         return C.open(key, e[1], aadRec(ID, e[0])).then(function (val) { return [e[0], val]; }, function () { st.unreadable.push(e[0]); return null; });
       })).then(function (rows) {
-        rows.forEach(function (r) { if (r) put(st, r[0], r[1]); });
+        rows.forEach(function (r) {
+          if (!r) return;
+          /* from Build 24 a record is sealed with the stamps of the lines that last wrote each of its fields */
+          var v = r[1];
+          if (v && typeof v === "object" && v["~s"] && Object.prototype.hasOwnProperty.call(v, "~v")) { st.stamps[r[0]] = v["~s"]; v = v["~v"]; }
+          put(st, r[0], v);
+        });
         st.sales.sort(function (a, b) { return a.at < b.at ? -1 : a.at > b.at ? 1 : 0; });
         st.moves.sort(function (a, b) { return a.at < b.at ? -1 : a.at > b.at ? 1 : 0; });
         st.shifts.sort(function (a, b) { return a.in < b.in ? -1 : a.in > b.in ? 1 : 0; });
@@ -5437,8 +5562,23 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
       var pi = st[key].findIndex(function (x) { return x.id === v.id; }); if (pi >= 0) st[key][pi] = v; else st[key].push(v);
     }
     else if (kind === "counter") st.counters[id] = v;
+    else if (kind === "device") { st.devices = st.devices || {}; st.devices[id] = v; }
+    else if (kind === "sync") st.sync = v;
     else if (kind === "pad") st.pad[id] = v;
     else if (kind === "notes") st.notes[id] = (v && Array.isArray(v.notes)) ? v.notes : [];
+  }
+
+  /* the record kept under a key ("item:7xk2..."), as the books hold it now (the inverse of put) */
+  var LISTS = { sale: "sales", move: "moves", shift: "shifts", svc: "services", slot: "slots", swap: "swaps", booking: "bookings", settle: "settles", stmt: "stmts", paid: "paids" };
+  var MAPS = { user: "users", cat: "cats", item: "items", train: "train", plan: "plans", prov: "provs", rate: "rates", counter: "counters", device: "devices", pad: "pad" };
+  var ONES = { settings: "settings", course: "course", rota: "rota", payset: "payset", sync: "sync", head: "head" };
+  function getRec(st, k) {
+    var i = k.indexOf(":"), kind = k.slice(0, i), id = k.slice(i + 1);
+    if (ONES[kind]) return st[ONES[kind]] || null;
+    if (MAPS[kind]) return (st[MAPS[kind]] && st[MAPS[kind]][id]) || null;
+    if (LISTS[kind]) { var l = st[LISTS[kind]] || []; for (var j = l.length - 1; j >= 0; j--) if (l[j].id === id) return l[j]; return null; }
+    if (kind === "notes") return st.notes && st.notes[id] ? { notes: st.notes[id] } : null;
+    return null;
   }
 
   B.lock = function (why) {
@@ -6152,6 +6292,8 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     queue = p.catch(function () { });
     return p;
   };
+  /* the same one-at-a-time order, for work that writes in its own way (taking another device's lines, Build 24) */
+  function enqueue(fn) { var p = queue.then(fn); queue = p.catch(function () { }); return p; }
   /* ---------- exercises (Build 19): Lakay's real screens, with the sealed books set aside ----------
      While an exercise runs, the books that Lakay shows are a copy in memory. A sale, a delivery, a transfer or a break
      made then changes the copy, never the sealed books, and nothing is written to the device. When the exercise ends
@@ -6183,23 +6325,105 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     if (d && d.onLine) setTimeout(function () { try { d.onLine(line); } catch (e) { console.error(e); } }, 0);
     return c.result !== undefined ? c.result : line;
   }
-  function commit(type, data, recs, metaOps) {
-    var now = clock(), seq = state.head.seq + 1;
+  /* ---------- stamps (Build 24) ----------
+     Every line from Build 24 carries a time that only goes forward on this device (ts: the clock, or one millisecond after
+     the last line this device knows of, whichever is later), the records it wrote (w: each record whole, with the
+     fields it changed), the stock it moved (sd: item by item) and the door's or the vault's new parts (m). Each record
+     is sealed with the stamp of the line that last wrote each of its fields: the line's time, its device's letter and
+     its number. Two devices that hold the same lines then work out the same books, whatever order the lines reached
+     them in: for each field the later stamp wins; stock is the sum of every device's moves; counters stay each
+     device's own. */
+  function pad36(n, w) { return Math.max(0, Math.floor(n)).toString(36).padStart(w, "0"); }
+  function stampOf(ts, code, seq) { return pad36(ts, 9) + "." + code + "." + pad36(seq, 6); }
+  function stampCode(s) { var a = String(s || "").split("."); return a.length === 3 ? a[1] : ""; }
+  function stampSeq(s) { var a = String(s || "").split("."); return a.length === 3 ? parseInt(a[2], 36) : 0; }
+  function lineTs(line) { return line.ts || Date.parse(line.at) || 0; }
+  function lineStamp(line, code) { return stampOf(lineTs(line), code, line.seq); }
+  function stampF(s, f) { return (s && (s[f] !== undefined ? s[f] : s[""])) || ""; }
+  function same(a, b) { return U.canon(a === undefined ? null : a) === U.canon(b === undefined ? null : b); }
+  function changedFields(a, b) {
+    var keys = {}, out = [];
+    Object.keys(a || {}).forEach(function (k) { keys[k] = 1; }); Object.keys(b || {}).forEach(function (k) { keys[k] = 1; });
+    Object.keys(keys).forEach(function (k) { if (!same(a[k], b[k])) out.push(k); });
+    return out;
+  }
+  /* what travels to the other devices: everything but each device's own counters, its head, its sync record, and each
+     person's sticky notes (they stay on the device where they were written) */
+  var LOCAL = { counter: 1, head: 1, sync: 1, notes: 1 };
+  function kindOf(k) { return k.slice(0, k.indexOf(":")); }
+  var VAULT_PARTS = function (v) {
+    var out = { owner: (v && v.owner) || null, master: (v && v.master) || null };
+    Object.keys((v && v.people) || {}).forEach(function (id) { out["people:" + id] = v.people[id]; });
+    return out;
+  };
+  function vaultDiff(a, b) {
+    var pa = VAULT_PARTS(a), pb = VAULT_PARTS(b), keys = {}, out = [];
+    Object.keys(pa).forEach(function (k) { keys[k] = 1; }); Object.keys(pb).forEach(function (k) { keys[k] = 1; });
+    Object.keys(keys).sort().forEach(function (k) { if (!same(pa[k], pb[k])) out.push([k, pb[k] === undefined ? null : clone(pb[k])]); });
+    return out;
+  }
+  function wrapRec(v, s) { return { "~v": v, "~s": s }; }
+
+  /* opts (Build 24, taking another device's lines): raw, records already worked out with their own stamps; ops,
+     further writes for the same transaction; minTs, a time this line must come after */
+  function commit(type, data, recs, metaOps, opts) {
+    opts = opts || {};
+    var now = clock(), seq = state.head.seq + 1, ts = Math.max(now.getTime(), (state.head.ts || 0) + 1, (opts.minTs || 0) + 1);
+    var code = (B.device && B.device.code) || "A", stamp = stampOf(ts, code, seq);
     var line = { seq: seq, at: now.toISOString(), day: U.dayKey(now), by: B.user.id, dev: B.device.id, type: type, data: data,
-      prev: state.head.hash, build: E.BUILD.number };
-    var key = KEY, id = ID;
-    return U.sha256hex(U.canon(line)).then(function (hash) {
-      var head = { seq: seq, hash: hash, at: line.at };
-      return Promise.all([C.seal(key, line, aadLine(id, seq)), C.seal(key, head, aadRec(id, "head:main"))]
-        .concat(recs.map(function (r) { return C.seal(key, r.value, aadRec(id, r.kind + ":" + r.id)); }))).then(function (sealed) {
+      prev: state.head.hash, build: E.BUILD.number, ts: ts };
+    var key = KEY, id = ID, w = [], sd = {}, stamps = {};
+    recs.forEach(function (r) {
+      var k = r.kind + ":" + r.id, old = getRec(state, k), s;
+      if (old) {
+        var f = changedFields(old, r.value);
+        s = clone(state.stamps[k]) || {};
+        f.forEach(function (x) { s[x] = stamp; });
+        if (f.length && !LOCAL[r.kind]) w.push([k, clone(r.value), f]);
+      } else {
+        s = { "": stamp };
+        if (!LOCAL[r.kind]) w.push([k, clone(r.value), null]);
+      }
+      if (r.kind === "item") { var dl = ((r.value && r.value.stock) || 0) - ((old && old.stock) || 0); if (dl) sd[r.id] = dl; }
+      stamps[k] = s;
+    });
+    if (w.length) line.w = w;
+    if (Object.keys(sd).length) line.sd = sd;
+    var vaultOp = metaOps.filter(function (m) { return m.key === "vault"; })[0], customOp = metaOps.filter(function (m) { return m.key === "custom"; })[0];
+    var syncRec = null;
+    return (vaultOp ? D.get("meta", "vault") : Promise.resolve(null)).then(function (oldVault) {
+      var m = {};
+      if (vaultOp && B.mode !== "practice") { var vd = vaultDiff(oldVault, vaultOp.value); if (vd.length) m.v = vd; }
+      if (customOp && B.mode !== "practice") m.c = clone(customOp.value);
+      if (m.v || m.c) {
+        line.m = m;
+        syncRec = clone(state.sync) || { v: 1, chains: {}, vs: {}, cs: "" };
+        syncRec.vs = syncRec.vs || {};
+        (m.v || []).forEach(function (x) { syncRec.vs[x[0]] = stamp; });
+        if (m.c) syncRec.cs = stamp;
+      }
+      return U.sha256hex(U.canon(line));
+    }).then(function (hash) {
+      var head = { seq: seq, hash: hash, at: line.at, ts: ts };
+      var raw = opts.raw || [];
+      var seals = [C.seal(key, line, aadLine(id, seq)), C.seal(key, head, aadRec(id, "head:main"))]
+        .concat(recs.map(function (r) { var k = r.kind + ":" + r.id; return C.seal(key, wrapRec(r.value, stamps[k]), aadRec(id, k)); }))
+        .concat(raw.map(function (r) { return C.seal(key, r.s ? wrapRec(r.v, r.s) : r.v, aadRec(id, r.k)); }));
+      if (syncRec) seals.push(C.seal(key, syncRec, aadRec(id, "sync:main")));
+      return Promise.all(seals).then(function (sealed) {
         var ops = [{ store: "journal", key: seq, value: sealed[0], add: true }, { store: "rec", key: "head:main", value: sealed[1] }];
         recs.forEach(function (r, i) { ops.push({ store: "rec", key: r.kind + ":" + r.id, value: sealed[i + 2] }); });
-        metaOps.forEach(function (m) { ops.push({ store: "meta", key: m.key, value: m.value }); });
+        raw.forEach(function (r, i) { ops.push({ store: "rec", key: r.k, value: sealed[i + 2 + recs.length] }); });
+        if (syncRec) ops.push({ store: "rec", key: "sync:main", value: sealed[sealed.length - 1] });
+        metaOps.forEach(function (mo) { ops.push({ store: "meta", key: mo.key, value: mo.value }); });
+        (opts.ops || []).forEach(function (o) { ops.push(o); });
         return D.write(ops).then(function () {
-          metaOps.forEach(function (m) { if (m.key === "door") doorMeta = clone(m.value); });
+          metaOps.forEach(function (mo) { if (mo.key === "door") doorMeta = clone(mo.value); });
           if (state) {
             state.head = head;
-            recs.forEach(function (r) { put(state, r.kind + ":" + r.id, clone(r.value)); });
+            recs.forEach(function (r) { var k = r.kind + ":" + r.id; put(state, k, clone(r.value)); state.stamps[k] = stamps[k]; });
+            raw.forEach(function (r) { put(state, r.k, clone(r.v)); if (r.s) state.stamps[r.k] = r.s; });
+            if (syncRec) state.sync = syncRec;
           }
           emit("change", line);
           return line;
@@ -6241,6 +6465,8 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   /* The Author Studio's choices (names, words, look, receipt) are kept beside the envelopes, so the door can wear them
      before the store is opened; each change is also a ledger line, written in the same transaction. */
   B.saveCustom = function (custom, changed) {
+    /* the Author Studio's choices: the owner's alone, and never from the practice store (Build 24) */
+    if (B.mode === "practice") return Promise.reject(err("denied"));
     return B.change(function () { need("owner"); return { type: "author.changed", data: { changed: changed }, meta: [{ key: "custom", value: custom }] }; })
       .then(function (r) { E.custom = custom; return r; });
   };
@@ -7298,23 +7524,59 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   B.verify = function (progress) {
     var key = KEY, id = ID, st = state;
     if (!key) return Promise.reject(err("locked"));
-    return D.entries("journal").then(function (entries) {
-      var res = { ok: true, lines: entries.length, problems: [] }, prev = ZERO, expect = 1, items = {}, svcs = {}, train = {}, money = { settle: {}, paid: {}, booking: {} }, i = 0;
+    return D.entries("journal").then(function (all) {
+      /* Build 24: this device's own lines (numbered), and the lines of the other devices of the store ("p:...") */
+      var entries = all.filter(function (e) { return typeof e[0] === "number"; }), peers = all.filter(function (e) { return typeof e[0] === "string"; });
+      var merged = peers.length > 0, kept = [], myCode = (B.device && B.device.code) || "A";
+      var res = { ok: true, lines: all.length, devices: 1, problems: [] }, prev = ZERO, expect = 1, items = {}, svcs = {}, train = {}, money = { settle: {}, paid: {}, booking: {}, bk: {} }, i = 0;
       function next() {
         if (i >= entries.length) return Promise.resolve();
         var e = entries[i++];
         return C.open(key, e[1], aadLine(id, e[0])).then(function (line) {
           if (line.seq !== e[0] || e[0] !== expect) res.problems.push({ seq: e[0], what: "order" });
           if (line.prev !== prev) res.problems.push({ seq: e[0], what: "chain" });
-          replay(items, line, res, svcs, train, money);
+          if (merged) kept.push([lineStamp(line, myCode), line, myCode]); else replay(items, line, res, svcs, train, money);
           expect = e[0] + 1;
           return U.sha256hex(U.canon(line)).then(function (hsh) { prev = hsh; });
         }, function () { res.problems.push({ seq: e[0], what: "unreadable" }); prev = null; expect = e[0] + 1; }).then(function () {
-          if (progress && i % 200 === 0) progress(i, entries.length);
+          if (progress && i % 200 === 0) progress(i, all.length);
           return next();
         });
       }
-      return next().then(function () {
+      /* each other device's chain, read the same way: numbered from 1, each line holding the fingerprint of the one before */
+      var chains = {}, j = 0;
+      function nextPeer() {
+        if (j >= peers.length) return Promise.resolve();
+        var e = peers[j++], m = /^p:(.+):(\d+)$/.exec(e[0]);
+        if (!m) { res.problems.push({ rec: e[0], what: "unreadable" }); return nextPeer(); }
+        var dev = m[1], seq = parseInt(m[2], 10), ch = chains[dev] || (chains[dev] = { seq: 0, hash: ZERO, code: codeOfDev(st, dev) });
+        return C.open(key, e[1], aadPeer(id, dev, seq)).then(function (line) {
+          if (line.seq !== seq || seq !== ch.seq + 1) res.problems.push({ dev: ch.code, seq: seq, what: "order" });
+          if (line.prev !== ch.hash) res.problems.push({ dev: ch.code, seq: seq, what: "chain" });
+          kept.push([lineStamp(line, ch.code), line, ch.code]);
+          ch.seq = seq;
+          return U.sha256hex(U.canon(line)).then(function (hsh) { ch.hash = hsh; });
+        }, function () { res.problems.push({ dev: ch.code, seq: seq, what: "unreadable" }); ch.seq = seq; ch.hash = null; }).then(function () {
+          if (progress && (i + j) % 200 === 0) progress(i + j, all.length);
+          return nextPeer();
+        });
+      }
+      return next().then(nextPeer).then(function () {
+        if (merged) {
+          var held = (st.sync && st.sync.chains) || {}, codes = {};
+          codes[myCode] = 1;
+          Object.keys(chains).forEach(function (dev) {
+            var c = chains[dev], h = held[dev];
+            res.devices += 1;
+            if (!h || h.seq !== c.seq || h.hash !== c.hash) res.problems.push({ dev: c.code, what: "head" });
+            if (codes[c.code]) res.problems.push({ dev: c.code, what: "letter" }); codes[c.code] = 1;
+          });
+          Object.keys(held).forEach(function (dev) { if (!chains[dev] && held[dev].seq > 0) res.problems.push({ dev: held[dev].code, what: "missing" }); });
+          /* every device's lines together, in the order of their stamps */
+          kept.sort(function (a, b) { return a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0; });
+          kept.forEach(function (x) { replay(items, x[1], res, svcs, train, money, x[0]); });
+          Object.keys(money.bk).forEach(function (k) { money.booking[k] = money.bk[k].v; });
+        }
         if (!st.head || st.head.seq !== entries.length || st.head.hash !== prev) res.problems.push({ seq: st.head ? st.head.seq : 0, what: "head" });
         Object.keys(st.items).forEach(function (k) {
           var a = st.items[k], b = items[k];
@@ -7376,8 +7638,29 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
       });
     });
   };
-  function replay(items, line, res, svcs, train, money) {
+  /* stamp: given when the books of several devices are replayed together (Build 24): stock is then counted by each
+     device's moves (each device checked its own figures as it wrote them), and a booking takes in what each line wrote */
+  function replay(items, line, res, svcs, train, money, stamp) {
     var d = line.data || {};
+    if (stamp && money && line.w && /^booking\./.test(line.type)) {
+      line.w.forEach(function (e) {
+        if (kindOf(e[0]) !== "booking") return;
+        var bid = e[0].slice(8), r = takeWrite(money.bk[bid] || null, "booking", e[1], e[2], stamp, function () { return false; });
+        money.bk[bid] = r.cur;
+      });
+      return;
+    }
+    if (stamp && money && /^booking\./.test(line.type) && d.booking) {
+      var prior = money.bk[d.booking.id] || null;
+      money.bk[d.booking.id] = takeWrite(prior, "booking", d.booking, null, stamp, function () { return false; }).cur;
+      return;
+    }
+    if (stamp) {
+      switch (line.type) {
+        case "stock.received": if (items[d.itemId]) { items[d.itemId].stock += d.qty; items[d.itemId].cost = d.costAfter; } return;
+        case "stock.adjusted": if (items[d.itemId]) items[d.itemId].stock += d.qty; return;
+      }
+    }
     switch (line.type) {
       case "provider.settled": if (money && d.settle) money.settle[d.settle.id] = clone(d.settle); break;
       case "provider.settleVoided": if (money) { if (money.settle[d.id]) money.settle[d.id].status = "void"; else res.problems.push({ seq: line.seq, what: "void" }); } break;
@@ -7407,10 +7690,20 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
 
   /* The ledger, read back for people (newest first), for the History of an item and the ledger viewer. */
   B.lines = function (filter) {
-    var key = KEY, id = ID;
+    var key = KEY, id = ID, st = state, peers = false, myCode = (B.device && B.device.code) || "A";
     return D.entries("journal").then(function (entries) {
-      return Promise.all(entries.map(function (e) { return C.open(key, e[1], aadLine(id, e[0])).catch(function () { return null; }); }));
-    }).then(function (lines) { return lines.filter(function (l) { return l && (!filter || filter(l)); }).reverse(); });
+      return Promise.all(entries.map(function (e) {
+        if (typeof e[0] === "number") return C.open(key, e[1], aadLine(id, e[0])).then(function (l) { l.code = myCode; return l; }).catch(function () { return null; });
+        /* Build 24: another device's lines, each marked with that device's letter */
+        var m = /^p:(.+):(\d+)$/.exec(e[0]); if (!m) return null;
+        peers = true;
+        return C.open(key, e[1], aadPeer(id, m[1], parseInt(m[2], 10))).then(function (l) { l.code = st ? codeOfDev(st, m[1]) : "?"; return l; }).catch(function () { return null; });
+      }));
+    }).then(function (lines) {
+      lines = lines.filter(function (l) { return l && (!filter || filter(l)); });
+      if (!peers) return lines.reverse();
+      return lines.sort(function (a, b) { var x = lineStamp(a, a.code), y = lineStamp(b, b.code); return x < y ? 1 : x > y ? -1 : 0; });
+    });
   };
 
   /* ---------- passwords and the Master Key ---------- */
@@ -7449,7 +7742,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   B.makeBackup = function () {
     if (B.user && !B.can("backup")) return Promise.reject(err("denied"));
     return Promise.all([D.get("meta", "vault"), D.get("meta", "door"), D.entries("rec"), D.entries("journal"), D.get("meta", "custom")]).then(function (r) {
-      var body = { format: "emporium-backup", v: 1, build: E.BUILD.number, at: new Date().toISOString(), door: r[1], vault: r[0], custom: r[4] || null,
+      var body = { format: "emporium-backup", v: 1, build: E.BUILD.number, at: new Date().toISOString(), door: r[1], vault: r[0], custom: r[4] || null, device: B.device,
         rec: r[2].map(function (e) { return [e[0], U.b64e(e[1].iv), U.b64e(e[1].ct)]; }),
         journal: r[3].map(function (e) { return [e[0], U.b64e(e[1].iv), U.b64e(e[1].ct)]; }) };
       return U.sha256hex(U.canon(body)).then(function (sum) { body.sum = sum; return JSON.stringify(body); });
@@ -7467,28 +7760,358 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   };
   /* Opens a backup's own envelope with the password (or the Master Key) that was valid when it was made, reads every
      line of its ledger, and only then replaces the books on this device, in one transaction. */
-  B.restoreBackup = function (body, secret, isMaster) {
+  function backupKey(body, secret, isMaster) {
     var v = body.vault, keyP;
     if (isMaster) keyP = C.readMaster(secret).then(function (s) { if (!s) throw err("badcode"); return C.masterKey(s, idBytes(v.storeId)); })
       .then(function (kek) { return C.unwrap(v.master, kek, aadEnv(v.storeId, "master"), false); });
     else keyP = C.passwordKey(secret, U.b64d(v.owner.salt), v.kdf.iterations).then(function (kek) { return C.unwrap(v.owner, kek, aadEnv(v.storeId, "owner"), false); });
-    return keyP.catch(function (e) { if (e && e.code) throw e; throw err(isMaster ? "wrongmaster" : "wrong"); }).then(function (key) {
+    return keyP.catch(function (e) { if (e && e.code) throw e; throw err(isMaster ? "wrongmaster" : "wrong"); });
+  }
+  /* A backup's ledger, read through: the device's own chain (numbered from 1), and from Build 24 the chain of each other
+     device of the store ("p:..."), each line holding the fingerprint of the one before. Gives back the own chain's
+     lines when asked (a device joining keeps them as the other device's), and where each chain ends. */
+  function readChains(key, storeId, journal, keepOwn) {
+    var own = journal.filter(function (e) { return typeof e[0] === "number"; }), peers = journal.filter(function (e) { return typeof e[0] !== "number"; });
+    var out = { lines: [], seq: 0, hash: ZERO, maxTs: 0, peers: {} }, i = 0, j = 0;
+    function next() {
+      if (i >= own.length) return Promise.resolve();
+      var e = own[i++];
+      return C.open(key, e[1], aadLine(storeId, e[0])).then(function (line) {
+        if (line.prev !== out.hash || line.seq !== i || e[0] !== i) throw err("chain");
+        if (keepOwn) out.lines.push(line);
+        out.maxTs = Math.max(out.maxTs, lineTs(line));
+        return U.sha256hex(U.canon(line)).then(function (h) { out.hash = h; out.seq = line.seq; return next(); });
+      });
+    }
+    function nextPeer() {
+      if (j >= peers.length) return Promise.resolve();
+      var e = peers[j++], m = /^p:(.+):(\d+)$/.exec(String(e[0]));
+      if (!m) throw err("chain");
+      var dev = m[1], seq = parseInt(m[2], 10), ch = out.peers[dev] || (out.peers[dev] = { seq: 0, hash: ZERO });
+      return C.open(key, e[1], aadPeer(storeId, dev, seq)).then(function (line) {
+        if (line.prev !== ch.hash || line.seq !== seq || seq !== ch.seq + 1) throw err("chain");
+        out.maxTs = Math.max(out.maxTs, lineTs(line));
+        return U.sha256hex(U.canon(line)).then(function (h) { ch.hash = h; ch.seq = seq; return nextPeer(); });
+      });
+    }
+    return next().then(nextPeer).then(function () { return out; });
+  }
+  B.restoreBackup = function (body, secret, isMaster) {
+    var v = body.vault, restoredAs = null;
+    return backupKey(body, secret, isMaster).then(function (key) {
       var journal = body.journal.map(function (e) { return [e[0], { iv: U.b64d(e[1]), ct: U.b64d(e[2]) }]; });
       var rec = body.rec.map(function (e) { return [e[0], { iv: U.b64d(e[1]), ct: U.b64d(e[2]) }]; });
-      var prev = ZERO, i = 0;
-      function next() {
-        if (i >= journal.length) return Promise.resolve();
-        var e = journal[i++];
-        return C.open(key, e[1], aadLine(v.storeId, e[0])).then(function (line) {
-          if (line.prev !== prev || line.seq !== i) throw err("chain");
-          return U.sha256hex(U.canon(line)).then(function (h) { prev = h; return next(); });
-        });
-      }
-      return next().then(function () { return B.lock("restore"); }).then(function () {
-        var meta = [["vault", v], ["door", body.door], ["device", B.device]];
+      return readChains(key, v.storeId, journal, false).then(function () { return B.lock("restore"); }).then(function () {
+        /* a restore puts this device in the place of the one that made the backup (Build 24: its letter, and its chain) */
+        if (body.device && body.device.id && body.device.code) restoredAs = { id: body.device.id, code: body.device.code, created: body.device.created || B.device.created };
+        var meta = [["vault", v], ["door", body.door], ["device", restoredAs || B.device]];
         if (body.custom) meta.push(["custom", E.cleanCustom ? E.cleanCustom(body.custom) : body.custom]);
         return D.replaceAll(meta, rec, journal);
-      }).then(function () { doorMeta = body.door || null; E.custom = body.custom && E.cleanCustom ? E.cleanCustom(body.custom) : null; if (E.ui && E.ui.applyLook) E.ui.applyLook(); return load(v, key); });
+      }).then(function () { if (restoredAs) B.device = restoredAs; doorMeta = body.door || null; E.custom = body.custom && E.cleanCustom ? E.cleanCustom(body.custom) : null; if (E.ui && E.ui.applyLook) E.ui.applyLook(); return load(v, key); });
+    });
+  };
+
+  /* ---------- devices in step (Build 24, stage 1): the books of several devices joined ----------
+     Each device of a store writes its own chain of ledger lines and keeps the other devices' chains beside it, sealed
+     with the same Store Key. A device joins from a copy (a sealed backup) of a device already in the store: it keeps
+     the copy's records, keeps that device's lines as that device's chain, takes a letter of its own, and starts a
+     chain of its own. Changes travel as a sealed bundle of lines. Taking a bundle in checks that each chain follows on
+     from what was last taken from it, fingerprint by fingerprint, then takes each line's writes field by field (the
+     later stamp wins), adds up the stock moves, never takes another device's counters, and writes one line of its own
+     saying what it took. Two changes to the same field made while the devices were apart: the later one stays, both
+     stay in the ledger, and the report says so. */
+  var LETTERS = "ABCDEFGHJKLMNPQRSTUVWXYZ";
+  function nextCode(used) {
+    for (var i = 0; i < LETTERS.length; i++) if (!used[LETTERS[i]]) return LETTERS[i];
+    for (var a = 0; a < LETTERS.length; a++) for (var b = 0; b < LETTERS.length; b++) if (!used[LETTERS[a] + LETTERS[b]]) return LETTERS[a] + LETTERS[b];
+    throw err("letters");
+  }
+  function codeOfDev(st, dev) {
+    if (B.device && dev === B.device.id) return B.device.code;
+    var c = st && st.sync && st.sync.chains && st.sync.chains[dev]; if (c && c.code) return c.code;
+    var d = st && st.devices && st.devices[dev]; return d ? d.code : "?";
+  }
+  /* what a device knew of the others when it wrote a line: the lines it had taken from each (by letter) */
+  function learn(knows, line, code) {
+    var d = line.data || {};
+    if (line.type === "device.joined" && d.fromCode) knows[d.fromCode] = Math.max(knows[d.fromCode] || 0, d.at || 0);
+    if (line.type === "sync.took" && d.chains) Object.keys(d.chains).forEach(function (c) { knows[c] = Math.max(knows[c] || 0, (d.chains[c] || [])[1] || 0); });
+    knows[code] = Math.max(knows[code] || 0, line.seq);
+  }
+  /* fields two devices may both add to while apart, joined rather than one taking the other's place: a booking's
+     payments (by their own id; a payment voided on either device stays voided), and each person's training marks */
+  var MERGE = { booking: { pays: "byId" }, train: { done: "keys", ex: "keys", tasks: "keys" } };
+  /* when a record was last changed is kept like any field, but two devices both changing it is nothing to report */
+  var QUIET = { updated: 1, updatedAt: 1, updatedBy: 1 };
+  function mergeField(rule, loc, inc, incWins) {
+    if (rule === "keys") {
+      var o = clone(loc) || {};
+      Object.keys(inc || {}).forEach(function (k) { if (!Object.prototype.hasOwnProperty.call(o, k) || (incWins && !same(o[k], inc[k]))) o[k] = clone(inc[k]); });
+      return o;
+    }
+    var by = {}, out = [];
+    (loc || []).forEach(function (x) { by[x.id] = clone(x); });
+    (inc || []).forEach(function (x) {
+      var a = by[x.id];
+      if (!a) { by[x.id] = clone(x); return; }
+      if (same(a, x)) return;
+      var av = a.status === "void", xv = x.status === "void";
+      if (av !== xv) { if (xv) by[x.id] = clone(x); } else if (incWins) by[x.id] = clone(x);
+    });
+    Object.keys(by).forEach(function (k) { out.push(by[k]); });
+    out.sort(function (a, b) { var p = (a.at || "") + "|" + a.id, q = (b.at || "") + "|" + b.id; return p < q ? -1 : p > q ? 1 : 0; });
+    return out;
+  }
+  /* One record written by another device's line, taken in. cur: { v, s } as held (or null); fields: what the line
+     changed (null: the record was new there). Stock is never taken: it is the sum of every device's moves. apart(stamp)
+     says whether the field was changed here while the other device could not know it. */
+  function takeWrite(cur, kind, val, fields, stamp, apart) {
+    if (!cur) { var v = clone(val); if (kind === "item") v.stock = 0; return { cur: { v: v, s: { "": stamp } }, clash: [] }; }
+    var c = { v: clone(cur.v), s: clone(cur.s) || {} }, clash = [], fs = fields;
+    if (!fs) { var ks = {}; Object.keys(val || {}).forEach(function (k) { ks[k] = 1; }); Object.keys(c.v || {}).forEach(function (k) { ks[k] = 1; }); fs = Object.keys(ks); }
+    fs.forEach(function (f) {
+      if (kind === "item" && f === "stock") return;
+      var ls = stampF(c.s, f), later = stamp > ls, rule = MERGE[kind] && MERGE[kind][f];
+      if (same(c.v[f], val[f])) { if (later) c.s[f] = stamp; return; }
+      if (!rule && !QUIET[f] && apart(ls)) clash.push({ f: f, won: later ? stampCode(stamp) : stampCode(ls) });
+      if (rule) { c.v[f] = mergeField(rule, c.v[f], val[f], later); if (later) c.s[f] = stamp; }
+      else if (later) { if (val[f] === undefined) delete c.v[f]; else c.v[f] = clone(val[f]); c.s[f] = stamp; }
+    });
+    return { cur: c, clash: clash };
+  }
+  function myHave(st) {
+    var h = {}; h[B.device.id] = st.head.seq;
+    var ch = (st.sync && st.sync.chains) || {}; Object.keys(ch).forEach(function (d) { h[d] = ch[d].seq; });
+    return h;
+  }
+  /* What this device holds: its letter, each device's chain as far as it has it, and the devices of the store. */
+  B.syncInfo = function () {
+    var st = state; if (!st) return null;
+    var ch = (st.sync && st.sync.chains) || {}, list = [{ id: B.device.id, code: B.device.code, me: true, seq: st.head.seq, at: st.head.at }];
+    Object.keys(ch).forEach(function (d) { list.push({ id: d, code: ch[d].code, me: false, seq: ch[d].seq, at: ch[d].at || null }); });
+    list.forEach(function (x) { var r = st.devices && st.devices[x.id]; x.name = (r && r.name) || ""; x.joined = (r && r.joined) || null; });
+    list.sort(function (a, b) { return a.code < b.code ? -1 : a.code > b.code ? 1 : 0; });
+    return { device: { id: B.device.id, code: B.device.code }, have: myHave(st), devices: list };
+  };
+
+  /* ---------- a bundle: this device's lines (and those it holds of the others) that the other device lacks ---------- */
+  B.makeBundle = function (have) {
+    if (!KEY || !state) return Promise.reject(err("locked"));
+    if (B.mode === "practice") return Promise.reject(err("practice"));
+    if (B.user && !B.can("backup")) return Promise.reject(err("denied"));
+    have = have || {};
+    var key = KEY, id = ID, st = state, me = B.device.id;
+    return D.entries("journal").then(function (entries) {
+      var chains = {};
+      function into(dev, code, line) { var c = chains[dev] || (chains[dev] = { dev: dev, code: code, lines: [] }); c.lines.push(line); }
+      return Promise.all(entries.map(function (e) {
+        if (typeof e[0] === "number") {
+          if (e[0] <= (have[me] || 0)) return null;
+          return C.open(key, e[1], aadLine(id, e[0])).then(function (l) { into(me, B.device.code, l); });
+        }
+        var m = /^p:(.+):(\d+)$/.exec(e[0]); if (!m) return null;
+        var dev = m[1], seq = parseInt(m[2], 10);
+        if (seq <= (have[dev] || 0)) return null;
+        return C.open(key, e[1], aadPeer(id, dev, seq)).then(function (l) { into(dev, codeOfDev(st, dev), l); });
+      })).then(function () {
+        var list = Object.keys(chains).map(function (d) { var c = chains[d]; c.lines.sort(function (a, b) { return a.seq - b.seq; }); return c; });
+        list.forEach(function (c) { c.lines.forEach(function (l) { if (!l.ts) throw err("old", c.code); }); });
+        var payload = { v: 1, from: me, code: B.device.code, at: new Date().toISOString(), have: myHave(st), chains: list };
+        return C.seal(key, payload, aadBundle(id, me)).then(function (sealed) {
+          return JSON.stringify({ format: "lakay-changes", v: 1, store: id, from: me, iv: U.b64e(sealed.iv), ct: U.b64e(sealed.ct) });
+        });
+      });
+    });
+  };
+
+  /* ---------- taking a bundle in ---------- */
+  B.takeBundle = function (text) {
+    var bundle;
+    try { bundle = JSON.parse(text); } catch (e) { return Promise.reject(err("notbundle")); }
+    if (!bundle || bundle.format !== "lakay-changes" || bundle.v !== 1 || !bundle.iv || !bundle.ct || !bundle.from) return Promise.reject(err("notbundle"));
+    if (!KEY || !state) return Promise.reject(err("locked"));
+    if (B.mode === "practice") return Promise.reject(err("practice"));
+    if (B.user && !B.can("backup")) return Promise.reject(err("denied"));
+    if (bundle.store !== ID) return Promise.reject(err("otherstore"));
+    if (bundle.from === B.device.id) return Promise.reject(err("mine"));
+    var key = KEY, id = ID;
+    return C.open(key, { iv: U.b64d(bundle.iv), ct: U.b64d(bundle.ct) }, aadBundle(id, bundle.from)).then(null, function () { throw err("notbundle"); }).then(function (pl) {
+      if (!pl || pl.from !== bundle.from || !Array.isArray(pl.chains)) throw err("notbundle");
+      return enqueue(function () { return takeIn(pl, key, id); });
+    });
+  };
+  function takeIn(pl, key, id) {
+    if (!KEY || !state || KEY !== key) throw err("locked");
+    var st = state, sync = clone(st.sync) || { v: 1, chains: {}, vs: {}, cs: "" };
+    sync.chains = sync.chains || {}; sync.vs = sync.vs || {}; sync.cs = sync.cs || "";
+    var rep = { from: pl.code, lines: 0, chains: {}, clashes: [], problems: [] }, fresh = [];
+    /* 1. each chain must follow on from what this device holds of it */
+    return pl.chains.reduce(function (p, ch) {
+      return p.then(function () {
+        if (!ch || !ch.dev || ch.dev === B.device.id || !Array.isArray(ch.lines)) return;
+        var held = sync.chains[ch.dev] || { code: ch.code, seq: 0, hash: ZERO, knows: {} };
+        var code = held.code || ch.code, at = ch.lines.filter(function (l) { return l.seq === held.seq; })[0];
+        var lines = ch.lines.filter(function (l) { return l.seq > held.seq; }).sort(function (a, b) { return a.seq - b.seq; });
+        return (at ? U.sha256hex(U.canon(at)).then(function (h) { if (h !== held.hash) throw err("fork", code); }) : Promise.resolve()).then(function () {
+          if (!lines.length) return;
+          if (lines[0].seq !== held.seq + 1) throw err("gap", code);
+          var prev = held.hash, hashes = [], i = 0;
+          function next() {
+            if (i >= lines.length) return Promise.resolve();
+            var l = lines[i];
+            if (l.prev !== prev || l.seq !== held.seq + 1 + i) throw err("chain", code);
+            if (!l.ts) throw err("old", code);
+            i++;
+            return U.sha256hex(U.canon(l)).then(function (h) { prev = h; hashes.push(h); return next(); });
+          }
+          return next().then(function () { fresh.push({ dev: ch.dev, code: code, held: held, lines: lines, hashes: hashes }); });
+        });
+      });
+    }, Promise.resolve()).then(function () {
+      if (!fresh.length) return rep;
+      /* two devices may never share a letter (two joined from the same copy before either was heard of): the second is
+         refused, and joins again from a newer copy */
+      var codes = {}; codes[B.device.code] = B.device.id;
+      Object.keys(sync.chains).forEach(function (d) { var c = sync.chains[d].code; if (!codes[c]) codes[c] = d; });
+      fresh.forEach(function (c) { var o = codes[c.code]; if (o && o !== c.dev) throw err("letter", c.code); codes[c.code] = c.dev; });
+      /* 2. every new line, from every chain, in the order of the stamps */
+      var queue2 = [], work = {}, knows = {}, maxTs = 0, vaultTaken = {}, custom, customTaken = false;
+      fresh.forEach(function (c) {
+        knows[c.dev] = clone(c.held.knows) || {};
+        c.lines.forEach(function (l) { queue2.push([lineStamp(l, c.code), l, c]); maxTs = Math.max(maxTs, l.ts || 0); });
+        rep.chains[c.code] = c.lines.length; rep.lines += c.lines.length;
+      });
+      queue2.sort(function (a, b) { return a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0; });
+      function workGet(k) { if (Object.prototype.hasOwnProperty.call(work, k)) return work[k]; var v = getRec(st, k); return v ? { v: v, s: st.stamps[k] || {} } : null; }
+      queue2.forEach(function (q) {
+        var stamp = q[0], line = q[1], c = q[2], kn = knows[c.dev];
+        var apart = function (ls) { if (!ls) return false; var lc = stampCode(ls); if (!lc || lc === c.code) return false; return (kn[lc] || 0) < stampSeq(ls); };
+        (line.w || []).forEach(function (e) {
+          var k = e[0], kind = kindOf(k); if (LOCAL[kind]) return;
+          var r = takeWrite(workGet(k), kind, e[1], e[2], stamp, apart);
+          work[k] = r.cur;
+          r.clash.forEach(function (x) { rep.clashes.push({ k: k, f: x.f, from: c.code, seq: line.seq, won: x.won }); });
+        });
+        Object.keys(line.sd || {}).forEach(function (iid) {
+          var k = "item:" + iid, cur = workGet(k);
+          if (!cur) { rep.problems.push({ seq: line.seq, from: c.code, what: "item", id: iid }); return; }
+          var v = clone(cur.v); v.stock = (v.stock || 0) + line.sd[iid]; work[k] = { v: v, s: cur.s };
+        });
+        if (line.m) {
+          (line.m.v || []).forEach(function (pt) { if (stamp > (sync.vs[pt[0]] || "")) { vaultTaken[pt[0]] = pt[1]; sync.vs[pt[0]] = stamp; } });
+          if (line.m.c !== undefined && stamp > sync.cs) { custom = line.m.c; customTaken = true; sync.cs = stamp; }
+        }
+        learn(kn, line, c.code);
+      });
+      /* 3. the books as they now stand: the records changed, the vault, the door, and what this device holds */
+      var raw = [], ops = [], took = {};
+      Object.keys(work).forEach(function (k) { raw.push({ k: k, v: work[k].v, s: work[k].s }); });
+      fresh.forEach(function (c) {
+        var last = c.lines[c.lines.length - 1];
+        sync.chains[c.dev] = { code: c.code, seq: last.seq, hash: c.hashes[c.hashes.length - 1], at: last.at, knows: knows[c.dev] };
+        took[c.code] = [c.lines[0].seq, last.seq];
+      });
+      sync.peers = sync.peers || {}; sync.peers[pl.from] = { have: pl.have || {}, at: new Date().toISOString() };
+      raw.push({ k: "sync:main", v: sync });
+      var users = clone(st.users), settings = st.settings;
+      Object.keys(work).forEach(function (k) { if (kindOf(k) === "user") users[k.slice(5)] = work[k].v; });
+      if (work["settings:main"]) settings = work["settings:main"].v;
+      var door = doorWith({ storeName: settings.storeName, people: peopleOf(users) });
+      if (work["settings:main"] && !same(settings.ownerName, st.settings.ownerName)) door.user = cleanName(settings.ownerName);
+      var meta = [{ key: "door", value: door }];
+      return Promise.all(fresh.map(function (c) {
+        return Promise.all(c.lines.map(function (l) { return C.seal(key, l, aadPeer(id, c.dev, l.seq)).then(function (env) { ops.push({ store: "journal", key: peerKey(c.dev, l.seq), value: env, add: true }); }); }));
+      })).then(function () {
+        if (!Object.keys(vaultTaken).length) return;
+        return D.get("meta", "vault").then(function (v) {
+          v = clone(v);
+          Object.keys(vaultTaken).forEach(function (pt) {
+            var env = vaultTaken[pt];
+            if (pt === "owner" || pt === "master") { if (env) v[pt] = env; }
+            else if (pt.indexOf("people:") === 0) { v.people = v.people || {}; if (env) v.people[pt.slice(7)] = env; else delete v.people[pt.slice(7)]; }
+          });
+          ops.push({ store: "meta", key: "vault", value: v });
+        });
+      }).then(function () {
+        if (customTaken) ops.push({ store: "meta", key: "custom", value: custom });
+        var data = { from: pl.from, code: pl.code, chains: took, lines: rep.lines, clashes: rep.clashes.length, list: rep.clashes.slice(0, 40) };
+        if (rep.problems.length) data.problems = rep.problems.slice(0, 20);
+        return commit("sync.took", data, [], meta, { raw: raw, ops: ops, minTs: maxTs });
+      }).then(function () {
+        if (state) E.settings = state.settings;
+        if (customTaken) { E.custom = E.cleanCustom ? E.cleanCustom(custom) : custom; if (E.ui && E.ui.applyLook) E.ui.applyLook(); }
+        return rep;
+      });
+    });
+  }
+
+  /* ---------- a device joins the store from a copy (a sealed backup) made by a device already in it ---------- */
+  B.joinFromBackup = function (body, secret, isMaster, name) {
+    var v = body.vault;
+    if (B.mode === "practice") B.useBooks(false);
+    /* only a device with no store of its own joins: the books of a store already here are never replaced this way */
+    return D.get("meta", "vault").then(function (here) {
+      if (here) throw err("hasstore");
+      return backupKey(body, secret, isMaster);
+    }).then(function (key) {
+      var journal = body.journal.map(function (e) { return [e[0], { iv: U.b64d(e[1]), ct: U.b64d(e[2]) }]; });
+      var rec = body.rec.map(function (e) { return [e[0], { iv: U.b64d(e[1]), ct: U.b64d(e[2]) }]; });
+      var src, devRecs = {}, copySync = null;
+      return readChains(key, v.storeId, journal, true).then(function (r) {
+        src = r;
+        return Promise.all(rec.filter(function (e) { return /^device:/.test(e[0]) || e[0] === "sync:main"; }).map(function (e) {
+          return C.open(key, e[1], aadRec(v.storeId, e[0])).then(function (val) {
+            if (val && val["~s"] && Object.prototype.hasOwnProperty.call(val, "~v")) val = val["~v"];
+            if (e[0] === "sync:main") copySync = val; else devRecs[e[0].slice(7)] = val;
+          });
+        }));
+      }).then(function () {
+        var last = src.lines[src.lines.length - 1];
+        var srcDev = (body.device && body.device.id) || (last && last.dev);
+        if (!last || !srcDev) throw err("notbackup");
+        if (srcDev === B.device.id || src.peers[B.device.id] || devRecs[B.device.id]) throw err("samedevice");
+        var used = {}, srcCode = (devRecs[srcDev] && devRecs[srcDev].code) || (body.device && body.device.code) || "A";
+        Object.keys(devRecs).forEach(function (d) { used[devRecs[d].code] = 1; });
+        Object.keys((copySync && copySync.chains) || {}).forEach(function (d) { used[copySync.chains[d].code] = 1; });
+        used[srcCode] = 1;
+        var myCode = nextCode(used), now = new Date(), ts = Math.max(now.getTime(), src.maxTs + 1), knowsSrc = {};
+        src.lines.forEach(function (l) { learn(knowsSrc, l, srcCode); });
+        var mine = { id: B.device.id, code: myCode, name: cleanName(name), joined: now.toISOString(), from: srcDev };
+        var w = [["device:" + B.device.id, mine, null]], newRecs = [["device:" + B.device.id, mine]];
+        if (!devRecs[srcDev]) {
+          var theirs = { id: srcDev, code: srcCode, name: "", joined: src.lines[0].at, from: null };
+          w.push(["device:" + srcDev, theirs, null]); newRecs.push(["device:" + srcDev, theirs]);
+        }
+        var line = { seq: 1, at: now.toISOString(), day: U.dayKey(now), by: "owner", dev: B.device.id, type: "device.joined",
+          data: { code: myCode, from: srcDev, fromCode: srcCode, at: last.seq, hash: src.hash, name: mine.name }, prev: ZERO, build: E.BUILD.number, ts: ts, w: w };
+        var stamp = stampOf(ts, myCode, 1), sync = { v: 1, chains: {}, vs: (copySync && copySync.vs) || {}, cs: (copySync && copySync.cs) || "" };
+        Object.keys((copySync && copySync.chains) || {}).forEach(function (d) { if (d !== B.device.id) sync.chains[d] = copySync.chains[d]; });
+        sync.chains[srcDev] = { code: srcCode, seq: last.seq, hash: src.hash, at: last.at, knows: knowsSrc };
+        var device = { id: B.device.id, code: myCode, created: B.device.created };
+        return U.sha256hex(U.canon(line)).then(function (hash) {
+          var head = { seq: 1, hash: hash, at: line.at, ts: ts };
+          return Promise.all([C.seal(key, line, aadLine(v.storeId, 1)), C.seal(key, head, aadRec(v.storeId, "head:main")), C.seal(key, sync, aadRec(v.storeId, "sync:main"))]
+            .concat(newRecs.map(function (r) { return C.seal(key, wrapRec(r[1], { "": stamp }), aadRec(v.storeId, r[0])); }))
+            .concat(src.lines.map(function (l) { return C.seal(key, l, aadPeer(v.storeId, srcDev, l.seq)); })));
+        }).then(function (sealed) {
+          var outRec = rec.filter(function (e) { return e[0] !== "head:main" && e[0] !== "sync:main" && !/^notes:/.test(e[0]); });
+          outRec.push(["head:main", sealed[1]], ["sync:main", sealed[2]]);
+          newRecs.forEach(function (r, i) { outRec = outRec.filter(function (e) { return e[0] !== r[0]; }); outRec.push([r[0], sealed[3 + i]]); });
+          var outJournal = [[1, sealed[0]]];
+          src.lines.forEach(function (l, i) { outJournal.push([peerKey(srcDev, l.seq), sealed[3 + newRecs.length + i]]); });
+          journal.forEach(function (e) { if (typeof e[0] !== "number") outJournal.push(e); });
+          return B.lock("join").then(function () {
+            var meta = [["vault", v], ["door", body.door], ["device", device]];
+            if (body.custom) meta.push(["custom", E.cleanCustom ? E.cleanCustom(body.custom) : body.custom]);
+            return D.replaceAll(meta, outRec, outJournal);
+          });
+        }).then(function () {
+          B.device = device;
+          doorMeta = body.door || null; E.custom = body.custom && E.cleanCustom ? E.cleanCustom(body.custom) : null;
+          if (E.ui && E.ui.applyLook) E.ui.applyLook();
+          return load(v, key);
+        });
+      });
     });
   };
 
@@ -7787,6 +8410,140 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   K.order = ORDER.slice();
 })();
 
+/* LAKAY | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt.
+   The name tip (Build 24), as Carpe Diem and the other apps of the Offline Project have it: when the pointer rests on a
+   key that shows no words of its own (an emoji, a mark, a swatch), its name appears just above it, in a small label
+   dressed in the colours of the surface beneath the key, with a pointer to the key. A paper's swatch shows a chip of its
+   colour, its name, and its colour by day or by night. The label also appears when a key is reached with the keyboard,
+   and for a moment when a swatch is touched. It takes the place of the browser's own small tooltip, which it keeps aside
+   while it shows and gives back after.
+   A key gives its name by data-tip-name (with data-tip-day and data-tip-night), or by its title or its aria-label: a
+   title such as "Day or night: the lamp of the whole store" shows "Day or night" with the rest on a second line. */
+"use strict";
+(function () {
+  var doc = document, tip = null, cur = null, touchWait = null;
+  var KEYS = '[data-tip-name],button,[role="button"],a.key,summary';
+  function night() { return doc.documentElement.getAttribute("data-theme") === "night"; }
+
+  /* ---------- colours: the surface beneath a key, as the eye sees it ---------- */
+  function rgba(s) { var m = /rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)(?:[,\s/]+([\d.]+))?/.exec(String(s || "")); return m ? [+m[1], +m[2], +m[3], m[4] == null ? 1 : +m[4]] : null; }
+  function lum(c) { function f(x) { x /= 255; return x <= .03928 ? x / 12.92 : Math.pow((x + .055) / 1.055, 2.4); } return .2126 * f(c[0]) + .7152 * f(c[1]) + .0722 * f(c[2]); }
+  function contrast(a, b) { var x = lum(a), y = lum(b); return (Math.max(x, y) + .05) / (Math.min(x, y) + .05); }
+  function over(top, under) { var a = top[3]; return [top[0] * a + under[0] * (1 - a), top[1] * a + under[1] * (1 - a), top[2] * a + under[2] * (1 - a), 1]; }
+  function css(c) { return "rgb(" + Math.round(c[0]) + "," + Math.round(c[1]) + "," + Math.round(c[2]) + ")"; }
+  function pageColour() {
+    var c = null;
+    try { c = rgba(getComputedStyle(doc.body).backgroundColor); if (!c || c[3] < .5) c = rgba(getComputedStyle(doc.documentElement).backgroundColor); } catch (e) { }
+    if (!c || c[3] < .5) c = night() ? [22, 21, 34, 1] : [255, 255, 255, 1];
+    return [c[0], c[1], c[2], 1];
+  }
+  function surface(el) {
+    var base = pageColour(), layers = [];
+    for (var n = el; n && n.nodeType === 1; n = n.parentElement) {
+      var c = null; try { c = rgba(getComputedStyle(n).backgroundColor); } catch (e) { }
+      if (c && c[3] > .04) { layers.push(c); if (c[3] >= .98) break; }
+    }
+    var out = base;
+    for (var i = layers.length - 1; i >= 0; i--) out = over(layers[i], out);
+    return out;
+  }
+  function dress(el) {
+    var named = el.hasAttribute("data-tip-name"), st = null, own = null;
+    try { st = getComputedStyle(el); } catch (e) { }
+    if (st && !named) { var o = rgba(st.backgroundColor); if (o && o[3] >= .55) own = over(o, surface(el.parentElement || el)); }
+    var bg = own || surface(el.parentElement || el), ink = null;
+    try { ink = rgba(getComputedStyle(named && el.parentElement ? el.parentElement : el).color); } catch (e) { }
+    if (!ink || contrast(ink, bg) < 3.2) {
+      var bodyInk = null; try { bodyInk = rgba(getComputedStyle(doc.body).color); } catch (e) { }
+      ink = bodyInk && contrast(bodyInk, bg) >= 3.2 ? bodyInk : lum(bg) > .4 ? [34, 30, 56, 1] : [238, 236, 250, 1];
+    }
+    var dark = lum(bg) < .35;
+    return { bg: css(bg), ink: css(ink), edge: "rgba(" + Math.round(ink[0]) + "," + Math.round(ink[1]) + "," + Math.round(ink[2]) + "," + (dark ? .26 : .18) + ")",
+      shadow: dark ? "0 1px 0 rgba(255,255,255,.05),0 12px 26px -10px rgba(0,0,0,.66)" : "0 1px 0 rgba(255,255,255,.6),0 12px 26px -10px rgba(34,28,60,.34)" };
+  }
+
+  /* ---------- what a key is called ---------- */
+  function words(el) { return /[A-Za-zÀ-ɏ]{2,}/.test((el.textContent || "").replace(/\s+/g, " ")); }
+  function nameOf(el) {
+    var nm = el.getAttribute("data-tip-name");
+    if (nm) {
+      var chip = ""; try { var s = getComputedStyle(el); chip = s.backgroundImage && s.backgroundImage !== "none" ? s.backgroundImage : s.backgroundColor; } catch (e) { }
+      return { chip: chip, title: nm, line: el.getAttribute(night() ? "data-tip-night" : "data-tip-day") || "" };
+    }
+    if (words(el)) return null;
+    var text = el.getAttribute("title") || (el.__tipTitle != null ? el.__tipTitle : "") || el.getAttribute("aria-label") || "";
+    text = String(text).trim(); if (!text) return null;
+    var note = "", line = "", m = /^(.+?)\s*\(([^()]{1,24})\)\s*$/.exec(text);
+    if (m) { text = m[1]; note = m[2]; }
+    var cut = text.search(/\s[—–-]\s|:\s/);
+    if (cut > 0 && cut <= 40) { line = text.slice(cut).replace(/^\s*[—–:-]\s*/, ""); text = text.slice(0, cut); }
+    else if (text.length > 48) { var dot = text.indexOf(". "); if (dot > 0 && dot < 60) { line = text.slice(dot + 2); text = text.slice(0, dot); } }
+    return { title: text, line: line, note: note };
+  }
+  function keyAt(target) {
+    try {
+      if (!target || !target.closest) return null;
+      if (target.closest("[data-no-tip],#name-tip,.fab")) return null;
+      var el = target.closest(KEYS);
+      return el && nameOf(el) ? el : null;
+    } catch (e) { return null; }
+  }
+
+  /* ---------- showing and hiding ---------- */
+  function giveBack(el) { try { if (el && el.__tipTitle != null) { if (!el.hasAttribute("title")) el.setAttribute("title", el.__tipTitle); el.__tipTitle = null; } } catch (e) { } }
+  function hide() { if (tip) { tip.classList.remove("show"); tip.style.display = "none"; } giveBack(cur); cur = null; }
+  function show(el) {
+    var n = nameOf(el); if (!n) return;
+    if (cur && cur !== el) giveBack(cur);
+    if (el.hasAttribute("title")) { el.__tipTitle = el.getAttribute("title"); el.removeAttribute("title"); }
+    if (!el.hasAttribute("aria-label")) { try { el.setAttribute("aria-label", n.title + (n.line ? ", " + n.line : "")); } catch (e) { } }
+    if (!tip || !doc.contains(tip)) {
+      tip = doc.getElementById("name-tip") || doc.createElement("div");
+      tip.id = "name-tip"; tip.setAttribute("role", "tooltip"); tip.setAttribute("aria-hidden", "true");
+      (doc.body || doc.documentElement).appendChild(tip);
+    }
+    while (tip.firstChild) tip.removeChild(tip.firstChild);
+    var d = dress(el);
+    tip.style.background = d.bg; tip.style.setProperty("--nt-bg", d.bg); tip.style.setProperty("--nt-edge", d.edge);
+    tip.style.borderColor = d.edge; tip.style.color = d.ink; tip.style.boxShadow = d.shadow;
+    var title = doc.createElement("div"); title.className = "nt-title";
+    if (n.chip) { var c = doc.createElement("span"); c.className = "nt-chip"; c.style.background = n.chip; c.style.border = "1px solid " + d.edge; title.appendChild(c); }
+    title.appendChild(doc.createTextNode(n.title)); tip.appendChild(title);
+    var rest = [n.line, n.note].filter(Boolean).join(" · ");
+    if (rest) { var l = doc.createElement("div"); l.className = "nt-line"; l.textContent = rest; tip.appendChild(l); }
+    tip.classList.remove("below", "show"); tip.style.display = "block";
+    var r = el.getBoundingClientRect(), w = tip.offsetWidth, hgt = tip.offsetHeight, vw = window.innerWidth || doc.documentElement.clientWidth;
+    var mid = r.left + r.width / 2, left = Math.max(8, Math.min(vw - w - 8, mid - w / 2)), top = r.top - hgt - 11;
+    if (top < 8) { top = r.bottom + 11; tip.classList.add("below"); }
+    tip.style.left = left + "px"; tip.style.top = top + "px";
+    tip.style.setProperty("--nt-x", Math.max(14, Math.min(w - 14, mid - left)) + "px");
+    try { requestAnimationFrame(function () { if (tip) tip.classList.add("show"); }); } catch (e) { tip.classList.add("show"); }
+    cur = el;
+  }
+  doc.addEventListener("pointerover", function (e) {
+    if (e.pointerType === "touch") return;
+    if (cur && !doc.contains(cur)) hide();
+    var k = keyAt(e.target);
+    if (k) { if (k !== cur) show(k); } else if (cur) hide();
+  }, true);
+  doc.addEventListener("focusin", function (e) {
+    try { if (!e.target.matches(":focus-visible")) return; } catch (x) { }
+    var k = keyAt(e.target); if (k) show(k); else if (cur) hide();
+  }, true);
+  doc.addEventListener("focusout", function () { if (cur) hide(); }, true);
+  doc.addEventListener("pointerdown", function (e) {
+    var k = keyAt(e.target);
+    if (k && e.pointerType === "touch" && k.hasAttribute("data-tip-name")) { show(k); clearTimeout(touchWait); touchWait = setTimeout(hide, 1600); }
+    else if (cur) hide();
+  }, true);
+  doc.addEventListener("pointerout", function (e) { if (!e.relatedTarget && cur) hide(); }, true);
+  doc.addEventListener("click", function () { setTimeout(function () { if (cur && !doc.contains(cur)) hide(); }, 0); }, true);
+  doc.addEventListener("keydown", function (e) { if (e.key === "Escape" && cur) hide(); }, true);
+  doc.addEventListener("scroll", function () { if (cur) hide(); }, true);
+  try { window.addEventListener("blur", function () { if (cur) hide(); }); } catch (e) { }
+  E.nameTip = { show: show, hide: hide, nameOf: function (el) { var n = nameOf(el); return n ? n.title : ""; } };
+})();
+
 /* EMPORIUM | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt.
    The shell: the menu, the rooms, dialogs, tips, messages, the look (Day, Night, Auto, text size, Calm), the idle lock,
    saving files and printing. */
@@ -7873,7 +8630,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     document.addEventListener("keydown", onKey, true);
     box.appendChild(head); box.appendChild(body); if (o.actions && o.actions.length) box.appendChild(foot);
     layer.appendChild(box); document.body.appendChild(layer);
-    setTimeout(function () { var f = o.focus ? box.querySelector(o.focus) : $allFocusable(body)[0] || $allFocusable(foot)[0]; if (f) f.focus(); }, 30);
+    setTimeout(function () { var f = o.focus ? box.querySelector(o.focus) : $allFocusable(body)[0] || $allFocusable(foot)[0]; if (f) U.focusSoon(f, box); }, 30);
     return { close: close, box: box, body: body, foot: foot };
   };
   function $allFocusable(root) {
@@ -8053,7 +8810,10 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   ui.allowed = function (room) {
     if (room === "register" || room === "travel") return B.can("sell");
     if (room === "reports") return B.can("reports");
-    if (room === "settings" || room === "studio") return B.can("owner");
+    if (room === "settings") return B.can("owner");
+    /* Build 24: the Author Studio is the owner's alone, in the store's own books. The practice store opens with no
+       sign-in (on the website too, for anyone who visits), so the Studio is neither shown nor opened there. */
+    if (room === "studio") return B.can("owner") && B.mode !== "practice";
     return true;
   };
   ui.go = function (room, quiet) {
@@ -8131,9 +8891,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
       [h("span.pdot", { "aria-hidden": "true" }), h("span.nm", null, practice ? (B.isOwner() ? t("practice.pill") : t("practice.pill") + " · " + who) : who || t("status.h"))]));
     c.appendChild(h("button.cl-key#alertsBtn", { type: "button", title: t("top.alertsTip"), "aria-label": t("top.alerts") + (alertsN ? " (" + alertsN + ")" : ""), onclick: ui.alertsPanel },
       [t("top.alerts"), alertsN ? h("span.cnt", { "aria-hidden": "true" }) : null]));
-    /* the calculator: it floats above the page and can be carried anywhere (20-rail.js) */
-    c.appendChild(h("button.cl-key.icon#calcBtn", { type: "button", title: t("rail.calc"), "aria-label": t("rail.calc"), onclick: function () { if (E.rail && E.rail.calc) E.rail.calc.toggle(); } },
-      h("span", { "aria-hidden": "true" }, "🧮")));
+    /* the calculator moved to the side rail in Build 24, under the cart (20-rail.js) */
     c.appendChild(h("button.cl-key#displayBtn", { type: "button", title: t("top.display"), onclick: ui.displayPanel }, t("top.display")));
     c.appendChild(h("button.cl-key#guideBtn", { type: "button", title: t("room.guide"), onclick: function () { ui.go("guide"); } }, t("top.guide")));
     c.appendChild(h("button.cl-key#aboutBtn", { type: "button", title: t("top.about") + " " + E.appName(), onclick: ui.about }, t("top.about")));
@@ -8433,7 +9191,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
       var ins = card.querySelectorAll("input:not([type=hidden]):not([type=file]),textarea"), f = null;
       for (var i = 0; i < ins.length; i++) if (!ins[i].value) { f = ins[i]; break; }
       f = f || ins[0] || card.querySelector("button.ild-key:not(.ild-ghost)");
-      if (f) try { f.focus(); } catch (e) { }
+      if (f) U.focusSoon(f, card);
     }, 40);
     return card;
   }
@@ -8509,7 +9267,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     app.appendChild(h("div#introDoor.intro-door", null, [ghost, h("div.intro-frost"), card]));
     app.appendChild(ui.doorBar(function () { door.view(); }));
     if (stored && o.open) setTimeout(openSignIn, 0);
-    setTimeout(function () { try { if (!o.open) enter.focus(); } catch (e) { } }, 60);
+    setTimeout(function () { if (!o.open) U.focusSoon(enter, card); }, 60);
   });
   function lockIcon() {
     var NS = "http://www.w3.org/2000/svg", svg = document.createElementNS(NS, "svg");
@@ -8557,7 +9315,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
       B.signIn(nm.value, pw.value).then(function () {
         var first = pw.value; pw.value = ""; U.prefSet("fails", "0"); U.prefSet("waitUntil", "0"); door.outNote = "";
         if (B.user && B.user.mustChange) return ownPassword(first);
-        return door.arrive();
+        return door.arrive().catch(arriveFailed(card));
       }, function (x) {
         if (x && x.code === "wrong") return wrong();
         busy(card, false); err(card, t("door.problem")); console.error(x);
@@ -8568,13 +9326,19 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   }
   /* Once the books are open: a person on the staff is clocked in as they arrive (the owner clocks in by choice, from
      the status key), and the store opens. */
+  /* Build 24: the store opens even when something on its way fails. The clock in may wait at most fifteen seconds; if
+     drawing the store fails, it is tried once more; and a sign-in that still cannot open says so at the door, with its
+     keys working again, instead of waiting for ever. */
   door.arrive = function () {
-    var p = (!B.isOwner() && !B.openShift(B.user.id)) ? B.clockIn().catch(function (e) { console.error(e); return null; }) : Promise.resolve(null);
-    return p.then(function (sh) {
-      E.app.opened();
+    var clock = (!B.isOwner() && !B.openShift(B.user.id)) ? B.clockIn().catch(function (e) { console.error(e); return null; }) : Promise.resolve(null);
+    var limit = new Promise(function (res) { setTimeout(function () { res(null); }, 15000); });
+    return Promise.race([clock, limit]).then(function (sh) {
+      try { E.app.opened(); } catch (e) { console.error(e); E.app.opened(); }
       if (sh) ui.toast(t("clock.inAt", { name: B.user.name, t: E.fmtTime(new Date(sh.in)) }), "good");
     });
   };
+  /* a sign-in whose store could not open: the door's keys work again, and it says so */
+  function arriveFailed(card) { return function (x) { console.error(x); busy(card, false); err(card, t("door.problem")); }; }
   /* The first time a person signs in with the password the owner gave them, they choose their own. */
   var ownPassword = screen(function (given) {
     var card = lockDoor(document.getElementById("introDoor") ? "intro" : "door");
@@ -8587,13 +9351,13 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
       if (a.value !== b.value) return err(card, t("setup.noMatch"));
       if (a.value === given) return err(card, t("own.notGiven"));
       busy(card, true);
-      B.changeMyPassword(given, a.value).then(function () { a.value = ""; b.value = ""; return door.arrive(); }, function (x) {
+      B.changeMyPassword(given, a.value).then(function () { a.value = ""; b.value = ""; return door.arrive().catch(arriveFailed(card)); }, function (x) {
         busy(card, false); err(card, t(x && x.code === "password" ? x.extra : "door.problem")); console.error(x);
       });
     } }, [label(t("own.new"), a), meter, label(t("own.again"), b),
       h("div.ild-keys", null, [h("button.ild-link#ldOwnLater", { type: "button", onclick: function () { B.lock("signout"); } }, t("own.later")), h("button.ild-key#ldOwnGo", { type: "submit" }, t("own.go"))])]);
     fill(card, [h("h2", null, t("own.h", { name: B.user ? B.user.name : "" })), h("p", null, t("own.p")), form]);
-    setTimeout(function () { try { a.focus(); } catch (e) { } }, 60);
+    setTimeout(function () { U.focusSoon(a, card); }, 60);
   });
   /* the sign-in, wherever the door is asked for it: the introduction, with the fold open */
   var signIn = function (why) { return intro({ store: true, open: true, why: why }); };
@@ -8892,33 +9656,85 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     });
     return box;
   }
-  function readout(id, emoji, label, value, text, tone, big) {
-    return h("div.ct-read.hx-gauge" + (tone ? "." + tone : "") + (big ? ".big" : ""), { id: id, "data-value": String(value) }, [
+  /* Build 24, at the owner's request: everything on the greeting card answers the hand. Each figure is a key: the
+     takings and the profit open the day's report, the sales the day's last receipts, the stock running low the items
+     that are; the drums roll again when the pointer comes to a figure; the card of the figures stands out in depth and
+     leans toward the pointer; the chips and the date are keys too. Calm and "reduce motion" hold it all still. */
+  function still() { return document.documentElement.getAttribute("data-calm") === "1" || !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches); }
+  function goDay() { if (B.can("reports")) { E.reports.period = "today"; ui.go("reports"); } else if (B.can("sell")) ui.go("register"); }
+  function goLow() { if (E.inventory) { E.inventory.filter = "low"; E.inventory.page = 0; E.inventory.dept = null; } ui.go("inventory"); }
+  function goSales() {
+    var s = document.querySelector(".hm-sales"); if (!s) return;
+    try { s.scrollIntoView({ behavior: still() ? "auto" : "smooth", block: "center" }); } catch (e) { s.scrollIntoView(); }
+    s.classList.remove("ct-glow"); void s.offsetWidth; s.classList.add("ct-glow");
+  }
+  /* the drums turn back to nought and roll to their figure again */
+  function reroll(el) {
+    if (still() || el.__rolling) return;
+    el.__rolling = true;
+    var strips = el.querySelectorAll(".ct-strip[data-d]");
+    Array.prototype.forEach.call(strips, function (x) { x.style.transition = "none"; x.style.transform = "translateY(0)"; });
+    void el.offsetWidth;
+    requestAnimationFrame(function () {
+      Array.prototype.forEach.call(strips, function (x, i) { x.style.transition = ""; x.style.transitionDelay = (i % 9) * 55 + "ms"; x.style.transform = "translateY(" + (-10 * Number(x.getAttribute("data-d"))) + "%)"; });
+      setTimeout(function () { el.__rolling = false; }, 1500);
+    });
+  }
+  /* a key on the card is pressed in, then does its work */
+  function press(el, go) { el.classList.add("ct-pressed"); setTimeout(function () { el.classList.remove("ct-pressed"); if (go) go(); }, still() ? 0 : 150); }
+  function readout(id, emoji, label, value, text, tone, big, go, hint) {
+    var b = h("button.ct-read.hx-gauge" + (tone ? "." + tone : "") + (big ? ".big" : ""), { type: "button", id: id, "data-value": String(value), title: hint || null,
+      "aria-label": label + ": " + text + (hint ? ". " + hint : ""), onclick: function (e) { e.stopPropagation(); press(b, go); } }, [
       h("span.g-label", null, [ui.emo(emoji), label]),
       h("span.g-value", null, [drums(text), h("span.sr-only", null, text)])]);
+    b.addEventListener("pointerenter", function () { reroll(b); });
+    return b;
+  }
+  /* the card of the figures leans toward the pointer, as a card held in the hand */
+  function lean(win) {
+    function at(e) {
+      if (still() || e.pointerType === "touch") return;
+      var r = win.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      win.style.setProperty("--ry", (x * 9).toFixed(2) + "deg"); win.style.setProperty("--rx", (-y * 7).toFixed(2) + "deg");
+      win.style.setProperty("--mx", Math.round((x + .5) * 100) + "%"); win.style.setProperty("--my", Math.round((y + .5) * 100) + "%");
+      win.classList.add("leaning");
+    }
+    win.addEventListener("pointermove", at);
+    win.addEventListener("pointerleave", function () { win.classList.remove("leaning"); win.style.setProperty("--rx", "0deg"); win.style.setProperty("--ry", "0deg"); });
+    return win;
   }
 
   /* the register: the mark, the greeting, a few live facts, and the window of drums */
-  function chip(tone, emoji, text) { return h("li.hm-chip" + (tone ? "." + tone : ""), null, [ui.emo(emoji), h("span", null, text)]); }
+  function chip(tone, emoji, text, go, hint) {
+    if (!go) return h("li", null, h("span.hm-chip" + (tone ? "." + tone : ""), null, [ui.emo(emoji), h("span", null, text)]));
+    var b = h("button.hm-chip" + (tone ? "." + tone : ""), { type: "button", title: hint || null, onclick: function () { press(b, go); } }, [ui.emo(emoji), h("span", null, text)]);
+    return h("li", null, b);
+  }
   function hero(st, r, stock, me, staff, practice, greet, sealKey) {
     var now = new Date(), onClock = B.onClock(), todayKey = U.dayKey();
     var last = st.sales.filter(function (s) { return s.status === "completed" && s.day === todayKey; }).slice(-1)[0];
+    var dayGo = B.can("reports") || B.can("sell") ? goDay : null, dayHint = B.can("reports") ? t("home.go.day") : t("home.newSale");
     var chips = [
-      last ? chip(null, "🕰️", t("home.chipLast", { t: ui.time(last.at) })) : chip(null, "🧾", t("home.chipNoSale")),
-      !staff || B.can("team") ? chip(onClock.length ? "on" : null, "👥", t("home.chipClock", { n: onClock.length })) : null];
-    var window_ = h("div.ct-window", { "aria-label": t("home.today") }, [
-      readout("hxTaken", "💵", t("home.takenToday"), r.gross, money(r.gross), null, true),
+      last ? chip(null, "🕰️", t("home.chipLast", { t: ui.time(last.at) }), function () { if (E.register && E.register.showReceipt) E.register.showReceipt(last); }, t("home.recentTitle"))
+        : chip(null, "🧾", t("home.chipNoSale"), B.can("sell") ? function () { if (E.rail && E.rail.toSale) E.rail.toSale(); else ui.go("register"); } : null, t("home.newSale")),
+      !staff || B.can("team") ? chip(onClock.length ? "on" : null, "👥", t("home.chipClock", { n: onClock.length }), function () { ui.go("team"); }, t("room.team")) : null];
+    var window_ = lean(h("div.ct-window.ct-pop", { role: "group", "aria-label": t("home.today") }, [
+      readout("hxTaken", "💵", t("home.takenToday"), r.gross, money(r.gross), null, true, dayGo, dayHint),
       h("div.ct-reads", null, [
-        readout("hxSales", "🧾", t("home.salesToday"), r.count, String(r.count)),
-        B.can("costs") ? readout("hxProfit", "📈", t("home.profitToday"), r.profit, money(r.profit), r.profit < 0 ? "bad" : "good") : readout("hxOnClock", "🕘", t("clock.nowH"), onClock.length, String(onClock.length)),
-        readout("hxLow", "📦", t("home.lowStock"), stock.low.length, String(stock.low.length), stock.low.length ? "warn" : null)])]);
+        readout("hxSales", "🧾", t("home.salesToday"), r.count, String(r.count), null, false, goSales, t("home.recentTitle")),
+        B.can("costs") ? readout("hxProfit", "📈", t("home.profitToday"), r.profit, money(r.profit), r.profit < 0 ? "bad" : "good", false, dayGo, dayHint)
+          : readout("hxOnClock", "🕘", t("clock.nowH"), onClock.length, String(onClock.length), null, false, function () { ui.go("team"); }, t("room.team")),
+        readout("hxLow", "📦", t("home.lowStock"), stock.low.length, String(stock.low.length), stock.low.length ? "warn" : null, false, goLow, t("inv.f.low"))])]));
+    /* a press on the card itself, between its figures, does what the takings do */
+    window_.addEventListener("click", function (e) { if (dayGo && e.target.closest && !e.target.closest("button") && window_.contains(e.target)) press(window_, dayGo); });
+    window_.addEventListener("pointerenter", function () { reroll(window_.querySelector("#hxTaken")); });
     return h("header.hm-hero.ct-hero", null, [
       engraving(),
       h("span.ct-nacre", { "aria-hidden": "true" }),
       h("div.ct-intro", null, [
         h("div.ct-mark", null, sealKey),
         h("div.ct-words", null, [
-          h("div.hx-eyebrow", null, [h("h1", null, E.appName()), h("span.hx-date", null, E.fmtDate(now, "long"))]),
+          h("div.hx-eyebrow", null, [h("h1", null, E.appName()), h("button.hx-date", { type: "button", title: t("room.schedule"), onclick: function () { var self = this; press(self, function () { ui.go("schedule"); }); } }, E.fmtDate(now, "long"))]),
           h("p.hm-hello", null, practice && !staff ? t("home.helloPractice") : t(greet, { name: me.name || "" })),
           h("p.hm-lede", null, practice ? t("home.ledePractice") : t("home.ledeReal")),
           h("ul.hm-chips", { "aria-label": t("home.chipsH") }, chips)])]),
@@ -10368,7 +11184,9 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   /* ---------- the Guidebook ---------- */
   var ARTICLES = ["start", "learn", "train", "door", "team", "clock", "schedule", "earnings", "travel", "master", "sale", "pay", "items", "receive", "correct", "depts", "svc", "reports", "notes", "backup", "sealed", "verify", "display", "studio", "build", "limits"];
   var ART_EMO = { start: "🌟", learn: "🎓", train: "📋", door: "🚪", team: "👥", clock: "🕘", schedule: "🗓️", earnings: "💰", travel: "✈️", master: "🗝️", sale: "🛒", pay: "💳", items: "🏷️", receive: "🚚", correct: "✏️", depts: "🗂️", svc: "💱", reports: "📊", notes: "🗒️", backup: "💾", sealed: "🔐", verify: "🛡️", display: "🎨", studio: "⚒️", build: "🔢", limits: "🧭" };
-  E.guideCount = function () { return ARTICLES.length; };
+  /* the Author Studio's chapter only for whoever may open the Studio (Build 24) */
+  function chapters() { return ARTICLES.filter(function (id) { return id !== "studio" || ui.allowed("studio"); }); }
+  E.guideCount = function () { return chapters().length; };
   ui.rooms.guide = function (main) {
     var q = ui.input({ id: "guideSearch", type: "search", placeholder: t("guide.searchPh"), "aria-label": t("guide.search") });
     var list = h("ul.guide-list", { id: "guideList" }), art = h("article.guide-article.card", { id: "guideArticle", tabindex: "-1" });
@@ -10387,7 +11205,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     function draw() {
       U.clear(list);
       var n = U.norm(q.value), first = null;
-      ARTICLES.forEach(function (id) {
+      chapters().forEach(function (id) {
         var hay = U.norm(t("guide." + id + ".t") + " " + t("guide." + id + ".b") + " " + t("guide." + id + ".tip"));
         if (n && hay.indexOf(n) < 0) return;
         if (!first) first = id;
@@ -11263,8 +12081,9 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
    person's sticky notes, 22-schedae.js), a new sale, and Price check (any item by name, code or barcode: its price and
    its stock, and a sale or a delivery from there). The rest moved to the top bar at the owner's request, so that the
    rail stays uncrowded: the reminders (orders, deliveries, bills; they ring when due; each person's own, sealed in the
-   books) and what runs low now share the Alerts panel; the calculator, which floats and can be carried anywhere, has
-   its own small key there; day or night is in Display. */
+   books) and what runs low now share the Alerts panel. Since Build 24, at the owner's request, the calculator (which
+   floats and can be carried anywhere) is back on the rail, directly under the cart and over the notes, and the
+   Sun and Moon key (day or night for the whole store) stands at the top of the rail; neither is in the top bar. */
 "use strict";
 (function () {
   var U = E.util, h = U.h, t = E.t, B = E.books, ui = E.ui;
@@ -11276,7 +12095,38 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   function when(iso) { try { var d = new Date(iso); return d.toLocaleString(E.lang === "ht" ? "fr" : E.lang, { weekday: "short", day: "numeric", month: "short", hour: "numeric", minute: "2-digit" }); } catch (e) { return iso; } }
 
   /* ---------- the rail ---------- */
-  var KEYS = [["notes", "🗒️", "rail.notes"], ["sale", "🛒", "rail.sale"], ["find", "🔎", "rail.find"]];
+  var KEYS = [["notes", "🗒️", "rail.notes"], ["calc", "", "rail.calc"], ["sale", "🛒", "rail.sale"], ["find", "🔎", "rail.find"], ["theme", "", "top.dayNight"]];
+  function isNight() { return document.documentElement.getAttribute("data-theme") === "night"; }
+  /* The calculator's own small picture (Build 24, at the owner's request: the abacus emoji was too colourful and could
+     be read as something else, and Unicode has no calculator emoji). Drawn in Lakay's colours, at the size and with the
+     soft shading of the emoji beside it: a pearl body on a periwinkle ledge, an indigo window with its figures, pale
+     periwinkle keys and one periwinkle key for the sum. It looks the same on every device. */
+  var calcN = 0;
+  function calcGlyph(size) {
+    var ns = "http://www.w3.org/2000/svg", id = "lkc" + (++calcN);
+    function el(tag, a, kids) { var n = document.createElementNS(ns, tag); Object.keys(a).forEach(function (k) { n.setAttribute(k, a[k]); }); (kids || []).forEach(function (c) { n.appendChild(c); }); return n; }
+    function grad(gid, x2, y2, stops) { return el("linearGradient", { id: gid, x1: "0", y1: "0", x2: x2, y2: y2 }, stops.map(function (st) { return el("stop", { offset: st[0], "stop-color": st[1] }); })); }
+    var svg = el("svg", { viewBox: "0 0 36 36", width: String(size || 36), height: String(size || 36), "aria-hidden": "true", focusable: "false", class: "calc-glyph" }, [
+      el("defs", {}, [
+        grad(id + "b", "0", "1", [["0", "#ffffff"], ["1", "#e3e4f6"]]),
+        grad(id + "s", "0", "1", [["0", "#2b2f7a"], ["1", "#1d2058"]]),
+        grad(id + "k", "0", "1", [["0", "#eef0ff"], ["1", "#c9ccf2"]]),
+        grad(id + "e", "0", "1", [["0", "#8d93e2"], ["1", "#5f67cc"]])])]);
+    svg.appendChild(el("rect", { x: "5.6", y: "3.2", width: "24.8", height: "32", rx: "5.4", fill: "#7c82cf" }));
+    svg.appendChild(el("rect", { x: "5.6", y: "1.6", width: "24.8", height: "32", rx: "5.4", fill: "url(#" + id + "b)", stroke: "#9da1d8", "stroke-width": ".8" }));
+    svg.appendChild(el("rect", { x: "8.8", y: "5", width: "18.4", height: "8.2", rx: "2", fill: "url(#" + id + "s)" }));
+    svg.appendChild(el("rect", { x: "15.2", y: "9.6", width: "9.8", height: "1.9", rx: ".95", fill: "#b9beff" }));
+    var cols = [8.8, 15.7, 22.6], rows = [15.8, 20.1, 24.4, 28.7];
+    rows.forEach(function (y, r) {
+      cols.forEach(function (x, c) {
+        var sum = r === 3 && c === 2;
+        svg.appendChild(el("rect", { x: String(x), y: String(y + .55), width: "4.6", height: "3.2", rx: "1", fill: sum ? "#4a51b0" : "#a9ade0" }));
+        svg.appendChild(el("rect", { x: String(x), y: String(y), width: "4.6", height: "3.2", rx: "1", fill: "url(#" + id + (sum ? "e" : "k") + ")" }));
+      });
+    });
+    return svg;
+  }
+  R.calcGlyph = calcGlyph;
   /* On a phone the three keys would stand over the page, so a phone starts with them laid down: one press of the small
      key stands them up, and the device remembers the choice (the owner, 15 November 2026). A computer and a tablet start
      with them standing, as before. */
@@ -11288,8 +12138,10 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     /* the new-sale key only for those who sell */
     var keys = KEYS.filter(function (k) { return k[0] !== "sale" || !B.isOpen || B.can("sell"); });
     keys.forEach(function (k, i) {
+      /* the lamp shows the Sun by night (to bring the day) and the Moon by day */
+      var emo = k[0] === "theme" ? (isNight() ? "☀️" : "🌙") : k[0] === "calc" ? calcGlyph(36) : k[1];
       var b = h("button.rail-btn#rail-" + k[0], { type: "button", title: t(k[2]), "aria-label": t(k[2]), onclick: function () { R.press(k[0], b); } },
-        h("span", { "aria-hidden": "true" }, k[1]));
+        h("span", { "aria-hidden": "true" }, emo));
       b.style.bottom = "calc(" + (52 + i * 56) + "px + env(safe-area-inset-bottom, 0px))";
       box.appendChild(b);
     });
@@ -11316,6 +12168,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   };
   R.press = function (k, b) {
     if (k === "calc") { closePop(); return calc.toggle(); }
+    if (k === "theme") { closePop(); U.prefSet("theme", isNight() ? "day" : "night"); ui.applyLook(); ui.refreshTop(); snd("lamp"); var nb = document.getElementById("rail-theme"); if (nb) try { nb.focus({ preventScroll: true }); } catch (e) { } return; }
     if (k === "sale") { closePop(); return toSale(); }
     if (k === "notes") { closePop(); return E.schedae && E.schedae.toggle(); }
     if (pop && pop.__k === k) { closePop(); return; }
@@ -11427,7 +12280,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   /* the badges follow the books: a sale or a delivery changes the stock */
   B.on("change", function () { setTimeout(R.badges, 0); });
 
-  /* 🧮 the calculator: it floats above the page and can be carried anywhere by its top */
+  /* the calculator: it floats above the page and can be carried anywhere by its top */
   var calc = (function () {
     var win = null, cur = "0", toks = [], fresh = false, tape = [];
     function fmt(n) { if (!isFinite(n)) return t("calc.err"); var r = Math.round(n * 1e10) / 1e10; return String(r); }
@@ -11465,7 +12318,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     }
     var LAYOUT = [["C", "±", "%", "÷"], ["7", "8", "9", "×"], ["4", "5", "6", "−"], ["1", "2", "3", "+"], ["⌫", "0", ".", "="]];
     function build() {
-      var grip = h("div.calc-grip", { title: t("calc.move") }, [h("span", null, "🧮 " + t("rail.calc")), h("button.calc-x", { type: "button", "aria-label": t("close"), title: t("close"), onclick: close }, "×")]);
+      var grip = h("div.calc-grip", { title: t("calc.move") }, [h("span.calc-title", null, [calcGlyph(18), t("rail.calc")]), h("button.calc-x", { type: "button", "aria-label": t("close"), title: t("close"), onclick: close }, "×")]);
       var keys = h("div.calc-keys");
       LAYOUT.forEach(function (row) { row.forEach(function (k) {
         var cls = "button.calc-k" + ("+−×÷".indexOf(k) >= 0 ? ".op" : k === "=" ? ".eq" : k === "C" ? ".clr" : /[0-9.]/.test(k) ? "" : ".fn");
@@ -11758,13 +12611,21 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
 (function () {
   var U = E.util, h = U.h, t = E.t, B = E.books, ui = E.ui;
   var S = E.schedae = {};
-  /* Lakay's own six papers, light pastels named for gems (Build 11): Citrine, Aquamarine, Rose Quartz, Jade, Moonstone
-     and Pearl. A note made in an earlier build keeps its colour under the paper's new name. */
+  /* Lakay's own papers, light pastels named for gems (Build 11): Citrine, Aquamarine, Rose Quartz, Jade, Moonstone and
+     Pearl; and since Build 24 Larimar, Carpe Diem's light blue paper in its exact shade (by day #dcefff to #b6e0ff, by
+     night #1f2a3d), named for the blue stone of Hispaniola. Build 11 had given Carpe Diem's blue notes the sea glass of
+     Aquamarine; they are light blue again. A note made in an earlier build keeps its colour under the paper's new name. */
   var COLORS = [
-    { id: "citrine", name: "Citrine" }, { id: "aquamarine", name: "Aquamarine" }, { id: "rosequartz", name: "Rose Quartz" },
+    { id: "citrine", name: "Citrine" }, { id: "larimar", name: "Larimar" }, { id: "aquamarine", name: "Aquamarine" }, { id: "rosequartz", name: "Rose Quartz" },
     { id: "jade", name: "Jade" }, { id: "moonstone", name: "Moonstone" }, { id: "pearl", name: "Pearl" }];
-  var BEFORE = { gold: "citrine", sky: "aquamarine", rose: "rosequartz", sage: "jade", violet: "moonstone", ivory: "pearl",
+  var BEFORE = { gold: "citrine", sky: "larimar", rose: "rosequartz", sage: "jade", violet: "moonstone", ivory: "pearl",
     mango: "citrine", lanme: "aquamarine", flanbwayan: "rosequartz", zaboka: "jade", douvanjou: "moonstone", kokoye: "pearl" };
+  /* a paper's swatch carries its name, and its colour by day and by night, for the name tip (09-nametip.js), as in
+     Carpe Diem: the name appears over the swatch when the pointer rests on it */
+  function paperName(el, id) {
+    el.setAttribute("data-tip-name", t("sn.nm." + id)); el.setAttribute("data-tip-day", t("sn.day." + id)); el.setAttribute("data-tip-night", t("sn.night." + id));
+    return el;
+  }
   function col(id) { id = BEFORE[id] || id; for (var i = 0; i < COLORS.length; i++) if (COLORS[i].id === id) return COLORS[i]; return COLORS[0]; }
   function still() { return document.documentElement.getAttribute("data-calm") === "1" || !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches); }
   function snd(n) { if (E.sound) E.sound.play(n); }
@@ -12080,7 +12941,8 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     box.style.left = Math.max(8, left) + "px"; box.style.top = Math.round(r.bottom + 4) + "px";
     var dots = h("div.sn-dots", { role: "group", "aria-label": t("sn.paper") });
     COLORS.forEach(function (c) {
-      var d = h("button.sn-dot", { type: "button", "data-sn-col": c.id, title: t("sn.col." + c.id), "aria-label": t("sn.col." + c.id), "aria-pressed": String(col(n.color).id === c.id) });
+      var d = h("button.sn-dot", { type: "button", "data-sn-col": c.id, "aria-label": t("sn.col." + c.id), "aria-pressed": String(col(n.color).id === c.id) });
+      paperName(d, c.id);
       d.addEventListener("click", function () {
         n.color = c.id; save(); render(); document.body.appendChild(back);
         Array.prototype.forEach.call(dots.children, function (x) { x.setAttribute("aria-pressed", String(x.getAttribute("data-sn-col") === c.id)); });
@@ -12123,7 +12985,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     list.forEach(function (n) {
       var row = h("div.sn-row", { "data-sn-row": n.id });
       row.__pv = plain(n.doc).toLowerCase();
-      row.appendChild(h("div.sn-row-top", null, [h("span.sn-rowdot", { "data-sn-col": col(n.color).id, title: t("sn.col." + col(n.color).id) }), h("span.sn-rowtext", null, preview(n))]));
+      row.appendChild(h("div.sn-row-top", null, [paperName(h("span.sn-rowdot", { "data-sn-col": col(n.color).id }), col(n.color).id), h("span.sn-rowtext", null, preview(n))]));
       var pin = h("button.sn-b.sn-b-soft", { type: "button" }, n.pinned ? t("sn.unpinShort") : t("sn.pin"));
       pin.addEventListener("click", function () { S.togglePin(n.id); });
       var copy = h("button.sn-b.sn-b-soft", { type: "button" }, t("sn.copy"));
