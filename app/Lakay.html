@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-nVUTSmdkgZdA2+bcNq/9R210WyDp+omy2Z+Z0VqAdF8='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-HkaHcHugh1PoLiB6l+Xq467TvhTScns9fSrKC4sXeWg='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#f5f4f8">
 <meta name="application-name" content="Lakay">
-<meta name="lakay-build" content="24">
-<!-- LAKAY | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt. Build 24 (2026-11-15). -->
+<meta name="lakay-build" content="25">
+<!-- LAKAY | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt. Build 25 (2026-11-20). -->
 <title>Lakay</title>
 <!-- Lakay's logo, inside the page (the page's own policy shows only pictures it carries): the square tile, filled edge to
      edge with the coin's periwinkle, for the shortcuts a browser makes on a home screen; the round coin, on nothing, for the
@@ -80,6 +80,30 @@
 .crest-key:focus-visible { outline: 2.5px solid var(--pri-ring); outline-offset: 4px; }
 .app-foot .crest-key { width: 22px; height: 22px; }
 @media print { .lk-idle, .lk-crest img.lk-l, .lk-gleam { animation: none !important; } .lk-gleam { display: none; } }
+
+/* LAKAY | Devices in step (29-devices.js, Build 25): the store's devices in Settings, each with its letter in a small
+   periwinkle plate; this device marked by the periwinkle edge; a removed device or a spent invitation set back. */
+.dev-list { list-style: none; margin: 10px 0 14px; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.dev-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 10px 12px; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--line-soft); }
+.dev-row.me { box-shadow: inset 3px 0 0 var(--pri); }
+.dev-row.off { opacity: .66; }
+.dev-jewel { flex: none; width: 40px; height: 40px; box-sizing: border-box; display: grid; place-items: center; border-radius: 10px;
+  font: 700 1.1rem/1 var(--serif); color: var(--pri-text); background: linear-gradient(180deg, #ffffff, #eceefe); border: 1px solid rgba(var(--pri-rgb), .30);
+  box-shadow: 0 1px 0 rgba(34, 28, 60, .06); }
+.dev-jewel.me { color: #fff; border-color: var(--pri-edge); background: linear-gradient(180deg, var(--pri-hi), var(--pri-lo)); text-shadow: 0 1px 1px rgba(30, 10, 60, .3); }
+:root[data-theme="night"] .dev-jewel { background: rgba(176, 181, 245, .10); border-color: rgba(176, 181, 245, .28); box-shadow: none; }
+:root[data-theme="night"] .dev-jewel.me { background: linear-gradient(180deg, var(--pri-hi), var(--pri-lo)); border-color: var(--pri-edge); color: #fff; }
+.dev-t { flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.dev-t b { color: var(--ink); font-weight: 600; line-height: 1.3; overflow-wrap: anywhere; }
+.dev-t small { color: var(--muted); line-height: 1.35; }
+.dev-t small.warn { color: var(--warn); }
+.dev-t small.dev-carry { color: var(--pri-text); font-weight: 600; }
+.dev-keys { display: flex; flex-wrap: wrap; gap: 6px; }
+.dev-keys .key.sm { gap: 5px; padding-left: 9px; padding-right: 10px; white-space: nowrap; }
+.dev-code { margin: 10px 0 8px; }
+.dev-took, .dev-clash { margin: 6px 0 10px; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; color: var(--ink-2); }
+@media (max-width: 560px) { .dev-keys { width: 100%; } }
+@media print { .dev-keys { display: none; } }
 
 /* EMPORIUM | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt.
    Emporium's dress, after Ingenium 6.50's own (Build 3), refined for Emporium. Its shapes were read from Ingenium 6.50
@@ -2881,6 +2905,8 @@ html.drilling .shell { outline: 3px solid rgba(var(--pri-rgb), .35); outline-off
 .i-secondary:disabled { opacity: .55; cursor: default; transform: none; }
 .i-secondary:focus-visible { outline: 3px solid var(--pri-ring); outline-offset: 2px; }
 :root[data-theme="night"] .i-secondary { color: #e9e6ff; background: rgba(255, 255, 255, .08); border-color: rgba(255, 255, 255, .16); box-shadow: 0 1px 0 rgba(255, 255, 255, .08) inset, 0 2px 0 rgba(0, 0, 0, .4), 0 6px 12px rgba(0, 0, 0, .3); }
+/* Build 25: a row of keys set aside (the lower Back, once a chosen file's form brings its own) */
+#lockDoor .ild-keys[hidden] { display: none; }
 
 </style>
 </head>
@@ -2893,7 +2919,7 @@ html.drilling .shell { outline: 3px solid rgba(var(--pri-rgb), .35); outline-off
 "use strict";
 
 var E = window.Emporium = window.Emporium || {};
-E.BUILD = { number: "24", date: "2026-11-15" };
+E.BUILD = { number: "25", date: "2026-11-20" };
 
 /* ---------- drawing: every piece of text goes in as text, never as markup ---------- */
 function $(sel, root) { return (root || document).querySelector(sel); }
@@ -5077,6 +5103,98 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     ["rep.bkHint", "The money for the clients' trips: not part of the sales above. The store's fee is in Earnings.", "L'argent des voyages des clients : hors des ventes ci-dessus. Les frais du magasin sont dans Gains.", "Lajan pou vwayaj kliyan yo: li pa nan vant ki anwo yo. Frè magazen an nan Benefis."],
     ["guide.travel.tip", "Write each booking as soon as the flight is booked, with its confirmation code.", "Écrivez chaque réservation dès que le vol est réservé, avec son code de confirmation.", "Ekri chak rezèvasyon depi vòl la rezève, ak kòd konfimasyon li."]
   );
+  /* Devices in step, stage 2 (Build 25): adding a device, joining it, carrying the changes. The Kreyòl is marked for review by a native speaker. */
+  add(
+    ["set.devices", "Devices in step", "Appareils en phase", "Aparèy ki an akò"],
+    ["tip.devices.t", "How devices keep in step", "Comment les appareils restent en phase", "Kijan aparèy yo rete an akò"],
+    ["tip.devices.b", "Each device keeps the whole of the store's books and works with no connection. Add a device here: it gets its own letter, a joining file and a code. To bring two devices into step, save this device's changes for the other one, carry the file to it (a USB stick, AirDrop or email), and take it in there; then do the same the other way. The files are sealed: only the store's own devices can open them.", "Chaque appareil garde tous les livres du magasin et fonctionne sans connexion. Ajoutez un appareil ici : il reçoit sa propre lettre, un fichier d'adhésion et un code. Pour mettre deux appareils en phase, enregistrez les changements de cet appareil pour l'autre, portez-lui le fichier (une clé USB, AirDrop ou un courriel) et recevez-le là-bas ; puis faites de même dans l'autre sens. Les fichiers sont scellés : seuls les appareils du magasin peuvent les ouvrir.", "Chak aparèy kenbe tout liv magazen an epi li mache san koneksyon. Ajoute yon aparèy isit la: li resevwa pwòp lèt pa l, yon fichye pou antre ak yon kòd. Pou mete de aparèy an akò, anrejistre chanjman aparèy sa a pou lòt la, pote fichye a ba li (yon kle USB, AirDrop oswa yon imèl), epi resevwa l la; apre sa fè menm bagay la nan lòt sans lan. Fichye yo sele: se sèlman aparèy magazen an ki ka louvri yo."],
+    ["dev.intro", "Each device keeps the store's books and works with no connection. Carry the changes between them by sealed files, as often as you like: the books join, sale by sale.", "Chaque appareil garde les livres du magasin et fonctionne sans connexion. Portez les changements de l'un à l'autre par des fichiers scellés, aussi souvent que vous voulez : les livres se rejoignent, vente par vente.", "Chak aparèy kenbe liv magazen an epi li mache san koneksyon. Pote chanjman yo soti nan youn al nan lòt ak fichye ki sele, tout kantite fwa ou vle: liv yo mete ansanm, vant pa vant."],
+    ["dev.this", "This device", "Cet appareil", "Aparèy sa a"],
+    ["dev.letter", "Device {c}", "Appareil {c}", "Aparèy {c}"],
+    ["dev.unnamed", "No name yet", "Pas encore de nom", "Poko gen non"],
+    ["dev.st.joined", "In the store since {d}", "Dans le magasin depuis le {d}", "Nan magazen an depi {d}"],
+    ["dev.st.invited", "Invited, until {d}", "Invité, jusqu'au {d}", "Envite, jiska {d}"],
+    ["dev.st.expired", "Invitation expired on {d}", "Invitation expirée le {d}", "Envitasyon an fini {d}"],
+    ["dev.st.cancelled", "Invitation cancelled", "Invitation annulée", "Envitasyon anile"],
+    ["dev.st.removed", "Removed on {d}", "Retiré le {d}", "Retire {d}"],
+    ["dev.heard", "Last change taken in from it: {d}", "Dernier changement reçu de lui : {d}", "Dènye chanjman ki soti nan li: {d}"],
+    ["dev.never", "Nothing taken in from it yet", "Rien reçu de lui pour l'instant", "Poko resevwa anyen nan men li"],
+    ["dev.carry", "{n} changes to carry to it", "{n} changements à lui apporter", "{n} chanjman pou pote ba li"],
+    ["dev.carry1", "1 change to carry to it", "1 changement à lui apporter", "1 chanjman pou pote ba li"],
+    ["dev.inStep", "It has every change this device holds, as far as this device knows", "Il a tous les changements de cet appareil, autant que cet appareil le sache", "Li gen tout chanjman aparèy sa a genyen, dapre sa aparèy sa a konnen"],
+    ["dev.add", "Add a device", "Ajouter un appareil", "Ajoute yon aparèy"],
+    ["dev.takeIn", "Take in changes", "Recevoir des changements", "Resevwa chanjman"],
+    ["dev.saveFor", "Save changes for {c}", "Enregistrer les changements pour {c}", "Anrejistre chanjman pou {c}"],
+    ["dev.rename", "Name", "Nommer", "Bay non"],
+    ["dev.remove", "Remove", "Retirer", "Retire"],
+    ["dev.cancelInv", "Cancel the invitation", "Annuler l'invitation", "Anile envitasyon an"],
+    ["dev.practice", "The practice store stays on each device alone. In the store's own books, the owner adds a device here and carries the changes between devices.", "Le magasin d'entraînement reste seul sur chaque appareil. Dans les livres du magasin, le propriétaire ajoute ici un appareil et porte les changements d'un appareil à l'autre.", "Magazen pratik la rete sèl sou chak aparèy. Nan liv magazen an, mèt la ajoute yon aparèy isit la epi li pote chanjman yo soti nan yon aparèy al nan yon lòt."],
+    ["dev.addH", "Add a device", "Ajouter un appareil", "Ajoute yon aparèy"],
+    ["dev.addP", "The new device gets its own letter and a sealed copy of the books, in a joining file. It joins with that file and a code, shown once, here. The file and the code work once, for a day.", "Le nouvel appareil reçoit sa propre lettre et une copie scellée des livres, dans un fichier d'adhésion. Il rejoint le magasin avec ce fichier et un code, montré une seule fois, ici. Le fichier et le code servent une fois, pendant un jour.", "Nouvo aparèy la resevwa pwòp lèt pa l ak yon kopi liv yo ki sele, nan yon fichye pou antre. Li antre nan magazen an ak fichye sa a ak yon kòd ou wè yon sèl fwa, isit la. Fichye a ak kòd la mache yon sèl fwa, pandan yon jou."],
+    ["dev.nameL", "Name of the new device (for example, Mac mini)", "Nom du nouvel appareil (par exemple, Mac mini)", "Non nouvo aparèy la (pa egzanp, Mac mini)"],
+    ["dev.nameShort", "Name of the device", "Nom de l'appareil", "Non aparèy la"],
+    ["dev.pwL", "Your password", "Votre mot de passe", "Modpas ou"],
+    ["dev.prepare", "Prepare", "Préparer", "Prepare"],
+    ["dev.preparing", "Preparing…", "Préparation…", "Ap prepare…"],
+    ["dev.readyH", "Device {c} is invited", "L'appareil {c} est invité", "Aparèy {c} envite"],
+    ["dev.step1", "1. Save the joining file, and carry it to the new device.", "1. Enregistrez le fichier d'adhésion et portez-le au nouvel appareil.", "1. Anrejistre fichye pou antre a, epi pote l bay nouvo aparèy la."],
+    ["dev.saveJoin", "Save the joining file", "Enregistrer le fichier d'adhésion", "Anrejistre fichye pou antre a"],
+    ["dev.step2", "2. On the new device, open Lakay, choose Join a store from another device, choose the file, and type this code:", "2. Sur le nouvel appareil, ouvrez Lakay, choisissez Rejoindre un magasin depuis un autre appareil, choisissez le fichier et tapez ce code :", "2. Sou nouvo aparèy la, louvri Lakay, chwazi Antre nan yon magazen ki sou yon lòt aparèy, chwazi fichye a, epi tape kòd sa a:"],
+    ["dev.codeOnce", "The code is shown only now, and Lakay keeps it nowhere. The file and the code work once, until {d}.", "Le code n'est montré que maintenant, et Lakay ne le garde nulle part. Le fichier et le code servent une fois, jusqu'au {d}.", "Kòd la parèt sèlman kounye a, epi Lakay pa kenbe l okenn kote. Fichye a ak kòd la mache yon sèl fwa, jiska {d}."],
+    ["dev.step3", "3. Then bring the new device's first changes back here with Take in changes: this device then knows it has joined.", "3. Puis rapportez ici les premiers changements du nouvel appareil avec Recevoir des changements : cet appareil saura alors qu'il a rejoint le magasin.", "3. Apre sa, pote premye chanjman nouvo aparèy la tounen isit la ak Resevwa chanjman: aparèy sa a ap konnen li antre."],
+    ["dev.codeAria", "The pairing code", "Le code d'appariement", "Kòd pou konekte a"],
+    ["dev.saved", "Saved. Carry the file to device {c}, and take it in there.", "Enregistré. Portez le fichier à l'appareil {c} et recevez-le là-bas.", "Anrejistre. Pote fichye a bay aparèy {c}, epi resevwa l la."],
+    ["dev.joinSaved", "The joining file is saved.", "Le fichier d'adhésion est enregistré.", "Fichye pou antre a anrejistre."],
+    ["dev.tookH", "Changes taken in", "Changements reçus", "Chanjman resevwa"],
+    ["dev.tookN", "{n} changes taken in, from device {c}.", "{n} changements reçus, de l'appareil {c}.", "{n} chanjman resevwa, soti nan aparèy {c}."],
+    ["dev.tookN1", "1 change taken in, from device {c}.", "1 changement reçu, de l'appareil {c}.", "1 chanjman resevwa, soti nan aparèy {c}."],
+    ["dev.tookFrom", "Device {c}: {n}", "Appareil {c} : {n}", "Aparèy {c}: {n}"],
+    ["dev.nothing", "Nothing new: this device already had these changes.", "Rien de nouveau : cet appareil avait déjà ces changements.", "Anyen nouvo: aparèy sa a te deja gen chanjman sa yo."],
+    ["dev.clashesH", "Changed on two devices while they were apart", "Changé sur deux appareils pendant qu'ils étaient séparés", "Chanje sou de aparèy pandan yo te separe"],
+    ["dev.clashLine", "{what}: device {w}'s change, the later one, is kept; both stay in the ledger", "{what} : le changement de l'appareil {w}, le plus récent, est gardé ; les deux restent dans le registre", "{what}: chanjman aparèy {w} la, ki pi resan an, rete; tou de rete nan rejis la"],
+    ["dev.setAside", "Changes from removed devices were set aside: {c}.", "Les changements d'appareils retirés ont été mis de côté : {c}.", "Chanjman aparèy ki retire yo mete sou kote: {c}."],
+    ["dev.k.item", "Item {n}", "Article {n}", "Atik {n}"],
+    ["dev.k.settings", "The store's settings", "Les réglages du magasin", "Reglaj magazen an"],
+    ["dev.k.user", "{n}'s details", "Les détails de {n}", "Detay {n}"],
+    ["dev.k.booking", "Booking {n}", "Réservation {n}", "Rezèvasyon {n}"],
+    ["dev.k.other", "A record ({k})", "Un enregistrement ({k})", "Yon dosye ({k})"],
+    ["dev.err.notbundle", "This file is not a file of changes from Lakay.", "Ce fichier n'est pas un fichier de changements de Lakay.", "Fichye sa a pa yon fichye chanjman Lakay."],
+    ["dev.err.otherstore", "This file is for another store.", "Ce fichier est pour un autre magasin.", "Fichye sa a se pou yon lòt magazen."],
+    ["dev.err.mine", "This file was made on this device.", "Ce fichier a été fait sur cet appareil.", "Fichye sa a te fèt sou aparèy sa a."],
+    ["dev.err.gap", "Some of device {c}'s changes are missing. Take in the earlier file first, or ask device {c} for a new one.", "Il manque des changements de l'appareil {c}. Recevez d'abord le fichier précédent, ou demandez-en un nouveau à l'appareil {c}.", "Gen chanjman aparèy {c} ki manke. Resevwa fichye anvan an dabò, oswa mande aparèy {c} yon lòt."],
+    ["dev.err.fork", "Device {c}'s books no longer match this device's. Do not use device {c} until it joins the store again.", "Les livres de l'appareil {c} ne correspondent plus à ceux de cet appareil. N'utilisez plus l'appareil {c} avant qu'il rejoigne de nouveau le magasin.", "Liv aparèy {c} pa koresponn ak liv aparèy sa a ankò. Pa sèvi ak aparèy {c} jiskaske li antre nan magazen an ankò."],
+    ["dev.err.old", "Device {c} holds changes made before Build 24. Update it, then join it again.", "L'appareil {c} a des changements faits avant la version 24. Mettez-le à jour, puis faites-le rejoindre de nouveau.", "Aparèy {c} gen chanjman ki te fèt anvan vèsyon 24. Mete l ajou, epi fè l antre ankò."],
+    ["dev.err.letter", "Device {c} uses a letter another device already has. Join it again with a new invitation.", "L'appareil {c} utilise une lettre qu'un autre appareil a déjà. Faites-le rejoindre de nouveau avec une nouvelle invitation.", "Aparèy {c} ap sèvi ak yon lèt yon lòt aparèy deja genyen. Fè l antre ankò ak yon nouvo envitasyon."],
+    ["dev.err.removed", "Device {c} was removed from the store. Its changes are not taken in.", "L'appareil {c} a été retiré du magasin. Ses changements ne sont pas reçus.", "Aparèy {c} te retire nan magazen an. Chanjman li yo pa resevwa."],
+    ["dev.err.joinfile", "This is a joining file. Open it on the new device, at the door, with Join a store from another device.", "C'est un fichier d'adhésion. Ouvrez-le sur le nouvel appareil, à la porte, avec Rejoindre un magasin depuis un autre appareil.", "Sa a se yon fichye pou antre. Louvri l sou nouvo aparèy la, devan pòt la, ak Antre nan yon magazen ki sou yon lòt aparèy."],
+    ["dev.removeQ", "Remove device {c}?", "Retirer l'appareil {c} ?", "Retire aparèy {c}?"],
+    ["dev.removeP", "Its changes will no longer be taken in, here or on the devices that take this change. It keeps what it holds, and its passwords are still needed to open it. To use it again, invite it again.", "Ses changements ne seront plus reçus, ici ni sur les appareils qui reçoivent ce changement. Il garde ce qu'il contient, et ses mots de passe restent nécessaires pour l'ouvrir. Pour l'utiliser de nouveau, invitez-le de nouveau.", "Chanjman li yo p ap resevwa ankò, ni isit la ni sou aparèy ki resevwa chanjman sa a. Li kenbe sa li genyen, epi yo toujou bezwen modpas li yo pou louvri l. Pou sèvi avè l ankò, envite l ankò."],
+    ["dev.cancelQ", "Cancel the invitation for device {c}?", "Annuler l'invitation de l'appareil {c} ?", "Anile envitasyon aparèy {c}?"],
+    ["dev.cancelP", "The joining file and its code will no longer join the store.", "Le fichier d'adhésion et son code ne permettront plus de rejoindre le magasin.", "Fichye pou antre a ak kòd li p ap fè okenn aparèy antre nan magazen an ankò."],
+    ["dev.removedT", "Device {c} is removed.", "L'appareil {c} est retiré.", "Aparèy {c} retire."],
+    ["dev.cancelledT", "The invitation is cancelled.", "L'invitation est annulée.", "Envitasyon an anile."],
+    ["dev.renameH", "Name device {c}", "Nommer l'appareil {c}", "Bay aparèy {c} yon non"],
+    ["dev.renamed", "Saved.", "Enregistré.", "Anrejistre."],
+    ["intro.joining", "Joining a store from another device?", "Vous rejoignez un magasin depuis un autre appareil ?", "Ou ap antre nan yon magazen ki sou yon lòt aparèy?"],
+    ["intro.join", "Join it", "Le rejoindre", "Antre ladan l"],
+    ["ld.jn.h", "Join a store from another device", "Rejoindre un magasin depuis un autre appareil", "Antre nan yon magazen ki sou yon lòt aparèy"],
+    ["ld.jn.p", "Choose the joining file the owner saved on a device already in the store, then type the code that device showed.", "Choisissez le fichier d'adhésion que le propriétaire a enregistré sur un appareil déjà dans le magasin, puis tapez le code que cet appareil a montré.", "Chwazi fichye pou antre mèt la te anrejistre sou yon aparèy ki deja nan magazen an, epi tape kòd aparèy sa a te montre a."],
+    ["ld.jn.choose", "Choose the joining file", "Choisir le fichier d'adhésion", "Chwazi fichye pou antre a"],
+    ["ld.jn.summary", "{store}: this device will be device {c}{n}. The invitation works until {d}.", "{store} : cet appareil sera l'appareil {c}{n}. L'invitation sert jusqu'au {d}.", "{store}: aparèy sa a ap aparèy {c}{n}. Envitasyon an mache jiska {d}."],
+    ["ld.jn.code", "The pairing code (24 characters)", "Le code d'appariement (24 caractères)", "Kòd pou konekte a (24 karaktè)"],
+    ["ld.jn.go", "Join the store", "Rejoindre le magasin", "Antre nan magazen an"],
+    ["ld.jn.done", "This device is now device {c} of {store}. Sign in with your own password.", "Cet appareil est maintenant l'appareil {c} de {store}. Connectez-vous avec votre propre mot de passe.", "Aparèy sa a se aparèy {c} nan {store} kounye a. Konekte ak pwòp modpas ou."],
+    ["ld.jn.notinvite", "This is not a joining file from Lakay.", "Ce n'est pas un fichier d'adhésion de Lakay.", "Sa a se pa yon fichye pou antre Lakay."],
+    ["ld.jn.expired", "This joining file has expired. Ask the owner for a new one.", "Ce fichier d'adhésion a expiré. Demandez-en un nouveau au propriétaire.", "Fichye pou antre sa a fini. Mande mèt la yon lòt."],
+    ["ld.jn.badcode", "That code is not complete, or has a typing mistake: check each group of four.", "Ce code est incomplet ou contient une faute de frappe : vérifiez chaque groupe de quatre.", "Kòd sa a pa konplè, oswa li gen yon fot frap: tcheke chak gwoup kat."],
+    ["ld.jn.wrongcode", "That code does not open this joining file.", "Ce code n'ouvre pas ce fichier d'adhésion.", "Kòd sa a pa louvri fichye pou antre sa a."],
+    ["ld.jn.cancelled", "This invitation was cancelled. Ask the owner for a new one.", "Cette invitation a été annulée. Demandez-en une nouvelle au propriétaire.", "Envitasyon sa a te anile. Mande mèt la yon lòt."],
+    ["ld.jn.used", "This invitation was already used.", "Cette invitation a déjà servi.", "Envitasyon sa a te deja sèvi."],
+    ["ld.jn.hasstore", "This device already holds a store.", "Cet appareil contient déjà un magasin.", "Aparèy sa a deja gen yon magazen."],
+    ["guide.devices.t", "Devices in step", "Appareils en phase", "Aparèy ki an akò"],
+    ["guide.devices.b", "Every device of the store keeps the whole of the books, sealed, and works with no connection. They come into step by sealed files that you carry between them.\nTo add a device, open Settings, Devices in step, and press Add a device: name it, give your password, and save the joining file. The device gets its own letter (B, C and so on), so that its receipt numbers never meet another's. On the new device, open Lakay, choose Join a store from another device at the door, choose the file and type the code this device showed. The code is shown only once; the file and the code work once, for a day. Each person then signs in on the new device with their own password.\nTo carry the changes, press Save changes for the other device, carry the file to it (a USB stick, AirDrop or email) and press Take in changes there; then do the same the other way. Stock is counted from every device's sales and deliveries. A thing changed on two devices while they were apart keeps the later change; both stay in the ledger, and Lakay says so. A device lost or stolen can be removed: its changes are no longer taken in.", "Chaque appareil du magasin garde tous les livres, scellés, et fonctionne sans connexion. Ils se mettent en phase par des fichiers scellés que vous portez de l'un à l'autre.\nPour ajouter un appareil, ouvrez Réglages, Appareils en phase, et appuyez sur Ajouter un appareil : nommez-le, donnez votre mot de passe et enregistrez le fichier d'adhésion. L'appareil reçoit sa propre lettre (B, C et ainsi de suite), pour que ses numéros de reçu ne croisent jamais ceux d'un autre. Sur le nouvel appareil, ouvrez Lakay, choisissez Rejoindre un magasin depuis un autre appareil à la porte, choisissez le fichier et tapez le code que cet appareil a montré. Le code n'est montré qu'une fois ; le fichier et le code servent une fois, pendant un jour. Chacun se connecte ensuite sur le nouvel appareil avec son propre mot de passe.\nPour porter les changements, appuyez sur Enregistrer les changements pour l'autre appareil, portez-lui le fichier (une clé USB, AirDrop ou un courriel) et appuyez là-bas sur Recevoir des changements ; puis faites de même dans l'autre sens. Le stock est compté à partir des ventes et des livraisons de chaque appareil. Une chose changée sur deux appareils pendant qu'ils étaient séparés garde le changement le plus récent ; les deux restent dans le registre, et Lakay le dit. Un appareil perdu ou volé peut être retiré : ses changements ne sont plus reçus.", "Chak aparèy magazen an kenbe tout liv yo, sele, epi li mache san koneksyon. Yo vin an akò ak fichye sele ou pote soti nan youn al nan lòt.\nPou ajoute yon aparèy, louvri Reglaj, Aparèy ki an akò, epi peze Ajoute yon aparèy: ba l yon non, bay modpas ou, epi anrejistre fichye pou antre a. Aparèy la resevwa pwòp lèt pa l (B, C, elatriye), pou nimewo resi li yo pa janm kontre ak resi yon lòt. Sou nouvo aparèy la, louvri Lakay, chwazi Antre nan yon magazen ki sou yon lòt aparèy devan pòt la, chwazi fichye a epi tape kòd aparèy sa a te montre a. Kòd la parèt yon sèl fwa; fichye a ak kòd la mache yon sèl fwa, pandan yon jou. Apre sa chak moun konekte sou nouvo aparèy la ak pwòp modpas yo.\nPou pote chanjman yo, peze Anrejistre chanjman pou lòt aparèy la, pote fichye a ba li (yon kle USB, AirDrop oswa yon imèl) epi peze Resevwa chanjman la; apre sa fè menm bagay la nan lòt sans lan. Stòk la konte ak vant ak livrezon chak aparèy. Yon bagay ki chanje sou de aparèy pandan yo te separe kenbe chanjman ki pi resan an; tou de rete nan rejis la, epi Lakay di sa. Yo ka retire yon aparèy ki pèdi oswa yo vòlò: chanjman li yo p ap resevwa ankò."],
+    ["guide.devices.tip", "Carry the changes at least once a day, and before any big change to prices or people: the fewer changes made apart, the fewer things to settle.", "Portez les changements au moins une fois par jour, et avant tout grand changement de prix ou de personnes : moins il y a de changements faits séparément, moins il y a de choses à régler.", "Pote chanjman yo omwen yon fwa pa jou, epi anvan nenpòt gwo chanjman nan pri oswa nan moun: mwens chanjman ki fèt apa, mwens bagay pou regle."]);
+
   E.t = function (key, vars) {
     var c = E.custom && E.custom.words && E.custom.words[E.lang], s = c && typeof c[key] === "string" && c[key] ? c[key] : DICT[E.lang][key];
     if (s === undefined) s = DICT.en[key];
@@ -5204,6 +5322,35 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     return S.digest("SHA-256", secret).then(function (d) {
       var dd = new Uint8Array(d);
       return dd[0] === all[30] && dd[1] === all[31] ? new Uint8Array(secret) : null;
+    });
+  };
+
+  /* ---------- the pairing code (Build 25): a second device joins the store with it ----------
+     96 random bits and a 3-byte checksum (the first bytes of their SHA-256), written as the Master Key is (Crockford's
+     Base32): 24 characters in 6 groups of 4. It is shown once, on the screen of the device that invites, and opens the
+     joining file only; with HKDF it is bound to the store and to the one invitation. */
+  C.newPairing = function () {
+    var secret = U.rnd(12);
+    return S.digest("SHA-256", secret).then(function (d) {
+      var all = new Uint8Array(15); all.set(secret, 0); all.set(new Uint8Array(d).subarray(0, 3), 12);
+      return { secret: secret, code: toB32(all) };
+    });
+  };
+  C.readPairing = function (text) {
+    var t = C.cleanMasterText(text);
+    if (t.length !== 24) return Promise.resolve(null);
+    var all = fromB32(t);
+    if (!all || all.length !== 15) return Promise.resolve(null);
+    var secret = all.subarray(0, 12);
+    return S.digest("SHA-256", secret).then(function (d) {
+      var dd = new Uint8Array(d);
+      return dd[0] === all[12] && dd[1] === all[13] && dd[2] === all[14] ? new Uint8Array(secret) : null;
+    });
+  };
+  C.pairingKey = function (secret, storeIdBytes, inviteId) {
+    return S.importKey("raw", secret, "HKDF", false, ["deriveKey"]).then(function (base) {
+      return S.deriveKey({ name: "HKDF", hash: "SHA-256", salt: storeIdBytes, info: TE.encode("lakay pairing wrap v1|" + inviteId) }, base,
+        { name: "AES-GCM", length: 256 }, false, ["wrapKey", "unwrapKey"]);
     });
   };
 
@@ -7835,6 +7982,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   function learn(knows, line, code) {
     var d = line.data || {};
     if (line.type === "device.joined" && d.fromCode) knows[d.fromCode] = Math.max(knows[d.fromCode] || 0, d.at || 0);
+    if (line.type === "device.joined" && d.holds) Object.keys(d.holds).forEach(function (c) { knows[c] = Math.max(knows[c] || 0, d.holds[c] || 0); });
     if (line.type === "sync.took" && d.chains) Object.keys(d.chains).forEach(function (c) { knows[c] = Math.max(knows[c] || 0, (d.chains[c] || [])[1] || 0); });
     knows[code] = Math.max(knows[code] || 0, line.seq);
   }
@@ -7915,7 +8063,8 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
         return C.open(key, e[1], aadPeer(id, dev, seq)).then(function (l) { into(dev, codeOfDev(st, dev), l); });
       })).then(function () {
         var list = Object.keys(chains).map(function (d) { var c = chains[d]; c.lines.sort(function (a, b) { return a.seq - b.seq; }); return c; });
-        list.forEach(function (c) { c.lines.forEach(function (l) { if (!l.ts) throw err("old", c.code); }); });
+        /* lines written before Build 24 travel as they are: the device taking them in already holds them (it joined from a
+           copy made after them), or it refuses them */
         var payload = { v: 1, from: me, code: B.device.code, at: new Date().toISOString(), have: myHave(st), chains: list };
         return C.seal(key, payload, aadBundle(id, me)).then(function (sealed) {
           return JSON.stringify({ format: "lakay-changes", v: 1, store: id, from: me, iv: U.b64e(sealed.iv), ct: U.b64e(sealed.ct) });
@@ -7949,6 +8098,12 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     return pl.chains.reduce(function (p, ch) {
       return p.then(function () {
         if (!ch || !ch.dev || ch.dev === B.device.id || !Array.isArray(ch.lines)) return;
+        /* a device removed from the store (or an invitation cancelled): its changes are refused (Build 25) */
+        var dr = st.devices && st.devices[ch.dev];
+        if (dr && (dr.status === "removed" || dr.status === "cancelled")) {
+          if (ch.dev === pl.from) throw err("removed", dr.code);
+          rep.setAside = (rep.setAside || []).concat([dr.code]); return;
+        }
         var held = sync.chains[ch.dev] || { code: ch.code, seq: 0, hash: ZERO, knows: {} };
         var code = held.code || ch.code, at = ch.lines.filter(function (l) { return l.seq === held.seq; })[0];
         var lines = ch.lines.filter(function (l) { return l.seq > held.seq; }).sort(function (a, b) { return a.seq - b.seq; });
@@ -7973,6 +8128,8 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
          refused, and joins again from a newer copy */
       var codes = {}; codes[B.device.code] = B.device.id;
       Object.keys(sync.chains).forEach(function (d) { var c = sync.chains[d].code; if (!codes[c]) codes[c] = d; });
+      /* and the letters this store's books have given out, invitations included (Build 25) */
+      Object.keys(st.devices || {}).forEach(function (d) { var c = st.devices[d].code; if (c && !codes[c]) codes[c] = d; });
       fresh.forEach(function (c) { var o = codes[c.code]; if (o && o !== c.dev) throw err("letter", c.code); codes[c.code] = c.dev; });
       /* 2. every new line, from every chain, in the order of the stamps */
       var queue2 = [], work = {}, knows = {}, maxTs = 0, vaultTaken = {}, custom, customTaken = false;
@@ -7985,6 +8142,8 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
       function workGet(k) { if (Object.prototype.hasOwnProperty.call(work, k)) return work[k]; var v = getRec(st, k); return v ? { v: v, s: st.stamps[k] || {} } : null; }
       queue2.forEach(function (q) {
         var stamp = q[0], line = q[1], c = q[2], kn = knows[c.dev];
+        /* what the device knew as it wrote this line (a joining line says what it came with) counts for the line itself */
+        learn(kn, line, c.code);
         var apart = function (ls) { if (!ls) return false; var lc = stampCode(ls); if (!lc || lc === c.code) return false; return (kn[lc] || 0) < stampSeq(ls); };
         (line.w || []).forEach(function (e) {
           var k = e[0], kind = kindOf(k); if (LOCAL[kind]) return;
@@ -8001,16 +8160,19 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
           (line.m.v || []).forEach(function (pt) { if (stamp > (sync.vs[pt[0]] || "")) { vaultTaken[pt[0]] = pt[1]; sync.vs[pt[0]] = stamp; } });
           if (line.m.c !== undefined && stamp > sync.cs) { custom = line.m.c; customTaken = true; sync.cs = stamp; }
         }
-        learn(kn, line, c.code);
       });
       /* 3. the books as they now stand: the records changed, the vault, the door, and what this device holds */
       var raw = [], ops = [], took = {};
       Object.keys(work).forEach(function (k) { raw.push({ k: k, v: work[k].v, s: work[k].s }); });
       fresh.forEach(function (c) {
-        var last = c.lines[c.lines.length - 1];
-        sync.chains[c.dev] = { code: c.code, seq: last.seq, hash: c.hashes[c.hashes.length - 1], at: last.at, knows: knows[c.dev] };
+        var last = c.lines[c.lines.length - 1], before = sync.chains[c.dev];
+        /* the lines that only say what a device took in: they change nothing in the books, so they are not counted as
+           changes still to carry (Build 25) */
+        var quiet = ((before && before.quiet) || []).concat(c.lines.filter(function (l) { return l.type === "sync.took"; }).map(function (l) { return l.seq; })).slice(-300);
+        sync.chains[c.dev] = { code: c.code, seq: last.seq, hash: c.hashes[c.hashes.length - 1], at: last.at, knows: knows[c.dev], quiet: quiet };
         took[c.code] = [c.lines[0].seq, last.seq];
       });
+      sync.quiet = (sync.quiet || []).concat([st.head.seq + 1]).slice(-300);
       sync.peers = sync.peers || {}; sync.peers[pl.from] = { have: pl.have || {}, at: new Date().toISOString() };
       raw.push({ k: "sync:main", v: sync });
       var users = clone(st.users), settings = st.settings;
@@ -8045,74 +8207,263 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     });
   }
 
-  /* ---------- a device joins the store from a copy (a sealed backup) made by a device already in it ---------- */
-  B.joinFromBackup = function (body, secret, isMaster, name) {
-    var v = body.vault;
+  /* ---------- a device joins the store from a copy (a sealed backup) made by a device already in it ----------
+     Stage 1 (Build 24): with the owner's password or the Master Key; the device takes the next free letter.
+     Stage 2 (Build 25): with a joining file and its pairing code; the device takes the letter and the place that the
+     inviting device reserved for it in its books, so two devices never share a letter. */
+  function joinStart() {
     if (B.mode === "practice") B.useBooks(false);
     /* only a device with no store of its own joins: the books of a store already here are never replaced this way */
-    return D.get("meta", "vault").then(function (here) {
-      if (here) throw err("hasstore");
-      return backupKey(body, secret, isMaster);
-    }).then(function (key) {
-      var journal = body.journal.map(function (e) { return [e[0], { iv: U.b64d(e[1]), ct: U.b64d(e[2]) }]; });
-      var rec = body.rec.map(function (e) { return [e[0], { iv: U.b64d(e[1]), ct: U.b64d(e[2]) }]; });
-      var src, devRecs = {}, copySync = null;
-      return readChains(key, v.storeId, journal, true).then(function (r) {
-        src = r;
-        return Promise.all(rec.filter(function (e) { return /^device:/.test(e[0]) || e[0] === "sync:main"; }).map(function (e) {
-          return C.open(key, e[1], aadRec(v.storeId, e[0])).then(function (val) {
-            if (val && val["~s"] && Object.prototype.hasOwnProperty.call(val, "~v")) val = val["~v"];
-            if (e[0] === "sync:main") copySync = val; else devRecs[e[0].slice(7)] = val;
-          });
-        }));
-      }).then(function () {
-        var last = src.lines[src.lines.length - 1];
-        var srcDev = (body.device && body.device.id) || (last && last.dev);
-        if (!last || !srcDev) throw err("notbackup");
-        if (srcDev === B.device.id || src.peers[B.device.id] || devRecs[B.device.id]) throw err("samedevice");
-        var used = {}, srcCode = (devRecs[srcDev] && devRecs[srcDev].code) || (body.device && body.device.code) || "A";
+    return D.get("meta", "vault").then(function (here) { if (here) throw err("hasstore"); });
+  }
+  function joinWith(body, key, opts) {
+    opts = opts || {};
+    var v = body.vault;
+    var journal = body.journal.map(function (e) { return [e[0], { iv: U.b64d(e[1]), ct: U.b64d(e[2]) }]; });
+    var rec = body.rec.map(function (e) { return [e[0], { iv: U.b64d(e[1]), ct: U.b64d(e[2]) }]; });
+    var src, devRecs = {}, copySync = null;
+    return readChains(key, v.storeId, journal, true).then(function (r) {
+      src = r;
+      return Promise.all(rec.filter(function (e) { return /^device:/.test(e[0]) || e[0] === "sync:main"; }).map(function (e) {
+        return C.open(key, e[1], aadRec(v.storeId, e[0])).then(function (val) {
+          if (val && val["~s"] && Object.prototype.hasOwnProperty.call(val, "~v")) val = val["~v"];
+          if (e[0] === "sync:main") copySync = val; else devRecs[e[0].slice(7)] = val;
+        });
+      }));
+    }).then(function () {
+      var last = src.lines[src.lines.length - 1];
+      var srcDev = (body.device && body.device.id) || (last && last.dev);
+      if (!last || !srcDev) throw err("notbackup");
+      var me = opts.device ? opts.device.id : B.device.id, myCode, mine, now = new Date();
+      if (srcDev === me || src.peers[me]) throw err("samedevice");
+      var srcCode = (devRecs[srcDev] && devRecs[srcDev].code) || (body.device && body.device.code) || "A";
+      if (opts.device) {
+        /* the place the inviting device reserved: this device's letter, its name, the invitation it came with */
+        var held = devRecs[me];
+        if (!held || held.code !== opts.device.code || held.invite !== opts.invite) throw err("notinvite");
+        if (held.status === "cancelled" || held.status === "removed") throw err("cancelled");
+        if (held.status !== "invited") throw err("samedevice");
+        myCode = held.code;
+        mine = clone(held); mine.status = "joined"; mine.joined = now.toISOString(); mine.from = srcDev;
+        if (opts.name) mine.name = cleanName(opts.name);
+      } else {
+        if (devRecs[me]) throw err("samedevice");
+        var used = {};
         Object.keys(devRecs).forEach(function (d) { used[devRecs[d].code] = 1; });
         Object.keys((copySync && copySync.chains) || {}).forEach(function (d) { used[copySync.chains[d].code] = 1; });
         used[srcCode] = 1;
-        var myCode = nextCode(used), now = new Date(), ts = Math.max(now.getTime(), src.maxTs + 1), knowsSrc = {};
-        src.lines.forEach(function (l) { learn(knowsSrc, l, srcCode); });
-        var mine = { id: B.device.id, code: myCode, name: cleanName(name), joined: now.toISOString(), from: srcDev };
-        var w = [["device:" + B.device.id, mine, null]], newRecs = [["device:" + B.device.id, mine]];
-        if (!devRecs[srcDev]) {
-          var theirs = { id: srcDev, code: srcCode, name: "", joined: src.lines[0].at, from: null };
-          w.push(["device:" + srcDev, theirs, null]); newRecs.push(["device:" + srcDev, theirs]);
-        }
-        var line = { seq: 1, at: now.toISOString(), day: U.dayKey(now), by: "owner", dev: B.device.id, type: "device.joined",
-          data: { code: myCode, from: srcDev, fromCode: srcCode, at: last.seq, hash: src.hash, name: mine.name }, prev: ZERO, build: E.BUILD.number, ts: ts, w: w };
-        var stamp = stampOf(ts, myCode, 1), sync = { v: 1, chains: {}, vs: (copySync && copySync.vs) || {}, cs: (copySync && copySync.cs) || "" };
-        Object.keys((copySync && copySync.chains) || {}).forEach(function (d) { if (d !== B.device.id) sync.chains[d] = copySync.chains[d]; });
-        sync.chains[srcDev] = { code: srcCode, seq: last.seq, hash: src.hash, at: last.at, knows: knowsSrc };
-        var device = { id: B.device.id, code: myCode, created: B.device.created };
-        return U.sha256hex(U.canon(line)).then(function (hash) {
-          var head = { seq: 1, hash: hash, at: line.at, ts: ts };
-          return Promise.all([C.seal(key, line, aadLine(v.storeId, 1)), C.seal(key, head, aadRec(v.storeId, "head:main")), C.seal(key, sync, aadRec(v.storeId, "sync:main"))]
-            .concat(newRecs.map(function (r) { return C.seal(key, wrapRec(r[1], { "": stamp }), aadRec(v.storeId, r[0])); }))
-            .concat(src.lines.map(function (l) { return C.seal(key, l, aadPeer(v.storeId, srcDev, l.seq)); })));
-        }).then(function (sealed) {
-          var outRec = rec.filter(function (e) { return e[0] !== "head:main" && e[0] !== "sync:main" && !/^notes:/.test(e[0]); });
-          outRec.push(["head:main", sealed[1]], ["sync:main", sealed[2]]);
-          newRecs.forEach(function (r, i) { outRec = outRec.filter(function (e) { return e[0] !== r[0]; }); outRec.push([r[0], sealed[3 + i]]); });
-          var outJournal = [[1, sealed[0]]];
-          src.lines.forEach(function (l, i) { outJournal.push([peerKey(srcDev, l.seq), sealed[3 + newRecs.length + i]]); });
-          journal.forEach(function (e) { if (typeof e[0] !== "number") outJournal.push(e); });
-          return B.lock("join").then(function () {
-            var meta = [["vault", v], ["door", body.door], ["device", device]];
-            if (body.custom) meta.push(["custom", E.cleanCustom ? E.cleanCustom(body.custom) : body.custom]);
-            return D.replaceAll(meta, outRec, outJournal);
-          });
-        }).then(function () {
-          B.device = device;
-          doorMeta = body.door || null; E.custom = body.custom && E.cleanCustom ? E.cleanCustom(body.custom) : null;
-          if (E.ui && E.ui.applyLook) E.ui.applyLook();
-          return load(v, key);
+        myCode = nextCode(used);
+        mine = { id: me, code: myCode, name: cleanName(opts.name), joined: now.toISOString(), from: srcDev, status: "joined" };
+      }
+      var ts = Math.max(now.getTime(), src.maxTs + 1), knowsSrc = {};
+      src.lines.forEach(function (l) { learn(knowsSrc, l, srcCode); });
+      /* what this device holds of every chain, so that the others send it only what it lacks (Build 25) */
+      var holds = {}; holds[srcCode] = last.seq;
+      Object.keys(src.peers).forEach(function (d) { var c = copySync && copySync.chains && copySync.chains[d]; if (c && c.code) holds[c.code] = src.peers[d].seq; });
+      var w = [["device:" + me, mine, null]], newRecs = [["device:" + me, mine]];
+      if (!devRecs[srcDev]) {
+        var theirs = { id: srcDev, code: srcCode, name: "", joined: src.lines[0].at, from: null, status: "joined" };
+        w.push(["device:" + srcDev, theirs, null]); newRecs.push(["device:" + srcDev, theirs]);
+      }
+      var data = { code: myCode, from: srcDev, fromCode: srcCode, at: last.seq, hash: src.hash, name: mine.name, holds: holds };
+      if (opts.invite) data.invite = opts.invite;
+      var line = { seq: 1, at: now.toISOString(), day: U.dayKey(now), by: "owner", dev: me, type: "device.joined",
+        data: data, prev: ZERO, build: E.BUILD.number, ts: ts, w: w };
+      var stamp = stampOf(ts, myCode, 1), sync = { v: 1, chains: {}, vs: (copySync && copySync.vs) || {}, cs: (copySync && copySync.cs) || "" };
+      Object.keys((copySync && copySync.chains) || {}).forEach(function (d) { if (d !== me) sync.chains[d] = copySync.chains[d]; });
+      sync.chains[srcDev] = { code: srcCode, seq: last.seq, hash: src.hash, at: last.at, knows: knowsSrc };
+      var device = { id: me, code: myCode, created: opts.device ? now.toISOString() : B.device.created };
+      return U.sha256hex(U.canon(line)).then(function (hash) {
+        var head = { seq: 1, hash: hash, at: line.at, ts: ts };
+        return Promise.all([C.seal(key, line, aadLine(v.storeId, 1)), C.seal(key, head, aadRec(v.storeId, "head:main")), C.seal(key, sync, aadRec(v.storeId, "sync:main"))]
+          .concat(newRecs.map(function (r) { return C.seal(key, wrapRec(r[1], { "": stamp }), aadRec(v.storeId, r[0])); }))
+          .concat(src.lines.map(function (l) { return C.seal(key, l, aadPeer(v.storeId, srcDev, l.seq)); })));
+      }).then(function (sealed) {
+        var outRec = rec.filter(function (e) { return e[0] !== "head:main" && e[0] !== "sync:main" && !/^notes:/.test(e[0]); });
+        outRec.push(["head:main", sealed[1]], ["sync:main", sealed[2]]);
+        newRecs.forEach(function (r, i) { outRec = outRec.filter(function (e) { return e[0] !== r[0]; }); outRec.push([r[0], sealed[3 + i]]); });
+        var outJournal = [[1, sealed[0]]];
+        src.lines.forEach(function (l, i) { outJournal.push([peerKey(srcDev, l.seq), sealed[3 + newRecs.length + i]]); });
+        journal.forEach(function (e) { if (typeof e[0] !== "number") outJournal.push(e); });
+        return B.lock("join").then(function () {
+          var meta = [["vault", v], ["door", body.door], ["device", device]];
+          if (body.custom) meta.push(["custom", E.cleanCustom ? E.cleanCustom(body.custom) : body.custom]);
+          return D.replaceAll(meta, outRec, outJournal);
         });
+      }).then(function () {
+        B.device = device;
+        doorMeta = body.door || null; E.custom = body.custom && E.cleanCustom ? E.cleanCustom(body.custom) : null;
+        if (E.ui && E.ui.applyLook) E.ui.applyLook();
+        return { v: v, key: key, code: myCode };
       });
     });
+  }
+  B.joinFromBackup = function (body, secret, isMaster, name) {
+    return joinStart().then(function () { return backupKey(body, secret, isMaster); })
+      .then(function (key) { return joinWith(body, key, { name: name }); })
+      .then(function (r) { return load(r.v, r.key); });
+  };
+
+  /* ---------- inviting a device (Build 25, stage 2) ----------
+     The owner names the new device and gives the owner's password. This device reserves the next letter in the books
+     (a line, device.invited), makes a sealed copy of the books, and seals the Store Key under a key made from a fresh
+     pairing code, bound to the store, to the invitation, to the reserved place and to the hour it expires. The joining
+     file carries the copy and that envelope; the code is shown once, on this screen, and kept nowhere. Each part is
+     useless without the other. The invitation can be used once, until it expires (a day), or cancelled.
+     The file's readable parts (the new device's name, the inviting device, the store's name) and the copy's own
+     checksum (which covers the door's names and the Author Studio's choices) make one fingerprint, bound to the
+     envelope with the rest: a file changed on its way no longer opens with its code. */
+  var INVITE_HOURS = 24;
+  function usedLetters(st) {
+    var used = {}; used[B.device.code] = 1;
+    Object.keys(st.devices || {}).forEach(function (d) { used[st.devices[d].code] = 1; });
+    Object.keys((st.sync && st.sync.chains) || {}).forEach(function (d) { used[st.sync.chains[d].code] = 1; });
+    return used;
+  }
+  function inviteAad(storeId, inv, sum) { return aadEnv(storeId, "invite:" + inv.id + "|" + inv.device.id + "|" + inv.device.code + "|" + inv.expires + "|" + sum); }
+  function inviteSum(inv, backupSum) {
+    return U.sha256hex(U.canon({ store: inv.store, id: inv.id, device: inv.device, from: inv.from, fromCode: inv.fromCode, expires: inv.expires,
+      storeName: inv.storeName || "", backup: backupSum || "" }));
+  }
+  function selfRecord() { return { id: B.device.id, code: B.device.code, name: "", joined: B.device.created || null, from: null, status: "joined" }; }
+  B.prepareInvite = function (ownerPassword, name) {
+    if (!state || !KEY) return Promise.reject(err("locked"));
+    if (B.mode === "practice") return Promise.reject(err("practice"));
+    if (!B.isOwner()) return Promise.reject(err("denied"));
+    var hk, pc, inv = { id: U.uid("v"), device: { id: U.uid("d"), code: "", name: cleanName(name) }, expires: new Date(Date.now() + INVITE_HOURS * 3600000).toISOString() };
+    return ownerKeyExtractable(ownerPassword).then(function (x) { hk = x; return C.newPairing(); }).then(function (p) {
+      pc = p;
+      return enqueue(function () {
+        if (!KEY || !state) throw err("locked");
+        var st = state, me = B.device.id;
+        inv.device.code = nextCode(usedLetters(st));
+        var recs = [];
+        if (!(st.devices && st.devices[me])) recs.push({ kind: "device", id: me, value: selfRecord() });
+        recs.push({ kind: "device", id: inv.device.id, value: { id: inv.device.id, code: inv.device.code, name: inv.device.name, status: "invited",
+          invited: clock().toISOString(), by: B.user.id, expires: inv.expires, invite: inv.id } });
+        /* what the new device will hold: this device's lines up to this one, and what it holds of the others */
+        var sync = clone(st.sync) || { v: 1, chains: {}, vs: {}, cs: "" };
+        sync.peers = sync.peers || {};
+        var have = myHave(st); have[me] = st.head.seq + 1;
+        sync.peers[inv.device.id] = { have: have, at: new Date().toISOString() };
+        return commit("device.invited", { id: inv.device.id, code: inv.device.code, name: inv.device.name, expires: inv.expires, invite: inv.id }, recs, [], { raw: [{ k: "sync:main", v: sync }] });
+      });
+    }).then(function () { return B.makeBackup(); }).then(function (text) {
+      var body = JSON.parse(text);
+      var file = { format: "lakay-join", v: 1, store: ID, id: inv.id, device: inv.device, from: B.device.id, fromCode: B.device.code,
+        expires: inv.expires, storeName: (state && state.settings.storeName) || "" };
+      return inviteSum(file, body.sum).then(function (sum) {
+        return C.pairingKey(pc.secret, idBytes(ID), inv.id).then(function (kek) { return C.wrap(hk.key, kek, inviteAad(ID, inv, sum)); });
+      }).then(function (env) {
+        hk.key = null;
+        file.env = env; file.backup = body;
+        return { code: pc.code, file: JSON.stringify(file), device: clone(inv.device), expires: inv.expires };
+      });
+    });
+  };
+  /* A joining file, read and checked (its copy's checksum too) before anything is asked. */
+  B.readInvite = function (text) {
+    var inv;
+    try { inv = JSON.parse(text); } catch (e) { return Promise.reject(err("notinvite")); }
+    if (!inv || inv.format !== "lakay-join" || inv.v !== 1 || !inv.id || !inv.device || !inv.device.id || !inv.device.code || !inv.env || !inv.backup || !inv.expires) return Promise.reject(err("notinvite"));
+    if (!(Date.now() <= Date.parse(inv.expires))) return Promise.reject(err("expired"));
+    var backupSum = inv.backup.sum;
+    return B.readBackup(JSON.stringify(inv.backup)).then(function (body) {
+      if (!body.vault || body.vault.storeId !== inv.store) throw err("notinvite");
+      inv.backup = body; inv.backupSum = backupSum; return inv;
+    }, function (e) { throw e && e.code === "corrupt" ? e : err("notinvite"); });
+  };
+  /* The new device joins with the joining file and the code. It does not open the books: the door then asks each
+     person for their own password, as on every device. */
+  B.joinFromInvite = function (inv, codeText) {
+    var v = inv.backup.vault, kek;
+    return joinStart().then(function () { return C.readPairing(codeText); }).then(function (secret) {
+      if (!secret) throw err("badcode");
+      return C.pairingKey(secret, idBytes(v.storeId), inv.id);
+    }).then(function (k) { kek = k; return inviteSum(inv, inv.backupSum); }).then(function (sum) {
+      return C.unwrap(inv.env, kek, inviteAad(v.storeId, inv, sum), false).then(null, function () { throw err("wrongcode"); });
+    }).then(function (key) {
+      if (!(Date.now() <= Date.parse(inv.expires))) throw err("expired");
+      return joinWith(inv.backup, key, { device: inv.device, invite: inv.id, name: inv.device.name });
+    }).then(function (r) { return { code: r.code, storeName: (inv.backup.door && inv.backup.door.storeName) || inv.storeName || "" }; });
+  };
+
+  /* ---------- the store's devices (Build 25): naming one, cancelling an invitation, removing a device ---------- */
+  B.renameDevice = function (id, name) {
+    var nm = cleanName(name);
+    return B.change(function (st) {
+      need("owner");
+      if (B.mode === "practice") throw err("practice");
+      var d = st.devices && st.devices[id];
+      if (!d && id !== B.device.id) throw err("nodevice");
+      var r = d ? clone(d) : selfRecord();
+      if (r.name === nm) return null;
+      r.name = nm;
+      return { type: "device.named", data: { id: id, code: r.code, name: nm }, recs: [{ kind: "device", id: id, value: r }], result: r };
+    });
+  };
+  /* A device removed (lost, stolen, or given up) is refused from then on: its changes are no longer taken in, here or
+     on any device that takes this line. An invitation not yet used is cancelled the same way. The removed device keeps
+     what it held; its password is still needed to open it. */
+  B.removeDevice = function (id) {
+    return B.change(function (st) {
+      need("owner");
+      if (B.mode === "practice") throw err("practice");
+      if (id === B.device.id) throw err("self");
+      var d = st.devices && st.devices[id]; if (!d) throw err("nodevice");
+      if (d.status === "removed" || d.status === "cancelled") return null;
+      var r = clone(d), invited = d.status === "invited";
+      r.status = invited ? "cancelled" : "removed"; r.removed = clock().toISOString(); r.removedBy = B.user.id;
+      return { type: invited ? "device.cancelled" : "device.removed", data: { id: id, code: d.code }, recs: [{ kind: "device", id: id, value: r }], result: r };
+    });
+  };
+  function devOfCode(st, code) {
+    if (B.device && B.device.code === code) return B.device.id;
+    var ch = (st.sync && st.sync.chains) || {}, d;
+    for (d in ch) if (ch[d].code === code) return d;
+    var ds = st.devices || {};
+    for (d in ds) if (ds[d].code === code) return d;
+    return null;
+  }
+  /* What another device surely holds: its own lines as far as this device has them, what its lines say it took from
+     the others, and what it said it held in the last bundle it sent here (or at its invitation). */
+  function peerHave(st, dev) {
+    var h = {}, sync = st.sync || {}, ch = (sync.chains || {})[dev];
+    if (ch) {
+      h[dev] = ch.seq;
+      Object.keys(ch.knows || {}).forEach(function (code) { var d = devOfCode(st, code); if (d && d !== dev) h[d] = Math.max(h[d] || 0, ch.knows[code] || 0); });
+    }
+    var p = (sync.peers || {})[dev];
+    if (p && p.have) Object.keys(p.have).forEach(function (d) { h[d] = Math.max(h[d] || 0, p.have[d] || 0); });
+    return h;
+  }
+  /* the lines after "from" up to "to" that change the books (not those that only say what was taken in) */
+  function real(from, to, quiet) {
+    if (to <= from) return 0;
+    return (to - from) - (quiet || []).filter(function (q) { return q > from && q <= to; }).length;
+  }
+  B.makeBundleFor = function (dev) { return state ? B.makeBundle(peerHave(state, dev)) : Promise.reject(err("locked")); };
+  /* every device of the store, for the Devices section: its letter, name and state, when it was last heard from, and
+     how many of this device's changes (and of the others' it holds) it has yet to take */
+  B.devices = function () {
+    var st = state; if (!st) return [];
+    var me = B.device.id, out = {}, chains = (st.sync && st.sync.chains) || {};
+    function row(id) { return out[id] || (out[id] = { id: id, code: "?", name: "", me: id === me, status: "joined" }); }
+    var self = row(me); self.code = B.device.code; self.seq = st.head.seq; self.at = st.head.at;
+    Object.keys(st.devices || {}).forEach(function (id) {
+      var d = st.devices[id], r = row(id);
+      if (!r.me) r.code = d.code;
+      r.name = d.name || ""; r.status = d.status || "joined"; r.invited = d.invited || null; r.expires = d.expires || null; r.joined = d.joined || null; r.removed = d.removed || null;
+    });
+    Object.keys(chains).forEach(function (id) { var c = chains[id], r = row(id); if (r.code === "?") r.code = c.code; r.seq = c.seq; r.at = c.at || null; });
+    Object.keys(out).forEach(function (id) {
+      var r = out[id]; if (r.me) return;
+      var hv = peerHave(st, id), more = 0;
+      r.behind = real(hv[me] || 0, st.head.seq, st.sync && st.sync.quiet);
+      Object.keys(chains).forEach(function (d) { if (d !== id) more += real(hv[d] || 0, chains[d].seq, chains[d].quiet); });
+      r.behindOthers = more;
+    });
+    return Object.keys(out).map(function (k) { return out[k]; }).sort(function (a, b) { return a.code < b.code ? -1 : a.code > b.code ? 1 : 0; });
   };
 
   /* ---------- erasing the store from this device (the owner only, with the password) ---------- */
@@ -9249,6 +9600,8 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
       enter.addEventListener("click", go);
       kids = [h("p.intro-lede", null, t("intro.lede")),
         h("p.intro-tourline", null, [h("span", null, t("intro.moving") + " "), h("button.intro-tour#introRestore", { type: "button", onclick: function () { restore("intro"); } }, t("intro.restore"))]),
+        /* Build 25: a device joins a store already kept on another device, with its joining file and pairing code */
+        h("p.intro-tourline", null, [h("span", null, t("intro.joining") + " "), h("button.intro-tour#introJoin", { type: "button", onclick: function () { joinStore("intro"); } }, t("intro.join"))]),
         enter, msg];
     } else {
       enter.addEventListener("click", openSignIn);
@@ -9538,6 +9891,57 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
       h("p.small", null, t("master.card.made", { d: ui.dateLong(new Date()) }) + " · Lakay " + t("build") + " " + E.BUILD.number)]));
   }
 
+  /* ---------- joining a store from another device (Build 25, stage 2): the joining file and its pairing code ----------
+     The owner made the file and was shown the code on a device already in the store (Settings, Devices in step). Here,
+     on a device with no store of its own, the file is read and checked, the code opens it, the device takes the letter
+     and the place reserved for it, and the door then asks each person for their own password. */
+  var JOIN_ERR = { notinvite: "ld.jn.notinvite", expired: "ld.jn.expired", corrupt: "restore.corrupt", badcode: "ld.jn.badcode", wrongcode: "ld.jn.wrongcode",
+    cancelled: "ld.jn.cancelled", samedevice: "ld.jn.used", hasstore: "ld.jn.hasstore", chain: "restore.chain" };
+  var joinStore = door.join = screen(function (from) {
+    var mode = from === "intro" ? "intro" : "door";
+    var card = lockDoor(mode);
+    var file = h("input#joinFile", { type: "file", accept: ".lakay,.json,application/json", hidden: true });
+    var picked = h("span.ild-file", null, t("ld.rs.none"));
+    var pick = h("button.ild-key.ild-ghost#joinPick", { type: "button", onclick: function () { file.click(); } }, t("ld.jn.choose"));
+    var body = h("div");
+    function back() { if (mode === "intro") { hideLock(); door.view = intro; } else ways(); }
+    file.addEventListener("change", function () {
+      var f = file.files && file.files[0]; if (!f) return;
+      picked.textContent = f.name; err(card, ""); U.clear(body);
+      f.text().then(B.readInvite).then(chosen, function (x) { err(card, t(JOIN_ERR[x && x.code] || "ld.jn.notinvite")); });
+    });
+    function chosen(inv) {
+      U.clear(body);
+      var code = field("joinCode", "text", "off");
+      code.setAttribute("spellcheck", "false"); code.setAttribute("autocapitalize", "characters"); code.setAttribute("maxlength", "40");
+      var go = h("button.ild-key#joinGo", { type: "submit" }, t("ld.jn.go"));
+      var store = inv.storeName || (inv.backup.door && inv.backup.door.storeName) || "Lakay", ex = new Date(inv.expires);
+      body.appendChild(h("p.ild-hint#joinSummary", null, t("ld.jn.summary", { store: store, c: inv.device.code, n: inv.device.name ? " (" + inv.device.name + ")" : "",
+        d: E.fmtDate(ex, "short") + " " + E.fmtTime(ex) })));
+      body.appendChild(h("form#ldJoin", { autocomplete: "off", onsubmit: function (e) {
+        e.preventDefault();
+        if (!code.value.trim()) return err(card, t("ld.jn.badcode"));
+        busy(card, true); err(card, "");
+        B.joinFromInvite(inv, code.value).then(function (r) {
+          code.value = "";
+          door.outNote = t("ld.jn.done", { c: r.code, store: r.storeName || store });
+          if (E.sound) E.sound.play("welcome");
+          return door.show("signout");
+        }, function (x) {
+          busy(card, false);
+          var k = JOIN_ERR[x && x.code];
+          if (!k) console.error(x);
+          err(card, t(k || "door.problem"));
+        });
+      } }, [label(t("ld.jn.code"), code), h("div.ild-keys", null, [h("button.ild-link#joinBack", { type: "button", onclick: back }, t("back")), go])]));
+      var lower = card.querySelector("#joinCancel"); if (lower && lower.parentNode) lower.parentNode.hidden = true;
+      setTimeout(function () { U.focusSoon(code, card); }, 60);
+    }
+    fill(card, [h("h2", null, t("ld.jn.h")), h("p", null, t("ld.jn.p")),
+      h("div.ild-filepick", null, [file, pick, picked]), body,
+      h("div.ild-keys.ild-keys-back", null, [h("button.ild-link#joinCancel", { type: "button", onclick: back }, t("back"))])]);
+  });
+
   /* ---------- bringing a store from a backup (at the door, or from Settings while open) ---------- */
   var restore = door.restore = screen(function (from) {
     var mode = from === "intro" ? "intro" : B.isOpen ? "app" : "door";
@@ -9574,6 +9978,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
         });
       } }, [label(t("restore.secret"), secret), h("label.ild-check", null, [useMaster, h("span", null, t("restore.isMaster"))]),
         h("div.ild-keys", null, [h("button.ild-link#restoreBack", { type: "button", onclick: back }, t("back")), go])]));
+      var lower = card.querySelector("#restoreCancel"); if (lower && lower.parentNode) lower.parentNode.hidden = true;
     }
     fill(card, [h("h2", null, t("ld.rs.h")), h("p", null, t("ld.rs.p")),
       h("div.ild-filepick", null, [file, pick, picked]), body,
@@ -10959,7 +11364,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
 (function () {
   var U = E.util, h = U.h, t = E.t, B = E.books, C = E.crypto, ui = E.ui, money = U.money;
 
-  var SET_EMO = { store: "🏪", tax: "🧾", pay: "💳", travel: "✈️", cats: "🗂️", display: "🎨", security: "🔐", backup: "💾", verify: "🛡️", storage: "🗄️", about: "ℹ️", erase: "🧹" };
+  var SET_EMO = { store: "🏪", tax: "🧾", pay: "💳", travel: "✈️", cats: "🗂️", display: "🎨", security: "🔐", backup: "💾", devices: "📲", verify: "🛡️", storage: "🗄️", about: "ℹ️", erase: "🧹" };
   function sec(id, titleKey, tipKey, children) {
     return h("section.card.set-sec", { id: id, "aria-labelledby": id + "-h" }, [h("div.card-head", null, [h("h2", { id: id + "-h" }, [ui.emo(SET_EMO[id.replace("set-", "")] || "⚙️"), t(titleKey)]), tipKey ? ui.tip(tipKey) : null]), children]);
   }
@@ -10967,7 +11372,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   ui.rooms.settings = function (main) {
     var st = B.state(), s = st.settings;
     main.appendChild(ui.roomHead("room.settings", null));
-    var nav = h("nav.set-nav", { "aria-label": t("set.sections") }, ["store", "tax", "pay", "cats", "display", "security", "backup", "verify", "storage", "about", "erase"].map(function (k) {
+    var nav = h("nav.set-nav", { "aria-label": t("set.sections") }, ["store", "tax", "pay", "cats", "display", "security", "backup", "devices", "verify", "storage", "about", "erase"].map(function (k) {
       return h("button.chip", { type: "button", onclick: function () { var n = document.getElementById("set-" + k); if (n) n.scrollIntoView({ behavior: ui.still() ? "auto" : "smooth", block: "start" }); } }, [ui.emo(SET_EMO[k]), t("set." + k)]);
     }));
     main.appendChild(nav);
@@ -11086,6 +11491,9 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
         h("button.key", { type: "button", id: "restoreBackup", onclick: function () { E.door.restore(false); } }, [ui.emo("📂"), t("set.restore")])]),
       h("p.hint", null, t("set.backupHint"))]));
 
+    /* devices in step (Build 25, 29-devices.js) */
+    if (E.devices && E.devices.section) main.appendChild(E.devices.section(sec));
+
     /* verify */
     var vOut = h("div#verifyOut", { "aria-live": "polite" });
     main.appendChild(sec("set-verify", "set.verify", "tip.verify", [h("p", null, t("set.verifyIntro")),
@@ -11182,8 +11590,8 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   }
 
   /* ---------- the Guidebook ---------- */
-  var ARTICLES = ["start", "learn", "train", "door", "team", "clock", "schedule", "earnings", "travel", "master", "sale", "pay", "items", "receive", "correct", "depts", "svc", "reports", "notes", "backup", "sealed", "verify", "display", "studio", "build", "limits"];
-  var ART_EMO = { start: "🌟", learn: "🎓", train: "📋", door: "🚪", team: "👥", clock: "🕘", schedule: "🗓️", earnings: "💰", travel: "✈️", master: "🗝️", sale: "🛒", pay: "💳", items: "🏷️", receive: "🚚", correct: "✏️", depts: "🗂️", svc: "💱", reports: "📊", notes: "🗒️", backup: "💾", sealed: "🔐", verify: "🛡️", display: "🎨", studio: "⚒️", build: "🔢", limits: "🧭" };
+  var ARTICLES = ["start", "learn", "train", "door", "team", "clock", "schedule", "earnings", "travel", "master", "sale", "pay", "items", "receive", "correct", "depts", "svc", "reports", "notes", "backup", "devices", "sealed", "verify", "display", "studio", "build", "limits"];
+  var ART_EMO = { start: "🌟", learn: "🎓", train: "📋", door: "🚪", team: "👥", clock: "🕘", schedule: "🗓️", earnings: "💰", travel: "✈️", master: "🗝️", sale: "🛒", pay: "💳", items: "🏷️", receive: "🚚", correct: "✏️", depts: "🗂️", svc: "💱", reports: "📊", notes: "🗒️", backup: "💾", devices: "📲", sealed: "🔐", verify: "🛡️", display: "🎨", studio: "⚒️", build: "🔢", limits: "🧭" };
   /* the Author Studio's chapter only for whoever may open the Studio (Build 24) */
   function chapters() { return ARTICLES.filter(function (id) { return id !== "studio" || ui.allowed("studio"); }); }
   E.guideCount = function () { return chapters().length; };
@@ -15323,6 +15731,159 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
   };
 })();
 
+/* LAKAY | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt.
+   Devices in step, stage 2 (Build 25): the Devices section of Settings. The store's devices, each with its letter, its
+   name and its state; how many of this device's changes each has yet to take; and the owner's keys: Add a device (a
+   joining file and a pairing code shown once), Save changes for a device (a sealed file to carry to it), Take in
+   changes (a file from another device, with a plain report of what came in and of any field changed on two devices
+   while they were apart), Name, Cancel the invitation, Remove. The books' side is in 04-books.js (prepareInvite,
+   makeBundleFor, takeBundle, renameDevice, removeDevice, devices); the door's side, joining with the file and the code,
+   is in 11-door.js. */
+"use strict";
+(function () {
+  var U = E.util, h = U.h, t = E.t, B = E.books, ui = E.ui;
+  var V = E.devices = {};
+  function when(iso) { if (!iso) return ""; var d = new Date(iso); return E.fmtDate(d, "short") + " " + E.fmtTime(d); }
+  function day(iso) { return iso ? E.fmtDate(new Date(iso), "short") : ""; }
+  function count(n, one, many, extra) { var v = { n: n }; Object.keys(extra || {}).forEach(function (k) { v[k] = extra[k]; }); return t(n === 1 ? one : many, v); }
+  function stamp() { var d = new Date(); return U.dayKey(d) + " " + U.pad2(d.getHours()) + "h" + U.pad2(d.getMinutes()); }
+  function fileName(parts) { return parts.join(" ").replace(/[\\\/:*?"<>|]+/g, " ").replace(/\s+/g, " ").trim() + ".lakay"; }
+  var ERRS = { notbundle: "dev.err.notbundle", otherstore: "dev.err.otherstore", mine: "dev.err.mine", gap: "dev.err.gap", fork: "dev.err.fork", chain: "dev.err.fork",
+    old: "dev.err.old", letter: "dev.err.letter", removed: "dev.err.removed" };
+  function failed(e) {
+    var k = e && ERRS[e.code];
+    if (!k) return ui.failed(e);
+    ui.dialog({ title: t("dev.takeIn"), emoji: "⚠️", body: [h("p#devErr", null, t(k, { c: e.extra || "?" }))], actions: [{ label: t("close"), kind: "primary" }] });
+  }
+
+  /* what a field changed on two devices belongs to, in words */
+  function what(k) {
+    var i = k.indexOf(":"), kind = k.slice(0, i), id = k.slice(i + 1), st = B.state();
+    if (kind === "item" && st.items[id]) return t("dev.k.item", { n: st.items[id].name });
+    if (kind === "settings") return t("dev.k.settings");
+    if (kind === "user" && st.users[id]) return t("dev.k.user", { n: st.users[id].name });
+    if (kind === "booking") { var b = (st.bookings || []).filter(function (x) { return x.id === id; })[0]; if (b) return t("dev.k.booking", { n: b.no }); }
+    return t("dev.k.other", { k: kind });
+  }
+  function field(f) { return String(f).replace(/([a-z])([A-Z])/g, "$1 $2").toLowerCase(); }
+
+  /* the pairing code, in its groups of four, as the Master Key is shown */
+  function codeGrid(code) {
+    return h("ol.master-grid.dev-code#devCode", { "aria-label": t("dev.codeAria") }, E.crypto.groups(code).map(function (g, i) {
+      return h("li", null, [h("span.mg-n", null, String(i + 1)), h("span.mg-g.mono", null, g)]);
+    }));
+  }
+
+  V.section = function (sec) {
+    if (B.mode === "practice") return sec("set-devices", "set.devices", "tip.devices", [h("p.hint", null, t("dev.practice"))]);
+    var list = h("ul.dev-list#devList");
+    var file = h("input#devTakeFile", { type: "file", accept: ".lakay,.json,application/json", hidden: true });
+    function draw() {
+      U.clear(list);
+      B.devices().forEach(function (d) { list.appendChild(row(d)); });
+    }
+    function row(d) {
+      var expired = d.status === "invited" && d.expires && Date.parse(d.expires) < Date.now();
+      var state = d.status === "invited" ? (expired ? t("dev.st.expired", { d: when(d.expires) }) : t("dev.st.invited", { d: when(d.expires) }))
+        : d.status === "cancelled" ? t("dev.st.cancelled") : d.status === "removed" ? t("dev.st.removed", { d: day(d.removed) })
+        : d.joined ? t("dev.st.joined", { d: day(d.joined) }) : "";
+      var facts = [h("b", null, [t("dev.letter", { c: d.code }), d.name ? " · " + d.name : "", d.me ? " · " + t("dev.this") : ""])];
+      if (state) facts.push(h("small" + (expired ? ".warn" : ""), null, state));
+      if (!d.me && d.status === "joined") {
+        facts.push(h("small", null, d.at ? t("dev.heard", { d: when(d.at) }) : t("dev.never")));
+        var n = (d.behind || 0) + (d.behindOthers || 0);
+        facts.push(h("small" + (n ? ".dev-carry" : ""), { "data-behind": String(n) }, n ? count(n, "dev.carry1", "dev.carry") : t("dev.inStep")));
+      }
+      var keys = [];
+      var live = d.status === "joined" || (d.status === "invited" && !expired);
+      if (!d.me && live) keys.push(h("button.key.sm.primary", { type: "button", "data-save": d.code, onclick: function () { saveFor(d); } }, [ui.emo("💾"), t("dev.saveFor", { c: d.code })]));
+      if (d.status === "joined" || d.status === "invited") keys.push(h("button.key.sm", { type: "button", "data-name": d.code, onclick: function () { rename(d); } }, [ui.emo("🏷️"), t("dev.rename")]));
+      if (!d.me && (d.status === "joined" || d.status === "invited")) keys.push(h("button.key.sm.danger", { type: "button", "data-remove": d.code, onclick: function () { remove(d); } },
+        d.status === "invited" ? t("dev.cancelInv") : t("dev.remove")));
+      return h("li.dev-row" + (d.me ? ".me" : "") + (d.status === "removed" || d.status === "cancelled" || expired ? ".off" : ""), { "data-dev": d.code },
+        [h("span.dev-jewel" + (d.me ? ".me" : ""), { "aria-hidden": "true" }, d.code), h("div.dev-t", null, facts), keys.length ? h("div.dev-keys", null, keys) : null]);
+    }
+    function saveFor(d) {
+      B.makeBundleFor(d.id).then(function (text) {
+        return ui.saveFile(fileName(["Lakay changes", B.device.code, "for", d.code, stamp()]), "application/json", text);
+      }).then(function () { ui.toast(t("dev.saved", { c: d.code }), "good"); }, failed);
+    }
+    function rename(d) {
+      var input = ui.input({ id: "devRename", type: "text", maxlength: "40", autocomplete: "off", value: d.name || "" });
+      ui.dialog({ title: t("dev.renameH", { c: d.code }), emoji: "🏷️", body: [ui.field("dev.nameShort", input)], focus: "#devRename",
+        actions: [{ label: t("cancel") }, { label: t("save"), kind: "primary", id: "devRenameSave", onClick: function (close) {
+          B.renameDevice(d.id, input.value).then(function () { close(); ui.toast(t("dev.renamed"), "good"); draw(); }, ui.failed);
+          return false;
+        } }] });
+    }
+    function remove(d) {
+      var inv = d.status === "invited";
+      ui.confirm(t(inv ? "dev.cancelQ" : "dev.removeQ", { c: d.code }), t(inv ? "dev.cancelP" : "dev.removeP"), t(inv ? "dev.cancelInv" : "dev.remove"), "danger").then(function (yes) {
+        if (!yes) return;
+        B.removeDevice(d.id).then(function () { ui.toast(t(inv ? "dev.cancelledT" : "dev.removedT", { c: d.code }), "good"); draw(); }, ui.failed);
+      });
+    }
+    function addDevice() {
+      var name = ui.input({ id: "devName", type: "text", maxlength: "40", autocomplete: "off" });
+      var pw = ui.input({ id: "devPw", type: "password", autocomplete: "current-password" });
+      ui.dialog({ title: t("dev.addH"), emoji: "📲", wide: true, focus: "#devName", body: [h("p", null, t("dev.addP")), ui.field("dev.nameL", name), ui.field("dev.pwL", pw, { required: true })],
+        actions: [{ label: t("cancel") }, { label: t("dev.prepare"), kind: "primary", id: "devPrepare", onClick: function (close, btn) {
+          ui.fieldError(pw, "");
+          if (!pw.value) { ui.fieldError(pw, t("door.needPassword")); return false; }
+          btn.disabled = true; btn.textContent = t("dev.preparing");
+          B.prepareInvite(pw.value, name.value).then(function (r) { pw.value = ""; close(); draw(); ready(r); }, function (e) {
+            btn.disabled = false; btn.textContent = t("dev.prepare");
+            if (e && e.code === "wrong") ui.fieldError(pw, t("ld.wrongPw")); else ui.failed(e);
+          });
+          return false;
+        } }] });
+    }
+    /* the invitation made: the joining file to save, and the code, shown this once */
+    function ready(r) {
+      var store = (B.state() && B.state().settings.storeName) || "Lakay", fname = fileName(["Lakay join", store, r.device.code]);
+      function saveIt() { ui.saveFile(fname, "application/json", r.file).then(function () { ui.toast(t("dev.joinSaved"), "good"); }); }
+      ui.dialog({ title: t("dev.readyH", { c: r.device.code }), emoji: "📲", wide: true, body: [
+        h("p", null, t("dev.step1")),
+        h("div.row-keys", null, h("button.key.primary#devSaveJoin", { type: "button", onclick: saveIt }, [ui.emo("💾"), t("dev.saveJoin")])),
+        h("p", null, t("dev.step2")), codeGrid(r.code),
+        h("p.hint", null, t("dev.codeOnce", { d: when(r.expires) })), h("p.hint", null, t("dev.step3"))],
+        actions: [{ label: t("gotIt"), kind: "primary", id: "devDone" }] });
+    }
+    /* what came in: from whom, how many changes, and anything changed on two devices while they were apart */
+    function report(r) {
+      var body = [];
+      if (!r.lines) body.push(h("p#devTook", null, t("dev.nothing")));
+      else {
+        body.push(h("p#devTook", null, count(r.lines, "dev.tookN1", "dev.tookN", { c: r.from })));
+        var codes = Object.keys(r.chains || {});
+        if (codes.length > 1 || (codes[0] && codes[0] !== r.from)) body.push(h("ul.dev-took", null, codes.map(function (c) { return h("li", null, t("dev.tookFrom", { c: c, n: r.chains[c] })); })));
+      }
+      if (r.clashes && r.clashes.length) {
+        body.push(h("h3.status-h", null, t("dev.clashesH")));
+        body.push(h("ul.dev-clash#devClashes", null, r.clashes.slice(0, 30).map(function (x) { return h("li", null, t("dev.clashLine", { what: what(x.k) + " (" + field(x.f) + ")", w: x.won })); })));
+      }
+      if (r.setAside && r.setAside.length) body.push(h("p.hint", null, t("dev.setAside", { c: r.setAside.join(", ") })));
+      ui.dialog({ title: t("dev.tookH"), emoji: "📥", wide: true, body: body, actions: [{ label: t("close"), kind: "primary", id: "devTookOk" }] });
+      draw();
+    }
+    file.addEventListener("change", function () {
+      var f = file.files && file.files[0]; if (!f) return;
+      f.text().then(function (text) {
+        file.value = "";
+        var kind = null; try { kind = JSON.parse(text).format; } catch (e) { }
+        if (kind === "lakay-join") { failedJoin(); return; }
+        return B.takeBundle(text).then(function (r) { report(r); if (ui.refreshTop) ui.refreshTop(); }, failed);
+      });
+    });
+    function failedJoin() { ui.dialog({ title: t("dev.takeIn"), emoji: "⚠️", body: [h("p#devErr", null, t("dev.err.joinfile"))], actions: [{ label: t("close"), kind: "primary" }] }); }
+    draw();
+    return sec("set-devices", "set.devices", "tip.devices", [h("p", null, t("dev.intro")), list,
+      h("div.row-keys", null, [file,
+        h("button.key.primary", { type: "button", id: "devAdd", onclick: addDevice }, [ui.emo("📲"), t("dev.add")]),
+        h("button.key", { type: "button", id: "devTake", onclick: function () { file.click(); } }, [ui.emo("📥"), t("dev.takeIn")])])]);
+  };
+})();
+
 /* EMPORIUM | Copyright (c) 2026 Yannie D. Forest. All rights reserved. NO LICENCE IS GRANTED. See LICENCE.txt.
    Starting up (Lakay): the door first; the rooms once the books are open; the door again whenever they lock. */
 "use strict";
@@ -15342,7 +15903,7 @@ E.util = { h: h, add: add, clear: clear, icon: icon, parseMoney: parseMoney, mon
     Array.prototype.forEach.call(document.querySelectorAll(".layer"), function (n) { n.remove(); });
     U.clear(document.getElementById("print"));
     U.clear(document.getElementById("toasts"));                 // nothing said while open stays on the screen once locked
-    if (why === "restore") return;
+    if (why === "restore" || why === "join") return;
     E.door.show(why);
   });
   window.addEventListener("hashchange", function () { if (B.isOpen) { var r = location.hash.replace("#", ""); if (r && r !== ui.current && ui.rooms[r]) ui.go(r); } });
